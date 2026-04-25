@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap'); */
+
+        * {
+          box-sizing: border-box;
+        }
+
+
+@theme {
+  --color-primary: #323896;
+  --color-primary-hover: #2a2f7d;
+  --color-secondary: #00ACEF;
+  --color-pageBackground: #F9FBFC;
+  --color-cardBackground: #FFFFFF;
+  --color-borderLight: #F1F5F7;
+  --color-dark: #1F2937;
+  --color-light: #F9FAFB;
+  --color-text: #333;
+}
+
+
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87); */
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: white;
+}
+
+* {
+  button {
+    cursor: pointer;
+  }
+}
+
+
+.ProseMirror {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+  .ProseMirror p:focus {
+    outline: none;
+    margin: 0; 
+    border: 1px solid #e5e7eb;
+  }
+ 
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 42px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  font-size: 14px !important;
+}
+
+.react-tel-input .flag-dropdown {
+  border: none !important;
+  background: transparent !important;
+  
+}
+
+.react-tel-input .country-list {
+  font-size: 14px;
+  color: #374151;
+}
+
+.react-tel-input .country-list .country-name {
+  color: #374151;
+  font-weight: 500; 
+  border-right: 1px solid #e5e7eb;
+}
+
+.react-tel-input .selected-flag {
+  padding-left: 10px;
+}
+
+.react-tel-input .form-control::placeholder {
+  color: #9ca3af;
+}
+
+
+
+        /* LOGO */
+       
+        /* RIGHT SIDE */
+        .syntax-nav-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+       
+
+      
+
+       
+        .syntax-menu-btn:hover {
+          background: #333;
+          transform: scale(1.03);
+        }
+
+        .syntax-menu-btn .hamburger {
+          display: flex;
+          flex-direction: column;
+          gap: 3.5px;
+        }
+        .syntax-menu-btn .hamburger span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: #fff;
+          border-radius: 2px;
+          transition: transform 0.3s, opacity 0.3s;
+        }
+     
+        /* DROPDOWN MENU */
+        .syntax-dropdown {
+          position: absolute;
+          top: 64px;
+          right: 40px;
+          background: #fff;
+          border: 1px solid rgba(0,0,0,0.08);
+          border-radius: 16px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+          overflow: hidden;
+          min-width: 200px;
+          animation: dropIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+          transform-origin: top right;
+        }
+
+        @keyframes dropIn {
+          from { opacity: 0; transform: scale(0.92) translateY(-6px); }
+          to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .syntax-dropdown a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 20px;
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 600;
+          color: #111;
+          transition: background 0.15s;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .syntax-dropdown a:last-child { border-bottom: none; }
+        .syntax-dropdown a:hover { background: #f7f7f7; }
+        .syntax-dropdown a.active {
+          color: #6C63FF;
+          background: #f3f2ff;
+        }
+
+        .syntax-dropdown a .arrow {
+          font-size: 12px;
+          color: #aaa;
+        }
+
+        /* OVERLAY */
+        .syntax-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 999;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+          .syntax-navbar { padding: 20px; }
+          .syntax-lang { display: none; }
+          .syntax-dropdown { right: 20px; }
+        }
