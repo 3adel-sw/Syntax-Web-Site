@@ -1,5 +1,6 @@
 // import imgHome from '../assets/bg-home.png';
-import { Sparkle ,LoaderCircle } from 'lucide-react';
+import { Sparkle ,LoaderCircle} from 'lucide-react';
+import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
 
 
 const Home = () => {
@@ -34,7 +35,7 @@ const Home = () => {
         </div>
 
         {/* Image */}
-        <div className="mt-8 md:w-full sm:w-98 w-98 bg-gray-500 h-[28rem] mx-auto rounded-2xl shadow-lg">
+        <div className="mt-8 mb-14 md:w-full sm:w-98 w-98 bg-gray-500 h-[28rem] mx-auto rounded-2xl shadow-lg">
           {/* <img
             src={imgHome}
             alt="community"
@@ -43,29 +44,7 @@ const Home = () => {
         </div>
             
             {/* Cards  */}
-            <div className="my-10 grid grid-cols-1  md:grid-cols-2 gap-6">
-                {/* <Card /> */}
-                <div className="bg-white rounded-2xl h-98 border overflow-hidden shadow-2xl border-gray-300  shadow-md ">
-                  <div className="w-full h-68 bg-gray-300 mb-4">
-                      {/* You can replace this with an actual image or icon */}
-                  </div>
-                    <div className="px-4">
-                    <h3 className="text-lg text-left font-semibold mb-2">Card Title 1</h3>
-                    <p className="text-gray-600 text-left">This is a description for card 1.</p>
-                    </div>
-                </div>
-                {/* <Card /> */}
-               <div className="bg-white rounded-2xl h-98 border overflow-hidden shadow-2xl border-gray-300  shadow-md ">
-                  <div className="w-full h-68 bg-gray-300 mb-4">
-                      {/* You can replace this with an actual image or icon */}
-                  </div>
-                    <div className="px-4">
-                    <h3 className="text-lg text-left font-semibold mb-2">Card Title 1</h3>
-                    <p className="text-gray-600 text-left">This is a description for card 1.</p>
-                    </div>
-                </div>
-             
-            </div>
+            <CardAcademyEvents />
 
       </div>
     </div>

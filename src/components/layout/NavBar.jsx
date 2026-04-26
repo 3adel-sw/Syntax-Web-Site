@@ -22,7 +22,6 @@ const NavBar = () => {
   return (
     <>
       
-
       <nav className="syntax-navbar md:mx-6 sm:mx-6 mx-4 md:py-8 sm:py-8  md:px-6 sm:px-6 px-4 top-0 left-0  sticky z-50
       flex items-center justify-between
       ">
@@ -31,17 +30,13 @@ const NavBar = () => {
           <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8 ">
             <img src={Logo} alt="Syntax Logo" />
           </div>
-        
         </Link>
-
         {/* Right side */}
         <div className="syntax-nav-right">
-
           {/* Language dropdown */}
           <div className="bg-gray-200 md:w-12 md:h-12 sm:w-10 sm:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
             <LanguageDropdown />
           </div>
-
           {/* User dropdown */}
           <UserDropdown />
           {/* Menu button */}
