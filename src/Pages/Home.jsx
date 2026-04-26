@@ -1,7 +1,11 @@
 // import imgHome from '../assets/bg-home.png';
-import { Sparkle ,LoaderCircle} from 'lucide-react';
+import { Sparkle ,LoaderCircle,MessageSquare} from 'lucide-react';
 import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
-
+import CardCourses from '../components/Ui/CardCourses';
+import CardGraduated from '../components/Ui/CardGraduated';
+import CardsTestimonials from '../components/Ui/CardsTestimonials';
+import CardBlog from '../components/Ui/CardBlog';
+import Footer from '../components/layout/Footer';
 
 const Home = () => {
   return (
@@ -42,10 +46,70 @@ const Home = () => {
             className="rounded-2xl shadow-lg w-full object-cover"
           /> */}
         </div>
-            
             {/* Cards  */}
             <CardAcademyEvents />
-
+            {/* Courses */}
+            <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+              <div className=' space-y-5'>
+                <span className=' border border-gray-200  gap-2 mx-auto w-32 h-12 rounded-full  text-xl flex justify-center items-center'>
+                  <MessageSquare size={16} />
+                  Courses 
+                </span>
+                <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
+                {/* Cards */}
+                <CardCourses />
+                  {/* Button */}
+        <div className="mt-y">
+          <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition">
+            Show All Courses 
+            <LoaderCircle />
+          </button>
+        </div>
+              </div>
+            </div>
+            {/* Graduates */}
+            <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+              <div className=' space-y-5'>
+                <h3 className='text-2xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
+                {/* Cards */}
+                <CardGraduated />
+              </div>
+            </div>
+               {/* Testimonials */}
+            <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+              <div className=' space-y-5'>
+                <span className=' border border-gray-200  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
+                  <MessageSquare size={20} />
+                  Testimonials 
+                </span>
+                <h3 className='text-3xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
+                {/* Cards Testimonials */}
+                <CardsTestimonials />
+               
+              </div>
+            </div>
+                {/* Latest Blog */}
+            <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+              <div className=' space-y-5'>
+                <span className=' border border-gray-200  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
+                  <MessageSquare size={20} />
+                   Blog
+                </span>
+                <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Latest Blog</h3>
+                {/* Cards */}
+                <CardBlog />
+              </div>
+                    {/* Button */}
+        <div className="mt-10">
+          <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition">
+            Show All Courses 
+            <LoaderCircle />
+          </button>
+        </div>
+            </div>
+            {/* Footer */}
+              <Footer/>
+            
       </div>
     </div>
   );
