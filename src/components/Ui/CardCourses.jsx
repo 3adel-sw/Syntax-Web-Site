@@ -1,4 +1,6 @@
+import { useState, useRef } from 'react';
 import { Clock, BookOpen } from 'lucide-react';
+import Video from '../../assets/12345.mp4';
 
 const courses = [
   {
@@ -8,7 +10,7 @@ const courses = [
     level: "Beginner",
     duration: "20 sessions",
     bg: "bg-indigo-50",
-    video: null, // ضع رابط الفيديو هنا
+    video: Video,
   },
   {
     id: 2,
@@ -31,21 +33,42 @@ const courses = [
 ];
 
 const CourseCard = ({ course }) => {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleClick = () => {
+    if (!course.video || !videoRef.current) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
+    <div
+      onClick={handleClick}
+      className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+    >
       {/* Thumbnail / Video */}
       <div className={`${course.bg} h-44 flex items-center justify-center relative overflow-hidden`}>
         {course.video ? (
           <>
             <video
+              ref={videoRef}
               src={course.video}
               className="w-full h-full object-cover"
               muted
+              loop
               onMouseEnter={e => e.target.play()}
-              onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
+              onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; setIsPlaying(false); }}
             />
-            <div className="absolute inset-0 flex items-center justify-center">
+            {/* Play / Pause overlay */}
+            <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}>
               <div className="w-11 h-11 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <polygon points="4,2 14,8 4,14" fill="#4a6cf7" />
@@ -54,7 +77,6 @@ const CourseCard = ({ course }) => {
             </div>
           </>
         ) : (
-          // Placeholder   
           <div className="w-11 h-11 bg-white/80 rounded-full flex items-center justify-center shadow-md">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <polygon points="4,2 14,8 4,14" fill="#4a6cf7" />

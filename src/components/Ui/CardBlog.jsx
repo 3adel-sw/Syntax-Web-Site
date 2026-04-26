@@ -1,4 +1,8 @@
 import { ArrowUpRight } from 'lucide-react';
+import  Video  from '../../assets/12345.mp4';
+import  Test  from '../../assets/test.jpg';
+import { useRef, useState } from 'react';
+
 
 const blogs = [
   {
@@ -7,8 +11,8 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null, // ضع رابط الفيديو هنا
-    thumb: null, // أو صورة thumbnail
+    video: Video, 
+    thumb: null, 
   },
   {
     id: 2,
@@ -17,7 +21,7 @@ const blogs = [
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
     video: null,
-    thumb: null,
+    thumb: Test,
   },
   {
     id: 3,
@@ -31,22 +35,38 @@ const blogs = [
 ];
 
 const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
-  return (
-    <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group">
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-      {/* Thumbnail / Video */}
+  const handleCardClick = () => {
+    if (video && videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  return (
+    <div
+      onClick={handleCardClick}
+      className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group"
+    >
       <div className="relative h-48 bg-gray-900 overflow-hidden rounded-xl m-2">
         {video ? (
-          <>
-            <video
-              src={video}
-              className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-              muted
-              loop
-              onMouseEnter={e => e.target.play()}
-              onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
-            />
-          </>
+          <video
+            ref={videoRef}
+            src={video}
+            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+            muted
+            loop
+            onMouseEnter={e => e.target.play()}
+            onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
+          />
         ) : thumb ? (
           <img
             src={thumb}
@@ -54,25 +74,31 @@ const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
             className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          /* Placeholder dark thumbnail زي الصورة */
           <div className="w-full h-full bg-gray-800 flex items-center justify-center">
             <div className="text-gray-600 text-4xl">▶</div>
           </div>
         )}
 
-        {/* Play icon overlay */}
+        {/* Play/Pause overlay */}
         {(video || thumb) && (
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'}`}>
             <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <polygon points="4,2 14,8 4,14" fill="#111827" />
-              </svg>
+              {isPlaying ? (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="3" y="2" width="4" height="12" fill="#111827" />
+                  <rect x="9" y="2" width="4" height="12" fill="#111827" />
+                </svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <polygon points="4,2 14,8 4,14" fill="#111827" />
+                </svg>
+              )}
             </div>
           </div>
         )}
       </div>
 
-      {/* Body */}
+      {/* Body — نفس الكود */}
       <div className="p-4 text-left">
         <h3 className="text-[15px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
           {title}
@@ -94,7 +120,6 @@ const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
     </div>
   );
 };
-
 const CardBlog = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">

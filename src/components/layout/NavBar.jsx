@@ -61,7 +61,7 @@ const NavBar = () => {
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
-                  <span className="arrow">
+                  <span className="arrow cursor-pointer">
                     <ArrowRight size={16} />
                   </span>
                 </Link>

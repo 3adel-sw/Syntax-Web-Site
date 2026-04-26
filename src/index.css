@@ -134,6 +134,7 @@ body {
         /* DROPDOWN MENU */
         .syntax-dropdown {
           position: absolute;
+              z-index: 50;
           top: 64px;
           right: 40px;
           background: #fff;
@@ -153,6 +154,8 @@ body {
 
         .syntax-dropdown a {
           display: flex;
+           z-index: 50; 
+            inset: 2;
           align-items: center;
           justify-content: space-between;
           padding: 14px 20px;
@@ -177,9 +180,10 @@ body {
 
         /* OVERLAY */
         .syntax-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 999;
+           position: fixed;
+  inset: 0;
+  z-index: 10;       
+  background: rgba(0, 0, 0, 0.7);
         }
 
         /* MOBILE */

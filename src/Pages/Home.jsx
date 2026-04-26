@@ -1,4 +1,4 @@
-// import imgHome from '../assets/bg-home.png';
+import imgHome from '../assets/homeBg.svg';
 import { Sparkle ,LoaderCircle,MessageSquare} from 'lucide-react';
 import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
 import CardCourses from '../components/Ui/CardCourses';
@@ -39,12 +39,12 @@ const Home = () => {
         </div>
 
         {/* Image */}
-        <div className="mt-8 mb-14 md:w-full sm:w-98 w-98 bg-gray-500 h-[28rem] mx-auto rounded-2xl shadow-lg">
-          {/* <img
+        <div className="mt-8 mb-14 md:w-full mx-2 sm:w-98 w-98 bg-gray-500 md:h-[28rem] mx-auto rounded-4xl shadow-lg">
+          <img
             src={imgHome}
             alt="community"
             className="rounded-2xl shadow-lg w-full object-cover"
-          /> */}
+          />
         </div>
             {/* Cards  */}
             <CardAcademyEvents />

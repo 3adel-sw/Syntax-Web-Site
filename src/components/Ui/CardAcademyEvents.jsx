@@ -73,7 +73,7 @@ const CardAcademyEvents = () => {
                 </div>
 
                 {/*  */}
-                <div className="my-10 grid grid-cols-2 md:mx-0 mx-2 sm:grid-cols-3  md:grid-cols-4 gap-6">
+                <div className="my-10 grid grid-cols-1 md:mx-0 mx-2 sm:grid-cols-3  md:grid-cols-4 gap-6">
                 {/* <Card /> */}
                     <div className="bg-[#F6F7FB] rounded-2xl h-24 py-4 px-4 border overflow-hidden  border-gray-300 relative">
                         <div className="flex items-center justify-start ">
