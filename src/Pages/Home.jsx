@@ -10,7 +10,6 @@ import Footer from '../components/layout/Footer';
 const Home = () => {
   return (
     <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
-
       <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
 
         {/* Badge */}

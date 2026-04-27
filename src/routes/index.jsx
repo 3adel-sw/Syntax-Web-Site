@@ -8,6 +8,8 @@ import BlogsDetails from "@/Pages/Blogs/BlogsDetails";
 import Contact from "@/Pages/Contact/Contact";
 import DetailCourses from "@/Pages/DetailCourses/DetailCourses";
 import Courses from "@/Pages/Courses/Courses";
+import Events from "@/Pages/Events/Events";
+import EventsDetails from "@/Pages/Events/EventsDetails";
 import NotFound from "@/Pages/NotFound";
 // file Home
 
@@ -50,6 +52,14 @@ export const router = createBrowserRouter([
       {
         path: "/courses/:id",
         element: <DetailCourses />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
+      },
+      {
+        path: "/events/details",
+        element: <EventsDetails />,
       },
      
     ],

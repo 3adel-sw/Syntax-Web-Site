@@ -21,7 +21,7 @@ import { LuLanguages } from "react-icons/lu";
 
 const DetailCourses = () => {
   const [activeTab, setActiveTab] = useState('overview');
-  const navigate = useNavigate();
+
 
   return (
      <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
