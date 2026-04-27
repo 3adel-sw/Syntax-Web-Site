@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
         element: <Events />,
       },
       {
-        path: "/events/details",
+        path: "/events-details",
         element: <EventsDetails />,
       },
      

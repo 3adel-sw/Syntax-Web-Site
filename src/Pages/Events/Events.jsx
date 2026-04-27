@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { MapPin, Calendar, Clock, ArrowRight } from 'lucide-react';
 import Subscribet from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
+import { useNavigate } from 'react-router-dom';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -87,7 +88,7 @@ function Events() {
   const filteredEvents = activeFilter === 'All Events'
     ? ALL_EVENTS
     : ALL_EVENTS.filter(event => event.type === mappedCategory);
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
       <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
@@ -152,7 +153,9 @@ function Events() {
             <p className="text-sm text-left text-gray-500 leading-relaxed max-w-md">
               {UPCOMING_EVENT.description}
             </p>
-            <button className="mt-2 self-start flex items-center gap-1.5 bg-white border border-bg-gray-50 text-primary text-xs font-medium px-4 py-3 rounded-lg hover:bg-gray-50 transition">
+            <button
+                onClick={() => navigate('/events-details')}
+            className="mt-2 self-start flex items-center gap-1.5 bg-white border border-bg-gray-50 text-primary text-xs font-medium px-4 py-3 rounded-lg hover:bg-gray-50 transition">
               View Details <ArrowRight size={13} />
             </button>
           </div>
