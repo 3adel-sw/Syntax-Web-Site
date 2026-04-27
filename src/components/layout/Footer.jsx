@@ -3,8 +3,8 @@ import Logo from '../../assets/logo.svg'
 
 const Footer = () => {
   return (
-    <div className="pb-2 md:px-8 sm:px-6 px-4">
-      <div className="max-w-5xl mx-auto bg-gray-50 border border-gray-200 rounded-3xl px-10 py-10">
+    <div className="pb-2 mx-auto w-full">
+      <div className=" md:max-w-full mx-auto  bg-gray-50 border border-gray-200 rounded-3xl px-10 py-10">
         <div className="grid  grid-cols-1 md:grid-cols-4 md:gap-20 sm:gap-10 gap-6">
 
           {/* Brand */}

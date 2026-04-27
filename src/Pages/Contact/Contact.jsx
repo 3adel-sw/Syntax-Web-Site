@@ -4,6 +4,7 @@ import { ArrowRight,Mail ,Phone } from "lucide-react";
 import hero from "../../assets/heroContact.svg";
 import but from "../../assets/buttonOur.svg";
 import Subscribe from "../../components/Ui/Subscribe";
+import Footer from "../../components/layout/Footer";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -19,7 +20,7 @@ const Contact = () => {
       <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
 
 {/* ── HERO ── */}
-<div className="rounded-3xl mt-5 flex items-stretch relative overflow-hidden max-h-[320px]">
+<div className="rounded-3xl mt-5  flex items-stretch relative overflow-hidden max-h-[320px]">
 
   {/* Left — Text */}
   <div className="flex-1 bg-[#1c1c22] px-10 py-8 flex flex-col justify-center">
@@ -174,6 +175,7 @@ const Contact = () => {
 </div>
        <Subscribe/>
       </div>
+      <Footer/>
     </div>
     </div>
     
