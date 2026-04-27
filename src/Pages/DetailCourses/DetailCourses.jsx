@@ -8,6 +8,8 @@ import Rectangle from "../../assets/Rectangle.svg"
 import Reports from "../../assets/reports.svg"
 import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
+import CapturedVideos from '../../components/Ui/CapturedVideos';
+import Questions from '../../components/Ui/Questions';
 import { FaBook } from "react-icons/fa";
 import { FaRegCopy } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
@@ -142,8 +144,12 @@ const DetailCourses = () => {
             <CardsTestimonials />
           </div>
         </div>
+        {/* Questions */}
+        <Questions />
+        {/* Captured Videos */}
+        <CapturedVideos />
     </div>
-    </div   >
+    </div>
   );
 };
 
