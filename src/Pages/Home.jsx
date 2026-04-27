@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
       
-      <div className="  sm:max-w-5xl md:max-w-5xl lg:w-full text-center">
+      <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
 
         {/* Badge */}
         <div className="flex items-center mx-auto gap-3 justify-center w-80 h-14 px-4 py-1 mb-4 text-sm rounded-full border border-gray-300 bg-white shadow-sm ">
@@ -39,11 +39,11 @@ const Home = () => {
         </div>
 
         {/* Image */}
-        <div className="mt-8 mb-14 md:w-full mx-2 sm:w-98 w-98 bg-gray-500 md:h-[28rem] mx-auto rounded-4xl shadow-lg">
+        <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl shadow-lg">
           <img
             src={imgHome}
             alt="community"
-            className="rounded-2xl shadow-lg w-full object-cover"
+            className="rounded-2xl shadow-lg w-full h-full object-cover"
           />
         </div>
             {/* Cards  */}

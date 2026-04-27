@@ -4,7 +4,8 @@ const CardAcademyEvents = () => {
   return (
     <>
         {/* Cards  */}
-            <div className="my-10 grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
+       
+            <div className="my-10  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card /> */}
                 <div className="bg-white rounded-2xl h-98 border overflow-hidden shadow-2xl border-gray-300   ">
                   <div className="w-full h-68 bg-gray-300 mb-4">
