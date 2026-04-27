@@ -1,6 +1,8 @@
 import { ArrowUpRight } from 'lucide-react';
-import  Video  from '../../assets/12345.mp4';
-import  Test  from '../../assets/test.jpg';
+import { useNavigate } from 'react-router';
+// import  Video  from '../../assets/12345.mp4';
+//import  Test  from '../../assets/test.jpg';
+import  BlogCardImage  from '../../assets/blogC.jpg';
 import { useRef, useState } from 'react';
 
 
@@ -11,34 +13,54 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: Video, 
-    thumb: null, 
+    video: null,
+    thumb: BlogCardImage,
   },
   {
     id: 2,
-    category: "UX Design",
+    category: "UI Design",
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
     video: null,
-    thumb: Test,
+    thumb: BlogCardImage,
   },
   {
     id: 3,
-    category: "UX Design",
+    category: "Soft Skills",
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
     video: null,
-    thumb: null,
+    thumb: BlogCardImage,
+  },
+  {
+    id: 4,
+    category: "Personal Branding",
+    date: "26 May 2024",
+    title: "The Psychology Behind UX Design",
+    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
+    video: null,
+    thumb: BlogCardImage,
+  },
+  {
+    id: 5,
+    category: "Graphic Design",
+    date: "26 May 2024",
+    title: "The Psychology Behind UX Design",
+    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
+    video: null,
+    thumb: BlogCardImage,
   },
 ];
 
-const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
+const BlogCard = ({ id, category, date, title, excerpt, video, thumb }) => {
+  const navigate = useNavigate();
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleCardClick = () => {
+    navigate(`/blogs/${id}`);
     if (video && videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -98,7 +120,7 @@ const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
         )}
       </div>
 
-      {/* Body — نفس الكود */}
+      {/* Body   */}
       <div className="p-4 text-left">
         <h3 className="text-[15px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
           {title}
@@ -120,13 +142,44 @@ const BlogCard = ({ category, date, title, excerpt, video, thumb }) => {
     </div>
   );
 };
-const CardBlog = () => {
+const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
+  const navigate = useNavigate();
+  const categoryMap = {
+    "UI Design": "UI Design",
+    "UX Principles": "UX Design",
+    "Soft skills": "Soft Skills",
+    "Personal Branding": "Personal Branding",
+    "Graphic Design": "Graphic Design",
+  };
+
+  const mappedCategory = categoryMap[activeCategory];
+  const filteredBlogs = activeCategory === "All Blogs"
+    ? blogs
+    : blogs.filter(blog => blog.category === mappedCategory);
+
+  const displayedBlogs = limit ? filteredBlogs.slice(0, limit) : filteredBlogs;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
-      {blogs.map(blog => (
-        <BlogCard key={blog.id} {...blog} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
+        {displayedBlogs.map(blog => (
+          <BlogCard key={blog.id} {...blog} />
+        ))}
+      </div>
+      {showButton && limit && filteredBlogs.length > limit && (
+        <div className="mt-10">
+          <button
+            onClick={() => navigate('/blogs')}
+            className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
+          >
+            {ButtonContent || 'Show All Blogs'}
+            <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 12a9 9 0 11-6.219-8.56" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 

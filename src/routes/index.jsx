@@ -4,6 +4,7 @@ import LayoutSyntax from "@/components/layout/LayoutSyntax";
 // To this:
 import Home from "@/Pages/Home";
 import Blogs from "@/Pages/Blogs/Blogs";
+import BlogsDetails from "@/Pages/Blogs/BlogsDetails";
 import Contact from "@/Pages/Contact/Contact";
 import DetailCourses from "@/Pages/DetailCourses/DetailCourses";
 import Courses from "@/Pages/Courses/Courses";
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogs",
         element: <Blogs />,
+      },
+      {
+        path: "/blogs/:id",
+        element: <BlogsDetails />,
       },
       {
         path: "/contact",

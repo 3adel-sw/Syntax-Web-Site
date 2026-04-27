@@ -1,4 +1,6 @@
 import {Mic,Users,Mail ,Layers} from 'lucide-react';
+import meetupImage from "../../assets/meetup.svg";
+import Invitemembers from "../../assets/Invitemembers.svg";
 
 const CardAcademyEvents = () => {
   return (
@@ -7,8 +9,9 @@ const CardAcademyEvents = () => {
        
             <div className="my-10  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card /> */}
-                <div className="bg-white rounded-2xl h-98 border overflow-hidden shadow-2xl border-gray-300   ">
-                  <div className="w-full h-68 bg-gray-300 mb-4">
+                <div className="bg-white rounded-2xl h-[28rem] border overflow-hidden shadow-sm border-gray-300   ">
+                  <div className="w-full h-80 bg-gray-300 mb-4">
+                     <img src={meetupImage} className='w-full h-full object-cover' alt="meet" /> 
                       {/* You can replace this with an actual image or icon */}
                   </div>
                     <div className="px-4">
@@ -17,20 +20,21 @@ const CardAcademyEvents = () => {
                     </div>
                 </div>
                 {/* <Card /> */}
-               <div className="bg-white rounded-2xl h-98 border overflow-hidden shadow-2xl border-gray-300  ">
-                  <div className="w-full h-68 bg-gray-300 mb-4">
+               <div className="bg-white rounded-2xl h-[28rem] border overflow-hidden shadow-sm border-gray-300  ">
+                  <div className="w-full h-80 bg-gray-300 mb-4">
+                     <img src={Invitemembers} className='w-full h-full object-cover' alt="invite" /> 
                       {/* You can replace this with an actual image or icon */}
                   </div>
                     <div className="px-4">
-                    <h3 className="text-lg text-left font-semibold mb-2">Card Title 1</h3>
-                    <p className="text-gray-600 text-left">This is a description for card 1.</p>
+                    <h3 className="text-lg text-left font-semibold mb-2">Card Title 2</h3>
+                    <p className="text-gray-600 text-left">rem ipsum  natus repellat aspernatur sed illo magnam maxime quidem quia, nisi cum, iusto tempora veritatis. Autem.</p>
                     </div>
                 </div>
             </div>
             {/* Cards */}
             <div className="my-10 grid grid-cols-1 sm:grid-cols-2 md:mx-0 mx-2  md:grid-cols-3 gap-6">
                 {/* <Card /> */}
-                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-2xl border-gray-300 relative">
+                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
                    <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary  text-white  rounded-full">
                       <Mic className='text-white text-center bg-primary
                        rounded-full w-11 h-11 p-3' />
@@ -44,7 +48,7 @@ const CardAcademyEvents = () => {
                   </div>
                
                 {/* <Card /> */}
-                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-2xl border-gray-300 relative">
+                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
                      <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary  text-white  rounded-full">
                       <Users className='text-white text-center bg-primary
                        rounded-full w-11 h-11 p-3' />
@@ -58,7 +62,7 @@ const CardAcademyEvents = () => {
                   </div>
                
                 {/* <Card /> */}
-                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-2xl border-gray-300 relative">
+                  <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
                     <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary  text-white  rounded-full">
                       <Mail className='text-white text-center bg-primary
                        rounded-full w-11 h-11 p-3' />
