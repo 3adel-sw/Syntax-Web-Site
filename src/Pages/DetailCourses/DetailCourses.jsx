@@ -9,6 +9,7 @@ import Reports from "../../assets/reports.svg"
 import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
 import CapturedVideos from '../../components/Ui/CapturedVideos';
+import MainFooter from '../../components/Ui/MainFooter';
 import Questions from '../../components/Ui/Questions';
 import { FaBook } from "react-icons/fa";
 import { FaRegCopy } from "react-icons/fa";
@@ -56,10 +57,6 @@ const DetailCourses = () => {
           <FaRegCopy /> Copy Link
         </button>
       </div>
-         
-       
-
-
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6 text-left">
          {/* Tabs */}
@@ -148,6 +145,8 @@ const DetailCourses = () => {
         <Questions />
         {/* Captured Videos */}
         <CapturedVideos />
+        {/* Footer */}
+        <MainFooter />
     </div>
     </div>
   );

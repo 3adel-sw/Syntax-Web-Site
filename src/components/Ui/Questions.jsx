@@ -27,18 +27,18 @@ const Questions = () => {
   };
 
     return (
-        <div className="flex items-center justify-between my-10">
+        <div className="flex items-center md:flex-row flex-col justify-between my-10">
 
-            <div className="w-1/3 text-left flex flex-col justify-center items-start">
+            <div className="w-full md:w-1/3 text-left flex flex-col justify-center items-start">
                 <h2 className="text-4xl font-semibold text-gray-900 text-left">Questions & answer</h2>
                 <p className="text-gray-500 mt-4 mx-4  text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                <div className="flex items-center mt-4">
+                <div className="flex justify-center  items-center mt-4">
                     <button className="flex items-center text-sm text-white bg-black border border-gray-200 rounded-2xl md:px-12 w-42 h-14 hover:bg-gray-200">
           Contact us
         </button>
                 </div>
             </div>
-         <div className="space-y-3 w-3/5">
+         <div className="md:w-3/5 w-full space-y-3">
       {data.map((item, index) => (
         <div
           key={index}

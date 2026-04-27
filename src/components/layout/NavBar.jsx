@@ -22,7 +22,7 @@ const NavBar = () => {
   return (
     <>
       
-      <nav className="syntax-navbar md:mx-6 sm:mx-6 mx-4 md:py-8 sm:py-8  md:px-6 sm:px-6 px-4 top-0 left-0  sticky z-50
+      <nav className="syntax-navbar md:mx-6 sm:mx-6 mx-4 md:py-8 sm:py-8 bg-white md:px-6 sm:px-6 px-4 top-0 left-0  sticky z-50
       flex items-center justify-between
       ">
         {/* Logo */}
