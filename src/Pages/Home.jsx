@@ -1,5 +1,5 @@
 import imgHome from '../assets/homeBg.svg';
-import { Sparkle, LoaderCircle, MessageSquare } from 'lucide-react';
+import { Sparkle,  MessageSquare } from 'lucide-react';
 import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
 import CardCourses from '../components/Ui/CardCourses';
 import CardGraduated from '../components/Ui/CardGraduated';
@@ -59,14 +59,7 @@ const Home = () => {
             </span>
             <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
             {/* Cards */}
-            <CardCourses />
-            {/* Button */}
-            <div className="mt-y">
-              <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition">
-                Show All Courses
-                <LoaderCircle />
-              </button>
-            </div>
+            <CardCourses activeCategory="All Events" limit={3} showButton />
           </div>
         </div>
         {/* Graduates */}
