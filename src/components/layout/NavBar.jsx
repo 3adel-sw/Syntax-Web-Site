@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import  Logo  from "@/assets/logo.svg";
 import  {Menu , X ,ArrowRight} from "lucide-react";
@@ -10,7 +10,16 @@ import UserDropdown from "@/components/Ui/UserDropdown";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { label: "Blogs", path: "/blogs" },
@@ -23,9 +32,11 @@ const NavBar = () => {
   return (
     <>
       
-      <nav className="syntax-navbar md:mx-6 sm:mx-6 mx-4 md:py-8 sm:py-8 bg-white md:px-6 sm:px-6 px-4 top-0 left-0  sticky z-50
-      flex items-center justify-between
-      ">
+      <nav className={`syntax-navbar  md:py-4 sm:py-3 py-2 md:px-6 sm:px-6 px-4 top-0 left-0 sticky z-50
+      flex items-center justify-between transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+      }`}
+      >
         {/* Logo */}
         <Link to="/" className="">
           <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8 ">
