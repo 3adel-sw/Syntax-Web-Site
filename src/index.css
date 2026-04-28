@@ -192,3 +192,20 @@ body {
           .syntax-lang { display: none; }
           .syntax-dropdown { right: 20px; }
         }
+
+
+
+
+
+
+        .CiCirclePlus:before {
+          content: "";
+          position: absolute;
+         
+         width: 100%;
+          height: 1px;
+         color: #fff;
+          border-radius: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          animation: pulse 1.5s infinite;
+        }

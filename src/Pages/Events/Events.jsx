@@ -26,7 +26,7 @@ const categoryMap = {
   "Mega Event": "MEGA EVENT",
 };
 
-const ALL_EVENTS = Array.from({ length: 12 }, (_, i) => ({
+export const ALL_EVENTS = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   title: 'UX Design Foundation',
   type: ['ONLINE WORKSHOP', 'OFFLINE MEETUP', 'MEGA EVENT', 'ONLINE WORKSHOP'][i % 4],
@@ -41,7 +41,7 @@ const ALL_EVENTS = Array.from({ length: 12 }, (_, i) => ({
 
 // ─── Event Card (grid) ───────────────────────────────────────────────────────
 
-const EventCard = ({ event }) => (
+export const EventCard = ({ event }) => (
   <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer">
     <div className="bg-gray-50 p-2 flex items-center justify-center h-56">
       {/* Placeholder illustration – replace with real images */}

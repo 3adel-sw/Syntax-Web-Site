@@ -1,5 +1,11 @@
- import {  Globe } from 'lucide-react' ;
-import Logo from '../../assets/logo.svg'
+
+import Logo from '../../assets/logoo.svg'
+import { FaFigma } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -9,8 +15,8 @@ const Footer = () => {
 
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <span className=""><img src={Logo} className='w-40 h-12 object-cover' alt="logo" /></span>
+            <div className="flex items-center gap-2 w-40 h-12">
+              <img src={Logo} className='w-full  object-cover' alt="logo" />
             </div>
             <p className="text-sm text-left text-gray-500 leading-relaxed">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -19,19 +25,22 @@ const Footer = () => {
             {/* Social Icons */}
             <div className="flex  items-start gap-3 mt-1">
               <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
-                <Globe size={22} />
+                <FaFigma  size={22} />
               </a>
               <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
-                <Globe size={22} />
+                <FaFacebook  size={22} />
               </a>
               <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
-                <Globe size={22} />
+                <FaGithub  size={22} />
               </a>
               <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
-                  <Globe size={22} />
+                  <FaTwitter size={22} />
               </a>
               <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
-                  <Globe size={22} />
+                  <FaInstagram size={22} />
+              </a>
+              <a href="#" className="text-gray-900 hover:text-[#1e2d6b] transition-colors">
+                  <FaLinkedin size={22} />
               </a>
             </div>
           </div>

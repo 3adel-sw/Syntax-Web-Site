@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/static-components */
 import { useState } from 'react';
-import { MapPin, Calendar, Clock, Download, Share2, User } from 'lucide-react';
+import { MapPin, Calendar, Clock, Download, Share2, User, X } from 'lucide-react';
 import Footer from '../../components/layout/Footer';
 import { useNavigate } from 'react-router-dom';
+import { ALL_EVENTS, EventCard } from './Events';
 
 
 
@@ -32,19 +34,73 @@ const EXPERIENCE_OPTIONS = ['Junior', 'Senior', 'Lead', 'Director'];
 
 const EventsDetails = () => {
   const [form, setForm] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    experience: '',
-    country: '',
+    fullName: '', email: '', phone: '', experience: '', country: '',
   });
+  const [showSuccess, setShowSuccess] = useState(false); 
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Registered successfully!');
+    setShowSuccess(true); 
   };
+
+
+const SuccessModal = ({ onClose }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div className="bg-white rounded-2xl p-8 md:w-[400px] w-[250px] md:h-96  text-center shadow-2xl relative animate-in fade-in zoom-in duration-200 flex flex-col">
+
+  {/* Close */}
+  <button
+    onClick={onClose}
+    className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center transition"
+  >
+    <X size={18} className="text-gray-900 hover:text-red-500" />
+  </button>
+
+  {/* Icon — top */}
+  <div className="flex-1 flex items-center justify-center">
+    <div className="relative w-20 h-20">
+      <div className="absolute inset-0 rounded-full border-2 border-primary/10 scale-110" />
+      <div className="absolute inset-0 rounded-full border-2 border-primary/20 scale-125" />
+      <span className="absolute -top-1 -right-1 text-primary text-sm">✦</span>
+      <span className="absolute top-1 -left-2 text-primary/50 text-xs">✦</span>
+      <span className="absolute top-0 left-0 text-primary/90 text-xs">✦</span>
+      <span className="absolute bottom-0 left-0 text-primary/50 text-xs">✦</span>
+      <div className="w-full h-full rounded-full border-2 border-primary flex items-center justify-center bg-white">
+        <svg width="62" height="62" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 13l4 4L19 7"
+            stroke="#2D3389"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  {/* Text + Button — bottom */}
+  <div className="flex flex-col items-center my-4 md:my-1">
+    <p className="md:text-base text-sm font-bold text-gray-900 mb-1">
+      🎉 Registration Successful
+    </p>
+    <p className="text-xs text-gray-400 mb-4">
+      Great! You're now registered for the event.
+    </p>
+    <button
+      onClick={onClose}
+      className="w-42 h-12 bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2.5 rounded-xl transition"
+    >
+      OK
+    </button>
+  </div>
+
+</div>
+  </div>
+);
+
   const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-start justify-center max-w-6xl mx-auto px-4 py-10">
@@ -52,6 +108,7 @@ const EventsDetails = () => {
         {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 border border-gray-200 rounded-2xl p-4 my-8 ">
 
+  {showSuccess && <SuccessModal onClose={() => setShowSuccess(false)} />}
           {/* ── LEFT: Content + Form ── */}
           <div>
              {/* ── Title ── */}
@@ -224,11 +281,16 @@ const EventsDetails = () => {
           </div>
         </div>
                 {/* Other Events */}
-                <div className="my-4 " >
-        <div className="flex items-center justify-between">
+                <div className="my-10">
+        <div className="flex items-center justify-between md:my-6 sm:my-4 mb-3">
           <h2 className="text-lg font-bold text-gray-900 mb-4">Other Events</h2>
           <button onClick={() => navigate('/events')}
            className="text-sm text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition">View All</button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+          {ALL_EVENTS.slice(0, 3).map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
         </div>
         </div>
       
