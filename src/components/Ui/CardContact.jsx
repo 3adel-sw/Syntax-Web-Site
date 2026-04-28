@@ -44,7 +44,7 @@ const CardContact = () => {
       </div>
 
       {/* Right — Image */}
-      <div className="bg-[#202020] w-full md:flex-1 h-56 sm:h-72 md:h-auto">
+      <div className="bg-[#202020] w-full md:flex-1 md:h-56 h-full sm:h-72 md:h-auto">
         <img
           src={hero}
           alt="Contact Hero"
