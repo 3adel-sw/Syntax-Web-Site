@@ -112,7 +112,7 @@ function Events() {
             onClick={() => setActiveFilter(tab)}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium border transition-all duration-150 ${
               activeFilter === tab
-                ? 'bg-primary text-white border-gray-900'
+                ? 'bg-primary text-white border-gray-300'
                 : 'bg-primary/10 text-primary border-gray-300 hover:border-gray-500'
             }`}
           >

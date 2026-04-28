@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { MapPin, Calendar, Clock, Download, Share2, User } from 'lucide-react';
 import Footer from '../../components/layout/Footer';
+import { useNavigate } from 'react-router-dom';
+
+
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────
 
@@ -42,7 +45,7 @@ const EventsDetails = () => {
     e.preventDefault();
     alert('Registered successfully!');
   };
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-start justify-center max-w-6xl mx-auto px-4 py-10">
       <div className="sm:max-w-5xl md:max-w-6xl lg:w-full text-left mx-1">
@@ -172,7 +175,6 @@ const EventsDetails = () => {
 
           {/* ── RIGHT: Event Card + Speakers ── */}
           <div className="space-y-6">
-
             {/* Event Poster Card */}
             <div className="rounded-2xl overflow-hidden hidden md:block">
               <img
@@ -221,6 +223,16 @@ const EventsDetails = () => {
 
           </div>
         </div>
+                {/* Other Events */}
+                <div className="my-4 " >
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">Other Events</h2>
+          <button onClick={() => navigate('/events')}
+           className="text-sm text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition">View All</button>
+        </div>
+        </div>
+      
+
         {/* ── Footer ── */}
         <Footer />
       </div>
