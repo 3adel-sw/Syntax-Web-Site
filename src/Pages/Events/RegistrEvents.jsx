@@ -154,7 +154,7 @@ const RegistrEvents = () => {
               <path d="M21 12a9 9 0 11-6.219-8.56" />
             </svg>
               </button>
-                // eslint-disable-next-line react-hooks/static-components
+               
                 {showSuccess && <SuccessModal onClose={() => setShowSuccess(false)} />}
             </div>
   )

@@ -9,13 +9,13 @@ const CardAcademyEvents = () => {
        
             <div className="my-10  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card Our Academy/> */}
-                <div className="bg-white pb-12  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-sm border-gray-300   ">
+                <div className="bg-white pb-12  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-[#E5E5E5] border-gray-300   ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={Invitemembers} className='w-full h-full object-cover' alt="meet" /> 
                       {/* You can replace this with an actual image or icon */}
                   </div>
                     <div className="px-4">
-                    <h3 className="text-lg text-left font-semibold mb-2">Our Academy</h3>
+                    <h3 className="text-2xl text-left font-semibold mb-2">Our Academy</h3>
                     <p className="text-gray-600 text-left ">Automated expense management software built into your corporate card, reimbursements, and more</p>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ const CardAcademyEvents = () => {
                       {/* You can replace this with an actual image or icon */}
                   </div>
                     <div className="px-4">
-                    <h3 className="text-lg text-left font-semibold mb-2">Meetups & Events</h3>
+                    <h3 className="text-2xl text-left font-semibold mb-2">Meetups & Events</h3>
                     <p className="text-gray-600 text-left">Effortlessly handle cross-border payments and currency conversions with our global corporate card</p>
                     </div>
                 </div>

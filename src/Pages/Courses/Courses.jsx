@@ -38,7 +38,7 @@ const Courses = () => {
                 onClick={() => setActiveTab(tab)}
                  className={`px-4 py-3 rounded-xl text-sm border transition-all duration-200 ${
               activeTab === tab
-                ? "bg-primary text-white border-gray-900"
+                ? "bg-primary text-white primary"
                 : "bg-primary/10 text-primary border-gray-200 hover:bg-gray-100 hover:text-gray-800"
             }`}
           >

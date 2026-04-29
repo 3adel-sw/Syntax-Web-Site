@@ -13,7 +13,7 @@ const Home = () => {
       <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
 
         {/* Badge */}
-        <div className="flex items-center mx-auto gap-3 justify-center w-80 h-14 px-4 py-1 mb-4 text-sm rounded-full border border-gray-300 bg-white shadow-sm ">
+        <div className="flex items-center mx-auto gap-3 justify-center w-80 h-14 px-4 py-1 mb-4 text-sm rounded-full border border-primary bg-white shadow-sm ">
           <Sparkle />
           Welcome to Syntax Community
         </div>
