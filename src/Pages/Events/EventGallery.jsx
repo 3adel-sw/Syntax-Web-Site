@@ -21,13 +21,13 @@ const EventGallery = () => {
 
   return (
     <div className="my-6">
-      <h2 className="text-base font-bold text-gray-900 mb-4">Event Gallery</h2>
+      <h2 className="text-xl text-left font-bold text-gray-900 mb-4">Event Gallery</h2>
 
       {/* Slider */}
       <div className="flex items-center gap-3 overflow-hidden">
 
         {/* Previous — small */}
-        <div className="flex-shrink-0 w-[28%] h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={IMAGES[getIndex(-1)]}
             alt="prev"
@@ -36,7 +36,7 @@ const EventGallery = () => {
         </div>
 
         {/* Current — large center */}
-        <div className="flex-shrink-0 w-[44%] h-56 rounded-2xl overflow-hidden shadow-md">
+        <div className="flex-shrink-0 md:w-[44%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
           <img
             src={IMAGES[getIndex(0)]}
             alt="current"
@@ -45,7 +45,7 @@ const EventGallery = () => {
         </div>
 
         {/* Next — small */}
-        <div className="flex-shrink-0 w-[28%] h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={IMAGES[getIndex(1)]}
             alt="next"

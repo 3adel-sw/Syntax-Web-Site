@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { MapPin, Calendar, Clock, Download, Share2, User } from 'lucide-react';
 import Footer from '../../components/layout/Footer';
 import { useNavigate } from 'react-router-dom';
@@ -37,27 +37,70 @@ const SPEAKERS = [
 const EventsDetails = () => {
   const navigate = useNavigate();
   const [showVideo, setShowVideo] = useState(false);
+
+  // Slider State
+  const otherEvents = ALL_EVENTS.slice(0, 3);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(otherEvents.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
       <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
       <div className="py-2 px-4 border border-gray-200 rounded-2xl">
         {/* ── Main Grid ── */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8  my-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8  my-8 ">
           {/* ── LEFT: Content + Form ── */}
           <div>
              {/* ── Title ── */}
-        <h1 className="text-4xl font-semibold text-gray-900 mb-3">
+        <h1 className="text-[40px] font-semibold text-left text-gray-900 mb-6">
           {EVENT.title}
         </h1>
         {/* ── Meta Bar ── */}
         <div className="flex flex-wrap items-center gap-3 mb-6 text-xs text-gray-500">
           <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><MapPin size={12} /> {EVENT.location}</span>
-          <span className="w-px h-3 bg-gray-300" />
+          
           <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><Calendar size={12} /> {EVENT.date}</span>
-          <span className="w-px h-3 bg-gray-300" />
+          
           <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><Clock size={12} /> {EVENT.time}</span>
-          <span className="w-px h-3 bg-gray-300" />
+          
           <button className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg hover:text-gray-800"><Download size={12} /> {EVENT.mode}</button>
           <button className="flex items-center px-3 py-2.5 border border-gray-100 rounded-lg gap-1 hover:text-gray-800 transition">
             <Share2 size={12} /> Share
@@ -68,14 +111,14 @@ const EventsDetails = () => {
               <img src={EVENT.image} alt="event" className="w-full h-full object-cover" />
             </div>
             {showVideo && <VideosYouTube />}
-            <h2 className="text-sm font-bold text-gray-900 mb-2">Event Description</h2>
+            <h2 className="text-lg text-left font-bold text-gray-900 mb-2">Event Description</h2>
             {EVENT.description.split('\n\n').map((para, i) => (
-              <p key={i} className="text-xs text-gray-500 leading-relaxed mb-4">{para}</p>
+              <p key={i} className="text-base text-left text-gray-500 leading-relaxed mb-4">{para}</p>
             ))}
 
             {/* More About Speakers */}
-            <h2 className="text-sm font-bold text-gray-900 mb-2">More About Speakers</h2>
-            <p className="text-xs text-gray-500 leading-relaxed mb-8">{EVENT.aboutSpeakers}</p>
+            <h2 className="text-lg text-left font-bold text-gray-900 mb-2">More About Speakers</h2>
+            <p className="text-base text-left  text-gray-500 leading-relaxed mb-8">{EVENT.aboutSpeakers}</p>
             {/* ── Registration Form ── */}
             {/* <h2 className="text-lg font-semibold text-gray-900 mb-4">Event Registration</h2> */}
             {/* <RegistrEvents /> */}
@@ -100,7 +143,7 @@ const EventsDetails = () => {
               <img
                 src={EVENT.image}
                 alt="event poster"
-                className="w-full h-60 object-cover rounded-2xl"
+                className="w-full h-90 object-cover rounded-2xl"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.parentElement.style.background = 'linear-gradient(135deg,#312e81,#1e1b4b)';
@@ -154,8 +197,46 @@ const EventsDetails = () => {
           <button onClick={() => navigate('/events')}
            className="text-sm text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition">View All</button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-          {ALL_EVENTS.slice(0, 3).map((event) => (
+        
+        {/* Mobile Slider */}
+        <div className="md:hidden mx-2">
+          <div
+            ref={containerRef}
+            className="overflow-hidden rounded-lg"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(${translateX}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+              }}
+            >
+              {otherEvents.map((event) => (
+                <div key={event.id} className="min-w-full flex-shrink-0 px-2">
+                  <EventCard event={event} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center gap-2 mt-4">
+            {otherEvents.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden sm:grid grid-cols-1 mx-2 sm:grid-cols-3 gap-4 mb-4">
+          {otherEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
         </div>

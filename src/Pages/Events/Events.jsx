@@ -171,7 +171,7 @@ function Events() {
       </section>
       
       {/* ── All Events ── */}
-      <section>
+      <section className="mb-18">
         <h2 className="text-3xl text-left font-bold text-gray-900 mb-4">All Events</h2>
         
         {/* Mobile Slider */}
