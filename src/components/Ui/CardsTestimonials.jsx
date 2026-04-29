@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react';
+
 const testimonials = [
   {
     id: 1,
@@ -96,45 +98,123 @@ const TestimonialCard = ({ quote, name, role, initials, color }) => (
 
 const CardsTestimonials = () => {
   const columns = splitIntoColumns(testimonials, 3);
+  
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(testimonials.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 sm:mt-18 mt-16 items-start">
-      {columns.map((col, colIdx) => {
-        const isSide = colIdx === 0 || colIdx === 2;
-        const isFirst = colIdx === 0;
-        const isLast = colIdx === 2;
-
-        return (
-          <div key={colIdx} className="relative flex flex-col gap-3 bottom-12">
-            {/* fade from top */}
-            {isSide && (
-              <div
-                className="absolute top-0 left-0 right-0 h-28 z-10 pointer-events-none"
-                style={{
-                  background: isFirst
-                    ? "linear-gradient(to bottom, white 0%, transparent 100%)"
-                    : "linear-gradient(to bottom, white 0%, transparent 100%)",
-                }}
-              />
-            )}
-
-            {col.map((t) => (
-              <TestimonialCard key={t.id} {...t} />
+    <>
+      {/* Mobile Slider */}
+      <div className="md:hidden my-16 mx-2">
+        <div
+          ref={containerRef}
+          className="overflow-hidden rounded-2xl"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(${translateX}%)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+            }}
+          >
+            {testimonials.map((t) => (
+              <div key={t.id} className="min-w-full flex-shrink-0 px-1">
+                <TestimonialCard {...t} />
+              </div>
             ))}
-
-            {/* fade from bottom  */}
-            {isSide && (
-              <div
-                className="absolute bottom-5 left-0 right-0 h-28 z-10 pointer-events-none"
-                style={{
-                  background: "linear-gradient(to top, white 0%, transparent 100%)",
-                }}
-              />
-            )}
           </div>
-        );
-      })}
-    </div>
+        </div>
+
+        <div className="flex justify-center gap-2 mt-4">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Grid */}
+      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 sm:mt-18 mt-16 items-start">
+        {columns.map((col, colIdx) => {
+          const isSide = colIdx === 0 || colIdx === 2;
+          const isFirst = colIdx === 0;
+
+          return (
+            <div key={colIdx} className="relative flex flex-col gap-3 bottom-12">
+              {isSide && (
+                <div
+                  className="absolute top-0 left-0 right-0 h-28 z-10 pointer-events-none"
+                  style={{
+                    background: isFirst
+                      ? "linear-gradient(to bottom, white 0%, transparent 100%)"
+                      : "linear-gradient(to bottom, white 0%, transparent 100%)",
+                  }}
+                />
+              )}
+
+              {col.map((t) => (
+                <TestimonialCard key={t.id} {...t} />
+              ))}
+
+              {isSide && (
+                <div
+                  className="absolute bottom-5 left-0 right-0 h-28 z-10 pointer-events-none"
+                  style={{
+                    background: "linear-gradient(to top, white 0%, transparent 100%)",
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
