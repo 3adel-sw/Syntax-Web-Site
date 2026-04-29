@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router';
 // import  Video  from '../../assets/12345.mp4';
@@ -52,26 +53,28 @@ const blogs = [
 const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
   const navigate = useNavigate();
 
-  const [isPlaying, setIsPlaying] = useState(false);
+
 
   const handleCardClick = () => {
     navigate(`/blogs/${id}`);
-    if (thumb) {
-      setIsPlaying(prev => !prev);
-    }
+    // if (thumb) {
+    //   const blogUrl = `/blogs/${id}`;
+
+    //   window.open(blogUrl, '_blank'); // Open in new tab
+    // }
   };
 
   return (
     <div
       onClick={handleCardClick}
-      className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group"
-    >
-      <div className="relative h-48 bg-gray-900 overflow-hidden rounded-xl m-2">
+     className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-3  overflow-hidden hover:-translate-y-1 hover:shadow-xl  cursor-pointer"
+      >
+      <div className="h-62 flex items-center rounded-2xl justify-center relative overflow-hidden">
         { thumb ? (
           <img
             src={thumb}
             alt={title}
-            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover  group-hover:scale-105 transition-transform "
           />
         ) : (
           <div className="w-full h-full bg-gray-800 flex items-center justify-center">
@@ -79,7 +82,7 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
           </div>
         )}
 
-        {/* Play/Pause overlay */}
+        {/*Pause overlay */}
         {( thumb) && (
           <div className={`absolute inset-0 flex items-center justify-center  duration-300 `}>
             <div className=" rounded-full flex items-center justify-center shadow-lg">
@@ -91,17 +94,17 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
 
       {/* Body   */}
       <div className="p-4 text-left">
-        <h3 className="text-[15px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
+        <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
           {title}
         </h3>
-        <p className="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
+        <p className="text-[14px]  text-gray-500 leading-relaxed mb-4 line-clamp-2">
           {excerpt}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center gap-2">
-            <span className="text-gray-600 font-medium">{category}</span>
+            <span className="text-gray-400 font-medium text-base">{category}</span>
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
-            <span>{date}</span>
+            <span className="text-gray-400 font-medium text-base">{date}</span>
           </div>
           <div className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
             <ArrowUpRight size={13} className="text-gray-400 group-hover:text-white transition-colors" />

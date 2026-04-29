@@ -22,10 +22,10 @@ const Blogs = () => {
       <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
       {/* Header */}
-      <h1 className="text-2xl font-bold  text-gray-900 mb-2 md:mb-4">
+      <h1 className="text-3xl  text-left font-bold  text-gray-900 mb-2 md:my-4">
         Welcome to the Syntax Blog
       </h1>
-      <p className="text-base text-gray-500 mb-6 ">
+      <p className="text-[16px] text-left  text-gray-500 mb-8 ">
         Stay informed with our latest design topics, articles, industry insights, and expert tips.
       </p>
 
@@ -35,10 +35,10 @@ const Blogs = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-3 rounded-xl text-sm border transition-all duration-200 ${
+            className={`p-3 rounded-xl text-base border transition-all duration-200 ${
               activeTab === tab
-                ? "bg-primary text-white border-gray-900"
-                : "bg-primary/10 text-primary border-gray-200 hover:bg-gray-100 hover:text-gray-800"
+                ? "bg-primary text-white border-primary"
+                : "bg-primary/10 text-primary border-primary/10 hover:bg-gray-100 hover:text-gray-800"
             }`}
           >
             {tab}

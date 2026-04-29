@@ -82,10 +82,10 @@
     return (
       <div
         onClick={handleClick} 
-        className="bg-white rounded-3xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+        className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
       >
         {/* Thumbnail / Video */}
-        <div className={`${course.bg} h-68 flex items-center rounded-3xl justify-center relative overflow-hidden`}>
+        <div className={`${course.bg} h-68 flex items-center rounded-2xl justify-center relative overflow-hidden`}>
           {course.video ? (
             <>
               <video
@@ -117,9 +117,7 @@
 
         {/* Body */}
        <div 
-       
        className="p-4 text-left">
-        
           <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">
             {course.tag}
           </span>

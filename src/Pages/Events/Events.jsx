@@ -1,9 +1,11 @@
-import { useState } from 'react';
-
+import { useState, useRef, useEffect } from 'react';
 import { MapPin, Calendar, Clock, ArrowRight } from 'lucide-react';
 import Subscribet from '../../components/Ui/Subscribe';
+import TabSlider from '../../components/Ui/TabSlider';
 import Footer from '../../components/layout/Footer';
 import { useNavigate } from 'react-router-dom';
+import EventCard from '../../components/Ui/EventCard';
+import CourseCard from '../../assets/CourseCard.svg';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -31,67 +33,65 @@ export const ALL_EVENTS = Array.from({ length: 12 }, (_, i) => ({
   title: 'UX Design Foundation',
   type: ['ONLINE WORKSHOP', 'OFFLINE MEETUP', 'MEGA EVENT', 'ONLINE WORKSHOP'][i % 4],
   duration: '16 hours',
-  image: `https://images.unsplash.com/photo-${
-    ['1581291518857-4d27a13647c6', '1587614382346-4ec70e388b28', '1593642632559-0c6d3fc62b89',
-     '1581291518857-4d27a13647c6', '1587614382346-4ec70e388b28', '1593642632559-0c6d3fc62b89',
-     '1581291518857-4d27a13647c6', '1587614382346-4ec70e388b28', '1593642632559-0c6d3fc62b89',
-     '1581291518857-4d27a13647c6', '1587614382346-4ec70e388b28', '1593642632559-0c6d3fc62b89'][i]
-  }?w=300&h=180&fit=crop`,
+  image: CourseCard
 }));
-
-// ─── Event Card (grid) ───────────────────────────────────────────────────────
-
-export const EventCard = ({ event }) => (
-  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200 cursor-pointer">
-    <div className="bg-gray-50 p-2 flex items-center justify-center h-56">
-      {/* Placeholder illustration – replace with real images */}
-      <div className="w-full h-full rounded-lg overflow-hidden">
-        <img
-          src={event.image}
-          alt={event.title}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.parentElement.innerHTML = `
-              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#f3f4f6;border-radius:8px;">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  <rect x="4" y="12" width="40" height="32" rx="4" fill="#6366f1" opacity="0.15"/>
-                  <rect x="8" y="16" width="32" height="24" rx="3" fill="#6366f1" opacity="0.3"/>
-                  <circle cx="20" cy="24" r="4" fill="#6366f1" opacity="0.6"/>
-                  <rect x="48" y="20" width="12" height="20" rx="3" fill="#22c55e" opacity="0.4"/>
-                  <rect x="50" y="23" width="8" height="3" rx="1" fill="#22c55e"/>
-                  <rect x="50" y="29" width="8" height="3" rx="1" fill="#22c55e"/>
-                </svg>
-              </div>`;
-          }}
-        />
-      </div>
-    </div>
-    <div className="p-3 text-left space-y-2">
-      <span className="text-[10px]  font-semibold text-gray-700 tracking-wider bg-gray-100 p-1 rounded-lg uppercase">{event.type}</span>
-      <h3 className="text-lg font-semibold text-black mt-2">{event.title}</h3>
-      <div className="flex items-center gap-1 mt-1 text-xs text-gray-400">
-        <Clock size={11} />
-        <span>{event.duration}</span>
-      </div>
-    </div>
-  </div>
-);
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 function Events() {
-
   const [activeFilter, setActiveFilter] = useState('All Events');
+  const navigate = useNavigate();
+
+  // Slider State
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
 
   const mappedCategory = categoryMap[activeFilter];
   const filteredEvents = activeFilter === 'All Events'
     ? ALL_EVENTS
     : ALL_EVENTS.filter(event => event.type === mappedCategory);
-  const navigate = useNavigate();
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(filteredEvents.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
+
   return (
-   <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
-      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
+   <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <div className="sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
       {/* ── Hero Header ── */}
       <div className="mb-6 text-left">
@@ -105,28 +105,35 @@ function Events() {
       </div>
 
       {/* ── Filter Tabs ── */}
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex-wrap gap-2 mb-8 md:flex hidden">
         {FILTER_TABS.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveFilter(tab)}
-            className={`px-4 py-2.5 rounded-xl text-sm font-medium border transition-all duration-150 ${
+            className={`px-4 py-3 rounded-[14px] text-sm border transition-all duration-200 ${
               activeFilter === tab
-                ? 'bg-primary text-white border-gray-300'
-                : 'bg-primary/10 text-primary border-gray-300 hover:border-gray-500'
+                ? "bg-primary text-white border-primary"
+                : "bg-primary/10 text-primary border-gray-200 hover:bg-gray-100 hover:text-gray-800"
             }`}
           >
             {tab}
           </button>
         ))}
       </div>
+      {/* Mobile Tab Slider */}
+      <TabSlider
+        tabs={FILTER_TABS}
+        activeTab={activeFilter}
+        setActiveTab={setActiveFilter}
+        className="md:hidden mb-4"
+      />
 
       {/* ── Upcoming Events ── */}
-      <section className="mb-10 ">
+      <section className="mb-10">
         <h2 className="text-3xl text-left font-semibold text-gray-900 mb-5">Upcoming Events</h2>
-        <div className="border bg-gray-50 border-gray-200 md:h-62  rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+        <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
           {/* Image */}
-          <div className="sm:w-48 md:w-82 md:p-5 w-full h-54 sm:h-auto flex-shrink-0">
+          <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-0">
             <img
               src={UPCOMING_EVENT.image}
               alt={UPCOMING_EVENT.title}
@@ -134,49 +141,89 @@ function Events() {
             />
           </div>
           {/* Details */}
-          <div className="p-5 flex flex-col  justify-center gap-2">
-            <h3 className="text-base text-left font-bold text-gray-900">{UPCOMING_EVENT.title}</h3>
-            <div className="flex flex-wrap gap-4 text-xs text-gray-500">
-              <span className="flex items-center gap-1">
-                <MapPin size={12} className="text-gray-400" />
+          <div className=" md:p-6 p-3 flex flex-col justify-center gap-2 space-y-2">
+            <h3 className="text-4xl text-left font-semibold text-gray-900">{UPCOMING_EVENT.title}</h3>
+            <div className="flex flex-wrap gap-4  text-gray-500">
+              <span className="flex text-base items-center gap-1">
+                <MapPin size={24} className="text-gray-400" />
                 {UPCOMING_EVENT.location}
               </span>
-              <span className="flex items-center gap-1">
-                <Calendar size={12} className="text-gray-400" />
+              <span className="flex items-center gap-1 text-base">
+                <Calendar size={24} className="text-gray-400 " />
                 {UPCOMING_EVENT.date}
               </span>
-              <span className="flex items-center gap-1">
-                <Clock size={12} className="text-gray-400" />
+              <span className="flex items-center gap-1 text-base">
+                <Clock size={24} className="text-gray-400  " />
                 {UPCOMING_EVENT.time}
               </span>
             </div>
-            <p className="text-sm text-left text-gray-500 leading-relaxed max-w-md">
+            <p className="text-lg text-left text-gray-500 leading-relaxed max-w-2xl">
               {UPCOMING_EVENT.description}
             </p>
             <button
-                onClick={() => navigate('/events-details')}
-            className="mt-2 self-start flex items-center gap-1.5 bg-white border border-bg-gray-50 text-primary text-xs font-medium px-4 py-3 rounded-lg hover:bg-gray-50 transition">
+              onClick={() => navigate('/events-details')}
+              className="mt-2 self-start flex items-center gap-2 bg-transparent border border-bg-gray-50 text-primary text-[16px] font-medium px-4 py-3 rounded-2xl hover:bg-gray-50 transition"
+            >
               View Details <ArrowRight size={13} />
             </button>
           </div>
         </div>
       </section>
-      {/* ── All Events Grid ── */}
+      
+      {/* ── All Events ── */}
       <section>
         <h2 className="text-3xl text-left font-bold text-gray-900 mb-4">All Events</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        
+        {/* Mobile Slider */}
+        <div className="md:hidden">
+          <div
+            ref={containerRef}
+            className="overflow-hidden rounded-lg"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(${translateX}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+              }}
+            >
+              {filteredEvents.map((event) => (
+                <div key={event.id} className="min-w-full flex-shrink-0 px-2">
+                  <EventCard event={event} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center gap-2 mt-4">
+            {filteredEvents.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 gap-4">
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
         </div>
       </section>
-{/* Subscribe  */}
-<Subscribet />
-{/* Footer */}
-<Footer />
-      
+
+      {/* Subscribe */}
+      <Subscribet />
+      {/* Footer */}
+      <Footer />
     </div>
-    </div>
+  </div>
   );
 }
 

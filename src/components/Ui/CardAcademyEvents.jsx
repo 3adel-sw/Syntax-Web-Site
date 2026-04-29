@@ -2,8 +2,11 @@ import {Mic,Users,Mail,Layers} from 'lucide-react';
 import meetupImage from "../../assets/meetup.svg";
 import Invitemembers from "../../assets/Invitemembers.svg";
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
 
 const CardAcademyEvents = () => {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const slides = [
@@ -23,14 +26,23 @@ const CardAcademyEvents = () => {
       description: 'Automate repetitive tasks to enhance accuracy and efficiency in accounting'
     }
   ];
+  const handleCardEventClick = () => {
+       navigate('/events'); // Navigate to the events page
+    // if (thumb) {
+    //   const blogUrl = `/blogs/${id}`;
 
+    //   window.open(blogUrl, '_blank'); // Open in new tab
+    // }
+  };
 
   return (
     <>
         {/* Cards Our Academy & Meetups & Events  */}
             <div className="my-10  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card Our Academy/> */}
-                <div className="bg-white pb-12  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-[#E5E5E5] border-gray-300   ">
+                <div
+                onClick={handleCardEventClick}
+                className="bg-white pb-12  cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-[#E5E5E5] border-gray-300   ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={Invitemembers} className='w-full h-full object-cover' alt="meet" /> 
                       {/* You can replace this with an actual image or icon */}
@@ -41,7 +53,9 @@ const CardAcademyEvents = () => {
                     </div>
                 </div>
                 {/* <Card Meetups & Events/> */}
-               <div className="bg-white pb-12  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-sm border-gray-300  ">
+               <div
+               onClick={handleCardEventClick}
+               className="bg-white pb-12 cursor-pointer  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-sm border-gray-300  ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={meetupImage} className='w-full h-full object-cover' alt="invite" /> 
                       {/* You can replace this with an actual image or icon */}
