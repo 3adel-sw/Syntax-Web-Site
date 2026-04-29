@@ -37,8 +37,9 @@ const EventsDetails = () => {
   const navigate = useNavigate();
   const [showVideo, setShowVideo] = useState(false);
   return (
-    <div className="min-h-screen flex items-start justify-center max-w-6xl mx-auto px-4 py-10">
-      <div className="sm:max-w-5xl md:max-w-6xl lg:w-full text-left mx-1">
+    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
+      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
+
       <div className="py-2 px-4 border border-gray-200 rounded-2xl">
         {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8  my-8 ">

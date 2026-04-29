@@ -24,9 +24,8 @@ const DetailCourses = () => {
 
 
   return (
-     <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
-
-      <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
+   <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
+      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
       {/* Course Title */}
       <h1 className="text-2xl text-left font-bold text-gray-900 mb-5">

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 // import  Video  from '../../assets/12345.mp4';
 //import  Test  from '../../assets/test.jpg';
 import  BlogCardImage  from '../../assets/blogC.jpg';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 
 const blogs = [
@@ -13,7 +13,6 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null,
     thumb: BlogCardImage,
   },
   {
@@ -22,7 +21,6 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null,
     thumb: BlogCardImage,
   },
   {
@@ -31,7 +29,6 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null,
     thumb: BlogCardImage,
   },
   {
@@ -40,7 +37,6 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null,
     thumb: BlogCardImage,
   },
   {
@@ -49,27 +45,19 @@ const blogs = [
     date: "26 May 2024",
     title: "The Psychology Behind UX Design",
     excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    video: null,
     thumb: BlogCardImage,
   },
 ];
 
-const BlogCard = ({ id, category, date, title, excerpt, video, thumb }) => {
+const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleCardClick = () => {
     navigate(`/blogs/${id}`);
-    if (video && videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play();
-        setIsPlaying(true);
-      }
+    if (thumb) {
+      setIsPlaying(prev => !prev);
     }
   };
 
@@ -79,17 +67,7 @@ const BlogCard = ({ id, category, date, title, excerpt, video, thumb }) => {
       className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer group"
     >
       <div className="relative h-48 bg-gray-900 overflow-hidden rounded-xl m-2">
-        {video ? (
-          <video
-            ref={videoRef}
-            src={video}
-            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-            muted
-            loop
-            onMouseEnter={e => e.target.play()}
-            onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
-          />
-        ) : thumb ? (
+        { thumb ? (
           <img
             src={thumb}
             alt={title}
@@ -102,19 +80,10 @@ const BlogCard = ({ id, category, date, title, excerpt, video, thumb }) => {
         )}
 
         {/* Play/Pause overlay */}
-        {(video || thumb) && (
-          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'}`}>
-            <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-              {isPlaying ? (
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <rect x="3" y="2" width="4" height="12" fill="#111827" />
-                  <rect x="9" y="2" width="4" height="12" fill="#111827" />
-                </svg>
-              ) : (
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <polygon points="4,2 14,8 4,14" fill="#111827" />
-                </svg>
-              )}
+        {( thumb) && (
+          <div className={`absolute inset-0 flex items-center justify-center  duration-300 `}>
+            <div className=" rounded-full flex items-center justify-center shadow-lg">
+             
             </div>
           </div>
         )}
@@ -159,9 +128,78 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
 
   const displayedBlogs = limit ? filteredBlogs.slice(0, limit) : filteredBlogs;
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(displayedBlogs.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
+
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
+      {/* Mobile Slider */}
+      <div className="md:hidden mt-8">
+        <div
+          ref={containerRef}
+          className="overflow-hidden rounded-lg"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(${translateX}%)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+            }}
+          >
+            {displayedBlogs.map((blog) => (
+              <div key={blog.id} className="min-w-full flex-shrink-1 px-2">
+                <BlogCard {...blog} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+    
+      </div>
+
+      {/* Desktop Grid */}
+      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
         {displayedBlogs.map(blog => (
           <BlogCard key={blog.id} {...blog} />
         ))}

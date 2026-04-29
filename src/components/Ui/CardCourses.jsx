@@ -1,7 +1,8 @@
-  import { useState, useRef } from 'react';
+  import { useState, useRef, useEffect } from 'react';
   import { useNavigate } from 'react-router';
   import { Clock, BookOpen } from 'lucide-react';
   import Video from '../../assets/12345.mp4';
+  // import CardCouses from '../../assets/CourseCard.svg';
 
   const courses = [
     {
@@ -10,7 +11,6 @@
       title: "UX/UI Design Master Course",
       level: "Beginner",
       duration: "20 sessions",
-      bg: "bg-indigo-50",
       video: Video,
     },
     {
@@ -19,8 +19,8 @@
       title: "Advanced UX Workshop",
       level: "Intermediate",
       duration: "10 hours",
-      bg: "bg-green-50",
-      video: null,
+      bg: "#F8F8F8", 
+      video: Video,
     },
     {
       id: 3,
@@ -28,8 +28,8 @@
       title: "Design Community Meetup",
       level: "All Levels",
       duration: "3 hours",
-      bg: "bg-orange-50",
-      video: null,
+    bg: "#F8F8F8", 
+      video: Video,
     },
     {
       id: 4,
@@ -37,8 +37,8 @@
       title: "Annual Design Summit",
       level: "All Levels",
       duration: "2 days",
-      bg: "bg-purple-50",
-      video: null,
+     bg: "#F8F8F8", 
+      video: Video,
     },
     {
       id: 5,
@@ -46,8 +46,8 @@
       title: "UI Design Fundamentals",
       level: "Beginner",
       duration: "15 hours",
-      bg: "bg-blue-50",
-      video: null,
+      bg: "#F8F8F8", 
+      video: Video,
     },
     {
       id: 6,
@@ -55,8 +55,8 @@
       title: "Figma Masterclass",
       level: "Intermediate",
       duration: "8 hours",
-      bg: "bg-teal-50",
-      video: null,
+      bg: "#F8F8F8", 
+      video: Video,
     },
   ];
 
@@ -82,10 +82,10 @@
     return (
       <div
         onClick={handleClick} 
-        className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+        className="bg-white rounded-3xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
       >
         {/* Thumbnail / Video */}
-        <div className={`${course.bg} h-44 flex items-center justify-center relative overflow-hidden`}>
+        <div className={`${course.bg} h-68 flex items-center rounded-3xl justify-center relative overflow-hidden`}>
           {course.video ? (
             <>
               <video
@@ -119,20 +119,21 @@
        <div 
        
        className="p-4 text-left">
-          <span className="inline-block bg-indigo-50 text-indigo-600 text-[10px] font-semibold tracking-wider px-3 py-1 rounded-full mb-3">
+        
+          <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">
             {course.tag}
           </span>
-          <h3 className="text-[15px] font-bold text-gray-900 mb-2 leading-snug">
+          <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug">
             {course.title}
           </h3>
-          <div className="flex items-center gap-3 text-xs text-gray-500">
+          <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
             <span className="flex items-center gap-1">
-              <BookOpen size={11} />
+              <BookOpen size={18} />
               {course.level}
             </span>
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
             <span className="flex items-center gap-1">
-              <Clock size={11} />
+              <Clock size={18} />
               {course.duration}
             </span>
           </div>
@@ -156,9 +157,89 @@
 
     const displayedCourses = limit ? filteredCourses.slice(0, limit) : filteredCourses;
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [translateX, setTranslateX] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const touchStartRef = useRef(0);
+    const translateXRef = useRef(0);
+    const containerRef = useRef(null);
+
+    const handleTouchStart = (e) => {
+      touchStartRef.current = e.touches[0].clientX;
+      setIsDragging(true);
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDragging) return;
+      const currentTouch = e.touches[0].clientX;
+      const diff = currentTouch - touchStartRef.current;
+      const containerWidth = containerRef.current?.offsetWidth || 300;
+      const diffPercent = (diff / containerWidth) * 100;
+      const newX = translateXRef.current + diffPercent;
+      translateXRef.current = newX;
+      setTranslateX(newX);
+    };
+
+    const handleTouchEnd = () => {
+      setIsDragging(false);
+      const slideIndex = Math.round(-translateXRef.current / 100);
+      const boundedIndex = Math.max(0, Math.min(displayedCourses.length - 1, slideIndex));
+      setCurrentSlide(boundedIndex);
+      translateXRef.current = -boundedIndex * 100;
+      setTranslateX(-boundedIndex * 100);
+    };
+
+    useEffect(() => {
+      if (!isDragging) {
+        translateXRef.current = -currentSlide * 100;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setTranslateX(-currentSlide * 100);
+      }
+    }, [currentSlide, isDragging]);
+
     return (
       <>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
+        {/* Mobile Slider */}
+        <div className="md:hidden mt-8 my-8">
+          <div
+            ref={containerRef}
+            className="overflow-hidden rounded-lg"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(${translateX}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+              }}
+            >
+              {displayedCourses.map((course) => (
+                <div key={course.id} className="min-w-full flex-shrink-1 px-2">
+                  <CourseCard course={course} navigate={navigate} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-2 mt-4">
+            {displayedCourses.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
           {displayedCourses.map(course => (
             <CourseCard key={course.id} course={course} navigate={navigate} />
           ))}

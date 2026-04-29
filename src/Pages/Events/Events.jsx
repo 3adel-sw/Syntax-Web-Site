@@ -90,8 +90,8 @@ function Events() {
     : ALL_EVENTS.filter(event => event.type === mappedCategory);
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
-      <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
+   <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
+      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
       {/* ── Hero Header ── */}
       <div className="mb-6 text-left">

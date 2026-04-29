@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CardBlog from '../../components/Ui/CardBlog'; 
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
+import TabSlider from '../../components/Ui/TabSlider';
 
 const tabs = [
   "All Blogs",
@@ -17,9 +18,9 @@ const Blogs = () => {
   const [activeTab, setActiveTab] = useState("All Blogs");
 
   return (
-   <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto md:pt-16 sm:pt-10 pt-6 ">
-      
-      <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-left mx-1">
+ <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
+      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
+
       {/* Header */}
       <h1 className="text-2xl font-bold  text-gray-900 mb-2 md:mb-4">
         Welcome to the Syntax Blog
@@ -28,8 +29,8 @@ const Blogs = () => {
         Stay informed with our latest design topics, articles, industry insights, and expert tips.
       </p>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2">
+      {/* Desktop Tabs */}
+      <div className="hidden md:flex flex-wrap gap-2">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -44,6 +45,14 @@ const Blogs = () => {
           </button>
         ))}
       </div>
+
+      {/* Mobile Tab Slider */}
+      <TabSlider
+        tabs={tabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        className="md:hidden mb-4"
+      />
 
       {/* Cards */}
       <CardBlog activeCategory={activeTab} />
