@@ -36,9 +36,9 @@ const CardAcademyEvents = () => {
   };
 
   return (
-    <>
+    <div className='md:my-10 my-12'>
         {/* Cards Our Academy & Meetups & Events  */}
-            <div className="my-10  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
+            <div className="my-12  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card Our Academy/> */}
                 <div
                 onClick={handleCardEventClick}
@@ -73,7 +73,7 @@ const CardAcademyEvents = () => {
 
             {/* Cards Podcast, Interviews, News */}
             {/* Desktop Grid */}
-            <div className="my-10 hidden md:grid grid-cols-1 sm:grid-cols-2 md:mx-0 mx-2 md:grid-cols-3 gap-6">
+            <div className="my-12 hidden md:grid grid-cols-1 sm:grid-cols-2 md:mx-0 mx-2 md:grid-cols-3 gap-6">
                 <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
                    <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary text-white rounded-full">
                       <Mic className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />
@@ -109,7 +109,7 @@ const CardAcademyEvents = () => {
 
 
            {/* Mobile Slider */}
-<div className="my-10 md:hidden mx-2 ">
+<div className="my-12 md:hidden mx-2 ">
   <div className="relative">
     <div className="overflow-hidden rounded-2xl">
       {/* Wrapper  */}
@@ -155,7 +155,7 @@ const CardAcademyEvents = () => {
 
 
                 {/* Layers */}
-               <div className="md:my-20 sm:my-12 my-10 grid grid-cols-2 md:mx-0 mx-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6">
+               <div className="md:my-20  sm:my-12 my-14 grid grid-cols-2 md:mx-0 mx-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6">
   {[
     { label: "Soft Skills" ,student:"+120 Students"},
     { label: "UI Design" ,student:"+80 Students"},
@@ -185,7 +185,7 @@ const CardAcademyEvents = () => {
 
 
                 
-    </>
+    </div>
   )
 }
 

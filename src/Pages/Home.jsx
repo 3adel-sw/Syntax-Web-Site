@@ -11,8 +11,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 const Home = () => {
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
-      <div className="sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
-
+      <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         {/* Badge */}
         <div className="flex items-center sticky mx-auto gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
          <Sparkle size={20} className="fill-primary text-primary animate-pulse" />
@@ -40,7 +39,7 @@ const Home = () => {
         </div>
 
         {/* Image */}
-        <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl shadow-lg">
+        <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl ">
           <img
             src={imgHome}
             alt="community"
@@ -56,21 +55,21 @@ const Home = () => {
               <MessageSquare size={16} />
               Courses
             </span>
-            <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
+            <h3 className='md:text-3xl text-xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
             {/* Cards */}
             <CardCourses activeCategory="All Events" limit={3} showButton />
           </div>
         </div>
         {/* Graduates */}
-        <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+        <div className='md:my-22 sm:my-16 my-16 lg:my-24'>
           <div className=' space-y-5'>
-            <h3 className='text-2xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
+            <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
             {/* Cards */}
             <CardGraduated />
           </div>
         </div>
         {/* Testimonials */}
-        <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+        <div className='md:my-22 sm:my-16 my-12 lg:my-24'>
           <div className=' space-y-5'>
             <span className=' border text-primary border-primary  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={20} />

@@ -18,8 +18,8 @@ const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
-      <div className="min-h-screen flex items-center justify-center max-w-6xl mx-auto ">
-      <div className="  sm:max-w-5xl md:max-w-6xl lg:w-full text-center mx-1">
+      <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 {/* ── HERO ── */}
 <CardContact/>
       <div className=" mt-5 space-y-4 w-full ">
