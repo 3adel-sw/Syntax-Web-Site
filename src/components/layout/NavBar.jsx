@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import  Logo  from "@/assets/logo.svg";
+import  Logo  from "@/assets/logoo.svg";
 import  {Menu , X ,ArrowRight} from "lucide-react";
 import LanguageDropdown from "@/components/Ui/LanguageDropdown";
 import UserDropdown from "@/components/Ui/UserDropdown";
@@ -34,7 +34,7 @@ const NavBar = () => {
       
       <nav className={`syntax-navbar  md:py-4 sm:py-3 py-2 md:px-6 sm:px-6 px-4 top-0 left-0 sticky z-50
       flex items-center justify-between transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"
       }`}
       >
         {/* Logo */}
@@ -50,7 +50,7 @@ const NavBar = () => {
             <LanguageDropdown />
           </div>
           {/* User dropdown */}
-          <UserDropdown />
+          <UserDropdown  className="text-[#F7F4F2]"/>
           {/* Menu button */}
       <button
   className=" relative md:w-26  md:h-11 sm:w-22 sm:h-8 w-21 px-2 h-8 text-xs  flex  md:gap-4 gap-1  items-center justify-center text-white rounded-2xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"

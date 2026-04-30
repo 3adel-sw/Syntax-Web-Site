@@ -51,9 +51,9 @@ const VideosYouTube = () => {
 </div>
 
 {/* Event Description */}
-<h2 className="text-sm font-bold text-gray-900 mb-2">Event Description</h2>
+
 {EVENT.description.split('\n\n').map((para, i) => (
-  <p key={i} className="text-xs text-gray-500 leading-relaxed mb-4">{para}</p>
+  <p key={i} className="text-xs text-gray-500 leading-relaxed mb-4">{}</p>
 ))}
     </div>
   )

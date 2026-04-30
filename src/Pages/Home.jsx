@@ -10,8 +10,8 @@ import { LuLoaderCircle } from "react-icons/lu";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
-      <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
+    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <div className="sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
         {/* Badge */}
         <div className="flex items-center sticky mx-auto gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
