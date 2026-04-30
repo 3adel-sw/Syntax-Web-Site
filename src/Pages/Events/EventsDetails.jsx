@@ -8,6 +8,7 @@ import EventCard from '../../components/Ui/EventCard';
 import RegistrEvents from './RegistrEvents';
 import VideosYouTube from './VideosYouTube';
 import EventGallery from './EventGallery';
+import { LuLoaderCircle } from "react-icons/lu";
 
 
 
@@ -132,9 +133,7 @@ const EventsDetails = () => {
               className='py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition'
             >
               {showVideo ? 'Hide Session' : 'Watch Session'}
-               <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 12a9 9 0 11-6.219-8.56" />
-            </svg>
+              <LuLoaderCircle size={22} className="" />
             </button>
 
             
@@ -154,17 +153,17 @@ const EventsDetails = () => {
 
             {/* Speakers */}
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-3">Speakers</h2>
+              <h2 className="text-2xl text-left font-medium text-gray-900 mb-3">Speakers</h2>
               <div className="space-y-3">
                 {SPEAKERS.map((s) => (
                   <div
                     key={s.id}
-                    className="flex bg-gray-100 items-center gap-3 border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition"
+                    className="flex bg-gray-100  items-center gap-3 border border-gray-200 rounded-2xl p-4 hover:bg-gray-50 transition"
                   >
                     <img
                       src={s.avatar}
                       alt={s.name}
-                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                      className="w-14 h-14 rounded-full object-cover flex-shrink-1"
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.nextSibling.style.display = 'flex';
@@ -176,8 +175,8 @@ const EventsDetails = () => {
                       <User size={18} />
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-gray-800">{s.name}</p>
-                      <p className="text-xs text-gray-400">{s.role}</p>
+                      <p className="text-xl font-semibold text-gray-800">{s.name}</p>
+                      <p className="text-base text-gray-400">{s.role}</p>
                     </div>
                   </div>
                 ))}

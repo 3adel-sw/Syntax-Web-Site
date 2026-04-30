@@ -59,24 +59,24 @@ const BlogsDetails = () => {
                     </div>
 
                     {/* Meta Bar */}
-                    <div className="flex flex-wrap items-center gap-5 py-3 border-y border-gray-200 mb-8 text-sm text-gray-500">
-                        <div className="flex items-center gap-1.5">
-                            <Tag size={13} className="opacity-50" />
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center  py-3   mb-8 text-sm text-gray-500">
+                        <div className="flex items-center justify-center gap-2.5 text-[14px]  border-gray-300 border rounded-lg px-3 py-2">
+                            <Tag size={18} className="opacity-50 " />
                             <span>Category: <strong className="text-gray-700">{blog.category}</strong></span>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                            <Calendar size={13} className="opacity-50" />
+                       <div className="flex items-center justify-center gap-3.5 text-base   border-gray-300 border rounded-lg px-3 py-2">
+                            <Calendar size={18} className="opacity-50" />
                             <span>Date: <strong className="text-gray-700">{blog.date}</strong></span>
                         </div>
-                        <button className="flex items-center gap-1.5 hover:text-gray-700 transition-colors ml-auto">
-                            <Share2 size={13} />
+                        <button className="flex items-center justify-center gap-3.5 text-base   border-gray-300 border rounded-lg px-3 py-2">
+                            <Share2 size={18} />
                             Share
                         </button>
                         <button
                             onClick={handleCopyLink}
-                            className="flex items-center gap-1.5 hover:text-gray-700 transition-colors"
+                            className="flex items-center justify-center gap-3.5 text-base   border-gray-300 border rounded-lg px-3 py-2 text-gray-500 hover:text-gray-800 transition-colors"
                         >
-                            <Link size={13} />
+                            <Link size={18} />
                             Copy Link
                         </button>
                     </div>

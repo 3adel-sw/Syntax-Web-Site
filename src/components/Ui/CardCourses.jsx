@@ -3,6 +3,7 @@
   import { Clock, BookOpen } from 'lucide-react';
   import Video from '../../assets/12345.mp4';
   // import CardCouses from '../../assets/CourseCard.svg';
+  import { LuLoaderCircle } from "react-icons/lu";
 
   const courses = [
     {
@@ -249,9 +250,10 @@
               className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
             >
               {ButtonContent || 'Show All Courses'}
-              <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              {/* <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 12a9 9 0 11-6.219-8.56" />
-              </svg>
+              </svg> */}
+              <LuLoaderCircle size={22} className="" />
             </button>
           </div>
         )}

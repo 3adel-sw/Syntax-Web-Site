@@ -62,7 +62,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
       <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6 text-left">
          {/* Tabs */}
          <div className="flex flex-col w-full">
-      <div className="flex flex-row max-w-3xl gap-2 bg-gray-100 p-1 h-14  mb-6 rounded-xl">
+      <div className="flex flex-row max-w-3xl gap-2 bg-gray-100 p-3 h-16  mb-6 rounded-xl">
         <button
           onClick={() => setActiveTab('overview')}
            className={`flex-1   gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black   border rounded-lg transition-all ${
@@ -93,16 +93,15 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
         {/* Left: Content */}
       
         {/* Right: Course Card */}
-        <div className="border border-gray-200 bg-[#FCFCFD] p-3 rounded-xl overflow-hidden h-fit">
+        <div className=" bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
           {/* Course Image */}
-            <img src={Rectangle} alt="detailsCourses" className="w-full h-[250px] object-cover rounded-xl " />
+            <img src={Rectangle} alt="detailsCourses" className="w-full h-[250px] object-cover rounded-2xl " />
           <div className="p-4">
             {/* Level */}
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-              
               <img src={Reports} alt="reports" />
-              Course Level <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-              <span className="text-gray-700 font-medium">Entry to Intermediate</span>
+              Course Level <span className="w-2 h-2  rounded-full bg-primary inline-block" />
+              <span className="text-gray-700 font-medium text-xs ">Entry to Intermediate</span>
             </div>
                <hr className="my-2 text-gray-300" />
             {/* Price */}
@@ -120,10 +119,10 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
             {/* Buttons */}
             <button 
             onClick={() => setIsRegisterOpen(true)} 
-            className="w-full py-3 bg-primary text-white rounded-lg text-sm font-semibold mb-2 hover:bg-primary/90 transition">
+            className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
               Register Now
             </button>
-            <button className="w-full py-3  text-primary rounded-lg text-sm font-semibold hover:bg-blue-50 my-4 transition">
+            <button className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition">
               Download Course File
             </button>
           </div>
@@ -135,7 +134,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
     {/* Testimonials */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
-            <span className=' border border-gray-200  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
+            <span className=' border border-primary text-primary  gap-2 mx-auto w-40 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={20} />
               Testimonials
             </span>

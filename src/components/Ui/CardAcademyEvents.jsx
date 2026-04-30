@@ -42,7 +42,7 @@ const CardAcademyEvents = () => {
                 {/* <Card Our Academy/> */}
                 <div
                 onClick={handleCardEventClick}
-                className="bg-white pb-12  cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-[#E5E5E5] border-gray-300   ">
+                className="bg-white pb-12  cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm [#E5E5E5] border-gray-300   ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={Invitemembers} className='w-full h-full object-cover' alt="meet" /> 
                       {/* You can replace this with an actual image or icon */}
@@ -55,7 +55,7 @@ const CardAcademyEvents = () => {
                 {/* <Card Meetups & Events/> */}
                <div
                onClick={handleCardEventClick}
-               className="bg-white pb-12 cursor-pointer  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden shadow-sm border-gray-300  ">
+               className="bg-white pb-12 cursor-pointer  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm border-gray-300  ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={meetupImage} className='w-full h-full object-cover' alt="invite" /> 
                       {/* You can replace this with an actual image or icon */}
@@ -74,7 +74,7 @@ const CardAcademyEvents = () => {
             {/* Cards Podcast, Interviews, News */}
             {/* Desktop Grid */}
             <div className="my-10 hidden md:grid grid-cols-1 sm:grid-cols-2 md:mx-0 mx-2 md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
+                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
                    <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary text-white rounded-full">
                       <Mic className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />
                     </span>
@@ -84,7 +84,7 @@ const CardAcademyEvents = () => {
                     </p>
                       </div>
                   </div>
-                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
+                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
                      <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary text-white rounded-full">
                       <Users className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />
                     </span>
@@ -94,7 +94,7 @@ const CardAcademyEvents = () => {
                     </p>
                       </div>
                   </div>
-                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden shadow-sm border-gray-300 relative">
+                <div className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
                     <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary text-white rounded-full">
                       <Mail className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />
                     </span>
@@ -112,7 +112,7 @@ const CardAcademyEvents = () => {
 <div className="my-10 md:hidden mx-2 ">
   <div className="relative">
     <div className="overflow-hidden rounded-2xl">
-      {/* Wrapper يتحرك */}
+      {/* Wrapper  */}
       <div
         className="flex"
         style={{
@@ -157,23 +157,23 @@ const CardAcademyEvents = () => {
                 {/* Layers */}
                <div className="md:my-20 sm:my-12 my-10 grid grid-cols-2 md:mx-0 mx-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6">
   {[
-    { label: "Soft Skills" },
-    { label: "UI Design" },
-    { label: "UX Design" },
-    { label: "UX Principles" },
+    { label: "Soft Skills" ,student:"+120 Students"},
+    { label: "UI Design" ,student:"+80 Students"},
+    { label: "UX Design" ,student:"+60 Students"},
+    { label: "UX Principles" ,student:"+40 Students"},
   ].map((item) => (
     <div
       key={item.label}
-      className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4 border border-gray-300 relative"
+      className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4  relative"
     >
       <div className="flex flex-row items-start sm:items-center gap-2">
-        <Layers className="text-primary bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 p-2 md:p-3 shrink-0" />
+        <Layers className="text-primary bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 p-2 md:p-3 shrink-1" />
         <div>
           <h3 className="text-sm md:text-base text-left font-semibold text-gray-900">
             {item.label}
           </h3>
           <p className="text-xs md:text-sm text-left font-medium text-gray-500">
-            +120 Students
+            {item.student}
           </p>
         </div>
       </div>

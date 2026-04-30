@@ -82,7 +82,7 @@ const splitIntoColumns = (arr, cols) => {
 };
 
 const TestimonialCard = ({ quote, name, role, initials, color }) => (
-  <div className="bg-white border border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
+  <div className="bg-white border md:space-y-10 space-y-4 border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
     <p className="text-sm text-gray-700 leading-relaxed">{quote}</p>
     <div className="flex items-center gap-3">
       <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 ${color}`}>
@@ -186,7 +186,7 @@ const CardsTestimonials = () => {
           const isFirst = colIdx === 0;
 
           return (
-            <div key={colIdx} className="relative flex flex-col gap-3 bottom-12">
+            <div key={colIdx} className="relative flex space-y-3 flex-col gap-3 bottom-12">
               {isSide && (
                 <div
                   className="absolute top-0 left-0 right-0 h-28 z-10 pointer-events-none"

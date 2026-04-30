@@ -6,6 +6,7 @@ import CardGraduated from '../components/Ui/CardGraduated';
 import CardsTestimonials from '../components/Ui/CardsTestimonials';
 import CardBlog from '../components/Ui/CardBlog';
 import Footer from '../components/layout/Footer';
+import { LuLoaderCircle } from "react-icons/lu";
 
 const Home = () => {
   return (
@@ -33,9 +34,8 @@ const Home = () => {
         <div className="mt-5">
           <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-3xl shadow-md hover:bg-primary/90 transition">
             Start Learning
-            <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 12a9 9 0 11-6.219-8.56" />
-            </svg>
+                {/* <LuLoaderCircle size={22} className="animate-spin" /> */}
+                <LuLoaderCircle size={22} className="" />
           </button>
         </div>
 
