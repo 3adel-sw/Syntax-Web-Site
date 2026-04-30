@@ -27,7 +27,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start ">
           {/* Form */}
           <div className="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-7 md:pt-12 md:pb-8 sm:py-8  ">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-4">
               {[
                 { label: "Full name", name: "fullName", type: "text", placeholder: "Full Name" },
                 { label: "Email", name: "email", type: "email", placeholder: "Full Name" },
@@ -52,13 +52,13 @@ const Contact = () => {
                 className="border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm  outline-none focus:border-[#6C4EF3] focus:bg-white focus:ring-2 focus:ring-[#6C4EF3]/20 transition-all resize-none"
               />
             </div>
-            <button className=" bg-primary   hover:bg-primary/90  text-white rounded-xl px-5 py-4 my-8 text-sm font-semibold flex items-center gap-2 transition-colors">
+            <button className=" bg-primary   hover:bg-primary/90 w-full md:w-[30%] sm:w-[30%]  text-white rounded-2xl px-5 py-4.5 my-8 text-sm font-semibold flex items-center justify-center gap-2 transition-colors">
               Send Message <ArrowRight size={14} />
             </button>
           </div>
 
          {/* Sidebar */}
-<div className="flex flex-col gap-3 border border-slate-200 rounded-2xl py-3 px-7 h-full">
+<div className="flex flex-col gap-3 border border-slate-200 rounded-2xl p-4 md:p-7 px-7 h-full">
 
   {/* Email Card */}
   <div className="bg-slate-100 rounded-2xl border border-slate-200 p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[140px]">

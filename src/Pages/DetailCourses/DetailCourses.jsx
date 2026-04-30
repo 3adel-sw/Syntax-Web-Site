@@ -10,6 +10,7 @@ import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
 import CapturedVideos from '../../components/Ui/CapturedVideos';
 import MainFooter from '../../components/Ui/MainFooter';
+import RegisterModal from '../../components/Ui/RegisterModal';
 import Questions from '../../components/Ui/Questions';
 import { FaBook } from "react-icons/fa";
 import { FaRegCopy } from "react-icons/fa";
@@ -21,12 +22,13 @@ import { LuLanguages } from "react-icons/lu";
 
 const DetailCourses = () => {
   const [activeTab, setActiveTab] = useState('overview');
-
-
+  // Register Modal
+const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const navigate = useNavigate();
   return (
    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
       <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
-
+    <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       {/* Course Title */}
       <h1 className="text-2xl text-left font-bold text-gray-900 mb-5">
         The Psychology Behind UX Design
@@ -91,9 +93,9 @@ const DetailCourses = () => {
         {/* Left: Content */}
       
         {/* Right: Course Card */}
-        <div className="border border-gray-200 p-2 rounded-xl overflow-hidden h-fit">
+        <div className="border border-gray-200 bg-[#FCFCFD] p-3 rounded-xl overflow-hidden h-fit">
           {/* Course Image */}
-            <img src={Rectangle} alt="detailsCourses" className="w-full h-[150px] object-cover rounded-xl" />
+            <img src={Rectangle} alt="detailsCourses" className="w-full h-[250px] object-cover rounded-xl " />
           <div className="p-4">
             {/* Level */}
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
@@ -116,7 +118,9 @@ const DetailCourses = () => {
             </div>
 
             {/* Buttons */}
-            <button className="w-full py-3 bg-primary text-white rounded-lg text-sm font-semibold mb-2 hover:bg-primary/90 transition">
+            <button 
+            onClick={() => setIsRegisterOpen(true)} 
+            className="w-full py-3 bg-primary text-white rounded-lg text-sm font-semibold mb-2 hover:bg-primary/90 transition">
               Register Now
             </button>
             <button className="w-full py-3  text-primary rounded-lg text-sm font-semibold hover:bg-blue-50 my-4 transition">

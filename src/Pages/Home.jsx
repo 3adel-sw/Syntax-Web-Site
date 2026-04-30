@@ -52,7 +52,7 @@ const Home = () => {
         {/* Courses */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
-            <span className=' border border-gray-200  gap-2 mx-auto w-32 h-12 rounded-full  text-xl flex justify-center items-center'>
+            <span className=' border text-primary border-primary gap-2 mx-auto w-32 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={16} />
               Courses
             </span>
@@ -72,7 +72,7 @@ const Home = () => {
         {/* Testimonials */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
-            <span className=' border border-gray-200  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
+            <span className=' border text-primary border-primary  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={20} />
               Testimonials
             </span>
@@ -84,7 +84,7 @@ const Home = () => {
         {/* Latest Blog */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
-            <span className=' border border-gray-200  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
+            <span className=' border text-primary border-primary  gap-2 mx-auto w-28 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={20} />
               Blog
             </span>
