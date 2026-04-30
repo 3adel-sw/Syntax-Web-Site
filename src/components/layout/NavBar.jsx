@@ -53,10 +53,10 @@ const NavBar = () => {
           <UserDropdown />
           {/* Menu button */}
       <button
-  className=" relative md:w-26  md:h-10 sm:w-22 sm:h-8 w-20 h-8 text-xs  flex gap-4 items-center justify-center text-white rounded-2xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"
+  className=" relative md:w-26  md:h-11 sm:w-22 sm:h-8 w-21 px-2 h-8 text-xs  flex  md:gap-4 gap-1  items-center justify-center text-white rounded-2xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"
   onClick={() => setMenuOpen(!menuOpen)}
 >
-  {menuOpen ? <X size={18} /> : <Menu size={18} />}
+  {menuOpen ? <X size={16} /> : <Menu size={16} />}
   Menu
 </button>
         </div>
