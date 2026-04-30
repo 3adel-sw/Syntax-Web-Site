@@ -107,9 +107,9 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
             <span className="text-gray-400 font-medium text-base">{date}</span>
           </div>
-          <div className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
+          {/* <div className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
             <ArrowUpRight size={13} className="text-gray-400 group-hover:text-white transition-colors" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -176,7 +176,7 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
   return (
     <>
       {/* Mobile Slider */}
-      <div className="md:hidden mt-8">
+      <div className="md:hidden my-12">
         <div
           ref={containerRef}
           className="overflow-hidden rounded-lg"

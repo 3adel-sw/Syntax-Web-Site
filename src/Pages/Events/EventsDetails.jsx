@@ -85,7 +85,7 @@ const EventsDetails = () => {
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl    mx-auto ">
       <div className="  sm:max-w-5xl md:max-w-6xl w-[98%] lg:w-full text-center mx-1">
 
-      <div className="py-2 px-4 border border-gray-200 rounded-2xl">
+      <div className="py-2 px-4 border bg-white border-gray-200 rounded-2xl">
         {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8  my-8 ">
           {/* ── LEFT: Content + Form ── */}
@@ -121,8 +121,8 @@ const EventsDetails = () => {
             <h2 className="text-lg text-left font-bold text-gray-900 mb-2">More About Speakers</h2>
             <p className="text-base text-left  text-gray-500 leading-relaxed mb-8">{EVENT.aboutSpeakers}</p>
             {/* ── Registration Form ── */}
-            {/* <h2 className="text-lg font-semibold text-gray-900 mb-4">Event Registration</h2> */}
-            {/* <RegistrEvents /> */}
+            <h2 className="text-xl text-left font-semibold text-gray-900 mb-4">Event Registration</h2> 
+             <RegistrEvents />
             
           </div>
           {/* ── RIGHT: Event Card + Speakers ── */}

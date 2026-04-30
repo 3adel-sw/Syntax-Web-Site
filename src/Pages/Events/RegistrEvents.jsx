@@ -74,10 +74,10 @@ const RegistrEvents = () => {
 
     
   return (
-   <div className="space-y-3 bg-gray-50 rounded-2xl p-5">
+   <div className="space-y-3 bg-gray-100 rounded-2xl p-5">
               {/* Full Name */}
               <div>
-                <label className="text-xs text-gray-500 mb-1 block">Full name</label>
+                <label className="text-xs md:text-sm text-left text-gray-500 mb-1 block">Full name</label>
                 <input
                   name="fullName"
                   value={form.fullName}
@@ -90,7 +90,7 @@ const RegistrEvents = () => {
               {/* Email + Phone */}
               <div className="grid grid-cols-2 gap-3 ">
                 <div>
-                  <label className="text-xs text-gray-500 mb-1 block">Email</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Email</label>
                   <input
                     name="email"
                     type="email"
@@ -101,7 +101,7 @@ const RegistrEvents = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500 mb-1 block">Phone</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Phone</label>
                   <input
                     name="phone"
                     type="tel"
@@ -116,7 +116,7 @@ const RegistrEvents = () => {
               {/* Experience + Country */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs text-gray-500 mb-1 block">Experience Level</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Experience Level</label>
                   <div className="relative">
                     <select
                       name="experience"
@@ -133,7 +133,7 @@ const RegistrEvents = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500 mb-1 block">Country</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Country</label>
                   <input
                     name="country"
                     value={form.country}
@@ -147,7 +147,7 @@ const RegistrEvents = () => {
               {/* Submit */}
               <button
                 onClick={handleSubmit}
-                className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition mt-2"
+                className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-3 mt-3 rounded-2xl transition mt-2"
               >
                 Register Now
                 <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
