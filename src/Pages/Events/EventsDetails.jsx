@@ -91,7 +91,7 @@ const EventsDetails = () => {
           {/* ── LEFT: Content + Form ── */}
           <div>
              {/* ── Title ── */}
-        <h1 className="text-[40px] font-semibold text-left text-gray-900 mb-6">
+        <h1 className="md:text-[40px] text-2xl font-semibold text-left text-gray-900 mb-6">
           {EVENT.title}
         </h1>
         {/* ── Meta Bar ── */}

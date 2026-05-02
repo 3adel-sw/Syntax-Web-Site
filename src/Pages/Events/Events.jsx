@@ -95,10 +95,10 @@ function Events() {
 
       {/* ── Hero Header ── */}
       <div className="mb-6 text-left">
-        <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+        <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight">
           Connect, Learn, and Grow with the Community
         </h1>
-        <p className="text-sm text-gray-500 mt-1 max-w-3xl">
+        <p className="text-sm text-gray-500 my-2 max-w-3xl">
           Join our vibrant Design community through engaging events and meetups. Network with industry experts,
           exchange ideas, and stay ahead of trends in design, technology, and user experience.
         </p>
@@ -130,7 +130,7 @@ function Events() {
 
       {/* ── Upcoming Events ── */}
       <section className="mb-10">
-        <h2 className="text-3xl text-left font-semibold text-gray-900 mb-5">Upcoming Events</h2>
+        <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">Upcoming Events</h2>
         <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
           {/* Image */}
           <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-0">
@@ -142,7 +142,7 @@ function Events() {
           </div>
           {/* Details */}
           <div className=" md:p-6 p-3 flex flex-col justify-center gap-2 space-y-2">
-            <h3 className="text-4xl text-left font-semibold text-gray-900">{UPCOMING_EVENT.title}</h3>
+            <h3 className="md:text-4xl text-xl text-left font-semibold text-gray-900">{UPCOMING_EVENT.title}</h3>
             <div className="flex flex-wrap gap-4  text-gray-500">
               <span className="flex text-base items-center gap-1">
                 <MapPin size={24} className="text-gray-400" />
@@ -172,7 +172,7 @@ function Events() {
       
       {/* ── All Events ── */}
       <section className="mb-18">
-        <h2 className="text-3xl text-left font-bold text-gray-900 mb-4">All Events</h2>
+        <h2 className="md:text-3xl text-2xl text-left font-bold text-gray-900 mb-4">All Events</h2>
         
         {/* Mobile Slider */}
         <div className="md:hidden">
