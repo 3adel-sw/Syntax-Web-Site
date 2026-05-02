@@ -170,7 +170,7 @@ const EventsDetails = () => {
                       }}
                     />
                     <span
-                      className="w-10 h-10 rounded-full bg-indigo-100 text-primary items-center justify-center flex-shrink-0 hidden"
+                      className="w-10 h-10 rounded-full bg-indigo-100 text-primary items-center justify-center flex-shrink-1 hidden"
                     >
                       <User size={18} />
                     </span>
@@ -191,8 +191,8 @@ const EventsDetails = () => {
       </div>
                 {/* Other Events */}
                 <div className="my-10">
-        <div className="flex items-center justify-between md:my-6 sm:my-4 mb-3">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Other Events</h2>
+        <div className="flex items-center justify-between md:my-6 sm:my-4 my-6">
+          <h2 className="md:text-2xl text-xl font-bold text-gray-900 ">Other Events</h2>
           <button onClick={() => navigate('/events')}
            className="text-sm text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition">View All</button>
         </div>
@@ -214,7 +214,7 @@ const EventsDetails = () => {
               }}
             >
               {otherEvents.map((event) => (
-                <div key={event.id} className="min-w-full flex-shrink-0 px-2">
+                <div key={event.id} className="min-w-full flex-shrink-1 px-2">
                   <EventCard event={event} />
                 </div>
               ))}

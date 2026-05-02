@@ -36,7 +36,7 @@ const Footer = () => {
       </div>
 
       {/* Links wrapper: on mobile = 3 cols in one row, on desktop = 3 separate grid cols */}
-      <div className="grid grid-cols-3 md:contents gap-6 md:gap-0">
+      <div className="grid grid-cols-2 text-left md:text-center md:contents gap-6 md:gap-0">
 
         {/* Solutions */}
         <div >
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Company */}
-        <div>
+        <div className="hidden md:flex flex-col gap-6">
           <h4 className="text-lg font-bold text-gray-750 mb-4">Company</h4>
           <ul className="space-y-4.5 text-sm text-gray-500">
             {["About", "History", "Contact"].map(item => (
@@ -69,6 +69,15 @@ const Footer = () => {
         </div>
 
       </div>
+      {/* Company Mobile*/}
+        <div className="md:hidden flex flex-col  items-start  gap-6">
+          <h4 className="text-lg font-semibold text-gray-750 ">Company</h4>
+          <ul className="flex flex-row gap-4  text-sm text-gray-500">
+            {["About", "History", "Contact"].map(item => (
+              <li key={item}><a href="/Contact" className="hover:text-primary transition-colors">{item}</a></li>
+            ))}
+          </ul>
+        </div>
     </div>
 
     {/* Bottom copyright */}

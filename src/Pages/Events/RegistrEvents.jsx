@@ -147,7 +147,7 @@ const RegistrEvents = () => {
               {/* Submit */}
               <button
                 onClick={handleSubmit}
-                className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-3 mt-3 rounded-2xl transition mt-2"
+                className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-3 md:mt-2.5mt-3 rounded-2xl transition my-4"
               >
                 Register Now
                 <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

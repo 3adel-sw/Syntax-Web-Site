@@ -120,14 +120,7 @@ function Events() {
           </button>
         ))}
       </div>
-      {/* Mobile Tab Slider */}
-      <TabSlider
-        tabs={FILTER_TABS}
-        activeTab={activeFilter}
-        setActiveTab={setActiveFilter}
-        className="md:hidden mb-4"
-      />
-
+    
       {/* ── Upcoming Events ── */}
       <section className="mb-10">
         <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">Upcoming Events</h2>
@@ -169,13 +162,20 @@ function Events() {
           </div>
         </div>
       </section>
-      
+        {/* Mobile Tab Slider */}
+      <TabSlider
+        tabs={FILTER_TABS}
+        activeTab={activeFilter}
+        setActiveTab={setActiveFilter}
+        className="md:hidden mb-4"
+      />
+
       {/* ── All Events ── */}
       <section className="mb-18">
         <h2 className="md:text-3xl text-2xl text-left font-bold text-gray-900 mb-4">All Events</h2>
         
         {/* Mobile Slider */}
-        <div className="md:hidden">
+        {/* <div className="md:hidden">
           <div
             ref={containerRef}
             className="overflow-hidden rounded-lg"
@@ -208,10 +208,10 @@ function Events() {
               />
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
