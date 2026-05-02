@@ -31,7 +31,7 @@ const Home = () => {
 
         {/* Button */}
         <div className="mt-5">
-          <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-3xl shadow-md hover:bg-primary/90 transition">
+          <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-2xl shadow-md hover:bg-primary/90 transition">
             Start Learning
                 {/* <LuLoaderCircle size={22} className="animate-spin" /> */}
                 <LuLoaderCircle size={22} className="" />
@@ -51,7 +51,7 @@ const Home = () => {
         {/* Courses */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
-            <span className=' border text-primary border-primary gap-2 mx-auto w-32 h-12 rounded-full  text-xl flex justify-center items-center'>
+            <span className=' border text-primary border-primary gap-2 mx-auto md:w-32 w-28  h-12 rounded-full  md:text-xl text-base flex justify-center items-center'>
               <MessageSquare size={16} />
               Courses
             </span>
@@ -70,12 +70,12 @@ const Home = () => {
         </div>
         {/* Testimonials */}
         <div className='md:my-22 sm:my-16 my-12 lg:my-24'>
-          <div className=' space-y-5'>
+          <div className=' space-y-2'>
             <span className=' border text-primary border-primary  gap-2 mx-auto w-38 h-12 rounded-full  text-xl flex justify-center items-center'>
               <MessageSquare size={20} />
               Testimonials
             </span>
-            <h3 className='text-3xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
+            <h3 className='md:text-3xl text-2xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
             {/* Cards Testimonials */}
             <CardsTestimonials />
           </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import Curriculum from "./Curriculum";
 import Overview from "./Overview";
 import { MessageSquare } from 'lucide-react';
@@ -24,7 +24,7 @@ const DetailCourses = () => {
   const [activeTab, setActiveTab] = useState('overview');
   // Register Modal
 const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const navigate = useNavigate();
+
   return (
    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
@@ -59,7 +59,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
         </button>
       </div>
       {/* Main Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6 text-left">
+      <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-left">
          {/* Tabs */}
          <div className="flex flex-col w-full">
       <div className="flex flex-row max-w-3xl gap-2 bg-gray-100 p-3 h-16  mb-6 rounded-xl">
@@ -86,14 +86,10 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
       </div>
       <div >
          {activeTab === 'overview' && <Overview />}
-      {activeTab === 'curriculum' && <Curriculum />}
-      </div>
-      </div>
-
-        {/* Left: Content */}
-      
-        {/* Right: Course Card */}
-        <div className=" bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
+          {activeTab === 'curriculum' && <Curriculum />}
+        </div>
+        </div>
+           <div className=" bg-gray-100 p-4  rounded-2xl overflow-hidden h-fit">
           {/* Course Image */}
             <img src={Rectangle} alt="detailsCourses" className="w-full h-[250px] object-cover rounded-2xl " />
           <div className="p-4">
@@ -129,6 +125,9 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
         </div>
       </div>
 
+      {/* Sections below (Only on Overview) */}
+      {activeTab === 'overview' && (
+        <>
       {/* Why Choose Us */}
           <ChooseUs />
     {/* Testimonials */}
@@ -149,6 +148,8 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
         <CapturedVideos />
         {/* Footer */}
         <MainFooter />
+        </>
+      )}
     </div>
     </div>
   );

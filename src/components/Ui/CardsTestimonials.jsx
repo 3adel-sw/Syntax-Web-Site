@@ -82,15 +82,15 @@ const splitIntoColumns = (arr, cols) => {
 };
 
 const TestimonialCard = ({ quote, name, role, initials, color }) => (
-  <div className="bg-white border md:space-y-9 space-y-4 border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
-    <p className="text-sm text-gray-700 text-left leading-relaxed">{quote}</p>
+  <div className="bg-white border space-y-9  border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
+    <p className="text-base text-gray-700 text-left leading-relaxed">{quote}</p>
     <div className="flex items-center gap-3">
-      <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 ${color}`}>
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-base font-semibold flex-shrink-1 ${color}`}>
         {initials}
       </div>
       <div className="text-left">
-        <p className="text-sm font-semibold text-gray-900">{name}</p>
-        <p className="text-xs text-gray-400">{role}</p>
+        <p className="text-base font-semibold text-gray-900">{name}</p>
+        <p className="text-sm text-gray-400">{role}</p>
       </div>
     </div>
   </div>
@@ -143,7 +143,7 @@ const CardsTestimonials = () => {
   return (
     <>
       {/* Mobile Slider */}
-      <div className="md:hidden my-16 mx-2">
+      <div className="md:hidden space-y-5 my-8 mx-2">
         <div
           ref={containerRef}
           className="overflow-hidden rounded-2xl"
@@ -180,7 +180,7 @@ const CardsTestimonials = () => {
       </div>
 
       {/* Desktop Grid */}
-      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 sm:mt-18 mt-16 items-start">
+      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 mt-2 items-start">
         {columns.map((col, colIdx) => {
           const isSide = colIdx === 0 || colIdx === 2;
           const isFirst = colIdx === 0;

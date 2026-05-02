@@ -6,7 +6,7 @@ import { GoPlus } from "react-icons/go";
 const CommunityCards = () => {
   return (
     <>
-    <div className="flex gap-4 mb-5 md:my-15 flex-col md:flex-row">
+    <div className="flex gap-4 mb-5 mt-12 md:my-15 flex-col md:flex-row">
 
   {/* Card 1 — Image 47% */}
   <div className="rounded-2xl md:w-[47%] w-full overflow-hidden relative flex flex-col justify-center  p-5 min-h-[220px]"

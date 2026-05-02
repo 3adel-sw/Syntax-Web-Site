@@ -12,7 +12,7 @@ const CardContact = () => {
   ];
 
   return (
-    <div className="rounded-3xl w-[99%] md:w-full mt-6 md:mt-10 flex flex-col md:flex-row items-stretch overflow-hidden md:h-[32rem]">
+    <div className="rounded-4xl w-[99%] md:w-full mt-12 md:mt-14 flex flex-col md:flex-row items-stretch overflow-hidden md:h-[32rem]">
 
       {/* Left — Text */}
       <div className="flex flex-col justify-center items-center md:items-start px-6 md:px-16 py-10 bg-[#282828] w-full md:w-[52%] text-center md:text-left">

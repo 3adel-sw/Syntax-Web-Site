@@ -2,7 +2,7 @@
   import { useNavigate } from 'react-router';
   import { Clock, BookOpen } from 'lucide-react';
   import Video from '../../assets/12345.mp4';
-  // import CardCouses from '../../assets/CourseCard.svg';
+  import CardCouses from '../../assets/CourseCard.svg';
   import { LuLoaderCircle } from "react-icons/lu";
 
   const courses = [
@@ -12,7 +12,8 @@
       title: "UX/UI Design Master Course",
       level: "Beginner",
       duration: "20 sessions",
-      video: Video,
+      video: null,
+      img:CardCouses,
     },
     {
       id: 2,
@@ -22,7 +23,8 @@
       duration: "10 hours",
       bg: "#F8F8F8", 
       video: Video,
-    },
+      img:CardCouses,
+      },
     {
       id: 3,
       tag: "OFFLINE MEETUP",
@@ -30,7 +32,8 @@
       level: "All Levels",
       duration: "3 hours",
     bg: "#F8F8F8", 
-      video: Video,
+      video: null,
+    img:CardCouses,
     },
     {
       id: 4,
@@ -39,7 +42,8 @@
       level: "All Levels",
       duration: "2 days",
      bg: "#F8F8F8", 
-      video: Video,
+      video: null,
+    img:CardCouses,
     },
     {
       id: 5,
@@ -49,6 +53,7 @@
       duration: "15 hours",
       bg: "#F8F8F8", 
       video: Video,
+    img:CardCouses,
     },
     {
       id: 6,
@@ -58,26 +63,14 @@
       duration: "8 hours",
       bg: "#F8F8F8", 
       video: Video,
+    img:CardCouses,
     },
   ];
 
   const CourseCard = ({ course, navigate }) => {
-    const videoRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
 
     const handleClick = () => {
-      if (course.video && videoRef.current) {
-        if (isPlaying) {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-          setIsPlaying(false);
-        } else {
-          videoRef.current.play();
-          setIsPlaying(true);
-        }
-      } else {
         navigate(`/courses/${course.id}`);
-      }
     };
 
     return (
@@ -85,33 +78,19 @@
         onClick={handleClick} 
         className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
       >
-        {/* Thumbnail / Video */}
+        {/* Thumbnail /Img */}
         <div className={`${course.bg} h-68 flex items-center rounded-2xl justify-center relative overflow-hidden`}>
-          {course.video ? (
+          {course.img ? (
             <>
-              <video
-                ref={videoRef}
-                src={course.video}
+              <img
+                src={course.img}
                 className="w-full h-full object-cover"
-                muted
-                loop
-                onMouseEnter={e => e.target.play()}
-                onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; setIsPlaying(false); }}
+                alt="Course Thumbnail"
               />
-              {/* Play / Pause overlay */}
-              <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}>
-                <div className="w-11 h-11 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <polygon points="4,2 14,8 4,14" fill="#4a6cf7" />
-                  </svg>
-                </div>
-              </div>
             </>
           ) : (
             <div className="w-11 h-11 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <polygon points="4,2 14,8 4,14" fill="#4a6cf7" />
-              </svg>
+              <img src={course.img} alt="Course Thumbnail" />
             </div>
           )}
         </div>
@@ -201,7 +180,7 @@
     return (
       <>
         {/* Mobile Slider */}
-        <div className="md:hidden mt-8 my-8">
+        {/* <div className="md:hidden mt-8 my-8">
           <div
             ref={containerRef}
             className="overflow-hidden rounded-lg"
@@ -235,10 +214,10 @@
               />
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
+        <div className=" md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
           {displayedCourses.map(course => (
             <CourseCard key={course.id} course={course} navigate={navigate} />
           ))}

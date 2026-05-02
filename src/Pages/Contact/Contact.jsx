@@ -84,7 +84,7 @@ const Contact = () => {
         </div>
 
  {/* ── COMMUNITY  ── */}
-      <CommunityCards/>
+      <CommunityCards />
       {/* ── SUBSCRIBE  ── */}
        <Subscribe/>
       </div>
