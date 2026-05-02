@@ -24,7 +24,7 @@ const NavBar = () => {
   const navLinks = [
     { label: "Blogs", path: "/blogs" },
     { label: "Contact", path: "/contact" },
-    { label: "DetailCourses", path: "/courses/1" },
+    // { label: "DetailCourses", path: "/courses/1" },
     { label: "Courses", path: "/courses" },
     { label: "Events", path: "/events" },
   ];
@@ -52,12 +52,12 @@ const NavBar = () => {
           {/* User dropdown */}
           <UserDropdown  className="text-[#F7F4F2]"/>
           {/* Menu button */}
-      <button
-  className=" relative md:w-26  md:h-11 sm:w-22 sm:h-8 w-21 px-2 h-8 text-xs  flex  md:gap-4 gap-1  items-center justify-center text-white rounded-2xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"
+     <button
+  className="relative md:w-26 md:h-11 sm:w-22 sm:h-8 w-10 px-2 h-8 text-xs flex md:gap-4 gap-1 items-center justify-center text-white rounded-xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"
   onClick={() => setMenuOpen(!menuOpen)}
 >
   {menuOpen ? <X size={16} /> : <Menu size={16} />}
-  Menu
+  <span className="hidden md:inline">Menu</span>
 </button>
         </div>
         {/* Dropdown */}
