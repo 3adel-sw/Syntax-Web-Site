@@ -30,7 +30,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
     <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       {/* Course Title */}
-      <h1 className="text-2xl text-left font-bold text-gray-900 mb-5">
+    <h1 className="md:text-2xl text-xl text-left md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
         The Psychology Behind UX Design
       </h1>
 
@@ -41,20 +41,20 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
       </div>
 
       {/* Meta Bar */}
-      <div className="flex flex-wrap items-center gap-4 mb-5 pb-4 md:mx-0 mx-auto justify-center ">
+      <div className=" grid grid-cols-2 md:grid-cols-5  gap-4 mb-5 pb-4 md:mx-0 mx-auto mb-16 md:mb-4  ">
         {[
           { icon: <GoFileDirectory />, label: 'Category', value: 'UX Design' },
           { icon: <GrCertificate />, label: 'Certification', value: 'Yes' },
           { icon: <LuLanguages />, label: 'Languages', value: 'English' },
         ].map((item) => (
           <span key={item.label} className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5">
-            {item.icon} {item.label}: <strong className="text-gray-800">{item.value}</strong>
+            {item.icon} {item.label}: <strong className="text-gray-800 md:text-sm text-xs">{item.value}</strong>
           </span>
         ))}
-        <button className="flex items-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+        <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
           <CiShare2 /> Share
         </button>
-        <button className="flex items-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+        <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
           <FaRegCopy /> Copy Link
         </button>
       </div>
@@ -137,7 +137,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
               <MessageSquare size={20} />
               Testimonials
             </span>
-            <h3 className='text-3xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
+            <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>What are people saying</h3>
             {/* Cards Testimonials */}
             <CardsTestimonials />
           </div>

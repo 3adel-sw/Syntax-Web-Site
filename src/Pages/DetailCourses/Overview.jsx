@@ -1,7 +1,7 @@
 const Overview = () => {
     return (
         <>
-              <h2 className="text-xl font-bold text-gray-900 mb-3">Description</h2>
+              <h2 className=" text-2xl font-semibold text-gray-900 mb-3">Description</h2>
               <p className="text-base text-gray-500 leading-relaxed mb-4">
                 Master the art of digital marketing with this comprehensive course, designed to equip
                 you with the skills needed to build and execute successful marketing strategies.
@@ -22,7 +22,7 @@ const Overview = () => {
                 ))}
               </ul>
 
-              <h2 className="text-xl font-bold text-gray-900 mb-3">Certifications</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-3">Certifications</h2>
               <p className="text-base text-gray-500 leading-relaxed">
                 Upon completing this course, you'll receive a recognized digital marketing
                 certification that showcases your expertise and commitment to professional growth.
