@@ -10,7 +10,7 @@ import { FaLinkedin } from "react-icons/fa";
 const Footer = () => {
   return (
    <div className="pb-2 mx-auto my-10 w-full">
-  <div className="md:max-w-full mx-auto bg-[#F7F4F2] border border-gray-200 rounded-3xl px-10 py-10">
+  <div className="md:max-w-full mx-auto bg-[#F2F4F7] rounded-3xl px-10 py-10">
     
     {/* Grid: mobile = brand full width + 3 cols below | desktop = 4 cols */}
     <div className="grid grid-cols-1 md:grid-cols-4 md:gap-20 gap-8">

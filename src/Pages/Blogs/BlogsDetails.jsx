@@ -84,23 +84,23 @@ const BlogsDetails = () => {
                     {/* Article Body */}
                     <article className="space-y-6 text-[15px] leading-relaxed text-gray-600 text-left">
                         <section>
-                            <h2 className="text-lg font-bold text-gray-900 mb-3">Introduction</h2>
-                            <p>{blog.content.introduction}</p>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Introduction</h2>
+                            <p className="text-[16px]">{blog.content.introduction}</p>
                         </section>
 
                         <section>
-                            <h2 className="text-lg font-bold text-gray-900 mb-3">Conclusion</h2>
-                            <p>{blog.content.conclusion}</p>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Conclusion</h2>
+                            <p className="text-[16px]">{blog.content.conclusion}</p>
                         </section>
 
                         <section>
-                            <h2 className="text-lg font-bold text-gray-900 mb-3">Content</h2>
-                            <p>{blog.content.body}</p>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Content</h2>
+                            <p className="text-[16px]">{blog.content.body}</p>
                         </section>
 
                         <section>
-                            <h2 className="text-lg font-bold text-gray-900 mb-3">Conclusion</h2>
-                            <p>{blog.content.conclusion}</p>
+                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Conclusion</h2>
+                            <p className="text-[16px]">{blog.content.conclusion}</p>
                         </section>
                     </article>
 
@@ -109,7 +109,7 @@ const BlogsDetails = () => {
             {/* Cards Related  */}
             <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
               <div className=' space-y-5'>
-                <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Related Blogs</h3>
+                <h3 className='text-3xl text-left font-bold text-gray-800 leading-snug'>Related Blogs</h3>
                 <CardBlog activeCategory="All Blogs" limit={3} />
               </div>
             </div>

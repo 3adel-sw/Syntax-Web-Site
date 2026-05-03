@@ -30,7 +30,7 @@ const Courses = () => {
 
         {/* All Courses section */}
         <div className='mt-12 md:mt-12 md:mb-6'>
-          <h1 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2">All Courses</h1>
+          <h1 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2 md:mb-6">All Courses</h1>
 
           {/* Desktop Filter Tabs */}
           <div className='hidden md:flex gap-2 flex-wrap mb-2'>

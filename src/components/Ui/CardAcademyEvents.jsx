@@ -34,6 +34,14 @@ const CardAcademyEvents = () => {
     //   window.open(blogUrl, '_blank'); // Open in new tab
     // }
   };
+  const handleCardAcademyClick = () => {
+       navigate('/courses'); // Navigate to the events page
+    // if (thumb) {
+    //   const blogUrl = `/blogs/${id}`;
+
+    //   window.open(blogUrl, '_blank'); // Open in new tab
+    // }
+  };
 
   return (
     <div className='md:my-10 my-12'>
@@ -41,7 +49,7 @@ const CardAcademyEvents = () => {
             <div className="my-12  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card Our Academy/> */}
                 <div
-                onClick={handleCardEventClick}
+                onClick={handleCardAcademyClick}
                 className="bg-white pb-12  cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm [#E5E5E5] border-gray-300   ">
                   <div className="w-full h-80 bg-gray-300 mb-4">
                      <img src={Invitemembers} className='w-full h-full object-cover' alt="meet" /> 

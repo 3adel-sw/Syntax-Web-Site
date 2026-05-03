@@ -49,7 +49,7 @@ const Contact = () => {
               <textarea
                 name="message" placeholder="Write your Message" rows={4}
                 value={form.message} onChange={handleChange}
-                className="border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm  outline-none focus:border-[#6C4EF3] focus:bg-white focus:ring-2 focus:ring-[#6C4EF3]/20 transition-all resize-none"
+                className="border border-slate-200 min-h-[7.5rem] max-h-[8.8rem] rounded-xl px-3.5 py-2.5 text-sm  outline-none focus:border-[#6C4EF3] focus:bg-white focus:ring-2 focus:ring-[#6C4EF3]/20 transition-all resize-none"
               />
             </div>
             <button className=" bg-primary   hover:bg-primary/90 w-full md:w-[30%] sm:w-[30%]  text-white rounded-2xl px-5 py-4.5 my-8 text-sm font-semibold flex items-center justify-center gap-2 transition-colors">

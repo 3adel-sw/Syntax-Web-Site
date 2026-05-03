@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import imgHome from '../assets/homeBg.svg';
 import { Sparkle,  MessageSquare } from 'lucide-react';
 import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
@@ -7,19 +8,29 @@ import CardsTestimonials from '../components/Ui/CardsTestimonials';
 import CardBlog from '../components/Ui/CardBlog';
 import Footer from '../components/layout/Footer';
 import { LuLoaderCircle } from "react-icons/lu";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    document.body.style.background = "#FFFFFF"; 
+    return () => {
+      document.body.style.background = "#FCFCFB"; 
+    };
+  }, []);
+
+
   return (
-    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+    <div className="min-h-screen home-page  flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         {/* Badge */}
-        <div className="flex items-center sticky mx-auto gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
+        <div className="flex items-center sticky mx-auto md:mt-22 gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
          <Sparkle size={20} className="fill-primary text-primary animate-pulse" />
           Welcome to Syntax Community
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl md:text-5xl sm:text-4xl font-semibold text-gray-800 leading-snug">
+        <h1 className="text-2xl md:text-5xl  sm:text-4xl font-semibold text-gray-800 leading-snug">
           Learn, <span className="text-black">Create</span>, and Stay Inspired
         </h1>
 
@@ -31,7 +42,9 @@ const Home = () => {
 
         {/* Button */}
         <div className="mt-5">
-          <button className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-2xl shadow-md hover:bg-primary/90 transition">
+          <button
+          onClick={() => navigate('/courses')}
+          className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-2xl shadow-md hover:bg-primary/90 transition">
             Start Learning
                 {/* <LuLoaderCircle size={22} className="animate-spin" /> */}
                 <LuLoaderCircle size={22} className="" />
