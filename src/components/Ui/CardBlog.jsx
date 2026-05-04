@@ -115,7 +115,7 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
     </div>
   );
 };
-const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
+const CardBlog = ({ activeCategory, limit, showButton, ButtonContent, showSlider }) => {
   const navigate = useNavigate();
   const categoryMap = {
     "UI Design": "UI Design",
@@ -175,45 +175,45 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
 
   return (
     <>
-      {/* Mobile Slider */}
-      <div className="md:hidden my-12">
-        <div
-          ref={containerRef}
-          className="overflow-hidden rounded-lg"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
+      {/* {showSlider && (
+        <div className="md:hidden my-12">
           <div
-            className="flex"
-            style={{
-              transform: `translateX(${translateX}%)`,
-              transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
-            }}
+            ref={containerRef}
+            className="overflow-hidden rounded-lg"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            {displayedBlogs.map((blog) => (
-              <div key={blog.id} className="min-w-full flex-shrink-1 px-2">
-                <BlogCard {...blog} />
-              </div>
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(${translateX}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+              }}
+            >
+              {displayedBlogs.map((blog) => (
+                <div key={blog.id} className="min-w-full flex-shrink-1 px-2">
+                  <BlogCard {...blog} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center gap-2 mt-4">
+            {displayedBlogs.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                }`}
+              />
             ))}
           </div>
         </div>
- <div className="flex justify-center gap-2 mt-4">
-          {displayedBlogs.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
-              }`}
-            />
-          ))}
-        </div>
-    
-      </div>
+      )} */}
 
       {/* Desktop Grid */}
-      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
         {displayedBlogs.map(blog => (
           <BlogCard key={blog.id} {...blog} />
         ))}

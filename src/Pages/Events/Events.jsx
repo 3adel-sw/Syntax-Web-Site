@@ -154,7 +154,7 @@ function Events() {
               {UPCOMING_EVENT.description}
             </p>
             <button
-              onClick={() => navigate('/events-details')}
+              onClick={() => navigate(`/events-detail/${99}`)}
               className="mt-2 self-start flex items-center gap-2 bg-transparent border border-bg-gray-50 text-primary text-[16px] font-medium px-4 py-3 rounded-2xl hover:bg-gray-50 transition"
             >
               View Details <ArrowRight size={13} />

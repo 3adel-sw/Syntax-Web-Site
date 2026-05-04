@@ -20,9 +20,9 @@ const Courses = () => {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
         {/* Header */}
-        <div className='text-center md:text-left space-y-3'>
+        <div className=' space-y-3'>
           
-          <h1 className='md:text-[30px] text-base mt-4 font-bold text-gray-800'>Master Design Skills with Expert-Led Courses</h1>
+          <h1 className='md:text-[30px] text-base mt-4 font-bold text-left text-gray-800'>Master Design Skills with Expert-Led Courses</h1>
           <p className='text-gray-500 md:text-[22px] max-w-5xl text-left text-sm mb-2  '>
             Explore a range of UX, and GFX design courses crafted to help you build a strong foundation and master advanced techniques.
           </p>

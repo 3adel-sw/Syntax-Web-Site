@@ -55,7 +55,7 @@ const Blogs = () => {
       />
 
       {/* Cards */}
-      <CardBlog activeCategory={activeTab} />
+      <CardBlog activeCategory={activeTab} showSlider={false} />
        {/* Subscribe */}
         <Subscribe />
         {/* Footer */}

@@ -102,7 +102,7 @@ const Home = () => {
             </span>
             <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Latest Blog</h3>
             {/* Cards */}
-            <CardBlog activeCategory="All Blogs" limit={3} showButton />
+            <CardBlog activeCategory="All Blogs" limit={3} showButton showSlider />
           </div>
         </div>
         {/* Footer */}
