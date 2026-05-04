@@ -70,7 +70,7 @@
   const CourseCard = ({ course, navigate }) => {
 
     const handleClick = () => {
-        navigate(`/courses/${course.id}`);
+        navigate(`/courses-detail/${course.id}`);
     };
 
     return (

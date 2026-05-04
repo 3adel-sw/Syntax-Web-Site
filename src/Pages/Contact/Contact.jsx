@@ -72,7 +72,7 @@ const Contact = () => {
               ))}
             </div>
             <div className="flex flex-col gap-1.5 mb-4">
-              <label className="text-[12px] text-start font-semibold text-slate-700  tracking-wide">My Message</label>
+              <label className="text-[13px] text-start font-semibold text-slate-700 uppercase  tracking-wide">My Message</label>
               <textarea
                 name="message" placeholder="Write your Message" rows={4}
                 value={form.message} onChange={handleChange}

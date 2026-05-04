@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import { ArrowUpRight } from 'lucide-react';
+// import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router';
 // import  Video  from '../../assets/12345.mp4';
 //import  Test  from '../../assets/test.jpg';
@@ -57,7 +57,7 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
 
 
   const handleCardClick = () => {
-    navigate(`/blogs/${id}`);
+    navigate(`/blogs-detail/${id}`);
     // if (thumb) {
     //   const blogUrl = `/blogs/${id}`;
 

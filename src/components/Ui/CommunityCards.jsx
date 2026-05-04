@@ -14,8 +14,8 @@ const CommunityCards = () => {
     <div className="absolute inset-0"
       style={{ background: "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80') center/cover" }} />
     <div className="absolute inset-0 bg-black/50" />
-    <h3 className="relative text-left text-white font-semibold  text-3xl md-mb-3  top-13">Connect with Communites</h3>
-    <p className="relative text-left text-slate-300 text-base leading-relaxed top-14">
+    <h3 className="relative text-left text-white font-semibold  text-3xl md-mb-3  md:top-13 top-6">Connect with Communites</h3>
+    <p className="relative text-left text-slate-300 text-base leading-relaxed md:top-14 top-7">
       Discover communities and learn together, share question, problem, issues. Anything!
     </p>
   </div>

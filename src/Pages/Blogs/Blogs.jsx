@@ -22,7 +22,7 @@ const Blogs = () => {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
       {/* Header */}
-      <h1 className="text-3xl  text-left font-bold  text-gray-900 mb-2 md:my-4">
+      <h1 className="text-3xl  text-left font-bold  text-gray-900 mb-2 md:my-4 mt-11 md:mt-4">
         Welcome to the Syntax Blog
       </h1>
       <p className="text-[16px] text-left  text-gray-500 mb-8 ">
