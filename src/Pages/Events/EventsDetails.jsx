@@ -95,15 +95,15 @@ const EventsDetails = () => {
           {EVENT.title}
         </h1>
         {/* ── Meta Bar ── */}
-        <div className="flex flex-wrap items-center gap-3 mb-6 text-xs text-gray-500">
-          <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><MapPin size={12} /> {EVENT.location}</span>
+        <div className="grid grid-cols-3 text-center sm:grid-cols-4 md:grid-cols-6  gap-3 mb-6 text-xs text-gray-500">
+          <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {EVENT.location}</span>
           
-          <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><Calendar size={12} /> {EVENT.date}</span>
+          <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {EVENT.date}</span>
           
-          <span className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg"><Clock size={12} /> {EVENT.time}</span>
+          <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {EVENT.time}</span>
           
-          <button className="flex items-center gap-1 px-3 py-2.5 border border-gray-100 rounded-lg hover:text-gray-800"><Download size={12} /> {EVENT.mode}</button>
-          <button className="flex items-center px-3 py-2.5 border border-gray-100 rounded-lg gap-1 hover:text-gray-800 transition">
+          <button className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg hover:text-gray-800"><Download size={12} /> {EVENT.mode}</button>
+          <button className="flex items-center justify-center px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition">
             <Share2 size={12} /> Share
           </button>
         </div>

@@ -68,9 +68,9 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
   return (
     <div
       onClick={handleCardClick}
-     className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-3  overflow-hidden hover:-translate-y-1 hover:shadow-xl  cursor-pointer"
+     className="bg-white rounded-2xl border  h-[27rem] border-gray-200 p-3  overflow-hidden hover:-translate-y-1 hover:shadow-xl  cursor-pointer"
       >
-      <div className="h-62 flex items-center rounded-2xl justify-center relative overflow-hidden">
+      <div className="h-61 flex items-center rounded-2xl justify-center relative overflow-hidden">
         { thumb ? (
           <img
             src={thumb}
@@ -94,7 +94,7 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
       </div>
 
       {/* Body   */}
-      <div className="p-4 text-left">
+      <div className="px-2 py-4 text-left">
         <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
           {title}
         </h3>

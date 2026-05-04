@@ -54,7 +54,7 @@ const ChooseUs = () => {
 
   return (
     <div className="mt-16 text-center">
-      <h2 className="text-2xl font-bold text-gray-900 mb-8">Why Choose us?</h2>
+      <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-8">Why Choose us?</h2>
       
       {/* Mobile Slider */}
       <div className="md:hidden">

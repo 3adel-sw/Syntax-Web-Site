@@ -1,7 +1,14 @@
 import { Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const EventCard = ({ event }) => (
-  <div   className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+
+const EventCard = ({ event }) => {
+  const navigate = useNavigate();
+
+  return (
+  <div  
+  onClick={() => navigate(`/events-details/${event.id}`)}
+  className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
       >
          <div className="h-67 flex items-center rounded-2xl justify-center relative overflow-hidden">
       <div className="w-full h-full rounded-lg overflow-hidden">
@@ -29,5 +36,5 @@ const EventCard = ({ event }) => (
     </div>
   </div>
 );
-
+};
 export default EventCard;

@@ -62,7 +62,7 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
       <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-left">
          {/* Tabs */}
          <div className="flex flex-col w-full">
-      <div className="flex flex-row max-w-3xl gap-2 bg-gray-100 p-3 h-16  mb-6 rounded-xl">
+      <div className="flex flex-row max-w-4xl gap-2 bg-gray-100 p-3 h-16  mb-6 rounded-xl">
         <button
           onClick={() => setActiveTab('overview')}
            className={`flex-1   gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black   border rounded-lg transition-all ${
@@ -107,9 +107,9 @@ const [isRegisterOpen, setIsRegisterOpen] = useState(false);
             </div>
 
             {/* Group Pricing */}
-            <div className="flex border border-gray-200 p-3  rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
-              <span className="text-gray-400 font-semibold">Group Pricing</span>
-              <span className="text-gray-400 font-semibold">15% off</span>
+            <div className="flex border border-gray-200 p-3 bg-white rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
+              <span className="text-gray-800 font-bold">Group Pricing</span>
+              <span className="text-gray-800 font-bold">15% off</span>
             </div>
 
             {/* Buttons */}
