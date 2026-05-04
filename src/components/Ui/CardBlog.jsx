@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-// import { ArrowUpRight } from 'lucide-react';
+
 import { useNavigate } from 'react-router';
-// import  Video  from '../../assets/12345.mp4';
-//import  Test  from '../../assets/test.jpg';
 import  BlogCardImage  from '../../assets/blogC.jpg';
 import { useRef, useState, useEffect } from 'react';
 import { LuLoaderCircle } from "react-icons/lu";

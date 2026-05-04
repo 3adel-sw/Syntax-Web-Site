@@ -1,7 +1,7 @@
   import { useState, useRef, useEffect } from 'react';
   import { useNavigate } from 'react-router';
   import { Clock, BookOpen } from 'lucide-react';
-  import Video from '../../assets/12345.mp4';
+
   import CardCouses from '../../assets/CourseCard.svg';
   import { LuLoaderCircle } from "react-icons/lu";
 
@@ -22,7 +22,7 @@
       level: "Intermediate",
       duration: "10 hours",
       bg: "#F8F8F8", 
-      video: Video,
+      video: null,
       img:CardCouses,
       },
     {
@@ -52,7 +52,7 @@
       level: "Beginner",
       duration: "15 hours",
       bg: "#F8F8F8", 
-      video: Video,
+      video: null,
     img:CardCouses,
     },
     {
@@ -62,7 +62,7 @@
       level: "Intermediate",
       duration: "8 hours",
       bg: "#F8F8F8", 
-      video: Video,
+      video: null,
     img:CardCouses,
     },
   ];
