@@ -24,7 +24,7 @@ const Home = () => {
     <div className="min-h-screen home-page  flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         {/* Badge */}
-        <div className="flex items-center sticky mx-auto md:mt-22 gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
+        <div className="flex items-center sticky mx-auto md:mt-24 gap-4 justify-center md:w-72 w-65 h-12 md:h-14  py-2 mb-4 md:text-[16px] text-sm rounded-full border border-primary bg-white ">
          <Sparkle size={20} className="fill-primary text-primary animate-pulse" />
           Welcome to Syntax Community
         </div>

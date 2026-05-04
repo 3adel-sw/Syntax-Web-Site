@@ -1,10 +1,10 @@
-/** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-     "./**/*.{html,js,ts,jsx,tsx}",
-  ],
+  content: ["./**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        '3xl': '2100px',
+      },
       colors: {
         primary: "#323896",
         secondary: "#00ACEF",
@@ -17,7 +17,6 @@ export default {
         primaryHover: "#2a2f7d",
         greyTertiary: "#9CA3AF",
       },
-
       boxShadow: {
         card: "0 4px 10px rgba(0, 0, 0, 0.1)",
       },
@@ -25,3 +24,4 @@ export default {
   },
   plugins: [],
 };
+// export default

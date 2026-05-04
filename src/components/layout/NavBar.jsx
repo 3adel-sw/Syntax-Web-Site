@@ -21,6 +21,15 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [is3xl, setIs3xl] = useState(false);
+
+useEffect(() => {
+  const check = () => setIs3xl(window.innerWidth >= 2100);
+  check();
+  window.addEventListener('resize', check);
+  return () => window.removeEventListener('resize', check);
+}, []);
+
   const navLinks = [
     { label: "Blogs", path: "/blogs" },
     { label: "Contact", path: "/contact" },
@@ -32,11 +41,14 @@ const NavBar = () => {
   return (
     <>
       
-      <nav className={`syntax-navbar  md:py-4 sm:py-3 py-2 md:px-6 sm:px-6 px-4 top-0 left-0 sticky z-50
-      flex items-center justify-between transition-all duration-300 ${
-        isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"
-      }`}
-      >
+  <nav className={`syntax-navbar md:py-4 mx-auto sm:py-3 py-2 rounded-2xl md:px-6 sm:px-6 px-4 z-50
+  flex items-center justify-between transition-all duration-300
+  ${is3xl 
+    ? 'fixed top-0 left-1/2 -translate-x-1/2 w-[85%] ' 
+    : 'sticky top-0 left-0 w-full  '
+  }
+  ${isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"}`}
+>
         {/* Logo */}
         <Link to="/" className="">
           <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8 ">

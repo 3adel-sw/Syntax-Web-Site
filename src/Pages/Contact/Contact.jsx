@@ -90,14 +90,14 @@ const Contact = () => {
 <div className="flex flex-col gap-3 border border-slate-200 rounded-2xl p-4 md:p-7 px-7 h-full">
 
   {/* Email Card */}
-  <div className="bg-slate-100 rounded-2xl border border-slate-200 p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[140px]">
-    <Mail size={20} className="text-slate-500 bg-white w-12 text-black  h-12 p-3 rounded-xl flex items-center justify-center" />
+  <div className="bg-[#F6F8FB] rounded-2xl border border-slate-200 p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[140px]">
+    <Mail size={20} className=" bg-white w-12 text-black  h-12 p-3 rounded-xl flex items-center justify-center" />
     <p className="text-sm text-slate-700 font-medium">welcome@onsyntax.com</p>
   </div>
 
   {/* Phone Card */}
-  <div className="bg-slate-100 rounded-2xl border border-slate-200 p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[140px]">
-    <Phone size={20} className="text-slate-500 bg-white w-12 text-black  h-12 p-3 rounded-xl flex items-center justify-center" />
+  <div className="bg-[#F6F8FB] rounded-2xl border border-slate-200 p-5 flex flex-col items-center justify-center text-center gap-2 min-h-[140px]">
+    <Phone size={20} className=" bg-white w-12 text-black  h-12 p-3 rounded-xl flex items-center justify-center" />
     <p className="text-sm text-slate-700 font-medium">+01 00000 00000</p>
   </div>
 
