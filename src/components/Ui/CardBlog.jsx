@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import { useNavigate } from 'react-router';
-import  BlogCardImage  from '../../assets/blogC.jpg';
+import  BlogCardImage  from '../../assets/blogC.webp';
 import { useRef, useState, useEffect } from 'react';
 import { LuLoaderCircle } from "react-icons/lu";
 

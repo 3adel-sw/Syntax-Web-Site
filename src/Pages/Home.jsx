@@ -54,6 +54,7 @@ const Home = () => {
         </div>
 
         {/* Image */}
+         <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Image...</div>}> 
         <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl ">
           <img
             src={imgHome}
@@ -63,6 +64,7 @@ const Home = () => {
             className="rounded-2xl shadow-lg w-full h-full object-cover"
           />
         </div>
+         </Suspense>
         {/* Cards  */}
         <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Events...</div>}> 
           <CardAcademyEvents />
