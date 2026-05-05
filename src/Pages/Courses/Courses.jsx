@@ -6,14 +6,14 @@ import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
 
 const tabs = [
-  "All Events",
+  "All Courses",
   "Online Workshop",
   "Offline Meetup",
   "Mega Event",
 ];
 
 const Courses = () => {
-  const [activeTab, setActiveTab] = useState("All Events");
+  const [activeTab, setActiveTab] = useState("All Courses");
 
   return (
  <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
