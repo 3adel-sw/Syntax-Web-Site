@@ -1,100 +1,52 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import  Logo  from "@/assets/logoo.svg";
-import  {Menu , X ,ArrowRight} from "lucide-react";
+import { Link } from "react-router-dom";
+import Logo from "@/assets/logoo.svg";
 import LanguageDropdown from "@/components/Ui/LanguageDropdown";
 import UserDropdown from "@/components/Ui/UserDropdown";
-
-
-
+import MenuPanel from "@/components/Ui/Menu";
 
 const NavBar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const [is3xl, setIs3xl] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [is3xl, setIs3xl] = useState(false);
-
-useEffect(() => {
-  const check = () => setIs3xl(window.innerWidth >= 2100);
-  check();
-  window.addEventListener('resize', check);
-  return () => window.removeEventListener('resize', check);
-}, []);
-
-  const navLinks = [
-    { label: "Blogs", path: "/blogs" },
-    { label: "Contact", path: "/contact" },
-    // { label: "DetailCourses", path: "/courses/1" },
-    { label: "Courses", path: "/courses" },
-    { label: "Events", path: "/events" },
-  ];
+  useEffect(() => {
+    const check = () => setIs3xl(window.innerWidth >= 2100);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
-    <>
-      
-  <nav className={`syntax-navbar md:py-4 mx-auto sm:py-3 py-2 rounded-2xl md:px-6 sm:px-6 px-4 z-50
-  flex items-center justify-between transition-all duration-300
-  ${is3xl 
-    ? 'fixed top-0 left-1/2 -translate-x-1/2 w-[85%] ' 
-    : 'sticky top-0 left-0 w-full  '
-  }
-  ${isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"}`}
->
-        {/* Logo */}
-        <Link to="/" className="">
-          <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8 ">
-            <img src={Logo} alt="Syntax Logo" />
-          </div>
-        </Link>
-        {/* Right side */}
-        <div className="syntax-nav-right">
-          {/* Language dropdown */}
-          <div className="bg-gray-200 md:w-12 md:h-12 sm:w-10 sm:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
-            <LanguageDropdown />
-          </div>
-          {/* User dropdown */}
-          <UserDropdown  className="text-[#F7F4F2]"/>
-          {/* Menu button */}
-     <button
-  className="relative md:w-26 md:h-11 sm:w-22 sm:h-8 w-10 px-2 h-8 text-xs flex md:gap-4 gap-1 items-center justify-center text-white rounded-xl focus:outline-none focus:ring-2 bg-primary focus:ring-inset focus:ring-primary"
-  onClick={() => setMenuOpen(!menuOpen)}
->
-  {menuOpen ? <X size={16} /> : <Menu size={16} />}
-  <span className="hidden md:inline">Menu</span>
-</button>
+    <nav
+      className={`syntax-navbar md:py-4 mx-auto sm:py-3 py-2 rounded-2xl md:px-6 sm:px-6 px-4 z-50
+        flex items-center justify-between transition-all duration-300
+        ${is3xl ? "fixed top-0 left-1/2 -translate-x-1/2 w-[82%]" : "sticky top-0 left-0 w-full"}
+        ${isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"}`}
+    >
+      {/* Logo */}
+      <Link to="/">
+        <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8">
+          <img src={Logo} alt="Syntax Logo" />
         </div>
-        {/* Dropdown */}
-        {menuOpen && (
-          <>
-            <div className="syntax-overlay text-white" onClick={() => setMenuOpen(false)} />
-            <div className="syntax-dropdown">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.path}
-                  className={location.pathname === link.path ? "active" : ""}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                  <span className="arrow cursor-pointer">
-                    <ArrowRight size={16} />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-      </nav>
-    </>
+      </Link>
+
+      {/* Right side */}
+      <div className="syntax-nav-right">
+        <div className="bg-gray-200 md:w-12 md:h-12 sm:w-10 sm:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
+          <LanguageDropdown />
+        </div>
+        <UserDropdown className="text-[#F7F4F2]" />
+
+        {/* Menu component */}
+        <MenuPanel isScrolled={isScrolled} />
+      </div>
+    </nav>
   );
 };
 
