@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import imgHome from '../assets/homeBg.svg';
 import { Sparkle,  MessageSquare } from 'lucide-react';
-import CardAcademyEvents from '../components/Ui/CardAcademyEvents';
-import CardCourses from '../components/Ui/CardCourses';
-import CardGraduated from '../components/Ui/CardGraduated';
-import CardsTestimonials from '../components/Ui/CardsTestimonials';
-import CardBlog from '../components/Ui/CardBlog';
-import Footer from '../components/layout/Footer';
 import { LuLoaderCircle } from "react-icons/lu";
 import { useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+const CardAcademyEvents = lazy(() => import('../components/Ui/CardAcademyEvents'));
+const CardCourses = lazy(() => import('../components/Ui/CardCourses'));
+const CardGraduated = lazy(() => import('../components/Ui/CardGraduated'));
+const CardsTestimonials = lazy(() => import('../components/Ui/CardsTestimonials'));
+const CardBlog = lazy(() => import('../components/Ui/CardBlog'));
+const Footer = lazy(() => import('../components/layout/Footer'));
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -56,11 +58,15 @@ const Home = () => {
           <img
             src={imgHome}
             alt="community"
+            loading="eager"
+            fetchPriority="high"
             className="rounded-2xl shadow-lg w-full h-full object-cover"
           />
         </div>
         {/* Cards  */}
-        <CardAcademyEvents />
+        <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Events...</div>}> 
+          <CardAcademyEvents />
+        </Suspense>
         {/* Courses */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className=' space-y-5'>
@@ -70,7 +76,9 @@ const Home = () => {
             </span>
             <h3 className='md:text-3xl text-xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
             {/* Cards */}
-            <CardCourses activeCategory="All Events" limit={3} showButton />
+            <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Courses...</div>}>
+              <CardCourses activeCategory="All Events" limit={3} showButton />
+            </Suspense>
           </div>
         </div>
         {/* Graduates */}
@@ -78,7 +86,9 @@ const Home = () => {
           <div className=' space-y-5'>
             <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
             {/* Cards */}
-            <CardGraduated />
+            <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading...</div>}>
+              <CardGraduated />
+            </Suspense>
           </div>
         </div>
         {/* Testimonials */}
@@ -90,7 +100,9 @@ const Home = () => {
             </span>
             <h3 className='md:text-3xl text-2xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
             {/* Cards Testimonials */}
-            <CardsTestimonials />
+            <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Testimonials...</div>}>
+              <CardsTestimonials />
+            </Suspense>
           </div>
         </div>
         {/* Latest Blog */}
@@ -102,11 +114,15 @@ const Home = () => {
             </span>
             <h3 className='text-3xl font-bold text-gray-800 leading-snug'>Latest Blog</h3>
             {/* Cards */}
-            <CardBlog activeCategory="All Blogs" limit={3} showButton showSlider />
+            <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Blogs...</div>}>
+              <CardBlog activeCategory="All Blogs" limit={3} showButton showSlider />
+            </Suspense>
           </div>
         </div>
         {/* Footer */}
-        <Footer />
+        <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading Footer...</div>}>
+          <Footer />
+        </Suspense>
 
       </div>
     </div>

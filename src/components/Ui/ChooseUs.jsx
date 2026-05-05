@@ -75,7 +75,10 @@ const ChooseUs = () => {
             {items.map((item, i) => (
               <div key={i} className="min-w-full flex-shrink-1 px-4">
                 <div className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white h-full">
-                  <img className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
+                  <img 
+                  loading="eager"
+            fetchPriority="high"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
               <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{item.title}</p>
             <p className="md:text-base text-sm text-gray-500 text-center">{item.desc}</p>
                 </div>
@@ -100,8 +103,11 @@ const ChooseUs = () => {
       <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-6">
         {items.map((item, i) => (
           <div key={i} className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white">
-            <img className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
-            <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{item.title}</p>
+            <img 
+            loading="eager"
+            fetchPriority="high"
+            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
+              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{item.title}</p>
             <p className="md:text-base text-sm text-gray-500 text-center">{item.desc}</p>
           </div>
         ))}

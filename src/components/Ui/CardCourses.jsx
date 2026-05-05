@@ -83,6 +83,8 @@
           {course.img ? (
             <>
               <img
+              loading="eager"
+              fetchPriority="high"
                 src={course.img}
                 className="w-full h-full object-cover"
                 alt="Course Thumbnail"
@@ -90,7 +92,9 @@
             </>
           ) : (
             <div className="w-11 h-11 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-              <img src={course.img} alt="Course Thumbnail" />
+              <img 
+              loading="eager"
+              fetchPriority="high" src={course.img} alt="Course Thumbnail" />
             </div>
           )}
         </div>

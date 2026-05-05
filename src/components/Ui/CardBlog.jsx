@@ -71,6 +71,8 @@ const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
       <div className="h-61 flex items-center rounded-2xl justify-center relative overflow-hidden">
         { thumb ? (
           <img
+          loading="eager"
+          fetchPriority="high"
             src={thumb}
             alt={title}
             className="w-full h-full object-cover  group-hover:scale-105 transition-transform "

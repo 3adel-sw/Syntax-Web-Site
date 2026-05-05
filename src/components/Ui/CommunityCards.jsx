@@ -25,7 +25,10 @@ const CommunityCards = () => {
     >
     {/* Icon with lines */}
   <div className="relative flex items-center justify-center w-full mb-2 -mt-2  ">
-              <img src={cardplus} alt="cardplus" className="absolute w-full top-0 -right-8 rounded-2xl" />
+              <img
+                loading="eager"
+            fetchPriority="high"
+              src={cardplus} alt="cardplus" className="absolute w-full top-0 -right-8 rounded-2xl" />
     {/* Left line */}
     <div className="flex-1 w-full h-px bg-[#3E3E3F]" />
     {/* Icon circle */}

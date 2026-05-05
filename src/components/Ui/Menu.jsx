@@ -63,7 +63,7 @@ const Menu = ({ isScrolled }) => {
           hidden md:flex
           fixed right-2 top-0 z-50
           bg-[#FFFFFF]   shadow-2xl  border-l border-t  border-[#B2B9C6]  
-          p-6 pb-16 gap-6 w-[65%] h-full
+          p-6 pb-16 gap-6 md:w-[70%]  w-full lg:w-[68%]  h-full
           transition-all duration-200 origin-top-right
           ${menuOpen  
             ? "opacity-100 scale-100 pointer-events-auto"
@@ -91,7 +91,7 @@ const Menu = ({ isScrolled }) => {
       key={p.id}
       to={p.path}
       onClick={() => setMenuOpen(false)}
-      className={`flex items-center justify-between gap-4 px-4 py-6 rounded-xl transition-colors
+      className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2 sm:py-2 md:py-3 lg:py-7 py-1  rounded-xl transition-colors
         ${isActive
           ? "bg-primary text-white"
           : "border border-gray-100 hover:bg-gray-50"
@@ -108,11 +108,11 @@ const Menu = ({ isScrolled }) => {
 </div>
         
         <div className="text-left">
-          <p className={`text-xl font-medium leading-none mb-1
+          <p className={`md:text-base sm:text-sm lg:text-xl  text-xs font-medium leading-none mb-1
             ${isActive ? "text-white" : "text-black"}`}>
             {p.name}
           </p>
-          <p className={`text-base
+          <p className={`md:text-sm lg:text-xl sm:text-sm text-xs 
             ${isActive ? "text-white" : "text-black"}`}>
             {p.desc}
           </p>
@@ -138,7 +138,7 @@ const Menu = ({ isScrolled }) => {
         {/* <div className="w-px bg-gray-100 self-stretch" /> */}
 
         {/* Pages */}
-        <div className="w-[50%] shrink-1">
+        <div className="w-[45%] shrink-1">
           <p className="text-xl text-[#1D1C20] font-semibold tracking-widest  mb-3">Pages</p>
           <div className="flex flex-col gap-1">
             {pages.map((pg) => (
@@ -218,6 +218,8 @@ const Menu = ({ isScrolled }) => {
                     src={isActive ? LogoMenuWhite : logoMuneP}
                     alt="LogoMenu"
                     className="w-10 h-10"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </div>
                 <div>

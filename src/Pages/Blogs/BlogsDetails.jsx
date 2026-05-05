@@ -55,6 +55,8 @@ const BlogsDetails = () => {
                         <img
                             src={blog.thumb}
                             alt={blog.title}
+                            loading="eager"
+                            fetchPriority="high"
                             className="w-full h-full object-cover" />
                     </div>
 
