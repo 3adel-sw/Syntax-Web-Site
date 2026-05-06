@@ -61,7 +61,7 @@ const CardAcademyEvents = () => {
                       {/* You can replace this with an actual image or icon */}
                   </div>
                     <div className="px-4">
-                    <h3 className="text-2xl text-left font-semibold mb-2">Our Academy</h3>
+                    <h2 className="text-2xl text-left font-semibold mb-2">Our Academy</h2>
                     <p className="text-gray-600 text-left ">Automated expense management software built into your corporate card, reimbursements, and more</p>
                     </div>
                 </div>

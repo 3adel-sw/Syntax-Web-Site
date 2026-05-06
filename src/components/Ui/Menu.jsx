@@ -75,6 +75,7 @@ const Menu = ({ isScrolled }) => {
         <button
           className="absolute top-4 right-4 text-[#1D1C20] hover:text-red-500 transition-colors"
           onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
         >
           <X size={28} />
         </button>

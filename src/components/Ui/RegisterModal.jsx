@@ -13,6 +13,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Register in Course</h2>
           <button
+            aria-label="Close Menu"
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition"
           >

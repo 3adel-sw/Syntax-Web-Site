@@ -26,12 +26,19 @@ const Footer = () => {
         </p>
         {/* Social Icons */}
         <div className="flex items-start gap-3 mt-1">
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaFigma size={22} /></a>
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaFacebook size={22} /></a>
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaGithub size={22} /></a>
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaTwitter size={22} /></a>
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaInstagram size={22} /></a>
-          <a href="#" className="text-gray-900 hover:text-primary transition-colors"><FaLinkedin size={22} /></a>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+          href="https://www.figma.com/design/2oG92v3rP0w4yI6v2D7g8x/Syntax-Website?node-id=984-6130&t=iV1Q5X7w2Z9vY8xX-0" className="text-gray-900 hover:text-primary transition-colors"><FaFigma size={22} /></a>
+          <a target="_blank"
+            rel="noopener noreferrer" href="https://web.facebook.com/SYNTAXACADEMY" className="text-gray-900 hover:text-primary transition-colors"><FaFacebook size={22} /></a>
+          <a target="_blank"
+            rel="noopener noreferrer" href="https://github.com/3adel-sw" className="text-gray-900 hover:text-primary transition-colors"><FaGithub size={22} /></a>
+          <a target="_blank"
+            rel="noopener noreferrer" href="https://x.com/syntaxegypt?lang=en" className="text-gray-900 hover:text-primary transition-colors"><FaTwitter size={22} /></a>
+          <a target="_blank"
+            rel="noopener noreferrer" href="https://www.instagram.com/syntax.academy/" className="text-gray-900 hover:text-primary transition-colors"><FaInstagram size={22} /></a>
+          <a href="https://www.linkedin.com/company/syntax-academy-egypt/" className="text-gray-900 hover:text-primary transition-colors"><FaLinkedin size={22} /></a>
         </div>
       </div>
 
