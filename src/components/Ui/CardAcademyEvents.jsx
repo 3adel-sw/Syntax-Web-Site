@@ -1,6 +1,6 @@
 import {Mic,Users,Mail,Layers} from 'lucide-react';
-import meetupImage from "../../assets/meetup.svg";
-import Invitemembers from "../../assets/Invitemembers.svg";
+import meetupImage from "../../../public/images/meetup.webp";
+import Invitemembers from "../../../public/images/OurAcademy.webp";
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -48,6 +48,7 @@ const CardAcademyEvents = () => {
         {/* Cards Our Academy & Meetups & Events  */}
             <div className="my-12  grid grid-cols-1 md:mx-0 mx-2  md:grid-cols-2 gap-6">
                 {/* <Card Our Academy/> */}
+                <link rel="preload" as="image" href={Invitemembers} />
                 <div
                 onClick={handleCardAcademyClick}
                 className="bg-white pb-12  cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm [#E5E5E5] border-gray-300   ">
@@ -65,6 +66,7 @@ const CardAcademyEvents = () => {
                     </div>
                 </div>
                 {/* <Card Meetups & Events/> */}
+               <link rel="preload" as="image" href={meetupImage} />
                <div
                onClick={handleCardEventClick}
                className="bg-white pb-12 cursor-pointer  rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm border-gray-300  ">

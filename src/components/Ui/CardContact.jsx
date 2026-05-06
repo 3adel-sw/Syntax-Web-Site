@@ -1,5 +1,5 @@
 import { FaFigma, FaFacebook, FaGithub, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import hero from "../../assets/heroContact.svg";
+import hero from "../../../public/images/heroContact.webp";
 
 const CardContact = () => {
   const socials = [

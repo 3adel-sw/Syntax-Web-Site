@@ -13,4 +13,28 @@ export default defineConfig({
       "@": fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+    css: {
+    devSourcemap: false, 
+  },
+ build: {
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      output: {
+       
+        manualChunks(id) {
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'vendor'
+          }
+          if (id.includes('node_modules/react-router')) {
+            return 'router'
+          }
+        }
+      }
+    }
+  },
+   content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
+  assetsInclude: ['**/*.svg'],
 })
