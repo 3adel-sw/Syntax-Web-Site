@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import LayoutSyntax from "@/components/layout/LayoutSyntax";
 // To this:
 import Home from "@/Pages/Home";
+import FeedBacks from "@/Pages/FeedBacks/FeedBacks";
 import Blogs from "@/Pages/Blogs/Blogs";
 import BlogsDetails from "@/Pages/Blogs/BlogsDetails";
 import Contact from "@/Pages/Contact/Contact";
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: "/events-detail/:id",
         element: <EventsDetails />,
+      },
+      {
+        path: "/feedbacks",
+        element: <FeedBacks />,
       },
      
     ],

@@ -7,7 +7,6 @@ import MenuPanel from "@/components/Ui/Menu";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [is3xl, setIs3xl] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -15,18 +14,11 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const check = () => setIs3xl(window.innerWidth >= 2100);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
   return (
     <nav
-      className={`syntax-navbar md:py-4 mx-auto sm:py-3 py-2 rounded-2xl md:px-6 sm:px-6 px-4 z-50
+      className={`syntax-navbar bg-transparent md:py-4 mx-auto sm:py-3 py-2 rounded-2xl w-full lg:max-w-[98%]  2xl:max-w-[87%]   md:px-6 sm:px-6 px-4 z-50
         flex items-center justify-between transition-all duration-300
-        ${is3xl ? "fixed top-0 left-1/2 -translate-x-1/2 w-[82%]" : "sticky top-0 left-0 w-full"}
+        sticky top-0 left-0  3xl:fixed 3xl:left-1/2 3xl:-translate-x-1/2 3xl:w-[90%]
         ${isScrolled ? "bg-[#FFFFFB] shadow-md" : "bg-transparent"}`}
     >
       {/* Logo */}

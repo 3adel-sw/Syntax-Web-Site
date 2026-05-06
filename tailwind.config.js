@@ -3,7 +3,9 @@ export default {
   theme: {
     extend: {
       screens: {
+        '2xl': '1600px',
         '3xl': '2100px',
+        '4xl': '2500px',
       },
       colors: {
         primary: "#323896",
