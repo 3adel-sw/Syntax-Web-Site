@@ -22,6 +22,13 @@ const FeedBacks = () => {
     reviews.filter((_, i) => i % NUM_COLS === ci)
   );
 
+  // Group reviews into chunks of 3 for mobile slider
+  const chunkSize = 3;
+  const reviewGroups = [];
+  for (let i = 0; i < reviews.length; i += chunkSize) {
+    reviewGroups.push(reviews.slice(i, i + chunkSize));
+  }
+
   // Slider State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -51,7 +58,7 @@ const FeedBacks = () => {
   const handleTouchEnd = () => {
     setIsDragging(false);
     const slideIndex = Math.round(-translateXRef.current / 100);
-    const boundedIndex = Math.max(0, Math.min(reviews.length - 1, slideIndex));
+    const boundedIndex = Math.max(0, Math.min(reviewGroups.length - 1, slideIndex));
     setCurrentSlide(boundedIndex);
     translateXRef.current = -boundedIndex * 100;
     setTranslateX(-boundedIndex * 100);
@@ -73,7 +80,7 @@ const FeedBacks = () => {
         data-aos="zoom-in"
         data-aos-delay="200"
         data-aos-duration="700"
-        className="relative overflow-hidden text-left md:my-18 my12 rounded-2xl w-full h-[340px] bg-[#23286B]">
+        className="relative overflow-hidden text-left md:my-18 my14 rounded-2xl w-full h-[340px] bg-[#23286B]">
             <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
           <h1 
           data-aos="zoom-in"
@@ -93,7 +100,7 @@ const FeedBacks = () => {
         </div>
 
         {/* Mobile Slider */}
-        <div className="md:hidden my-8">
+        <div className="md:hidden my-10">
           <div
             ref={containerRef}
             className="overflow-hidden rounded-lg"
@@ -108,20 +115,22 @@ const FeedBacks = () => {
                 transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
               }}
             >
-              {reviews.map((review, index) => (
-                <div key={index} className="min-w-full flex-shrink-1 px-2">
-                  <ReviewCard review={review} colorIndex={index} />
+              {reviewGroups.map((group, groupIndex) => (
+                <div key={groupIndex} className="min-w-full flex-shrink-1 px-2 flex flex-col gap-4">
+                  {group.map((review, reviewIndex) => (
+                     <ReviewCard key={reviewIndex} review={review} colorIndex={reviews.indexOf(review)} />
+                  ))}
                 </div>
               ))}
             </div>
           </div>
           <div className="flex justify-center gap-2 mt-4">
-            {reviews.map((_, index) => (
+            {reviewGroups.map((_, groupIndex) => (
               <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
+                key={groupIndex}
+                onClick={() => setCurrentSlide(groupIndex)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                  groupIndex === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
                 }`}
               />
             ))}
