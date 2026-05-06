@@ -41,6 +41,7 @@ const ChooseCardTraining = () => {
           {/* Image */}
           <div className="relative z-10 w-full ">
             <img
+            loading="lazy"
               src={ImgChooseTraining}
               alt="Training preview"
               className="w-full h-full object-cover rounded-xl"

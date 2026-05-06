@@ -8,6 +8,7 @@ const programs = [
     num: "01",
     icon: (
       <img
+      loading="lazy"
         src={playground}
         alt="Icon"
         className="w-9 h-9 object-cover"
@@ -21,6 +22,7 @@ const programs = [
     num: "02",
     icon: (
       <img
+      loading="lazy"
         src={playground}
         alt="Icon"
          className="w-9 h-9 object-cover"
@@ -34,6 +36,7 @@ const programs = [
     num: "03",
     icon: (
       <img
+      loading="lazy"
         src={playground}
         alt="Icon"
          className="w-9 h-9 object-cover"
@@ -105,7 +108,9 @@ const  ProgramVariations = () => {
           </div>
           {/* Right — Photo collage */}
           <div className="pv-right" ref={rightRef}>
-        <img src={program} className="w-full h-full object-cover" alt="UX design courses" />
+        <img 
+        loading="lazy"
+        src={program} className="w-full h-full object-cover" alt="UX design courses" />
           </div>
         </div>
       </section>

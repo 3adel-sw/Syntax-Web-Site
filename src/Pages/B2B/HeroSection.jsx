@@ -8,7 +8,9 @@ const HeroSection = () => {
             <h6 className='flex items-center justify-start gap-2'>Home  <span> <FaAngleRight size={12}/></span> B2B Collaboration</h6>
 
             <h2 className="font-semibold text-3xl sm:text-3xl leading-sm w-full text-left md:text-5xl my-12"> To help businesses thrive in the digital era, we provide training to both people and teams. </h2>
-            <img src={B2BCollaborationImg} className="w-full  mt-4" alt="B2BCollaborationImg" />
+            <img 
+            loading="lazy"
+            src={B2BCollaborationImg} className="w-full  mt-4" alt="B2BCollaborationImg" />
         </div>
         <div className="bg-[#F2F4F7] rounded-2xl p-10 my-10">
             <p className='text-md md:text-2xl text-gray-500 text-left'>

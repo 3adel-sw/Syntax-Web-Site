@@ -17,7 +17,9 @@ export default defineConfig({
     devSourcemap: false, 
   },
  build: {
-    assetsInlineLimit: 0,
+   assetsInlineLimit: 0,
+  sourcemap: false,
+  chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
        
