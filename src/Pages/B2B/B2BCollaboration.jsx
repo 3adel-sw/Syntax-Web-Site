@@ -3,6 +3,8 @@ import HeroSection from "./HeroSection";
 import ChooseCardTraining from "./ChooseCardTraining";
 import LayersB2B from "./LayersB2B";
 import ProgramVariations from "./ProgramVariations";
+import FormTrainingForCorporation from "./FormTrainingForCorporation";
+import CardGraduated from '../../components/Ui/CardGraduated';
 
 
 const B2BCollaboration = () => {
@@ -18,6 +20,16 @@ const B2BCollaboration = () => {
           <LayersB2B />
           {/* Program Variations */}
           <ProgramVariations />
+             {/* Graduates */}
+        <div className='md:my-22 sm:my-16 my-16 lg:my-24'>
+          <div className=' space-y-5'>
+            <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
+            {/* Cards */}
+            <CardGraduated />
+          </div>
+         {/* Form Training For Corporation */}
+        <FormTrainingForCorporation />
+        </div>
           {/* Footer */}
         <Footer />
 
