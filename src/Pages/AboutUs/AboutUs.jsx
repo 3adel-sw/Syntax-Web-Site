@@ -3,7 +3,7 @@ import MeetTeam from "./MeetTeam";
 import MissionVisions from "./MissionVisions";
 import CoreValues from "./CoreValues";
 import OurAchievements from "./OurAchievements";
-import Footer from "../../Components/Layout/Footer";
+import Footer from "../../components/layout/Footer";
 
 
 const AboutUs = () => {
@@ -22,8 +22,8 @@ const AboutUs = () => {
         <MeetTeam />
         {/* OurAchievements */}
         <OurAchievements />
-        {/* Footer */}
-        <Footer/>
+            {/* Footer */}
+        <Footer   />
        
     </section>
     </div>

@@ -31,8 +31,8 @@ const getVisibleCount = () => {
 const MeetTeam = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
-  const [loading, setLoading] = useState(true);
- useEffect(() => {
+
+  useEffect(() => {
     const handleResize = () => {
       setVisibleCount(getVisibleCount());
       setStartIndex(0); 
@@ -90,7 +90,7 @@ const MeetTeam = () => {
         </div>
 
         {/* Cards Row */}
-        <div className="flex gap-4 w-full justify-center">
+        <div className="flex gap-4 overflow-hidden w-full justify-center">
           {visibleMembers.map((member) => (
             <div
               key={member.id}
