@@ -62,14 +62,14 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
 
   return (
     <div className="min-h-screen md:mb-32 mb-12  flex items-center justify-center p-6">
-      <div className=" rounded-2xl px-12 py-12 w-full md:max-w-4xl shadow-sm">
+      <div className=" rounded-2xl md:px-12 px-8 md:py-12 py-10 w-full md:max-w-4xl shadow-sm">
         <h1 className="md:text-4xl sm:text-3xl text-lg font-bold text-center text-gray-900 md:mb-9 mb-6 ">
           Let's Start Your Training
         </h1>
 
         {/* Full Name */}
         <div className="mb-4">
-          <label className="block text-lg text-left font-medium text-gray-500 mb-1.5">
+          <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
             Full Name
           </label>
           <input
@@ -85,7 +85,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
         <div className="grid grid-cols-2 gap-4">
           {fields.map(({ name, label, placeholder, type = "text" }) => (
             <div key={name}>
-              <label className="block text-lg text-left font-medium text-gray-500 mb-1.5">
+              <label className="block md:text-lg text-[12px] text-left font-medium text-gray-500 mb-1.5">
                 {label}
               </label>
               <input
@@ -102,7 +102,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
 
         {/* Request Details */}
         <div className="mt-4">
-          <label className="block text-lg text-left font-medium text-gray-500 mb-1.5">
+          <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
             Your Request Details
           </label>
           <textarea
