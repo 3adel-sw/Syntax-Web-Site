@@ -1,4 +1,5 @@
 
+import { useState, useRef, useEffect } from 'react';
 import weight from "../../assets/weight.svg";
 import penTool from "../../assets/penTool.svg";
 import ranking from "../../assets/ranking.svg";
@@ -68,6 +69,70 @@ const coreValuesData = [
 // }, []);
 
 const CoreValues = () => {
+  // Mobile slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(coreValuesData.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
+  
+  const renderCard = (value) => {
+    const iconConfig = IMG_Map[value.iconKey] ?? {
+      img: weight,
+      bg: "bg-gray-100",
+      color: "text-gray-600",
+    };
+
+    return (
+      <>
+        {/* Icon Box */}
+        <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${iconConfig.bg}`}>
+          <img src={iconConfig.img} alt={value.title} />
+        </div>
+        {/* Text */}
+        <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
+        <p className="md:text-base text-sm text-gray-500 leading-relaxed">
+          {value.description}
+        </p>
+      </>
+    );
+  };
+
   return (
     <section className="w-full my-12 md:my-25 text-left">
       {/* Badge */}
@@ -80,35 +145,60 @@ const CoreValues = () => {
         Core Values
       </h2>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:my-16 my-10">
-        {coreValuesData.map((value) => {
-          const iconConfig = IMG_Map[value.iconKey] ?? {
-            img: weight,
-            bg: "bg-gray-100",
-            color: "text-gray-600",
-          };
-
-          return (
-            <div key={value.id} className="flex flex-col gap-3 md:p-8 p-5
-             bg-white hover:scale-105 transition-all
-             duration-300 ease-in-out hover:shadow-md 
-               rounded-3xl border border-[#DFE1E7]">
-              {/* Icon Box */}
-              <div
-                className={`w-11 h-11 rounded-xl flex items-center justify-center ${iconConfig.bg}`}
-              >
-               <img src={iconConfig.img} alt={value.title} />
+      {/* Mobile Slider */}
+      <div className="md:hidden my-10">
+        <div
+          ref={containerRef}
+          className="overflow-hidden rounded-3xl"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(${translateX}%)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+            }}
+          >
+            {coreValuesData.map((value) => (
+              <div key={value.id} className="min-w-full flex-shrink-1 px-1">
+                <div className="flex flex-col gap-3 p-5 bg-white rounded-3xl border border-[#DFE1E7]">
+                  {renderCard(value)}
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-center gap-2 mt-4">
+          {coreValuesData.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
 
-              {/* Text */}
-              <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
-              <p className="md:text-base text-sm text-gray-500 leading-relaxed">
-                {value.description}
-              </p>
+      {/* Desktop Grid */}
+      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:my-16 my-10">
+        {coreValuesData.map((value) => (
+          <div key={value.id} className="flex flex-col gap-3 md:p-8 p-5
+           bg-white hover:scale-105 transition-all
+           duration-300 ease-in-out hover:shadow-md 
+             rounded-3xl border border-[#DFE1E7]">
+            <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${IMG_Map[value.iconKey]?.bg ?? "bg-gray-100"}`}>
+              <img src={IMG_Map[value.iconKey]?.img ?? weight} alt={value.title} />
             </div>
-          );
-        })}
+            <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
+            <p className="md:text-base text-sm text-gray-500 leading-relaxed">
+              {value.description}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

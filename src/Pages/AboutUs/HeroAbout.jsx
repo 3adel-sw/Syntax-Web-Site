@@ -1,7 +1,55 @@
+import { useState, useRef, useEffect } from "react";
 import AymanAboutR from "../../../public/images/AymanAboutR.webp"
 import heroAboutleft from "../../../public/images/heroAboutleft.webp"
 
 const HeroAbout = () => {
+  const images = [
+    { src: heroAboutleft, alt: "Syntax Community Classroom" },
+    { src: AymanAboutR, alt: "Syntax Instructor" },
+  ];
+
+  // Slider State
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartRef = useRef(0);
+  const translateXRef = useRef(0);
+  const containerRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    setIsDragging(true);
+    translateXRef.current = -currentSlide * 100;
+    setTranslateX(-currentSlide * 100);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    const containerWidth = containerRef.current?.offsetWidth || 300;
+    const diffPercent = (diff / containerWidth) * 100;
+    const newX = translateXRef.current + diffPercent;
+    translateXRef.current = newX;
+    setTranslateX(newX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    const slideIndex = Math.round(-translateXRef.current / 100);
+    const boundedIndex = Math.max(0, Math.min(images.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = -boundedIndex * 100;
+    setTranslateX(-boundedIndex * 100);
+  };
+
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
+
   return (
     <div className="w-full md:my-25 my-12">
       {/* ===== Hero Top Section ===== */}
@@ -34,8 +82,50 @@ const HeroAbout = () => {
         </div>
       </div>
 
-      {/*  Images   */}
-      <div className="grid grid-cols-4 gap-4 mb-12">
+      {/* Mobile Slider */}
+      <div className="md:hidden mb-12">
+        <div
+          ref={containerRef}
+          className="overflow-hidden rounded-3xl"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(${translateX}%)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
+            }}
+          >
+            {images.map((img, index) => (
+              <div key={index} className="min-w-full flex-shrink-1">
+                <div className="h-82 rounded-3xl overflow-hidden">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-center gap-2 mt-4">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Grid */}
+      <div className="hidden md:grid grid-cols-4 gap-4 mb-12">
         {/* Large classroom image */}
         <div className="col-span-3 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
           <img
