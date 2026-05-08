@@ -1,37 +1,32 @@
-// src/components/ui/LanguageDropdown.jsx
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import i18n from "@/i18n";
 
-const LanguageDropdown = () => {
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("EN");
-  const ref = useRef(null);
+const LanguageToggle = () => {
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") return "ar";
+    return localStorage.getItem("lang") || i18n.language || "ar";
+  });
 
-  const languages = ["EN", "AR", "FR", "ES"];
+  useEffect(() => {
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
+    i18n.changeLanguage(lang);
+  }, [lang]);
+
+  const handleToggle = () => {
+    const newLang = lang === "ar" ? "en" : "ar";
+    localStorage.setItem("lang", newLang);
+    setLang(newLang);
+  };
 
   return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-sm font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer"
-      >
-        {selected}
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-full mt-2 w-24 !px-3 bg-white rounded-xl shadow-lg border border-gray-200 py-1 z-50">
-          {languages.map((lang) => (
-            <button
-              key={lang}
-              onClick={() => { setSelected(lang); setOpen(false); }}
-              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${selected === lang ? "text-primary font-semibold" : "text-gray-700"}`}
-            >
-              {lang}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <button
+      onClick={handleToggle}
+      className="text-sm font-semibold text-gray-600 hover:text-gray-900 transition cursor-pointer"
+    >
+      {lang === "ar" ? "EN" : "AR"}
+    </button>
   );
 };
 
-export default LanguageDropdown;
+export default LanguageToggle;
