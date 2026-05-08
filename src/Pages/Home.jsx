@@ -62,6 +62,7 @@ const Home = () => {
           getTestimonials(),
           getAllProducts(),
           // getSetting(),
+          
         ]);
 
         setHero(heroRes.data);
