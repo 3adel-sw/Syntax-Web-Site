@@ -9,9 +9,10 @@ export const getAllCourses = () => api.get('/courses');
 //   api.get('/courses', { params: { lang: getLang() } })
 
 
-
 export const getCourseById = (id) => 
   api.get(`/courses/${id}`, { params: { lang: getLang() } });
+// export const getCourseById = (id) => api.get(`/courses/${id}`, { params: { lang: getLang() } });
+// export const getCourseById = (id) => api.get(`/courses/${id}`);
 
 export const getCoursesByCategory = (category) => 
   api.get('/courses', { params: { lang: getLang(), category } });

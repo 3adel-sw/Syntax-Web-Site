@@ -5,78 +5,69 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { getAllCourses, getCoursesByCategory } from '../../services/courses/coursesService';
 
 // ── Course Card ──────────────────────────────────────────
-const CourseCard = ({ course, navigate }) => (
-  <div
-    onClick={() => navigate(`/courses-detail/${course.id}`)}
-    className="bg-white rounded-2xl border h-[26rem] border-gray-200 p-2 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
-  >
-    <div className="h-68 flex items-center rounded-2xl justify-center relative overflow-hidden bg-gray-100">
-      {course.image || course.img ? (
-        <img
-          loading="eager"
-          src={course.image || course.img}
-          className="w-full h-full object-cover"
-          alt={course.title}
-        />
-      ) : (
-        <div className="w-full h-full bg-gray-200 rounded-2xl" />
-      )}
-    </div>
+const CourseCard = ({ course, navigate }) => {
+  const courseId = course.id || course._id || course.slug;
+  console.log('courseId:', courseId, '| full course:', course);
+  const toStr = (val) => {
+    if (!val) return '';
+    if (typeof val === 'object') return val?.name || val?.title || '';
+    return val;
+  };
 
-    <div className="p-4 text-left">
-      <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">
-        {course.tag || course.category || course.type}
-      </span>
-      <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug">
-        {course.title}
-      </h3>
-      <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
-        <span className="flex items-center gap-1">
-          <BookOpen size={18} />
-          {course.level}
+  return (
+    <div
+     onClick={() => navigate(`/courses-detail/${courseId}`)}
+     className="bg-white rounded-2xl border h-[26rem] border-gray-200 p-2 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+  >
+      <div className="h-68 flex items-center rounded-2xl justify-center relative overflow-hidden bg-gray-100">
+     
+      
+        {course.image || course.img ? (
+          <img
+            loading="eager"
+            src={course.image || course.img}
+            className="w-full h-full object-cover"
+            alt={toStr(course.title)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200 rounded-2xl" />
+        )}
+      </div>
+
+      <div className="p-4 text-left">
+       <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">
+          {toStr(course.tag) || toStr(course.category) || toStr(course.type)}
         </span>
-        <span className="w-1 h-1 bg-gray-300 rounded-full" />
+        <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug">
+          {toStr(course.title)}
+        </h3>
+         <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
         <span className="flex items-center gap-1">
-          <Clock size={18} />
-          {course.duration}
-        </span>
+            <BookOpen size={18} />
+            {toStr(course.level)}
+          </span>
+          <span className="w-1 h-1 bg-gray-300 rounded-full" />
+        <span className="flex items-center gap-1">
+            <Clock size={18} />
+           {toStr(course.duration) || toStr(course.hours)}
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ── Main Component ───────────────────────────────────────
 const CardCourses = ({ activeCategory, limit, showButton, ButtonContent }) => {
   const navigate = useNavigate();
 
   const [courses, setCourses]   = useState([]);
+  // console.log('First course:', res.data?.courses?.[0]);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 
 
-// useEffect(() => {
-//   const fetchCourses = async () => {
-//     try {
-//       const res = await getAllCourses();
-//       console.log('Full response:', res);        // شوف كل الـ response
-//       console.log('Courses:', res.data?.courses); // شوف الـ courses
-//       setCourses(res.data?.courses || []);
-//     } catch (err) {
-//         setError('Failed to load courses');
-//         console.error(err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
 
-//     fetchCourses();
-//   }, [activeCategory]);
-
-
-
-  // ── Fetch from API ──
-  
-  
   
   // ── Fetch from API ──
 useEffect(() => {
@@ -129,10 +120,16 @@ useEffect(() => {
     <>
       {/* Desktop Grid */}
       <div className="md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
-        {displayedCourses.map(course => (
-          <CourseCard key={course.id} course={course} navigate={navigate} />
-        ))}
+        {displayedCourses.map((course, index) => (
+  <CourseCard 
+    key={course.slug || index} 
+    course={course} 
+    navigate={navigate} 
+  />
+))}
       </div>
+
+      {/* Mobile Grid */}
 
       {showButton && limit && courses.length > limit && (
         <div className="mt-10">
@@ -145,6 +142,7 @@ useEffect(() => {
           </button>
         </div>
       )}
+
     </>
   );
 };

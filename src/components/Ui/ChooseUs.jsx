@@ -2,13 +2,19 @@ import { useState, useRef, useEffect } from 'react';
 import Add from "../../assets/Add.svg"
 import Pc from "../../assets/pc.svg"
 
-const items = [
-  { img: Pc , title: 'Showcase Work', desc: 'Showcase your project to stand out among all' },
-  { img: Add, title: 'Resume Builder', desc: "Create a professional resume using our built-in resume builder" },
-  { img: Pc , title: 'Showcase Work', desc: 'Showcase your project to stand out among all' },
-  { img: Add , title: 'Resume Builder', desc: "Create a professional resume using our built-in resume builder" },
-];
+const toStr = (val) => {
+  if (!val) return '';
+  if (typeof val === 'object') return val?.name || val?.title || '';
+  return val;
+};
 
+
+const defaultFaqs = [
+  { img: Add, question: 'What is showcase work?', answer: 'Showcase work allows you to display your projects.' },
+  { img: Pc, question: 'How does it work?', answer: 'It guides you step by step.' },
+  { img: Add, question: 'How  work?', answer: 'Upload projects and share your portfolio link.' },
+  { img: Pc, question: 'What features  offer?', answer: 'Templates, custom sections, PDF export.' },
+];
 const ChooseUs = () => {
   // Slider State
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,7 +45,7 @@ const ChooseUs = () => {
   const handleTouchEnd = () => {
     setIsDragging(false);
     const slideIndex = Math.round(-translateXRef.current / 100);
-    const boundedIndex = Math.max(0, Math.min(items.length - 1, slideIndex));
+    const boundedIndex = Math.max(0, Math.min(defaultFaqs.length - 1, slideIndex));
     setCurrentSlide(boundedIndex);
     translateXRef.current = -boundedIndex * 100;
     setTranslateX(-boundedIndex * 100);
@@ -72,22 +78,22 @@ const ChooseUs = () => {
               transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
             }}
           >
-            {items.map((item, i) => (
+            {defaultFaqs.map((faq, i) => (
               <div key={i} className="min-w-full flex-shrink-1 px-4">
                 <div className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white h-full">
                   <img 
                   loading="eager"
             fetchPriority="high"
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
-              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{item.title}</p>
-            <p className="md:text-base text-sm text-gray-500 text-center">{item.desc}</p>
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={faq.img} alt={faq.title} />
+              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{toStr(faq.question)}</p>
+            <p className="md:text-base text-sm text-gray-500 text-center">{toStr(faq.answer)}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div className="flex justify-center gap-2 mt-4">
-          {items.map((_, index) => (
+          {defaultFaqs.map((faq, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
@@ -101,14 +107,14 @@ const ChooseUs = () => {
 
       {/* Desktop Grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-6">
-        {items.map((item, i) => (
+        {defaultFaqs.map((faq, i) => (
           <div key={i} className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white">
             <img 
             loading="eager"
             fetchPriority="high"
-            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={item.img} alt={item.title} />
-              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{item.title}</p>
-            <p className="md:text-base text-sm text-gray-500 text-center">{item.desc}</p>
+            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={faq.img} alt={faq.title} />
+              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{toStr(faq.question)}</p>
+            <p className="md:text-base text-sm text-gray-500 text-center">{toStr(faq.answer)}</p>
           </div>
         ))}
       </div>
