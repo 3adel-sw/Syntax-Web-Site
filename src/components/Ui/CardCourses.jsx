@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Clock, BookOpen } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
@@ -53,33 +53,59 @@ const CardCourses = ({ activeCategory, limit, showButton, ButtonContent }) => {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 
+
+// useEffect(() => {
+//   const fetchCourses = async () => {
+//     try {
+//       const res = await getAllCourses();
+//       console.log('Full response:', res);        // شوف كل الـ response
+//       console.log('Courses:', res.data?.courses); // شوف الـ courses
+//       setCourses(res.data?.courses || []);
+//     } catch (err) {
+//         setError('Failed to load courses');
+//         console.error(err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchCourses();
+//   }, [activeCategory]);
+
+
+
   // ── Fetch from API ──
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  
+  
+  
+  // ── Fetch from API ──
+useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        let res;
-        if (activeCategory && activeCategory !== 'All Courses') {
-          res = await getCoursesByCategory(activeCategory);
-        } else {
-          res = await getAllCourses();
-        }
-
-        // الـ API بيرجع { status, SNum, msg, courses: [...] }
-        setCourses(res.data?.courses || []);
-      } catch (err) {
-        setError('Failed to load courses');
-        console.error(err);
-      } finally {
-        setLoading(false);
+      let res;
+      if (activeCategory && activeCategory !== 'All Courses') {
+        res = await getCoursesByCategory(activeCategory);
+      } else {
+        res = await getAllCourses();
       }
-    };
 
-    fetchCourses();
-  }, [activeCategory]); // بيتعمل re-fetch لما الـ tab يتغير
+      setCourses(res.data?.courses || []);
+    } catch (err) {
+      setError('Failed to load courses');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  fetchCourses();
+}, [activeCategory]);
+
+
+  // ── Display Courses ──
   const displayedCourses = limit ? courses.slice(0, limit) : courses;
 
   // ── Loading ──
