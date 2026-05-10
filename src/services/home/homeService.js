@@ -1,7 +1,8 @@
 import api from '../api';
-
-export const getHeroSection = () => api.get('/heroSection');
-export const getProducts = () => api.get('/products');
+    // All blog-related API calls with language parameter
+const getLang = () => localStorage.getItem('lang') || 'ar';
+export const getHeroSection = () => api.get('/heroSection', { params: { lang: getLang() } });
+export const getProducts = () => api.get('/products', { params: { lang: getLang() } });
 export const getCounters = () => api.get('/counters');
 export const getOrganizations = () => api.get('/organizations');
 export const getLatestCourses = () => api.get('/latestCourses');

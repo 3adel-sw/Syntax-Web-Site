@@ -1,122 +1,90 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import { useNavigate } from 'react-router';
-import  BlogCardImage  from '../../assets/blogC.webp';
-import { useRef, useState, useEffect } from 'react';
+// import BlogCardImage from '../../assets/blogC.webp';
+import {  useState, useEffect } from 'react';
 import { LuLoaderCircle } from "react-icons/lu";
+import { getAllBlogs } from '../../services/blogs/blogsService';
 
 
-const blogs = [
-  {
-    id: 1,
-    category: "UX Design",
-    date: "26 May 2024",
-    title: "The Psychology Behind UX Design",
-    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    thumb: BlogCardImage,
-  },
-  {
-    id: 2,
-    category: "UI Design",
-    date: "26 May 2024",
-    title: "The Psychology Behind UX Design",
-    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    thumb: BlogCardImage,
-  },
-  {
-    id: 3,
-    category: "Soft Skills",
-    date: "26 May 2024",
-    title: "The Psychology Behind UX Design",
-    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    thumb: BlogCardImage,
-  },
-  {
-    id: 4,
-    category: "Personal Branding",
-    date: "26 May 2024",
-    title: "The Psychology Behind UX Design",
-    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    thumb: BlogCardImage,
-  },
-  {
-    id: 5,
-    category: "Graphic Design",
-    date: "26 May 2024",
-    title: "The Psychology Behind UX Design",
-    excerpt: "Understanding user behavior is key to creating effective designs. Dive into the psychology behind UX and ...",
-    thumb: BlogCardImage,
-  },
-];
 
-const BlogCard = ({ id, category, date, title, excerpt, thumb }) => {
+
+const toStr = (val) => {
+  if (!val) return '';
+  if (typeof val === 'object') return val?.name || val?.title || '';
+  return val;
+};
+
+
+
+const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) => {
   const navigate = useNavigate();
 
 
 
-  const handleCardClick = () => {
-    navigate(`/blogs-detail/${id}`);
-    // if (thumb) {
-    //   const blogUrl = `/blogs/${id}`;
-
-    //   window.open(blogUrl, '_blank'); // Open in new tab
-    // }
-  };
-
   return (
     <div
-      onClick={handleCardClick}
-     className="bg-white rounded-2xl border  h-[27rem] border-gray-200 p-3  overflow-hidden hover:-translate-y-1 hover:shadow-xl  cursor-pointer"
-      >
+       onClick={() => navigate(`/blogs-detail/${slug || id}`)}
+      className="bg-white rounded-2xl border h-[27rem] border-gray-200 p-3 overflow-hidden hover:-translate-y-1 hover:shadow-xl cursor-pointer"
+    >
       <div className="h-61 flex items-center rounded-2xl justify-center relative overflow-hidden">
-        { thumb ? (
+        {(image || thumb) ? (
           <img
-          loading="eager"
-          fetchPriority="high"
-            src={thumb}
+            loading="eager"
+            fetchPriority="high"
+            src={image || thumb}
             alt={title}
-            className="w-full h-full object-cover  group-hover:scale-105 transition-transform "
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
           />
         ) : (
-          <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-            <div className="text-gray-600 text-4xl">▶</div>
-          </div>
-        )}
-
-        {/*Pause overlay */}
-        {( thumb) && (
-          <div className={`absolute inset-0 flex items-center justify-center  duration-300 `}>
-            <div className=" rounded-full flex items-center justify-center shadow-lg">
-             
-            </div>
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+            No Image
           </div>
         )}
       </div>
 
-      {/* Body   */}
       <div className="px-2 py-4 text-left">
         <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
-          {title}
+         {toStr(title)}
         </h3>
-        <p className="text-[14px]  text-gray-500 leading-relaxed mb-4 line-clamp-2">
-          {excerpt}
+        <p className="text-[14px] text-gray-500 leading-relaxed mb-4 line-clamp-2">
+          {toStr(excerpt) || 'No excerpt available.'}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center gap-2">
-            <span className="text-gray-400 font-medium text-base">{category}</span>
+            <span className="text-gray-400 font-medium text-base">{toStr(category) || 'Category'}</span>
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
-            <span className="text-gray-400 font-medium text-base">{date}</span>
+            <span className="text-gray-400 font-medium text-base">{toStr(date) || 'Date'}</span>
           </div>
-          {/* <div className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
-            <ArrowUpRight size={13} className="text-gray-400 group-hover:text-white transition-colors" />
-          </div> */}
         </div>
       </div>
     </div>
   );
 };
-const CardBlog = ({ activeCategory, limit, showButton, ButtonContent, showSlider }) => {
+
+const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
   const navigate = useNavigate();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await getAllBlogs();
+        setBlogs(res.data?.blogs || res.data?.data || []);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load blogs');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
   const categoryMap = {
     "UI Design": "UI Design",
     "UX Principles": "UX Design",
@@ -126,106 +94,54 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent, showSlider
   };
 
   const mappedCategory = categoryMap[activeCategory];
-  const filteredBlogs = activeCategory === "All Blogs"
+  const filteredBlogs = activeCategory === "All Blogs" || !activeCategory
     ? blogs
     : blogs.filter(blog => blog.category === mappedCategory);
+    blogs.filter(blog => {
+  const cat = blog.category?.name || blog.category;
+  return cat === mappedCategory;
+});
 
   const displayedBlogs = limit ? filteredBlogs.slice(0, limit) : filteredBlogs;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const touchStartRef = useRef(0);
-  const translateXRef = useRef(0);
-  const containerRef = useRef(null);
 
-  const handleTouchStart = (e) => {
-    touchStartRef.current = e.touches[0].clientX;
-    setIsDragging(true);
-    translateXRef.current = -currentSlide * 100;
-    setTranslateX(-currentSlide * 100);
-  };
 
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const currentTouch = e.touches[0].clientX;
-    const diff = currentTouch - touchStartRef.current;
-    const containerWidth = containerRef.current?.offsetWidth || 300;
-    const diffPercent = (diff / containerWidth) * 100;
-    const newX = translateXRef.current + diffPercent;
-    translateXRef.current = newX;
-    setTranslateX(newX);
-  };
+  if (loading) return (
+    <div className="flex justify-center items-center h-48 mt-8">
+      <LuLoaderCircle size={36} className="animate-spin text-primary" />
+    </div>
+  );
 
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-    const slideIndex = Math.round(-translateXRef.current / 100);
-    const boundedIndex = Math.max(0, Math.min(displayedBlogs.length - 1, slideIndex));
-    setCurrentSlide(boundedIndex);
-    translateXRef.current = -boundedIndex * 100;
-    setTranslateX(-boundedIndex * 100);
-  };
-
-  useEffect(() => {
-    if (!isDragging) {
-      translateXRef.current = -currentSlide * 100;
-      setTranslateX(-currentSlide * 100);
-    }
-  }, [currentSlide, isDragging]);
+  if (error) return (
+    <div className="text-center text-red-500 py-12 mt-8">{error}</div>
+  );
 
   return (
     <>
-      {/* {showSlider && (
-        <div className="md:hidden my-12">
-          <div
-            ref={containerRef}
-            className="overflow-hidden rounded-lg"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div
-              className="flex"
-              style={{
-                transform: `translateX(${translateX}%)`,
-                transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
-              }}
-            >
-              {displayedBlogs.map((blog) => (
-                <div key={blog.id} className="min-w-full flex-shrink-1 px-2">
-                  <BlogCard {...blog} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex justify-center gap-2 mt-4">
-            {displayedBlogs.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      )} */}
-
       {/* Desktop Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
-        {displayedBlogs.map(blog => (
-          <BlogCard key={blog.id} {...blog} />
-        ))}
+       {displayedBlogs.map(blog => (
+  <BlogCard
+    key={blog.id}
+    id={blog.id}
+    slug={blog.slug}
+    title={blog.name || blog.title}
+    excerpt={blog.description}
+    category={blog.category?.name || blog.category}  // ✅ object
+    date={blog.date || blog.created_at || blog.published_at}  // ✅ multiple possible date fields
+    image={blog.image || blog.banner_image}
+    thumb={blog.thumb}
+  />
+))}
       </div>
-      {showButton && limit && filteredBlogs.length > limit && (
+      {showButton && limit && blogs.length > limit && (
         <div className="mt-10">
           <button
             onClick={() => navigate('/blogs')}
             className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
           >
             {ButtonContent || 'Show All Blogs'}
-            <LuLoaderCircle size={22} className="" />
+            <LuLoaderCircle size={22} />
           </button>
         </div>
       )}

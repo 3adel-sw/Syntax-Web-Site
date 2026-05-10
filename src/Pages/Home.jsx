@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import imgHome from '../../public/images/homeBg.webp';
+// import imgHome from '../../public/images/homeBg.webp';
 import { Sparkle, MessageSquare } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import CardGraduated from '../components/Ui/CardGraduated';
 import CardsTestimonials from '../components/Ui/CardsTestimonials';
 import CardBlog from '../components/Ui/CardBlog';
 import Footer from '../components/layout/Footer';
+
 
 import {
   getHeroSection,
@@ -22,6 +23,7 @@ import {
 } from '../services/home/homeService';
 
 const Home = () => {
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   const [hero, setHero] = useState(null);
@@ -65,7 +67,7 @@ const Home = () => {
           
         ]);
 
-        setHero(heroRes.data);
+        setHero(heroRes.data.heroSection);
         setCounters(countersRes.data);
         setOrganizations(orgsRes.data);
         setLatestCourses(coursesRes.data);
@@ -83,7 +85,9 @@ const Home = () => {
     fetchAll();
   }, []);
 
-  if (loading) return <div className="flex justify-center items-center min-h-screen"><LuLoaderCircle size={40} className="animate-spin text-primary" /></div>;
+  if (loading) return <div className="flex justify-center items-center min-h-screen"><LuLoaderCircle size={70} className="animate-spin text-primary" /></div>;
+
+
 
   return (
     <div className="min-h-screen home-page flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto">
@@ -94,39 +98,33 @@ const Home = () => {
           <Sparkle size={20} className="fill-primary text-primary animate-pulse" />
           {setting?.badge_text || 'Welcome to Syntax Community'}
         </div>
+    {hero?.map((item, index) => (
+  <div key={index}>
 
-        {/* Title */}
-        <h1 className="text-2xl md:text-5xl sm:text-4xl font-semibold text-gray-800 leading-snug">
-          {hero?.title || 'Learn, '}<span className="text-black">{hero?.highlight || 'Create'}</span>{hero?.subtitle || ', and Stay Inspired'}
-        </h1>
+    {/* Title */}
+    <h1 className="text-2xl md:text-5xl sm:text-4xl font-semibold text-gray-800 leading-snug">
+      {item?.title || '  '}
+      <span className="text-black">{item?.highlight || 'Create'}</span>
+      {item?.subtitle || ', and Stay Inspired'}
+    </h1>
 
-        {/* Description */}
-        <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm md:text-lg sm:text-base">
-          {hero?.description || 'Join a vibrant community where you can connect, collaborate, and unlock your full potential.'}
-        </p>
+    {/* Description */}
+    <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm md:text-lg sm:text-base">
+      {item?.description || 'Join a vibrant community...'}
+    </p>
 
-        {/* Button */}
-        <div className="mt-5">
-          <button
-            onClick={() => navigate('/courses')}
-            className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-2xl shadow-md hover:bg-primary/90 transition">
-            Start Learning
-            <LuLoaderCircle size={22} />
-          </button>
-        </div>
-
-        {/* Image */}
-        <link rel="preload" as="image" href={imgHome} />
-        <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl">
-          <img
-            src={hero?.image || imgHome}
-            alt="community"
-            loading="eager"
-            fetchPriority="high"
-            className="rounded-2xl shadow-lg w-full h-full object-cover"
-          />
-        </div>
-
+    {/* Image */}
+    <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl">
+      <img
+        src={item?.image }
+        alt="community"
+        loading="eager"
+        fetchPriority="high"
+        className="rounded-2xl shadow-lg w-full h-full object-cover"
+      />
+    </div>
+  </div>
+))}
         {/* Counters */}
         {counters.length > 0 && (
           <div className="flex justify-center gap-8 my-10">
@@ -159,7 +157,7 @@ const Home = () => {
               Courses
             </span>
             <h3 className='md:text-3xl text-xl font-bold text-gray-800 leading-snug'>Top Courses</h3>
-            <CardCourses data={latestCourses} activeCategory="All Events" limit={3} showButton />
+            <CardCourses data={latestCourses} activeCategory="All Courses" limit={3} showButton />
           </div>
         </div>
 
