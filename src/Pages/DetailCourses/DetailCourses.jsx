@@ -20,14 +20,19 @@ import { GoFileDirectory } from "react-icons/go";
 import { GrCertificate } from "react-icons/gr";
 import { LuLanguages } from "react-icons/lu";
 
+import { useTranslation } from 'react-i18next';
 
 const DetailCourses = () => {
 
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language == 'ar';
+
+
   const toStr = (val) => {
-  if (!val) return '';
-  if (typeof val === 'object') return val?.name || val?.title || '';
-  return val;
-};
+    if (!val) return '';
+    if (typeof val === 'object') return val?.name || val?.title || '';
+    return val;
+  };
 
 
 
@@ -39,166 +44,167 @@ const DetailCourses = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // Register Modal
-const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
-useEffect(() => {
-  const fetchCourse = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await getCourseById(id);
-      // console.log('Course response:', res.data);
-      setCourse(res.data?.course || res.data);
-    } catch (err) {
-      setError('Failed to load course details');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchCourse();
-}, [id]);
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await getCourseById(id);
+        // console.log('Course response:', res.data);
+        setCourse(res.data?.course || res.data);
+      } catch (err) {
+        setError('Failed to load course details');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourse();
+  }, [id, isRTL]);
 
-if (loading) return (
-  <div className="min-h-screen flex items-center justify-center">
-    <Loader2 size={48} className="animate-spin text-primary" />
-  </div>
-);
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 size={48} className="animate-spin text-primary" />
+    </div>
+  );
 
-if (error) return (
-  <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
-);
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
+  );
 
-if (!course) return (
-  <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">Course not found.</div>
-);
+  if (!course) return (
+    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">Course Not Found</div>
+  );
 
   return (
-   <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
-    <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
-      {/* Course Title */}
-    <h1 className="md:text-2xl text-xl text-left md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
-        {course.title}
-      </h1>
+        <RegisterModal courseName={course?.name} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+        {/* Course Title */}
+        <h1 className="md:text-2xl text-xl text-left md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
+          {course.title}
+        </h1>
 
-      {/* Hero Banner */}
-      <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
-     {/* image */}
-        <img src={course.image || course.img || detailsCourses} alt={course.title} className="w-full h-full object-fill " />
-      </div>
-
-      {/* Meta Bar */}
-      <div className=" grid grid-cols-2 md:grid-cols-5 gap-4 mb-5 pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
-        {[
-          { icon: <GoFileDirectory />, label: 'Category', value: toStr(course.category) || toStr(course.tag) || 'UX Design' },
-{ icon: <GrCertificate />,   label: 'Certification', value: toStr(course.certification) || 'Yes' },
-{ icon: <LuLanguages />,     label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
-        ].map((item) => (
-          <span key={item.label} className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5">
-            {item.icon} {item.label}: <strong className="text-gray-800 md:text-sm text-xs">{item.value}</strong>
-          </span>
-        ))}
-        <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
-          <CiShare2 /> Share
-        </button>
-        <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
-          <FaRegCopy /> Copy Link
-        </button>
-      </div>
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-left">
-         {/* Tabs */}
-         <div className="flex flex-col w-full">
-      <div className="flex flex-row max-w-4xl gap-2 bg-gray-100 p-3 h-16 mb-6 rounded-xl">
-        <button
-          onClick={() => setActiveTab('overview')}
-           className={`flex-1 gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black border rounded-lg transition-all ${
-            activeTab === 'overview'
-              ? 'bg-primary text-white border-primary'
-              : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          <FaBook /> Overview
-        </button>
-        <button
-          onClick={() => setActiveTab('curriculum')}
-          className={`flex-1 gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black border rounded-lg transition-all ${
-            activeTab === 'curriculum'
-              ? 'bg-primary text-white border-primary'
-              : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          <FaBook /> Curriculum
-        </button>
-      </div>
-      <div>
-         {activeTab === 'overview' && <Overview course={course} />}
-          {activeTab === 'curriculum' && <Curriculum course={course} />}
+        {/* Hero Banner */}
+        <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
+          {/* image */}
+          <img src={course.image || course.img || detailsCourses} alt={course.title} className="w-full h-full object-fill " />
         </div>
-        </div>
-           <div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
-          {/* Course Image */}
-            <img src={course.image || course.img || Rectangle} alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
-          <div className="p-4">
-            {/* Level */}
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-              <img src={Reports} alt="reports" />
-              Course Level <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-              <span className="text-gray-700 font-medium text-xs ">{toStr(course.level) || 'Entry to Intermediate'}</span>
-            </div>
-               <hr className="my-2 text-gray-300" />
-            {/* Price */}
-            <div className="flex border border-gray-200 p-3 rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
-              <span className="text-gray-400 font-semibold">Standard price</span>
-              <span className="text-gray-400 font-semibold">USD {toStr(course.price) || 310}</span>
-            </div>
 
-            {/* Group Pricing */}
-            <div className="flex border border-gray-200 p-3 bg-white rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
-              <span className="text-gray-800 font-bold">Group Pricing</span>
-              <span className="text-gray-800 font-bold">{toStr(course.discount) || '15% off'}</span>
-            </div>
-
-            {/* Buttons */}
-            <button 
-            onClick={() => setIsRegisterOpen(true)} 
-            className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
-              Register Now
-            </button>
-            <button className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition">
-              Download Course File
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Sections below (Only on Overview) */}
-      {activeTab === 'overview' && (
-        <>
-      {/* Why Choose Us */}
-          <ChooseUs items={course?.features || course?.whyUs || course?.reasons || []} />
-    {/* Testimonials */}
-        <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
-          <div className=' space-y-5'>
-            <span className=' border border-primary text-primary gap-2 mx-auto w-40 h-12 rounded-full text-xl flex justify-center items-center'>
-              <MessageSquare size={20} />
-              Testimonials
+        {/* Meta Bar */}
+        <div className=" grid grid-cols-2 md:grid-cols-5 gap-4 mb-5 pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
+          {[
+            { icon: <GoFileDirectory />, label: 'Category', value: toStr(course.category) || toStr(course.tag) || 'UX Design' },
+            { icon: <GrCertificate />, label: 'Certification', value: toStr(course.certification) || 'Yes' },
+            { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
+          ].map((item) => (
+            <span key={item.label} className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5">
+              {item.icon} {item.label}: <strong className="text-gray-800 md:text-sm text-xs">{item.value}</strong>
             </span>
-            <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>What are people saying</h3>
-            {/* Cards Testimonials */}
-            <CardsTestimonials />
+          ))}
+          <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+            <CiShare2 /> Share
+          </button>
+          <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+            <FaRegCopy /> Copy Link
+          </button>
+        </div>
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-left">
+          {/* Tabs */}
+          <div className="flex flex-col w-full">
+            <div className="flex flex-row max-w-4xl gap-2 bg-gray-100 p-3 h-16 mb-6 rounded-xl">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`flex-1 gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black border rounded-lg transition-all ${activeTab === 'overview'
+                  ? 'bg-primary text-white border-primary'
+                  : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
+                  }`}
+              >
+                <FaBook /> Overview
+              </button>
+              <button
+                onClick={() => setActiveTab('curriculum')}
+                className={`flex-1 gap-1 flex justify-center items-center py-2.5 text-sm font-medium border-black border rounded-lg transition-all ${activeTab === 'curriculum'
+                  ? 'bg-primary text-white border-primary'
+                  : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
+                  }`}
+              >
+                <FaBook /> Curriculum
+              </button>
+            </div>
+            <div>
+              {activeTab === 'overview' && <Overview course={course} />}
+              {activeTab === 'curriculum' && <Curriculum course={course} />}
+            </div>
+          </div>
+          <div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
+            {/* Course Image */}
+            <img src={course.image || course.img || Rectangle} alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
+            <div className="p-4">
+              {/* Level */}
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <img src={Reports} alt="reports" />
+                Course Level <span className="w-2 h-2 rounded-full bg-primary inline-block" />
+                <span className="text-gray-700 font-medium text-xs ">{toStr(course.level) || 'Entry to Intermediate'}</span>
+              </div>
+              <hr className="my-2 text-gray-300" />
+              {/* Price */}
+              <div className="flex border border-gray-200 p-3 rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
+                <span className="text-gray-400 font-semibold">Standard price</span>
+                <span className="text-gray-400 font-semibold">USD {toStr(course.price) || 310}</span>
+              </div>
+
+              {/* Group Pricing */}
+              <div className="flex border border-gray-200 p-3 bg-white rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
+                <span className="text-gray-800 font-bold">Group Pricing</span>
+                <span className="text-gray-800 font-bold">{toStr(course.discount) || '15% off'}</span>
+              </div>
+
+              {/* Buttons */}
+              <button
+                onClick={() => setIsRegisterOpen(true)}
+                className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
+                Register Now
+              </button>
+              <button className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition">
+                Download Course File
+              </button>
+            </div>
           </div>
         </div>
-        {/* Questions */}
-       <Questions faqs={course?.faqs || course?.questions || []} />
-        {/* Captured Videos */}
-        <CapturedVideos />
-        {/* Footer */}
-        <MainFooter />
-        </>
-      )}
-    </div>
+
+        {/* Sections below (Only on Overview) */}
+        {activeTab === 'overview' && (
+          <>
+            {/* Why Choose Us */}
+            <ChooseUs items={course?.features || course?.whyUs || course?.reasons || []} />
+            {/* Testimonials */}
+            <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
+              <div className=' space-y-5'>
+                <span className=' border border-primary text-primary gap-2 mx-auto w-40 h-12 rounded-full text-xl flex justify-center items-center'>
+                  <MessageSquare size={20} />
+                  Testimonials
+                </span>
+                <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>What are people saying</h3>
+                {/* Cards Testimonials */}
+                <CardsTestimonials />
+              </div>
+            </div>
+            {/* Questions */}
+            <Questions faqs={course?.faqs || course?.questions || []} />
+            {/* Captured Videos */}
+            <CapturedVideos />
+            {/* Footer */}
+            <MainFooter />
+          </>
+        )}
+      </div>
+
+      {/* <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg bg-red-200">{t('courses.text')}</div> */}
+
     </div>
   );
 };

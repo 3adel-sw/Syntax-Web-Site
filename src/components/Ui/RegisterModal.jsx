@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { X, Loader2 } from 'lucide-react';
 import { registerInCourse } from '../../services/courses/registrationService';
 
-const RegisterModal = ({ isOpen, onClose }) => {
- const [form, setForm] = useState({ name: '', phone: '', subject: '', message: '' });
+const RegisterModal = ({ isOpen, onClose, courseName }) => {
+  const [form, setForm] = useState({ name: '', phone: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -19,7 +19,13 @@ const RegisterModal = ({ isOpen, onClose }) => {
     setError(null);
     setSuccess(false);
     try {
-      await registerInCourse(form);
+      const data = {
+        name: form.name,
+        phone: form.phone,
+        subject: courseName,
+        message: form.message,
+      }
+      await registerInCourse(data);
       setSuccess(true);
       setForm({ name: '', phone: '', subject: '', message: '' });
       setTimeout(() => { onClose(); setSuccess(false); }, 2000);
@@ -82,22 +88,23 @@ const RegisterModal = ({ isOpen, onClose }) => {
             />
           </div>
         </div>
-            <div className="mb-4">
-              <label className="block text-left text-sm font-medium text-gray-700 mb-1">Course Name</label>
-              <input
-                type="text"
-                placeholder="e.g. UX/UI Course"
-                value={form.subject}
-                onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-              />
-            </div>
+        <div className="mb-4">
+          <label className="block text-left text-sm font-medium text-gray-700 mb-1">Course Name</label>
+          <input
+            type="text"
+            placeholder="e.g. UX/UI Course"
+            disabled
+            value={courseName}
+            // onChange={(e) => setForm({ ...form, subject: e.target.value })}
+            className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+          />
+        </div>
         <div className="mb-6">
           <label className="block text-left text-sm font-medium text-gray-700 mb-1">
             Any Comment or Additional Question?
           </label>
           <textarea
-           placeholder="I want to join this course..."
+            placeholder="I want to join this course..."
             rows={4}
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
