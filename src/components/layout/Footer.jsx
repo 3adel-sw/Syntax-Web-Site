@@ -1,13 +1,42 @@
-
+import { useEffect, useState } from 'react';
 import Logo from '../../assets/logoFooter.svg'
-import { FaFigma } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { getSetting } from '../../services/home/homeService';
 
 const Footer = () => {
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await getSetting();
+        setSettings(res.data?.settings || res.data || null);
+      } catch (err) {
+        console.error('Failed to load footer settings:', err);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+  const socialLinks = [
+    { key: 'facebook', href: settings?.social?.facebook, icon: <FaFacebook size={22} /> },
+    { key: 'github', href: settings?.social?.github, icon: <FaGithub size={22} /> },
+    { key: 'twitter', href: settings?.social?.twitter, icon: <FaTwitter size={22} /> },
+    { key: 'instagram', href: settings?.social?.instagram, icon: <FaInstagram size={22} /> },
+    { key: 'linkedin', href: settings?.social?.linkedin, icon: <FaLinkedin size={22} /> },
+    { key: 'tiktok', href: settings?.social?.tiktok, icon: <FaTiktok size={22} /> },
+    { key: 'youtube', href: settings?.social?.youtube, icon: <FaYoutube size={22} /> },
+    { key: 'whatsapp', href: settings?.social?.whatsapp, icon: <FaWhatsapp size={22} /> },
+  ].filter((item) => item.href);
+
   return (
    <div className="pb-2 mx-auto my-10 w-full">
   <div className="md:max-w-full mx-auto rounded-3xl px-10 py-10 bg-primary">
@@ -18,27 +47,24 @@ const Footer = () => {
       {/* Brand - full width on mobile */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2 w-40 h-12">
-          <img src={Logo} className='w-full object-cover' alt="logo" />
+          <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt="logo" />
         </div>
         <p className="text-sm text-left text-white leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua Quis ipsum suspendisse ultrices gravida.
+          {settings?.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Quis ipsum suspendisse ultrices gravida.'}
         </p>
         {/* Social Icons */}
         <div className="flex items-start gap-3 mt-1">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-          href="https://www.figma.com/design/2oG92v3rP0w4yI6v2D7g8x/Syntax-Website?node-id=984-6130&t=iV1Q5X7w2Z9vY8xX-0" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaFigma size={22} /></a>
-          <a target="_blank"
-            rel="noopener noreferrer" href="https://web.facebook.com/SYNTAXACADEMY" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaFacebook size={22} /></a>
-          <a target="_blank"
-            rel="noopener noreferrer" href="https://github.com/3adel-sw" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaGithub size={22} /></a>
-          <a target="_blank"
-            rel="noopener noreferrer" href="https://x.com/syntaxegypt?lang=en" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaTwitter size={22} /></a>
-          <a target="_blank"
-            rel="noopener noreferrer" href="https://www.instagram.com/syntax.academy/" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaInstagram size={22} /></a>
-          <a href="https://www.linkedin.com/company/syntax-academy-egypt/" className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"><FaLinkedin size={22} /></a>
+          {socialLinks.map((item) => (
+            <a
+              key={item.key}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={item.href}
+              className="text-white/80 hover:text-white hover:scale-160 transition-all duration-200"
+            >
+              {item.icon}
+            </a>
+          ))}
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Mic, Users, Mail } from 'lucide-react';
-import meetupImage from "../../../public/images/meetup.webp";
-import Invitemembers from "../../../public/images/OurAcademy.webp";
+// import meetupImage from "../../../public/images/meetup.webp";
+// import Invitemembers from "../../../public/images/OurAcademy.webp";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -22,6 +22,19 @@ const CardAcademyEvents = () => {
 
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goToLink = (link) => {
+    if (!link) return;
+
+    const cleanLink = link.trim();
+    if (cleanLink.startsWith('http')) {
+      // eslint-disable-next-line react-hooks/immutability
+      window.location.href = cleanLink;
+      return;
+    }
+
+    navigate(cleanLink);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,11 +67,11 @@ const CardAcademyEvents = () => {
         image: p.image,
         title: p.title,
         description: p.description,
-        link: p.slug === 'our-academy' ? '/courses' : '/events',
+        link: p.link || (p.slug === 'our-academy' ? '/courses' : '/events'),
       }))
     : [
-        { image: Invitemembers, title: ' Not Fund',     description: 'Automated expense management software built into your corporate card.', link: '/courses' },
-        { image: meetupImage,   title: 'Meetups & Events', description: 'Effortlessly handle cross-border payments and currency conversions.',      link: '/events' },
+        {  title: ' Not Fund',     description: 'Not Fund.', link: '/courses' },
+        {    title: 'Not Fund', description: 'Not Fund.',      link: '/events' },
       ];
 
   //  Fallback 
@@ -67,6 +80,7 @@ const CardAcademyEvents = () => {
         icon: <img src={p.icon} alt={p.title} className="w-6 h-6 object-contain test-white" />,
         title: p.title,
         description: p.description,
+        link: p.link,
       }))
     : [
         { icon: iconMap.Mic,   title: 'Not Fund',       description: 'Not Fund' },
@@ -86,7 +100,7 @@ const CardAcademyEvents = () => {
       {/*  - Our Academy & Meetups & Events */}
       <div className="my-12 grid grid-cols-1 md:mx-0 mx-2 md:grid-cols-2 gap-6">
         {bigCards.map((card, i) => (
-          <div key={i} onClick={() => navigate(card.link)}
+          <div key={i} onClick={() => goToLink(card.link)}
             className="bg-white pb-12 cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm border-gray-300">
             <div className="w-full h-80 bg-gray-300 mb-4">
               <img loading="eager" fetchPriority="high" src={card.image}
@@ -103,12 +117,17 @@ const CardAcademyEvents = () => {
       {/*  Desktop Grid - Slides  */}
       <div className="my-12 hidden md:grid grid-cols-1 sm:grid-cols-2 md:mx-0 mx-2 md:grid-cols-3 gap-6">
         {slides.map((slide, i) => (
-          <div key={i} className="bg-white rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
+          <div
+          key={i}
+          onClick={() => goToLink(slide.link)}
+          
+          className="bg-white cursor-pointer rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
             <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary bg-primary text-white rounded-full">
               {slide.icon}
             </span>
             <div className="max-2xl text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
-              <h3 className="text-lg text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
+              <h3  
+              className="text-lg cursor-pointer text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
               <p className="text-gray-600 text-left px-4 max-w-2xl">{slide.description}</p>
             </div>
           </div>
@@ -121,12 +140,13 @@ const CardAcademyEvents = () => {
           <div className="overflow-hidden rounded-2xl">
             <div className="flex" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: 'transform 0.3s ease-in-out' }}>
               {slides.map((slide, index) => (
-                <div key={index} className="min-w-full bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
+                <div key={index} onClick={() => goToLink(slide.link)} className="min-w-full cursor-pointer bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
                   <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary bg-primary text-white rounded-full">
                     {slide.icon}
                   </span>
                   <div className="text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
-                    <h3 className="text-lg text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
+                    <h3
+                    className="text-lg  text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
                     <p className="text-gray-600 text-left px-4 max-w-2xl">{slide.description}</p>
                   </div>
                 </div>

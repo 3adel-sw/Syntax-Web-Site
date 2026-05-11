@@ -22,7 +22,9 @@ import { MdOutlinePaid } from "react-icons/md";
 // import { LuLanguages } from "react-icons/lu";
 
 import { useTranslation } from 'react-i18next';
-
+import {
+  getTestimonials,
+} from '../../services/home/homeService';
 const DetailCourses = () => {
 
   const { t, i18n } = useTranslation();
@@ -43,13 +45,17 @@ const DetailCourses = () => {
   const [error, setError] = useState(null);
   // Register Modal
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-
+  const [testimonials, setTestimonials] = useState([]);
   useEffect(() => {
     const fetchCourse = async () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await getCourseById(id);
+        const [res, testimonialsRes] = await Promise.all([
+          getCourseById(id),
+          getTestimonials(),
+        ]);
+        setTestimonials(testimonialsRes.data?.testimonials || testimonialsRes.data || []);
         // console.log('Course response:', res.data);
         setCourse(res.data?.course || res.data);
       } catch (err) {
@@ -186,13 +192,13 @@ const DetailCourses = () => {
                 </span>
                 <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>What are people saying</h3>
                 {/* Cards Testimonials */}
-                <CardsTestimonials />
+                <CardsTestimonials testimonials={testimonials} />
               </div>
             </div>
             {/* Questions */}
             <Questions faqs={course?.faqs || course?.questions || []} />
             {/* Captured Videos */}
-            <CapturedVideos />
+            <CapturedVideos course={course} />
             {/* Footer */}
             <MainFooter />
           </>

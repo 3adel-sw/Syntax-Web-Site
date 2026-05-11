@@ -10,4 +10,4 @@ export const getLatestBlogs = () => api.get('/latestBlogs');
 export const getTestimonials = () => api.get('/testimonials');
 export const getAllTestimonials = () => api.get('/alltestimonials');
 export const getAllProducts = () => api.get('/allproducts');
-// export const getSetting = () => api.get('/setting');
+export const getSetting = () => api.get('/setting');

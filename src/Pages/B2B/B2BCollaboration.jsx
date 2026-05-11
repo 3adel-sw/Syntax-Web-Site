@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Footer from "../../components/layout/Footer";
 import HeroSection from "./HeroSection";
 import ChooseCardTraining from "./ChooseCardTraining";
@@ -5,9 +6,25 @@ import LayersB2B from "./LayersB2B";
 import ProgramVariations from "./ProgramVariations";
 import FormTrainingForCorporation from "./FormTrainingForCorporation";
 import CardGraduated from '../../components/Ui/CardGraduated';
+import { getOrganizations } from "../../services/home/homeService";
 
 
 const B2BCollaboration = () => {
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    const fetchOrganizations = async () => {
+      try {
+        const res = await getOrganizations();
+        setOrganizations(res.data?.organizations || res.data || []);
+      } catch (err) {
+        console.error('Failed to load organizations:', err);
+      }
+    };
+
+    fetchOrganizations();
+  }, []);
+
   return (
       <div className="min-h-screen home-page  flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
@@ -25,7 +42,7 @@ const B2BCollaboration = () => {
           <div className=' space-y-5'>
             <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
             {/* Cards */}
-            <CardGraduated />
+           <CardGraduated data={organizations} />
           </div>
          {/* Form Training For Corporation */}
         <FormTrainingForCorporation />

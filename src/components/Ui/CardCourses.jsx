@@ -131,7 +131,7 @@ useEffect(() => {
 
       {/* Mobile Grid */}
 
-      {showButton && limit && courses.length > limit && (
+      {showButton && limit && (
         <div className="mt-10">
           <button
             onClick={() => navigate('/courses')}

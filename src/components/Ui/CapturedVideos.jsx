@@ -1,29 +1,32 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, X, Volume2, VolumeX } from 'lucide-react';
-import Ayminimage from "../../assets/ayminCaptured.svg"
 
-// ========== Sample Data ==========
+const getYoutubeId = (url = '') => {
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([^?&/]+)/);
+  return match?.[1] || '';
+};
 
-const capturedItems = [
-  {
-    id: 1,
-   thumbnail: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
-    videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    alt: 'Classroom session',
-  },
-  {
-    id: 2,
-     thumbnail: Ayminimage,
-    videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    alt: 'Certificate award',
-  },
-  {
-    id: 3,
-    thumbnail: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
-    videoSrc: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    alt: 'Presentation screen',
-  },
-];
+const normalizeGalleryItems = (gallery = []) =>
+  gallery.map((image, index) => ({
+    id: `gallery-${index}`,
+    thumbnail: typeof image === 'string' ? image : image?.image || image?.url,
+    alt: `Course gallery ${index + 1}`,
+  })).filter((item) => item.thumbnail);
+
+const normalizeVideoItems = (videos = [], fallbackImage = '') =>
+  videos.map((video, index) => {
+    const videoSrc = typeof video === 'string' ? video : video?.video || video?.url || video?.videoSrc;
+    const youtubeId = getYoutubeId(videoSrc);
+
+    return {
+      id: `video-${index}`,
+      thumbnail: video?.thumbnail || (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : fallbackImage),
+      videoSrc,
+      embedSrc: youtubeId ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1` : '',
+      alt: `Course video ${index + 1}`,
+      isYoutube: Boolean(youtubeId),
+    };
+  }).filter((item) => item.videoSrc && item.thumbnail);
 
 // ========== Video Thumbnail Card ==========
 const VideoCard = ({ item, onClick, isImage }) => {
@@ -39,7 +42,7 @@ const VideoCard = ({ item, onClick, isImage }) => {
     >
       <img
         loading="eager"
-            fetchPriority="high"
+        fetchPriority="high"
         src={item.thumbnail}
         alt={item.alt}
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -87,22 +90,34 @@ const VideoModal = ({ item, onClose }) => {
         className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden bg-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <video
-          ref={videoRef}
-          src={item.videoSrc}
-          className="w-full"
-          autoPlay
-          controls={false}
-          style={{ maxHeight: '70vh' }}
-        />
+        {item.isYoutube ? (
+          <iframe
+            src={item.embedSrc}
+            title={item.alt}
+            className="w-full aspect-video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src={item.videoSrc}
+            className="w-full"
+            autoPlay
+            controls={false}
+            style={{ maxHeight: '70vh' }}
+          />
+        )}
         {/* Controls */}
         <div className="absolute top-3 right-3 flex gap-2">
-          <button
-            onClick={toggleMute}
-            className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition"
-          >
-            {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-          </button>
+          {!item.isYoutube && (
+            <button
+              onClick={toggleMute}
+              className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition"
+            >
+              {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+            </button>
+          )}
           <button
             onClick={onClose}
             className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition"
@@ -158,6 +173,8 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
     }
   }, [currentSlide, isDragging]);
 
+  if (!items.length) return null;
+
   return (
     <div className="mb-16">
       <div className="text-center mb-8">
@@ -182,7 +199,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
             }}
           >
             {items.map((item) => (
-              <div key={item.id} className="min-w-full flex-shrink-1 px-2">
+              <div key={item.id} className="min-w-full flex-shrink-0 px-2">
                 <VideoCard item={item} onClick={onPlay} isImage={isImage} />
               </div>
             ))}
@@ -212,21 +229,23 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
 };
 
 // ========== Main Component ==========
-const CapturedVideos = () => {
+const CapturedVideos = ({ course = {} }) => {
   const [activeVideo, setActiveVideo] = useState(null);
+  const galleryItems = normalizeGalleryItems(course.gallery || []);
+  const videoItems = normalizeVideoItems(course.videos || [], course.banner_image || course.image || '');
 
   return (
     <div className="py-10">
       <Section
         title="Captured Moments"
         subtitle="A glimpse into the energy and joy of our unforgettable events."
-        items={capturedItems}
+        items={galleryItems}
         isImage={true}
       />
       <Section
         title="Videos"
         subtitle="A glimpse into the energy and joy of our unforgettable events."
-        items={capturedItems}
+        items={videoItems}
         onPlay={setActiveVideo}
         isImage={false}
       />

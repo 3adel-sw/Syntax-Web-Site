@@ -1,28 +1,22 @@
 
-import Spherulelogo from '../../assets/Spherulelogo.svg'
-import Boltshiftlogo from '../../assets/Boltshiftlogo.svg'
-import FeatherDevlogologo from '../../assets/FeatherDevlogologo.svg'
-import Fictionalcompanylogo from '../../assets/Fictionalcompanylogo.svg'
-import Lightboxlogo from '../../assets/Lightboxlogo.svg'
-import globalBanklogo from '../../assets/globalBanklogo.svg'
 
-const logos = [
-  { id: 1, src: Spherulelogo, alt: 'Spherulelogo' },
-  { id: 2, src: Boltshiftlogo, alt: 'Boltshiftlogo' },
-  { id: 3, src: FeatherDevlogologo, alt: 'FeatherDevlogologo' },
-  { id: 4, src: Fictionalcompanylogo, alt: 'Fictionalcompanylogo' },
-  { id: 5, src: Lightboxlogo, alt: 'Lightboxlogo' },
-  { id: 6, src: globalBanklogo, alt: 'globalBanklogo' },
-];
 
-const CardGraduated = () => {
-  const allLogos = [...logos, ...logos, ...logos];
+const CardGraduated = ({ data = [] }) => {
+  const apiLogos = data
+    .map((item, index) => ({
+      id: item.id || item.created_at || index,
+      src: item.image || item.logo,
+      alt: item.name || item.title || `Organization ${index + 1}`,
+    }))
+    .filter((logo) => logo.src);
+      const visibleLogos = apiLogos;
+  const allLogos = [...visibleLogos, ...visibleLogos, ...visibleLogos];
 
   return (
     <div className="my-8 overflow-hidden">
       <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
         {allLogos.map((logo, index) => (
-          <div key={`${logo.id}-${index}`} className="flex-shrink-0 flex items-center justify-center px-4">
+          <div key={`${logo.id}-${index}`} className="flex-shrink-1 flex items-center justify-center px-4">
             <img 
             loading="eager"
             fetchPriority="high"

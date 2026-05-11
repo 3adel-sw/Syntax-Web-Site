@@ -134,7 +134,7 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
   />
 ))}
       </div>
-      {showButton && limit && blogs.length > limit && (
+      {showButton && limit && (
         <div className="mt-10">
           <button
             onClick={() => navigate('/blogs')}

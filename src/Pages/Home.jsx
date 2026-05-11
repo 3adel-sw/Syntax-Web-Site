@@ -19,7 +19,7 @@ import {
   getLatestBlogs,
   getTestimonials,
   getAllProducts,
-  // getSetting,
+  getSetting,
 } from '../services/home/homeService';
 
 const Home = () => {
@@ -32,7 +32,6 @@ const Home = () => {
   const [latestCourses, setLatestCourses] = useState([]);
   const [latestBlogs, setLatestBlogs] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
-  const [products, setProducts] = useState([]);
   const [setting, setSetting] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -63,18 +62,21 @@ const Home = () => {
           getLatestBlogs(),
           getTestimonials(),
           getAllProducts(),
-          // getSetting(),
+          getSetting(),
           
         ]);
 
         setHero(heroRes.data.heroSection);
         setCounters(countersRes.data);
-        setOrganizations(orgsRes.data);
+        setOrganizations(orgsRes.data?.organizations || orgsRes.data || []);
         setLatestCourses(coursesRes.data);
         setLatestBlogs(blogsRes.data);
-        setTestimonials(testimonialsRes.data);
+        setTestimonials(
+          (testimonialsRes.data?.testimonials || testimonialsRes.data || [])
+            .filter((testimonial) => Number(testimonial.show_in_home) !== 0)
+        );
         setProducts(productsRes.data);
-        setSetting(settingRes.data);
+        setSetting(settingRes.data?.settings || settingRes.data || null);
       } catch (err) {
         console.error('Error fetching home data:', err);
       } finally {
@@ -98,6 +100,7 @@ const Home = () => {
           <Sparkle size={20} className="fill-primary text-primary animate-pulse" />
           {setting?.badge_text || 'Welcome to Syntax Community'}
         </div>
+        
     {hero?.map((item, index) => (
   <div key={index}>
 
@@ -112,7 +115,16 @@ const Home = () => {
     <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm md:text-lg sm:text-base">
       {item?.description || 'Join a vibrant community...'}
     </p>
-
+            {/* Button */}
+        <div className="mt-5">
+          <button
+          onClick={() => navigate('/courses')}
+          className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-2xl shadow-md hover:bg-primary/90 transition">
+            Start Learning
+                {/* <LuLoaderCircle size={22} className="animate-spin" /> */}
+                <LuLoaderCircle size={22} className="" />
+          </button>
+        </div>
     {/* Image */}
     <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl">
       <img
@@ -165,7 +177,7 @@ const Home = () => {
         <div className='md:my-22 sm:my-16 my-16 lg:my-24'>
           <div className='space-y-5'>
             <h3 className='md:text-2xl text-xl text-gray-500 leading-snug'>Our Graduated Working On</h3>
-            <CardGraduated data={products} />
+            <CardGraduated data={organizations} />
           </div>
         </div>
 
@@ -177,7 +189,8 @@ const Home = () => {
               Testimonials
             </span>
             <h3 className='md:text-3xl text-2xl font-bold text-gray-800 leading-snug'>What are people saying</h3>
-            <CardsTestimonials data={testimonials} />
+            <CardsTestimonials testimonials={testimonials} showButton />
+            
           </div>
         </div>
 
