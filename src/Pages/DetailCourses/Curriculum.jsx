@@ -1,10 +1,5 @@
 import { useState, useMemo } from "react";
 
-const toStr = (val) => {
-  if (!val) return '';
-  if (typeof val === 'object') return val?.name || val?.title || '';
-  return val;
-};
 
 const Curriculum = ({ course }) => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -13,11 +8,11 @@ const Curriculum = ({ course }) => {
     if (!course) return [];
     
     // Try multiple data structure patterns from API response
-    const curriculumData = 
-      course?.curriculum || 
-      course?.syllabus || 
-      course?.topics || 
-      course?.modules || 
+    const curriculumData =
+      course?.main_topics ||
+      course?.curriculum ||
+      course?.syllabus ||
+      course?.modules ||
       course?.chapters ||
       [];
 
@@ -51,25 +46,26 @@ const Curriculum = ({ course }) => {
           >
             <div className="flex-1">
               <h3 className="text-sm font-medium text-gray-800">
-                {toStr(item.title) || toStr(item.name) || `Topic ${index + 1}`}
+                {item.name || item.title || `Topic ${index + 1}`}
               </h3>
               {item.duration && (
                 <p className="text-xs text-gray-500 mt-1">
-                  Duration: {item.duration}
+                  Duration:  {new Date(item.created_at).toLocaleDateString()}
                 </p>
               )}
             </div>
 
-            <div className="w-10 h-10 flex items-center text-xl justify-center rounded-xl bg-primary text-white font-semibold shrink-0 ml-4">
+            <div className="w-10 h-10 flex items-center text-xl justify-center rounded-xl bg-primary text-white font-semibold shrink-1">
               {openIndex === index ? "-" : "+"}
             </div>
           </div>
 
           {/* Content */}
           {openIndex === index && (
-            <div className="p-4 text-sm text-gray-600 border-t border-gray-200 bg-gray-50">
-              <p>
-                {toStr(item.content) || toStr(item.desc) || toStr(item.description) || 'No description available.'}
+            <div className="p-3.5 text-sm text-gray-600 border-t border-gray-200 bg-gray-50">
+              <p
+              dangerouslySetInnerHTML={{ __html: item.description || 'Not found' }}
+              >
               </p>
               
               {/* Additional Details */}
@@ -79,7 +75,7 @@ const Curriculum = ({ course }) => {
                   <ul className="list-disc list-inside space-y-1">
                     {item.lessons.map((lesson, idx) => (
                       <li key={idx} className="text-gray-600">
-                        {toStr(lesson)}
+                        {lesson.name || lesson.title}
                       </li>
                     ))}
                   </ul>
@@ -92,7 +88,7 @@ const Curriculum = ({ course }) => {
                   <ul className="list-disc list-inside space-y-1">
                     {item.objectives.map((obj, idx) => (
                       <li key={idx} className="text-gray-600">
-                        {toStr(obj)}
+                        {obj.name || obj.title}
                       </li>
                     ))}
                   </ul>

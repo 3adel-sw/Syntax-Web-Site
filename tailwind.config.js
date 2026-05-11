@@ -1,6 +1,6 @@
+import typography from '@tailwindcss/typography';
 export default {
   content: ["./**/*.{html,js,ts,jsx,tsx}"],
-  
   theme: {
     extend: {
       screens: {
@@ -34,6 +34,7 @@ export default {
       },
     },
   },
-  plugins: [],
+         plugins: [typography],
+ 
 };
 // export default

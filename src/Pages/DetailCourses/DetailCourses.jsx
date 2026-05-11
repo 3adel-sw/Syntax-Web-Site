@@ -18,7 +18,8 @@ import { FaRegCopy } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
 import { GoFileDirectory } from "react-icons/go";
 import { GrCertificate } from "react-icons/gr";
-import { LuLanguages } from "react-icons/lu";
+import { MdOutlinePaid } from "react-icons/md";
+// import { LuLanguages } from "react-icons/lu";
 
 import { useTranslation } from 'react-i18next';
 
@@ -33,9 +34,6 @@ const DetailCourses = () => {
     if (typeof val === 'object') return val?.name || val?.title || '';
     return val;
   };
-
-
-
 
 
   const { id } = useParams();
@@ -86,28 +84,27 @@ const DetailCourses = () => {
         <h1 className="md:text-2xl text-xl text-left md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
           {course.title}
         </h1>
-
         {/* Hero Banner */}
         <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
           {/* image */}
           <img src={course.image || course.img || detailsCourses} alt={course.title} className="w-full h-full object-fill " />
         </div>
-
         {/* Meta Bar */}
-        <div className=" grid grid-cols-2 md:grid-cols-5 gap-4 mb-5 pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
+        <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
           {[
-            { icon: <GoFileDirectory />, label: 'Category', value: toStr(course.category) || toStr(course.tag) || 'UX Design' },
-            { icon: <GrCertificate />, label: 'Certification', value: toStr(course.certification) || 'Yes' },
-            { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
+            { icon: <GoFileDirectory />, label: 'Category', value: toStr(course.category) || toStr(course.tag) || 'unavailable' },
+            { icon: <GrCertificate />, label: 'Certification', value: toStr(course.certification) || 'unavailable' },
+            // { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
+            { icon: <MdOutlinePaid />, label: 'Type', value: toStr(course.type) || toStr(course.name) || 'unavailable' },
           ].map((item) => (
-            <span key={item.label} className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5">
-              {item.icon} {item.label}: <strong className="text-gray-800 md:text-sm text-xs">{item.value}</strong>
+            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-14 px-4 py-2.5">
+              {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-xs text-[9px]">{item.value}</strong>
             </span>
           ))}
-          <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+          <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
             <CiShare2 /> Share
           </button>
-          <button className="flex items-center justify-center gap-1 text-sm text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+          <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
             <FaRegCopy /> Copy Link
           </button>
         </div>
@@ -175,12 +172,11 @@ const DetailCourses = () => {
             </div>
           </div>
         </div>
-
         {/* Sections below (Only on Overview) */}
         {activeTab === 'overview' && (
           <>
             {/* Why Choose Us */}
-            <ChooseUs items={course?.features || course?.whyUs || course?.reasons || []} />
+            <ChooseUs course={course} />
             {/* Testimonials */}
             <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
               <div className=' space-y-5'>

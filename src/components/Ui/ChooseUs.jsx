@@ -8,15 +8,28 @@ const toStr = (val) => {
   return val;
 };
 
+const fallbackIcons = [Add, Pc, Add, Pc];
 
-const defaultFaqs = [
-  { img: Add, question: 'What is showcase work?', answer: 'Showcase work allows you to display your projects.' },
-  { img: Pc, question: 'How does it work?', answer: 'It guides you step by step.' },
-  { img: Add, question: 'How  work?', answer: 'Upload projects and share your portfolio link.' },
-  { img: Pc, question: 'What features  offer?', answer: 'Templates, custom sections, PDF export.' },
-];
-const ChooseUs = () => {
-  // Slider State
+const FaqCard = ({ faq, i }) => (
+  <div className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white h-full">
+    <img
+      loading="eager"
+      fetchPriority="high"
+      className="w-12 h-12 rounded-xl"
+      src={faq.icon || faq.image || fallbackIcons[i % fallbackIcons.length]}
+      alt={toStr(faq.question)}
+    />
+    <p className="md:text-xl text-base font-semibold text-gray-800">
+      {toStr(faq.question)}
+    </p>
+    <div
+      className="text-sm text-gray-500 text-center prose prose-sm max-w-none"
+      dangerouslySetInnerHTML={{ __html: faq.answer }}
+    />
+  </div>
+);
+
+const ChooseUs = ({ course }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -24,6 +37,10 @@ const ChooseUs = () => {
   const translateXRef = useRef(0);
   const containerRef = useRef(null);
 
+  const faqs = course?.why_us || [];
+
+
+  
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
     setIsDragging(true);
@@ -41,11 +58,12 @@ const ChooseUs = () => {
     translateXRef.current = newX;
     setTranslateX(newX);
   };
-
+console.log('course:', course);
+console.log('why_us:', course?.why_us);
   const handleTouchEnd = () => {
     setIsDragging(false);
     const slideIndex = Math.round(-translateXRef.current / 100);
-    const boundedIndex = Math.max(0, Math.min(defaultFaqs.length - 1, slideIndex));
+     const boundedIndex = Math.max(0, Math.min(faqs.length - 1, slideIndex));
     setCurrentSlide(boundedIndex);
     translateXRef.current = -boundedIndex * 100;
     setTranslateX(-boundedIndex * 100);
@@ -54,9 +72,11 @@ const ChooseUs = () => {
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
+
 
   return (
     <div className="mt-16 text-center">
@@ -78,28 +98,17 @@ const ChooseUs = () => {
               transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
             }}
           >
-            {defaultFaqs.map((faq, i) => (
-              <div key={i} className="min-w-full flex-shrink-1 px-4">
-                <div className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white h-full">
-                  <img 
-                  loading="eager"
-            fetchPriority="high"
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={faq.img} alt={faq.title} />
-              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{toStr(faq.question)}</p>
-            <p className="md:text-base text-sm text-gray-500 text-center">{toStr(faq.answer)}</p>
-                </div>
+           {faqs.map((faq, i) => (
+              <div key={faq.id ?? i} className="min-w-full flex-shrink-0 px-4">
+                <FaqCard faq={faq} i={i} />
               </div>
             ))}
           </div>
         </div>
         <div className="flex justify-center gap-2 mt-4">
-          {defaultFaqs.map((faq, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
-              }`}
+         {faqs.map((_, index) => (
+            <button key={index} onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'}`}
             />
           ))}
         </div>
@@ -107,15 +116,8 @@ const ChooseUs = () => {
 
       {/* Desktop Grid */}
       <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-6">
-        {defaultFaqs.map((faq, i) => (
-          <div key={i} className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white">
-            <img 
-            loading="eager"
-            fetchPriority="high"
-            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" src={faq.img} alt={faq.title} />
-              <p className="md:text-xl text-base max-w-3xl font-semibold text-gray-800">{toStr(faq.question)}</p>
-            <p className="md:text-base text-sm text-gray-500 text-center">{toStr(faq.answer)}</p>
-          </div>
+         {faqs.map((faq, i) => (
+          <FaqCard key={faq.id ?? i} faq={faq} i={i} />
         ))}
       </div>
     </div>
