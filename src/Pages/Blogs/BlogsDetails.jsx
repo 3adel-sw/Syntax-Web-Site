@@ -11,16 +11,29 @@ const BlogsDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-    const toStr = (value) => {
+  const toStr = (value) => {
     if (typeof value === 'string') return value;
     if (typeof value === 'number') return value.toString();
     return '';
   };
 
+  const formatDate = (value) => {
+    const dateValue = toStr(value);
+    if (!dateValue) return 'Date';
 
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return dateValue;
+
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -28,9 +41,10 @@ const BlogsDetails = () => {
         setLoading(true);
         setError(null);
         const res = await getBlogById(id);
-        setBlog(res.data?.blog || res.data?.data || res.data);
+        const blogResponse = res.data?.blog || res.data?.data || res.data;
+        setBlog(blogResponse?.data || blogResponse);
+        setRelatedBlogs(blogResponse?.related || []);
       } catch (err) {
-        console.log('Error:', err.response?.status, err.response?.data)
         console.error(err);
         setError('Failed to load blog');
       } finally {
@@ -57,8 +71,11 @@ const BlogsDetails = () => {
   if (!blog) return (
     <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">Blog not found.</div>
   );
-            console.log('All blog keys:', Object.keys(blog));
-        console.log('Blog:', blog.created_at, blog.published_at, blog.date);
+
+  const title = blog.name || blog.title || 'Blog';
+  const image = blog.banner_image || blog.image || blog.thumb || BlogCardImage;
+  const date = formatDate(blog.date || blog.created_at || blog.published_at);
+  const relatedData = relatedBlogs.length ? relatedBlogs : undefined;
 
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
@@ -75,14 +92,14 @@ const BlogsDetails = () => {
           <div>
             {/* Title */}
             <h1 className="text-2xl text-left md:text-3xl font-bold text-gray-900 mb-5 leading-snug">
-              {blog.name || blog.title}
+              {title}
             </h1>
 
             {/* Hero Image */}
             <div className="rounded-2xl overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-900">
               <img
-                src={toStr(blog.image || blog.thumb || BlogCardImage)}
-                alt={toStr(blog.title) || 'Blog'}
+                src={toStr(image)}
+                alt={toStr(title)}
                 loading="eager"
                 fetchPriority="high"
                 className="w-full h-full object-cover"
@@ -97,7 +114,7 @@ const BlogsDetails = () => {
               </div>
               <div className="flex items-center justify-center gap-3.5 text-base border-gray-300 border rounded-lg px-3 py-2">
                 <Calendar size={18} className="opacity-50" />
-                <span>Date: <strong className="text-gray-700">{blog.date || blog.created_at || blog.published_at || 'Date'}</strong></span>
+                <span>Date: <strong className="text-gray-700">{date}</strong></span>
               </div>
               <button className="flex items-center justify-center gap-3.5 text-base border-gray-300 border rounded-lg px-3 py-2">
                 <Share2 size={18} /> Share
@@ -111,12 +128,10 @@ const BlogsDetails = () => {
             </div>
 
             {/* Article Body */}
-            <article className="space-y-6 text-[15px] leading-relaxed text-gray-600 text-left"
-            
-            >
+            <article className="prose prose-gray max-w-none text-left text-gray-600 prose-p:text-[16px] prose-p:leading-relaxed prose-headings:text-gray-900">
               {blog.content ? (
                 typeof blog.content === 'string' ? (
-                  <p className="text-[16px]">{toStr(blog.content)}</p>
+                  <div dangerouslySetInnerHTML={{ __html: blog.content }} />
                 ) : (
                   <>
                     {blog.content.introduction && (
@@ -155,7 +170,7 @@ const BlogsDetails = () => {
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className='space-y-5'>
             <h3 className='text-3xl text-left font-bold text-gray-800 leading-snug'>Related Blogs</h3>
-            <CardBlog activeCategory="All Blogs" limit={3} />
+            <CardBlog data={relatedData} activeCategory="All Blogs" limit={3} excludeId={blog.id} />
           </div>
         </div>
         <Subscribe />

@@ -15,6 +15,11 @@ const toStr = (val) => {
   return val;
 };
 
+const normalizeBlogs = (data) => {
+  if (Array.isArray(data)) return data;
+  return data?.blogs || data?.data || [];
+};
+
 
 
 const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) => {
@@ -62,19 +67,25 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
   );
 };
 
-const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
+const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excludeId }) => {
   const navigate = useNavigate();
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState(normalizeBlogs(data));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (data !== undefined) {
+      setBlogs(normalizeBlogs(data));
+      setLoading(false);
+      return;
+    }
+
     const fetchBlogs = async () => {
       try {
         setLoading(true);
         setError(null);
         const res = await getAllBlogs();
-        setBlogs(res.data?.blogs || res.data?.data || []);
+        setBlogs(normalizeBlogs(res.data));
       } catch (err) {
         console.error(err);
         setError('Failed to load blogs');
@@ -83,7 +94,7 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
       }
     };
     fetchBlogs();
-  }, []);
+  }, [data]);
 
   const categoryMap = {
     "UI Design": "UI Design",
@@ -96,13 +107,16 @@ const CardBlog = ({ activeCategory, limit, showButton, ButtonContent }) => {
   const mappedCategory = categoryMap[activeCategory];
   const filteredBlogs = activeCategory === "All Blogs" || !activeCategory
     ? blogs
-    : blogs.filter(blog => blog.category === mappedCategory);
-    blogs.filter(blog => {
-  const cat = blog.category?.name || blog.category;
-  return cat === mappedCategory;
-});
+    : blogs.filter(blog => {
+      const cat = blog.category?.name || blog.category;
+      return cat === mappedCategory;
+    });
 
-  const displayedBlogs = limit ? filteredBlogs.slice(0, limit) : filteredBlogs;
+  const visibleBlogs = excludeId
+    ? filteredBlogs.filter(blog => String(blog.id) !== String(excludeId))
+    : filteredBlogs;
+
+  const displayedBlogs = limit ? visibleBlogs.slice(0, limit) : visibleBlogs;
 
 
 

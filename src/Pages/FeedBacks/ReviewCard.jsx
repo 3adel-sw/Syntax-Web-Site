@@ -1,19 +1,20 @@
-// ReviewCard.jsx
 import { useState } from "react";
 
 const AVATAR_COLORS = [
   "#e85d75", "#4e8ff7", "#43c897", "#f5a623",
   "#9b59b6", "#1abc9c", "#e67e22", "#3498db",
+
 ];
 
 const getInitials = (name) =>
-  name.split(" ").map((w) => w[0]).join("");
+  name?.split(" ").map((w) => w[0]).join("") || "?";
 
-const StarRating = ({ count }) => (
-  <div className="text-3xl font-bold text-left mb-2 text-[#f5c842]" style={{ letterSpacing: "2px" }}>
-    {"★".repeat(count)}{"☆".repeat(5 - count)}
-  </div>
-);
+
+// const StarRating = () => (
+//   <div className="text-3xl font-bold text-left mb-2 text-[#f5c842]" style={{ letterSpacing: "2px" }}>
+//     {"★".repeat(5)}
+//   </div>
+// );
 
 const Avatar = ({ name, image, colorIndex }) => {
   const [imgError, setImgError] = useState(false);
@@ -25,7 +26,7 @@ const Avatar = ({ name, image, colorIndex }) => {
         src={image}
         alt={name}
         onError={() => setImgError(true)}
-        className="h-[44px] w-[44px] object-cover"
+        className="h-[44px] w-[44px] rounded-full object-cover"
       />
     );
   }
@@ -42,10 +43,10 @@ const Avatar = ({ name, image, colorIndex }) => {
 
 const ReviewCard = ({ review, colorIndex }) => {
   const [hovered, setHovered] = useState(false);
-  const color = AVATAR_COLORS[colorIndex % AVATAR_COLORS.length];
 
   return (
-    <div className="overflow-hidden flex flex-col items-start justify-between h-fit py-5 px-4 gap-2 rounded-2xl bg-[#F2F4F7] "
+    <div
+      className="overflow-hidden flex flex-col items-start justify-between h-fit py-5 px-4 gap-2 rounded-2xl bg-[#F2F4F7]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -56,28 +57,27 @@ const ReviewCard = ({ review, colorIndex }) => {
     >
       {/* Top */}
       <div className="flex-1 text-left mb-3 overflow-hidden">
-        <StarRating count={review.stars} />
-        <p className="text-[#4a5568]  text-base" style={{
-        
-          lineHeight: "1.65",
-          display: "-webkit-box",
-          WebkitLineClamp: 5,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}>
-          {review.text}
+        {/* <StarRating /> */}
+        <p
+          className="text-[#4a5568] text-base"
+          style={{
+            lineHeight: "1.65",
+            display: "-webkit-box",
+            WebkitLineClamp: 5,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {review.content} 
         </p>
       </div>
 
       {/* Bottom */}
-      <div>
-       
-        <div className="flex items-center gap-2">
-          <Avatar name={review.name} image={review.image} colorIndex={colorIndex} />
-          <div>
-            <div className="text-sm font-semibold text-gray-900">{review.name}</div>
-            <div className="text-xs text-gray-600">{review.role}</div>
-          </div>
+      <div className="flex items-center gap-2">
+        <Avatar name={review.name} image={review.image} colorIndex={colorIndex} />
+        <div>
+          <div className="text-sm font-semibold text-gray-900">{review.name}</div>
+          <div className="text-xs text-gray-600">{review.job}</div>
         </div>
       </div>
     </div>

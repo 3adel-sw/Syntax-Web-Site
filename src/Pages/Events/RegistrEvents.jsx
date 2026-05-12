@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/static-components */
-
+import { registrationEventsService } from '../../services/events/registrationEventsService';
 
 import { useState } from 'react';
 import {  X } from 'lucide-react';
@@ -9,13 +9,40 @@ const RegistrEvents = () => {
       const [form, setForm] = useState({
         fullName: '', email: '', phone: '', experience: '', country: '',
       });
-      const [showSuccess, setShowSuccess] = useState(false); 
+      const [showSuccess, setShowSuccess] = useState(false);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState('');
     
       const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowSuccess(true); 
+        setLoading(true);
+        setError('');
+
+        try {
+          await registrationEventsService({
+            name: form.fullName,
+            email: form.email,
+            phone: form.phone,
+            experience_level: form.experience,
+            country: form.country,
+          });
+
+          setShowSuccess(true);
+          setForm({
+            fullName: '',
+            email: '',
+            phone: '',
+            experience: '',
+            country: '',
+          });
+        } catch (err) {
+          console.error(err);
+          setError(err.response?.data?.msg || 'Registration failed. Please try again.');
+        } finally {
+          setLoading(false);
+        }
       };
       const SuccessModal = ({ onClose }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
@@ -145,14 +172,20 @@ const RegistrEvents = () => {
               </div>
 
               {/* Submit */}
+              {error && (
+                <p className="text-sm text-left text-red-500">{error}</p>
+              )}
               <button
                 onClick={handleSubmit}
+                disabled={loading}
                 className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-3 md:mt-2.5mt-3 rounded-2xl transition my-4"
               >
-                Register Now
-                <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 12a9 9 0 11-6.219-8.56" />
-            </svg>
+                {loading ? 'Registering...' : 'Register Now'}
+                {loading && (
+                  <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 12a9 9 0 11-6.219-8.56" />
+                  </svg>
+                )}
               </button>
                
                 {showSuccess && <SuccessModal onClose={() => setShowSuccess(false)} />}
