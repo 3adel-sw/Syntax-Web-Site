@@ -1,13 +1,15 @@
-import { useState, useRef, useEffect } from "react";
-import AymanAboutR from "../../../public/images/AymanAboutR.webp"
-import heroAboutleft from "../../../public/images/heroAboutleft.webp"
-
+import { useState, useRef, useEffect, useMemo } from "react";
+// import AymanAboutR from "../../../public/images/AymanAboutR.webp"
+// import heroAboutleft from "../../../public/images/heroAboutleft.webp"
+import { getHeroSection } from "../../services/about/aboutService";
 const HeroAbout = () => {
-  const images = [
-    { src: heroAboutleft, alt: "Syntax Community Classroom" },
-    { src: AymanAboutR, alt: "Syntax Instructor" },
-  ];
-
+const [heroData, setHeroData] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+ const images = useMemo(() => [
+  { src: heroData?.image , alt: "not " },
+  // { src: heroData?.image || AymanAboutR, alt: "Syntax Instructor" },
+], [heroData]);
   // Slider State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -49,7 +51,16 @@ const HeroAbout = () => {
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
-
+useEffect(() => {
+  getHeroSection()
+    .then((response) => {
+ 
+  setHeroData(response.data.about_hero);
+})
+ 
+    .catch((err) => setError(err.message))
+    .finally(() => setLoading(false));
+}, []);
   return (
     <div className="w-full md:my-25 my-12">
       {/* ===== Hero Top Section ===== */}
@@ -67,9 +78,7 @@ const HeroAbout = () => {
         {/* Right: Description + Buttons */}
         <div className="flex flex-col gap-6 justify-center">
           <p className="text-lg text-left text-gray-500 leading-relaxed">
-            Zippay Bill Pay automates your entire accounts payable workflow so
-            every bill is recorded, approved, and paid without any data entry
-            or repetitive tasks
+            {loading ? "Loading..." : error || heroData?.description}
           </p>
           <div className="flex gap-4 flex-wrap">
             <button className="px-5 py-3.5 rounded-xl  text-gray-900 text-sm bg-[#F2F4F7] font-medium hover:bg-gray-900 hover:text-white  transition-colors">
@@ -102,7 +111,7 @@ const HeroAbout = () => {
               <div key={index} className="min-w-full flex-shrink-1">
                 <div className="h-82 rounded-3xl overflow-hidden">
                   <img
-                    src={img.src}
+                     src={heroData?.image || "Not "}
                     alt={img.alt}
                     className="w-full h-full object-cover"
                   />
@@ -127,21 +136,23 @@ const HeroAbout = () => {
       {/* Desktop Grid */}
       <div className="hidden md:grid grid-cols-4 gap-4 mb-12">
         {/* Large classroom image */}
-        <div className="col-span-3 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
+        {/* <div className="col-span-3 rounded-3xl overflow-hidden h-82 md:h-[583px] "> */}
+        <div className="col-span-4 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
           <img
-            src={heroAboutleft}
+            src={heroData?.image || "Not "}
             alt="Syntax Community Classroom"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </div>
         {/* Instructor image */}
-        <div className="col-span-1 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
+        {/* <div className="col-span-1 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
           <img
-            src={AymanAboutR}
+
+            src={heroData?.image || AymanAboutR}
             alt="Syntax Instructor"
             className="w-full h-full object-cover"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* ===== What We Do Section ===== */}
@@ -153,18 +164,9 @@ const HeroAbout = () => {
 
         {/* Right: Paragraphs */}
         <div className="md:col-span-2 flex flex-col gap-6">
-          <p className="md:text-lg text-sm font-medium text-left text-[#797979] leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempos Lorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusmod tempor
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempos Lorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusmod tempor
-          </p>
-          <p className="md:text-lg text-sm font-medium text-left text-[#797979] leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempos Lorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusmod tempor
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, consectetur adipiscing elit, sed do eiusmod tempor
-          </p>
+         <p className="md:text-lg text-sm font-medium text-left text-[#797979] leading-relaxed">
+    {heroData?.description}
+  </p>
         </div>
       </div>
     </div>
