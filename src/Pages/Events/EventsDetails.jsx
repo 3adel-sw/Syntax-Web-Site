@@ -43,6 +43,7 @@ const EventsDetails = () => {
   const [event, setEvent] = useState(null);
   const [otherEvents, setOtherEvents] = useState([]);
   const [showVideo, setShowVideo] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -85,6 +86,8 @@ const EventsDetails = () => {
         }
 
         setEvent(eventData);
+        setShowVideo(false);
+        setIsRegistered(false);
         setOtherEvents(
           Array.isArray(eventsData)
             ? eventsData
@@ -189,26 +192,31 @@ const EventsDetails = () => {
                 <img src={image} alt={title} className="w-full h-full object-cover" />
               </div>
 
-              {showVideo && <VideosYouTube videos={videos} />}
+              {isRegistered && showVideo && <VideosYouTube videos={videos} />}
 
               <h2 className="text-lg text-left font-bold text-gray-900 mb-2">Event Description</h2>
-              <div
-                className="prose prose-gray max-w-none text-left text-gray-500 prose-p:text-base prose-p:leading-relaxed mb-8"
-                dangerouslySetInnerHTML={{ __html: event.description || event.small_description || 'No description available.' }}
-              />
+     <p className="text-left text-gray-500 text-base leading-relaxed mb-8">
+  {(event.description || event.small_description || 'No description available.').replace(/<[^>]*>/g, '')}
+</p>
 
-              <h2 className="text-xl text-left font-semibold text-gray-900 mb-4">Event Registration</h2>
-              <RegistrEvents />
+              {!isRegistered && (
+                <>
+                  <h2 className="text-xl text-left font-semibold text-gray-900 mb-4">Event Registration</h2>
+                  <RegistrEvents onSuccess={() => setIsRegistered(true)} />
+                </>
+              )}
             </div>
 
             <div className="space-y-6">
-              <button
-                onClick={() => setShowVideo(!showVideo)}
-                className="py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition"
-              >
-                {showVideo ? 'Hide Session' : 'Watch Session'}
-                <LuLoaderCircle size={22} />
-              </button>
+              {isRegistered && (
+                <button
+                  onClick={() => setShowVideo(!showVideo)}
+                  className="py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition"
+                >
+                  {showVideo ? 'Hide Session' : 'Watch Session'}
+                  <LuLoaderCircle size={22} />
+                </button>
+              )}
 
               <div className="rounded-2xl overflow-hidden hidden md:block">
                 <img
@@ -251,7 +259,7 @@ const EventsDetails = () => {
             </div>
           </div>
 
-          <EventGallery images={gallery} />
+          {isRegistered && <EventGallery images={gallery} />}
         </div>
 
         <div className="my-10">

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import {  X } from 'lucide-react';
 
 const EXPERIENCE_OPTIONS = ['Junior', 'Senior', 'Lead', 'Director'];
-const RegistrEvents = () => {
+const RegistrEvents = ({ onSuccess }) => {
       const [form, setForm] = useState({
         fullName: '', email: '', phone: '', experience: '', country: '',
       });
@@ -30,6 +30,7 @@ const RegistrEvents = () => {
           });
 
           setShowSuccess(true);
+          onSuccess?.();
           setForm({
             fullName: '',
             email: '',
