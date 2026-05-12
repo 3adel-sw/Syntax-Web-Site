@@ -8,6 +8,7 @@ import VideosYouTube from './VideosYouTube';
 import EventGallery from './EventGallery';
 import { LuLoaderCircle } from 'react-icons/lu';
 import { getAllEvents, getEventById } from '../../services/events/eventsService';
+import { useTranslation } from 'react-i18next';
 
 const toStr = (value) => {
   if (typeof value === 'string') return value;
@@ -15,14 +16,16 @@ const toStr = (value) => {
   return '';
 };
 
-const formatDate = (value) => {
+const hasArabicText = (value) => /[\u0600-\u06FF]/.test(toStr(value));
+
+const formatDate = (value, locale = 'en-US') => {
   const dateValue = toStr(value);
   if (!dateValue) return 'Date';
 
   const date = new Date(dateValue);
   if (Number.isNaN(date.getTime())) return dateValue;
 
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -38,6 +41,7 @@ const normalizeEvent = (event) => ({
 });
 
 const EventsDetails = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
   const [event, setEvent] = useState(null);
@@ -63,25 +67,27 @@ const EventsDetails = () => {
         let eventsData = [];
 
         try {
-          const eventRes = await getEventById(id);
-          eventData = eventRes.data?.event || eventRes.data?.data || eventRes.data;
-        } catch (detailsErr) {
-          console.error('Event details request failed:', detailsErr);
-        }
-
-        try {
           const eventsRes = await getAllEvents();
           eventsData = eventsRes.data?.events || eventsRes.data?.data || eventsRes.data || [];
         } catch (eventsErr) {
           console.error('Events list request failed:', eventsErr);
         }
 
-        if (!eventData && Array.isArray(eventsData)) {
+        if (Array.isArray(eventsData)) {
           eventData = eventsData.find((item) => String(item.id) === String(id) || item.slug === id);
         }
 
         if (!eventData) {
-          setError('Event not found');
+          try {
+            const eventRes = await getEventById(id);
+            eventData = eventRes.data?.event || eventRes.data?.data || eventRes.data;
+          } catch (detailsErr) {
+            console.warn('Event details unavailable for current language:', detailsErr.response?.data?.message || detailsErr.message);
+          }
+        }
+
+        if (!eventData) {
+          setError(t('messages.eventNotFound'));
           return;
         }
 
@@ -98,14 +104,14 @@ const EventsDetails = () => {
         );
       } catch (err) {
         console.error(err);
-        setError('Failed to load event');
+        setError(t('messages.failedToLoadEvent'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchEvent();
-  }, [id]);
+  }, [id, t]);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -158,7 +164,7 @@ const EventsDetails = () => {
   );
 
   if (!event) return (
-    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">Event not found.</div>
+    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('messages.eventNotFound')}</div>
   );
 
   const title = event.name || event.title || 'Event';
@@ -167,24 +173,30 @@ const EventsDetails = () => {
   const gallery = event.gallery || [];
   const videos = event.videos || [];
   const category = event.category?.name || event.type || 'Event';
+  const isArabic = i18n.language === 'ar' || localStorage.getItem('lang') === 'ar'
+    || hasArabicText(title)
+    || hasArabicText(event.description)
+    || hasArabicText(category);
+  const direction = isArabic ? 'rtl' : 'ltr';
+  const textAlignClass = isArabic ? 'text-right' : 'text-left';
 
   return (
-    <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+    <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="py-2 px-4 border bg-white border-gray-200 rounded-2xl">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8 my-8">
             <div>
-              <h1 className="md:text-[40px] text-2xl font-semibold text-left text-gray-900 mb-6">
+              <h1 className={`md:text-[40px] text-2xl font-semibold ${textAlignClass} text-gray-900 mb-6`}>
                 {title}
               </h1>
 
               <div className="grid grid-cols-3 text-center sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6 text-xs text-gray-500">
-                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {event.location || 'Location'}</span>
-                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history)}</span>
-                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {event.time || 'Time'}</span>
+                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {event.location || t('common.location')}</span>
+                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US')}</span>
+                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {event.time || t('common.time')}</span>
                 <button className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg hover:text-gray-800"><Download size={12} /> {category}</button>
                 <button onClick={handleCopyLink} className="flex items-center justify-center px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition">
-                  <Share2 size={12} /> Share
+                  <Share2 size={12} /> {t('common.share')}
                 </button>
               </div>
 
@@ -194,14 +206,20 @@ const EventsDetails = () => {
 
               {isRegistered && showVideo && <VideosYouTube videos={videos} />}
 
-              <h2 className="text-lg text-left font-bold text-gray-900 mb-2">Event Description</h2>
-     <p className="text-left text-gray-500 text-base leading-relaxed mb-8">
-  {(event.description || event.small_description || 'No description available.').replace(/<[^>]*>/g, '')}
-</p>
+              <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-2`}>
+                {t('events.eventDescription')}
+              </h2>
+              <div
+                dir={direction}
+                className={`prose prose-gray max-w-none ${textAlignClass} text-gray-500 prose-p:text-base prose-p:leading-relaxed mb-8`}
+                dangerouslySetInnerHTML={{ __html: event.description || event.small_description || t('messages.noDescription') }}
+              />
 
               {!isRegistered && (
                 <>
-                  <h2 className="text-xl text-left font-semibold text-gray-900 mb-4">Event Registration</h2>
+                  <h2 className={`text-xl ${textAlignClass} font-semibold text-gray-900 mb-4`}>
+                    {t('events.eventRegistration')}
+                  </h2>
                   <RegistrEvents onSuccess={() => setIsRegistered(true)} />
                 </>
               )}
@@ -213,7 +231,7 @@ const EventsDetails = () => {
                   onClick={() => setShowVideo(!showVideo)}
                   className="py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition"
                 >
-                  {showVideo ? 'Hide Session' : 'Watch Session'}
+                  {showVideo ? t('events.hideSession') : t('events.watchSession')}
                   <LuLoaderCircle size={22} />
                 </button>
               )}
@@ -227,7 +245,9 @@ const EventsDetails = () => {
               </div>
 
               <div>
-                <h2 className="text-2xl text-left font-medium text-gray-900 mb-3">Speakers</h2>
+                <h2 className={`text-2xl ${textAlignClass} font-medium text-gray-900 mb-3`}>
+                  {t('events.speakers')}
+                </h2>
                 <div className="space-y-3">
                   {speakers.length ? speakers.map((speaker) => (
                     <div
@@ -248,11 +268,13 @@ const EventsDetails = () => {
                       </span>
                       <div>
                         <p className="text-xl font-semibold text-gray-800">{speaker.name}</p>
-                        <p className="text-base text-gray-400">{speaker.role || 'Speaker'}</p>
+                        <p className="text-base text-gray-400">{speaker.role || t('common.speaker')}</p>
                       </div>
                     </div>
                   )) : (
-                    <div className="text-left text-gray-400">No speakers available.</div>
+                    <div className={`${textAlignClass} text-gray-400`}>
+                      {t('messages.noSpeakers')}
+                    </div>
                   )}
                 </div>
               </div>
@@ -264,12 +286,14 @@ const EventsDetails = () => {
 
         <div className="my-10">
           <div className="flex items-center justify-between md:my-6 sm:my-4 my-6">
-            <h2 className="md:text-2xl text-xl font-bold text-gray-900 ">Other Events</h2>
+            <h2 className="md:text-2xl text-xl font-bold text-gray-900 ">
+              {t('events.otherEvents')}
+            </h2>
             <button
               onClick={() => navigate('/events')}
               className="text-sm text-primary border border-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg transition"
             >
-              View All
+              {t('common.viewAll')}
             </button>
           </div>
 

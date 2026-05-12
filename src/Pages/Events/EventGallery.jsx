@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaArrowLeftLong ,FaArrowRightLong} from "react-icons/fa6";
+import { useTranslation } from 'react-i18next';
 
 
 const DEFAULT_IMAGES = [
@@ -11,6 +12,7 @@ const DEFAULT_IMAGES = [
 ];
 
 const EventGallery = ({ images = DEFAULT_IMAGES }) => {
+  const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
   const galleryImages = images.length ? images : DEFAULT_IMAGES;
 
@@ -22,7 +24,7 @@ const EventGallery = ({ images = DEFAULT_IMAGES }) => {
 
   return (
     <div className="my-6">
-      <h2 className="text-xl text-left font-bold text-gray-900 mb-4">Event Gallery</h2>
+      <h2 className="text-xl text-left font-bold text-gray-900 mb-4">{t('events.eventGallery')}</h2>
 
       {/* Slider */}
       <div className="flex items-center gap-3 overflow-hidden">

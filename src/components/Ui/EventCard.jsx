@@ -1,8 +1,10 @@
 import { Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const EventCard = ({ event }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -20,7 +22,7 @@ const EventCard = ({ event }) => {
             e.target.style.display = 'none';
             e.target.parentElement.innerHTML = `
               <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#f3f4f6;border-radius:8px;">
-                <span style="font-size:12px;color:#9ca3af;">Image not available</span>
+                <span style="font-size:12px;color:#9ca3af;">${t('common.imageNotAvailable')}</span>
               </div>`;
           }}
         />

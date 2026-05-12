@@ -3,9 +3,11 @@ import { registrationEventsService } from '../../services/events/registrationEve
 
 import { useState } from 'react';
 import {  X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const EXPERIENCE_OPTIONS = ['Junior', 'Senior', 'Lead', 'Director'];
 const RegistrEvents = ({ onSuccess }) => {
+      const { t } = useTranslation();
       const [form, setForm] = useState({
         fullName: '', email: '', phone: '', experience: '', country: '',
       });
@@ -40,7 +42,7 @@ const RegistrEvents = ({ onSuccess }) => {
           });
         } catch (err) {
           console.error(err);
-          setError(err.response?.data?.msg || 'Registration failed. Please try again.');
+          setError(err.response?.data?.msg || t('messages.registrationFailed'));
         } finally {
           setLoading(false);
         }
@@ -83,16 +85,16 @@ const RegistrEvents = ({ onSuccess }) => {
   {/* Text + Button — bottom */}
   <div className="flex flex-col items-center my-4 md:my-1">
     <p className="md:text-base text-sm font-bold text-gray-900 mb-1">
-      🎉 Registration Successful
+      {t('messages.registrationSuccessful')}
     </p>
     <p className="text-xs text-gray-400 mb-4">
-      Great! You're now registered for the event.
+      {t('messages.registrationSuccessfulBody')}
     </p>
     <button
       onClick={onClose}
       className="w-42 h-12 bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2.5 rounded-xl transition"
     >
-      OK
+      {t('common.ok')}
     </button>
   </div>
 
@@ -105,12 +107,12 @@ const RegistrEvents = ({ onSuccess }) => {
    <div className="space-y-3 bg-gray-100 rounded-2xl p-5">
               {/* Full Name */}
               <div>
-                <label className="text-xs md:text-sm text-left text-gray-500 mb-1 block">Full name</label>
+                <label className="text-xs md:text-sm text-left text-gray-500 mb-1 block">{t('forms.fullName')}</label>
                 <input
                   name="fullName"
                   value={form.fullName}
                   onChange={handleChange}
-                  placeholder="Full Name"
+                  placeholder={t('forms.fullNamePlaceholder')}
                   className="w-full border border-gray-200 rounded-lg px-3 py-2.5 bg-white text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-indigo-400 transition"
                 />
               </div>
@@ -118,24 +120,24 @@ const RegistrEvents = ({ onSuccess }) => {
               {/* Email + Phone */}
               <div className="grid grid-cols-2 gap-3 ">
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Email</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.email')}</label>
                   <input
                     name="email"
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder={t('forms.emailPlaceholder')}
                     className="w-full border border-gray-200 rounded-lg px-3 bg-white py-2.5 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-indigo-400 transition"
                   />
                 </div>
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Phone</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.phone')}</label>
                   <input
                     name="phone"
                     type="tel"
                     value={form.phone}
                     onChange={handleChange}
-                    placeholder="Phone"
+                    placeholder={t('forms.phonePlaceholder')}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2.5 bg-white text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-indigo-400 transition"
                   />
                 </div>
@@ -144,7 +146,7 @@ const RegistrEvents = ({ onSuccess }) => {
               {/* Experience + Country */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Experience Level</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.experienceLevel')}</label>
                   <div className="relative">
                     <select
                       name="experience"
@@ -152,7 +154,7 @@ const RegistrEvents = ({ onSuccess }) => {
                       onChange={handleChange}
                       className="w-full appearance-none border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-400 focus:outline-none focus:border-indigo-400 transition bg-white"
                     >
-                      <option value="" disabled>Junior, Senior, Lead, Director</option>
+                      <option value="" disabled>{t('forms.experiencePlaceholder')}</option>
                       {EXPERIENCE_OPTIONS.map(o => (
                         <option key={o} value={o}>{o}</option>
                       ))}
@@ -161,12 +163,12 @@ const RegistrEvents = ({ onSuccess }) => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">Country</label>
+                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.country')}</label>
                   <input
                     name="country"
                     value={form.country}
                     onChange={handleChange}
-                    placeholder="Subject"
+                    placeholder={t('forms.countryPlaceholder')}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2.5 bg-white text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-indigo-400 transition"
                   />
                 </div>
@@ -181,7 +183,7 @@ const RegistrEvents = ({ onSuccess }) => {
                 disabled={loading}
                 className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white text-sm font-semibold px-6 py-3 md:mt-2.5mt-3 rounded-2xl transition my-4"
               >
-                {loading ? 'Registering...' : 'Register Now'}
+                {loading ? t('forms.registering') : t('forms.registerNow')}
                 {loading && (
                   <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 12a9 9 0 11-6.219-8.56" />

@@ -11,14 +11,10 @@ i18n
     .init({
         resources: {
             en: {
-                translation: {
-                    courses: en
-                },
+                translation: en,
             },
             ar: {
-                translation: {
-                    courses: ar
-                },
+                translation: ar,
             },
         },
 

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import EventCard from '../../components/Ui/EventCard';
 import { getAllEvents } from '../../services/events/eventsService';
 import CourseCard from '../../assets/CourseCard.svg';
+import { useTranslation } from 'react-i18next';
 
 const DEFAULT_FILTER_TABS = ['All Events'];
 
@@ -30,14 +31,14 @@ const stripHtml = (value) => toStr(value)
   .replace(/\s+/g, ' ')
   .trim();
 
-const formatDate = (value) => {
+const formatDate = (value, locale = 'en-US') => {
   const dateValue = toStr(value);
   if (!dateValue) return 'Date';
 
   const date = new Date(dateValue);
   if (Number.isNaN(date.getTime())) return dateValue;
 
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -56,6 +57,8 @@ const normalizeEvent = (event) => ({
 });
 
 function Events() {
+  const { t, i18n } = useTranslation();
+  const allEventsLabel = t('events.allEvents');
   const [activeFilter, setActiveFilter] = useState('All Events');
   const [events, setEvents] = useState([]);
   const [filterTabs, setFilterTabs] = useState(DEFAULT_FILTER_TABS);
@@ -81,19 +84,20 @@ function Events() {
         const categories = [...new Set(normalizedEvents.map(event => event.type).filter(Boolean))];
 
         setEvents(normalizedEvents);
-        setFilterTabs(['All Events', ...categories]);
+        setFilterTabs([allEventsLabel, ...categories]);
+        setActiveFilter(allEventsLabel);
       } catch (err) {
         console.error(err);
-        setError('Failed to load events');
+        setError(t('messages.failedToLoadEvents'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [allEventsLabel, t]);
 
-  const filteredEvents = activeFilter === 'All Events'
+  const filteredEvents = activeFilter === allEventsLabel || activeFilter === 'All Events'
     ? events
     : events.filter(event => event.type === activeFilter);
 
@@ -150,11 +154,10 @@ function Events() {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="mb-6 text-left">
           <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight">
-            Connect, Learn, and Grow with the Community
+            {t('events.heroTitle')}
           </h1>
           <p className="text-sm text-gray-500 my-2 max-w-3xl">
-            Join our vibrant Design community through engaging events and meetups. Network with industry experts,
-            exchange ideas, and stay ahead of trends in design, technology, and user experience.
+            {t('events.heroDescription')}
           </p>
         </div>
 
@@ -175,7 +178,7 @@ function Events() {
         </div>
 
         <section className="mb-10">
-          <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">Upcoming Events</h2>
+          <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
           {upcomingEvent ? (
             <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
               <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-0">
@@ -190,15 +193,15 @@ function Events() {
                 <div className="flex flex-wrap gap-4 text-gray-500">
                   <span className="flex text-base items-center gap-1">
                     <MapPin size={24} className="text-gray-400" />
-                    {upcomingEvent.location || 'Location'}
+                    {upcomingEvent.location || t('common.location')}
                   </span>
                   <span className="flex items-center gap-1 text-base">
                     <Calendar size={24} className="text-gray-400 " />
-                    {formatDate(upcomingEvent.date)}
+                    {formatDate(upcomingEvent.date, i18n.language === 'ar' ? 'ar-EG' : 'en-US')}
                   </span>
                   <span className="flex items-center gap-1 text-base">
                     <Clock size={24} className="text-gray-400" />
-                    {upcomingEvent.time || 'Time'}
+                    {upcomingEvent.time || t('common.time')}
                   </span>
                 </div>
                 <p className="text-lg text-left text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
@@ -208,13 +211,13 @@ function Events() {
                   onClick={() => navigate(`/events-detail/${upcomingEvent.id}`)}
                   className="mt-2 self-start flex items-center gap-2 bg-transparent border border-bg-gray-50 text-primary text-[16px] font-medium px-4 py-3 rounded-2xl hover:bg-gray-50 transition"
                 >
-                  View Details <ArrowRight size={13} />
+                  {t('common.viewDetails')} <ArrowRight size={13} />
                 </button>
               </div>
             </div>
           ) : (
             <div className="border border-gray-200 rounded-2xl py-12 text-center text-gray-400">
-              No upcoming events available.
+              {t('messages.noUpcomingEvents')}
             </div>
           )}
         </section>
@@ -227,7 +230,7 @@ function Events() {
         />
 
         <section className="mb-18">
-          <h2 className="md:text-3xl text-2xl text-left font-bold text-gray-900 mb-4">All Events</h2>
+          <h2 className="md:text-3xl text-2xl text-left font-bold text-gray-900 mb-4">{t('events.allEvents')}</h2>
 
           <div className="hidden">
             <div
@@ -246,7 +249,7 @@ function Events() {
               ))
             ) : (
               <div className="col-span-full py-12 text-center text-gray-400">
-                No events found.
+                {t('messages.noEventsFound')}
               </div>
             )}
           </div>

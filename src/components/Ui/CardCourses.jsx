@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { Clock, BookOpen } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
 import { getAllCourses, getCoursesByCategory } from '../../services/courses/coursesService';
+import { useTranslation } from 'react-i18next';
 
 // ── Course Card ──────────────────────────────────────────
 const CourseCard = ({ course, navigate }) => {
@@ -59,6 +60,7 @@ const CourseCard = ({ course, navigate }) => {
 
 // ── Main Component ───────────────────────────────────────
 const CardCourses = ({ activeCategory, limit, showButton, ButtonContent }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [courses, setCourses]   = useState([]);
@@ -77,7 +79,7 @@ useEffect(() => {
       setError(null);
 
       let res;
-      if (activeCategory && activeCategory !== 'All Courses') {
+      if (activeCategory && activeCategory !== 'All Courses' && activeCategory !== t('courses.allCourses')) {
         res = await getCoursesByCategory(activeCategory);
       } else {
         res = await getAllCourses();
@@ -85,7 +87,7 @@ useEffect(() => {
 
       setCourses(res.data?.courses || []);
     } catch (err) {
-      setError('Failed to load courses');
+      setError(t('messages.failedToLoad'));
       console.error(err);
     } finally {
       setLoading(false);
@@ -93,7 +95,7 @@ useEffect(() => {
   };
 
   fetchCourses();
-}, [activeCategory]);
+}, [activeCategory, t]);
 
 
   // ── Display Courses ──
@@ -113,7 +115,7 @@ useEffect(() => {
 
   // ── Empty ──
   if (displayedCourses.length === 0) return (
-    <div className="text-center text-gray-400 py-12">No courses found.</div>
+    <div className="text-center text-gray-400 py-12">{t('common.notFound')}</div>
   );
 
   return (
@@ -137,7 +139,7 @@ useEffect(() => {
             onClick={() => navigate('/courses')}
             className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
           >
-            {ButtonContent || 'Show All Courses'}
+            {ButtonContent || t('courses.showAllCourses')}
             <LuLoaderCircle size={22} />
           </button>
         </div>

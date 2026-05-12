@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const toEmbedUrl = (url) => {
   if (!url) return '';
 
@@ -16,10 +18,12 @@ const toEmbedUrl = (url) => {
 };
 
 const VideosYouTube = ({ videos = [] }) => {
+  const { t } = useTranslation();
+
   if (!videos.length) {
     return (
       <div className="rounded-2xl border border-gray-100 bg-gray-50 p-6 text-center text-sm text-gray-400 mb-6">
-        No videos available.
+        {t('messages.noVideos')}
       </div>
     );
   }
@@ -28,7 +32,7 @@ const VideosYouTube = ({ videos = [] }) => {
     <div className="space-y-4 mb-6">
       {videos.map((video, index) => {
         const url = typeof video === 'string' ? video : video.url;
-        const title = typeof video === 'string' ? `Event video ${index + 1}` : video.title;
+        const title = typeof video === 'string' ? t('events.eventVideo', { number: index + 1 }) : video.title;
 
         return (
           <div key={url || index} className="rounded-2xl overflow-hidden border border-gray-100">

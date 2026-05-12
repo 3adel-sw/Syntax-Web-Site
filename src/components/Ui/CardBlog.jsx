@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import {  useState, useEffect } from 'react';
 import { LuLoaderCircle } from "react-icons/lu";
 import { getAllBlogs } from '../../services/blogs/blogsService';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -23,6 +24,7 @@ const normalizeBlogs = (data) => {
 
 
 const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
 
@@ -43,7 +45,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
-            No Image
+            {t('common.noImage')}
           </div>
         )}
       </div>
@@ -53,13 +55,13 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
          {toStr(title)}
         </h3>
         <p className="text-[14px] text-gray-500 leading-relaxed mb-4 line-clamp-2">
-          {toStr(excerpt) || 'No excerpt available.'}
+          {toStr(excerpt) || t('messages.noExcerpt')}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center gap-2">
-            <span className="text-gray-400 font-medium text-base">{toStr(category) || 'Category'}</span>
+            <span className="text-gray-400 font-medium text-base">{toStr(category) || t('common.category')}</span>
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
-            <span className="text-gray-400 font-medium text-base">{toStr(date) || 'Date'}</span>
+            <span className="text-gray-400 font-medium text-base">{toStr(date) || t('common.date')}</span>
           </div>
         </div>
       </div>
@@ -68,6 +70,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
 };
 
 const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excludeId }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState(normalizeBlogs(data));
   const [loading, setLoading] = useState(true);
@@ -88,7 +91,7 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
         setBlogs(normalizeBlogs(res.data));
       } catch (err) {
         console.error(err);
-        setError('Failed to load blogs');
+        setError(t('messages.failedToLoadBlogs'));
       } finally {
         setLoading(false);
       }
@@ -98,14 +101,19 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
 
   const categoryMap = {
     "UI Design": "UI Design",
+    [t('blogs.uiDesign')]: "UI Design",
     "UX Principles": "UX Design",
+    [t('blogs.uxPrinciples')]: "UX Design",
     "Soft skills": "Soft Skills",
+    [t('blogs.softSkills')]: "Soft Skills",
     "Personal Branding": "Personal Branding",
+    [t('blogs.personalBranding')]: "Personal Branding",
     "Graphic Design": "Graphic Design",
+    [t('blogs.graphicDesign')]: "Graphic Design",
   };
 
   const mappedCategory = categoryMap[activeCategory];
-  const filteredBlogs = activeCategory === "All Blogs" || !activeCategory
+  const filteredBlogs = activeCategory === "All Blogs" || activeCategory === t('blogs.allBlogs') || !activeCategory
     ? blogs
     : blogs.filter(blog => {
       const cat = blog.category?.name || blog.category;
@@ -154,7 +162,7 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
             onClick={() => navigate('/blogs')}
             className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
           >
-            {ButtonContent || 'Show All Blogs'}
+            {ButtonContent || t('blogs.showAllBlogs')}
             <LuLoaderCircle size={22} />
           </button>
         </div>

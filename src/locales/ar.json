@@ -1,3 +1,233 @@
 {
-    "text" : "مش موجود"
+  "common": {
+    "loading": "جاري التحميل...",
+    "back": "رجوع",
+    "viewAll": "عرض الكل",
+    "viewDetails": "عرض التفاصيل",
+    "showAll": "عرض الكل",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "submit": "إرسال",
+    "send": "إرسال",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "ok": "حسنًا",
+    "share": "مشاركة",
+    "copyLink": "نسخ الرابط",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "location": "الموقع",
+    "category": "التصنيف",
+    "noImage": "لا توجد صورة",
+    "notFound": "غير موجود.",
+    "imageNotAvailable": "الصورة غير متاحة",
+    "speaker": "متحدث"
+  },
+  "messages": {
+    "failedToLoad": "فشل تحميل البيانات",
+    "failedToLoadBlogs": "فشل تحميل المقالات",
+    "failedToLoadBlog": "فشل تحميل المقال",
+    "failedToLoadEvents": "فشل تحميل الأحداث",
+    "failedToLoadEvent": "فشل تحميل الحدث",
+    "failedToSubscribe": "فشل الاشتراك. حاول مرة أخرى.",
+    "emailRequired": "من فضلك أدخل بريدك الإلكتروني.",
+    "subscribedSuccessfully": "تم الاشتراك بنجاح.",
+    "registrationFailed": "فشل التسجيل. حاول مرة أخرى.",
+    "registrationSuccessful": "تم التسجيل بنجاح",
+    "registrationSuccessfulBody": "رائع! تم تسجيلك في الحدث.",
+    "noEventsFound": "لا توجد أحداث.",
+    "noUpcomingEvents": "لا توجد أحداث قادمة.",
+    "noSpeakers": "لا يوجد متحدثون متاحون.",
+    "noVideos": "لا توجد فيديوهات متاحة.",
+    "noExcerpt": "لا يوجد ملخص متاح.",
+    "noDescription": "لا يوجد وصف متاح.",
+    "blogNotFound": "المقال غير موجود.",
+    "eventNotFound": "الحدث غير موجود."
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "courses": "الكورسات",
+    "events": "الأحداث",
+    "blogs": "المدونة",
+    "feedbacks": "آراء العملاء",
+    "b2b": "الشركات",
+    "about": "من نحن",
+    "contact": "تواصل معنا"
+  },
+  "footer": {
+    "solutions": "الحلول",
+    "resources": "الموارد",
+    "company": "الشركة",
+    "academy": "الأكاديمية",
+    "uxDesignMeetup": "لقاء تصميم تجربة المستخدم",
+    "podcast": "بودكاست حروف",
+    "newsletter": "النشرة البريدية",
+    "community": "المجتمع",
+    "blog": "المدونة",
+    "freeCourses": "كورسات مجانية",
+    "books": "كتب",
+    "history": "التاريخ",
+    "copyright": "© 2025 onsyntax.com",
+    "fallbackDescription": "نص تعريفي مختصر عن Syntax والمجتمع والخدمات التي نقدمها في مجالات التصميم والتعلم والنمو المهني."
+  },
+  "home": {
+    "badge": "مرحبًا بك في مجتمع Syntax",
+    "highlight": "ابتكر",
+    "subtitle": "، وابقَ ملهمًا",
+    "description": "انضم إلى مجتمع نابض بالحياة...",
+    "startLearning": "ابدأ التعلم",
+    "courses": "الكورسات",
+    "topCourses": "أفضل الكورسات",
+    "graduates": "خريجونا يعملون في",
+    "testimonials": "آراء العملاء",
+    "whatPeopleSay": "ماذا يقول الناس",
+    "blog": "المدونة",
+    "latestBlog": "أحدث المقالات"
+  },
+  "blogs": {
+    "welcome": "مرحبًا بك في مدونة Syntax",
+    "intro": "تابع أحدث موضوعات التصميم والمقالات والرؤى المتخصصة والنصائح العملية.",
+    "allBlogs": "كل المقالات",
+    "uiDesign": "تصميم الواجهات",
+    "softSkills": "المهارات الشخصية",
+    "uxPrinciples": "مبادئ تجربة المستخدم",
+    "personalBranding": "العلامة الشخصية",
+    "graphicDesign": "التصميم الجرافيكي",
+    "backToBlogs": "العودة إلى المقالات",
+    "relatedBlogs": "مقالات ذات صلة",
+    "introduction": "المقدمة",
+    "content": "المحتوى",
+    "conclusion": "الخاتمة",
+    "description": "الوصف",
+    "showAllBlogs": "عرض كل المقالات"
+  },
+  "events": {
+    "heroTitle": "تواصل، تعلّم، وانمُ مع المجتمع",
+    "heroDescription": "انضم إلى مجتمع التصميم من خلال فعاليات ولقاءات تفاعلية. تواصل مع خبراء المجال، وتبادل الأفكار، وواكب أحدث اتجاهات التصميم والتكنولوجيا وتجربة المستخدم.",
+    "allEvents": "كل الأحداث",
+    "upcomingEvents": "الأحداث القادمة",
+    "eventDescription": "وصف الحدث",
+    "eventRegistration": "تسجيل الحدث",
+    "speakers": "المتحدثون",
+    "otherEvents": "أحداث أخرى",
+    "eventGallery": "معرض الحدث",
+    "watchSession": "مشاهدة الجلسة",
+    "hideSession": "إخفاء الجلسة",
+    "eventVideo": "فيديو الحدث {{number}}"
+  },
+  "forms": {
+    "fullName": "الاسم بالكامل",
+    "fullNamePlaceholder": "الاسم بالكامل",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "رقم الهاتف",
+    "experienceLevel": "مستوى الخبرة",
+    "experiencePlaceholder": "مبتدئ، متوسط، محترف، قائد",
+    "country": "الدولة",
+    "countryPlaceholder": "الدولة",
+    "subject": "الموضوع",
+    "message": "الرسالة",
+    "registerNow": "سجل الآن",
+    "registering": "جاري التسجيل...",
+    "sendMessage": "إرسال الرسالة"
+  },
+  "subscribe": {
+    "title": "اشترك الآن!",
+    "description": "لا تفوّت فرصة أن تكون جزءًا من مجتمعنا النشط في المجال الإبداعي. اشترك الآن وابدأ رحلتك نحو التميز!",
+    "emailPlaceholder": "بريدك الإلكتروني",
+    "button": "اشترك الآن",
+    "loading": "جاري الاشتراك..."
+  },
+  
+  "courses": {
+    "header": {
+      "title": "أتقن مهارات التصميم من خلال دورات يقودها خبراء",
+      "subtitle": "استكشف مجموعة من دورات UX وGFX المصممة لمساعدتك على بناء أساس قوي وإتقان التقنيات المتقدمة."
+    },
+    "tabs": {
+      "all": "جميع الدورات",
+      "online": "ورشة أونلاين",
+      "offline": "لقاء حضوري",
+      "mega": "حدث كبير"
+    },
+    "allCourses": "كل الكورسات",
+    "courseDetails": "تفاصيل الكورس",
+    "curriculum": "المنهج",
+    "overview": "نظرة عامة",
+    "registerNow": "سجل الآن",
+    "showAllCourses": "عرض كل الكورسات",
+    "duration": "المدة",
+    "level": "المستوى",
+    "lessons": "الدروس",
+    "certificate": "الشهادة"
+  },
+
+  "feedbacks": {
+    "title": "آراء العملاء",
+    "subtitle": "ماذا يقول مجتمعنا"
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "subtitle": "يسعدنا سماعك.",
+    "address": "العنوان",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف"
+  },
+  "about": {
+    "title": "من نحن",
+    "whatWeDo": "ماذا نفعل",
+    "coreValues": "قيمنا الأساسية",
+    "meetTeam": "تعرف على الفريق",
+    "mission": "الرسالة",
+    "vision": "الرؤية",
+    "achievements": "إنجازاتنا"
+  },
+  "b2b": {
+    "title": "تعاون الشركات",
+    "breadcrumb": "الرئيسية",
+    "heroTitle": "لمساعدة الشركات على النجاح في العصر الرقمي، نقدم تدريبًا للأفراد والفرق.",
+    "graduates": "خريجونا يعملون في",
+    "programVariations": "أنواع البرامج",
+    "fullName": "الاسم بالكامل",
+    "requestDetails": "اكتب تفاصيل طلبك"
+  },
+  "menu": {
+    "menu": "القائمة",
+    "ourProjects": "مشاريعنا",
+    "pages": "الصفحات"
+  },
+  "questions": {
+    "title": "الأسئلة والإجابات"
+  },
+  "courseDetails": {
+    "courseNotFound": "الكورس غير موجود",
+    "standardPrice": "السعر الأساسي",
+    "groupPricing": "سعر المجموعات",
+    "whatPeopleSay": "ماذا يقول الناس",
+    "description": "الوصف",
+    "certifications": "الشهادات",
+    "lessons": "الدروس:",
+    "learningObjectives": "أهداف التعلم:"
+  },
+  "registerModal": {
+    "title": "التسجيل في الكورس",
+    "name": "الاسم",
+    "phone": "الهاتف",
+    "courseName": "اسم الكورس",
+    "coursePlaceholder": "مثال: كورس UX/UI",
+    "question": "هل لديك تعليق أو سؤال إضافي؟",
+    "messagePlaceholder": "أريد الانضمام إلى هذا الكورس...",
+    "bookCall": "احجز مكالمة",
+    "sending": "جاري الإرسال...",
+    "success": "تم التسجيل بنجاح!",
+    "required": "من فضلك أدخل الاسم ورقم الهاتف.",
+    "closeMenu": "إغلاق القائمة"
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير موجودة.",
+    "button": "العودة للرئيسية"
+  }
 }
+

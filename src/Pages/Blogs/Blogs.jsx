@@ -4,18 +4,19 @@ import CardBlog from '../../components/Ui/CardBlog';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
-
-const tabs = [
-  "All Blogs",
-  "UI Design",
-  "Soft skills",
-  "UX Principles",
-  "Personal Branding",
-  "Graphic Design",
-];
+import { useTranslation } from 'react-i18next';
 
 const Blogs = () => {
-  const [activeTab, setActiveTab] = useState("All Blogs");
+  const { t } = useTranslation();
+  const tabs = [
+    t('blogs.allBlogs'),
+    t('blogs.uiDesign'),
+    t('blogs.softSkills'),
+    t('blogs.uxPrinciples'),
+    t('blogs.personalBranding'),
+    t('blogs.graphicDesign'),
+  ];
+  const [activeTab, setActiveTab] = useState(t('blogs.allBlogs'));
 
   return (
  <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
@@ -23,10 +24,10 @@ const Blogs = () => {
 
       {/* Header */}
       <h1 className="text-3xl  text-left font-bold  text-gray-900 mb-2 md:my-4 mt-11 md:mt-4">
-        Welcome to the Syntax Blog
+        {t('blogs.welcome')}
       </h1>
       <p className="text-[16px] text-left  text-gray-500 mb-8 ">
-        Stay informed with our latest design topics, articles, industry insights, and expert tips.
+        {t('blogs.intro')}
       </p>
 
       {/* Desktop Tabs */}

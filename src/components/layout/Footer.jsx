@@ -9,8 +9,10 @@ import { FaTiktok } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { getSetting } from '../../services/home/homeService';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [settings, setSettings] = useState(null);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ const Footer = () => {
           <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt="logo" />
         </div>
         <p className="text-sm text-left text-white leading-relaxed">
-          {settings?.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Quis ipsum suspendisse ultrices gravida.'}
+          {settings?.description || t('footer.fallbackDescription')}
         </p>
         {/* Social Icons */}
         <div className="flex items-start gap-3 mt-1">
@@ -73,30 +75,45 @@ const Footer = () => {
 
         {/* Solutions */}
         <div >
-          <h4 className="text-xl font-bold text-white mb-4">Solutions</h4>
+          <h4 className="text-xl font-bold text-white mb-4">{t('footer.solutions')}</h4>
           <ul className="space-y-4.5 text-base text-white/90">
-            {["Academy", "UX Design Meetup", "7orof Podcast", "Newsletter", "Community"].map(item => (
-              <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+            {[
+              ['footer.academy', '#'],
+              ['footer.uxDesignMeetup', '/events'],
+              ['footer.podcast', '#'],
+              ['footer.newsletter', '#'],
+              ['footer.community', '#'],
+            ].map(([key, href]) => (
+              <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
           </ul>
         </div>
 
         {/* Resources */}
         <div>
-          <h4 className="text-xl font-bold text-white mb-4">Resources</h4>
+          <h4 className="text-xl font-bold text-white mb-4">{t('footer.resources')}</h4>
           <ul className="space-y-4.5 text-base text-white/90">
-            {["Blog", "Resources", "Free Courses", "Books"].map(item => (
-              <li key={item}><a href="/blogs" className="hover:text-white transition-colors">{item}</a></li>
+            {[
+              ['footer.blog', '/blogs'],
+              ['footer.resources', '#'],
+              ['footer.freeCourses', '/courses'],
+              ['footer.books', '#'],
+            ].map(([key, href]) => (
+              <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
           </ul>
         </div>
 
         {/* Company */}
         <div className="hidden md:flex flex-col gap-6">
-          <h4 className="text-xl font-bold text-white mb-4">Company</h4>
+          <h4 className="text-xl font-bold text-white mb-4">{t('footer.company')}</h4>
           <ul className="space-y-4.5 text-base text-white/90">
-            {["About", "History", "Contact"].map(item => (
-              <li key={item}><a href="/Contact" className="hover:text-white transition-colors">{item}</a></li>
+            {[
+              ['nav.about', '/about'],
+              ['footer.history', '#'],
+              ['nav.contact', '/contact'],
+            ].map(([key, href]) => (
+              <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
           </ul>
         </div>
@@ -104,10 +121,14 @@ const Footer = () => {
       </div>
       {/* Company Mobile*/}
         <div className="md:hidden flex flex-col  items-start  gap-6">
-          <h4 className="text-xl font-semibold text-white ">Company</h4>
+          <h4 className="text-xl font-semibold text-white ">{t('footer.company')}</h4>
           <ul className="flex flex-row gap-4  text-base text-white/90">
-            {["About", "History", "Contact"].map(item => (
-              <li key={item}><a href="/Contact" className="hover:text-white transition-colors">{item}</a></li>
+            {[
+              ['nav.about', '/about'],
+              ['footer.history', '#'],
+              ['nav.contact', '/contact'],
+            ].map(([key, href]) => (
+              <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
           </ul>
         </div>
@@ -115,7 +136,7 @@ const Footer = () => {
 
     {/* Bottom copyright */}
     <div className="mt-5 pt-6 text-center text-sm text-white">
-      © 2025 onsyntax.com
+      {t('footer.copyright')}
     </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ import CardCourses from '../../components/Ui/CardCourses';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
-
+import { useTranslation } from 'react-i18next';
 const tabs = [
   "All Courses",
   "Online Workshop",
@@ -13,6 +13,9 @@ const tabs = [
 ];
 
 const Courses = () => {
+  const { t, i18n } = useTranslation();
+const isAr = i18n.language === 'ar';
+
   const [activeTab, setActiveTab] = useState("All Courses");
 
   return (
@@ -20,17 +23,20 @@ const Courses = () => {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
         {/* Header */}
-        <div className=' space-y-3'>
-          
-          <h1 className='md:text-[30px] text-base mt-4 font-bold text-left text-gray-800'>Master Design Skills with Expert-Led Courses</h1>
-          <p className='text-gray-500 md:text-[22px] max-w-5xl text-left text-sm mb-2  '>
-            Explore a range of UX, and GFX design courses crafted to help you build a strong foundation and master advanced techniques.
-          </p>
-        </div>
+      <div className={`space-y-3 ${isAr ? 'text-right' : 'text-left'}`}>
+  <h1 className='md:text-[30px] text-base mt-4 font-bold max-w-[38rem] text-gray-800'>
+    {t("courses.header.title")}
+  </h1>
+  <p className='text-gray-500 md:text-[22px] max-w-5xl text-sm mb-2'>
+    {t("courses.header.subtitle")}
+  </p>
+</div>
 
         {/* All Courses section */}
         <div className='mt-12 md:mt-12 md:mb-6'>
-          <h1 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2 md:mb-6">All Courses</h1>
+         <h1 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2 md:mb-6">
+  {t("courses.tabs.all")}
+</h1>
 
           {/* Desktop Filter Tabs */}
           <div className='hidden md:flex gap-2 flex-wrap mb-2'>

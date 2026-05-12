@@ -1,3 +1,233 @@
 {
-  "text": "NoHamadaund"
-} 
+  "common": {
+    "loading": "Loading...",
+    "back": "Back",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "showAll": "Show All",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "submit": "Submit",
+    "send": "Send",
+    "save": "Save",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "category": "Category",
+    "noImage": "No Image",
+    "notFound": "Not found.",
+    "imageNotAvailable": "Image not available",
+    "speaker": "Speaker"
+  },
+  "messages": {
+    "failedToLoad": "Failed to load data",
+    "failedToLoadBlogs": "Failed to load blogs",
+    "failedToLoadBlog": "Failed to load blog",
+    "failedToLoadEvents": "Failed to load events",
+    "failedToLoadEvent": "Failed to load event",
+    "failedToSubscribe": "Failed to subscribe. Please try again.",
+    "emailRequired": "Please enter your email.",
+    "subscribedSuccessfully": "Subscribed successfully.",
+    "registrationFailed": "Registration failed. Please try again.",
+    "registrationSuccessful": "Registration Successful",
+    "registrationSuccessfulBody": "Great! You're now registered for the event.",
+    "noEventsFound": "No events found.",
+    "noUpcomingEvents": "No upcoming events available.",
+    "noSpeakers": "No speakers available.",
+    "noVideos": "No videos available.",
+    "noExcerpt": "No excerpt available.",
+    "noDescription": "No description available.",
+    "blogNotFound": "Blog not found.",
+    "eventNotFound": "Event not found."
+  },
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "events": "Events",
+    "blogs": "Blogs",
+    "feedbacks": "Feedbacks",
+    "b2b": "B2B",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "solutions": "Solutions",
+    "resources": "Resources",
+    "company": "Company",
+    "academy": "Academy",
+    "uxDesignMeetup": "UX Design Meetup",
+    "podcast": "7orof Podcast",
+    "newsletter": "Newsletter",
+    "community": "Community",
+    "blog": "Blog",
+    "freeCourses": "Free Courses",
+    "books": "Books",
+    "history": "History",
+    "copyright": "© 2025 onsyntax.com",
+    "fallbackDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Quis ipsum suspendisse ultrices gravida."
+  },
+  "home": {
+    "badge": "Welcome to Syntax Community",
+    "highlight": "Create",
+    "subtitle": ", and Stay Inspired",
+    "description": "Join a vibrant community...",
+    "startLearning": "Start Learning",
+    "courses": "Courses",
+    "topCourses": "Top Courses",
+    "graduates": "Our Graduated Working On",
+    "testimonials": "Testimonials",
+    "whatPeopleSay": "What are people saying",
+    "blog": "Blog",
+    "latestBlog": "Latest Blog"
+  },
+  "blogs": {
+    "welcome": "Welcome to the Syntax Blog",
+    "intro": "Stay informed with our latest design topics, articles, industry insights, and expert tips.",
+    "allBlogs": "All Blogs",
+    "uiDesign": "UI Design",
+    "softSkills": "Soft skills",
+    "uxPrinciples": "UX Principles",
+    "personalBranding": "Personal Branding",
+    "graphicDesign": "Graphic Design",
+    "backToBlogs": "Back to Blogs",
+    "relatedBlogs": "Related Blogs",
+    "introduction": "Introduction",
+    "content": "Content",
+    "conclusion": "Conclusion",
+    "description": "Description",
+    "showAllBlogs": "Show All Blogs"
+  },
+  "events": {
+    "heroTitle": "Connect, Learn, and Grow with the Community",
+    "heroDescription": "Join our vibrant Design community through engaging events and meetups. Network with industry experts, exchange ideas, and stay ahead of trends in design, technology, and user experience.",
+    "allEvents": "All Events",
+    "upcomingEvents": "Upcoming Events",
+    "eventDescription": "Event Description",
+    "eventRegistration": "Event Registration",
+    "speakers": "Speakers",
+    "otherEvents": "Other Events",
+    "eventGallery": "Event Gallery",
+    "watchSession": "Watch Session",
+    "hideSession": "Hide Session",
+    "eventVideo": "Event video {{number}}"
+  },
+  "forms": {
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Full Name",
+    "email": "Email",
+    "emailPlaceholder": "Email",
+    "phone": "Phone",
+    "phonePlaceholder": "Phone",
+    "experienceLevel": "Experience Level",
+    "experiencePlaceholder": "Junior, Senior, Lead, Director",
+    "country": "Country",
+    "countryPlaceholder": "Country",
+    "subject": "Subject",
+    "message": "Message",
+    "registerNow": "Register Now",
+    "registering": "Registering...",
+    "sendMessage": "Send Message"
+  },
+  "subscribe": {
+    "title": "Subscribe now!",
+    "description": "Don't miss the opportunity to be part of our active community in the Creativs field. Subscribe now and start your journey towards excellence!",
+    "emailPlaceholder": "Your E-Mail",
+    "button": "Subscribe Now",
+    "loading": "Subscribing..."
+  },
+
+  "courses": {
+    "header": {
+      "title": "Master Design Skills with Expert-Led Courses",
+      "subtitle": "Explore a range of UX, and GFX design courses crafted to help you build a strong foundation and master advanced techniques."
+    },
+    "tabs": {
+      "all": "All Courses",
+      "online": "Online Workshop",
+      "offline": "Offline Meetup",
+      "mega": "Mega Event"
+    },
+    "allCourses": "All Courses",
+    "courseDetails": "Course Details",
+    "curriculum": "Curriculum",
+    "overview": "Overview",
+    "registerNow": "Register Now",
+    "showAllCourses": "Show All Courses",
+    "duration": "Duration",
+    "level": "Level",
+    "lessons": "Lessons",
+    "certificate": "Certificate"
+  },
+
+  "feedbacks": {
+    "title": "Feedbacks",
+    "subtitle": "What our community says"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We would love to hear from you.",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "about": {
+    "title": "About Us",
+    "whatWeDo": "What we do",
+    "coreValues": "Core Values",
+    "meetTeam": "Meet The Team",
+    "mission": "Mission",
+    "vision": "Vision",
+    "achievements": "Our Achievements"
+  },
+  "b2b": {
+    "title": "B2B Collaboration",
+    "breadcrumb": "Home",
+    "heroTitle": "To help businesses thrive in the digital era, we provide training to both people and teams.",
+    "graduates": "Our Graduated Working On",
+    "programVariations": "Program Variations",
+    "fullName": "Full Name",
+    "requestDetails": "Write your Request Details"
+  },
+  "menu": {
+    "menu": "Menu",
+    "ourProjects": "Our Projects",
+    "pages": "Pages"
+  },
+  "questions": {
+    "title": "Questions & answer"
+  },
+  "courseDetails": {
+    "courseNotFound": "Course Not Found",
+    "standardPrice": "Standard price",
+    "groupPricing": "Group Pricing",
+    "whatPeopleSay": "What are people saying",
+    "description": "Description",
+    "certifications": "Certifications",
+    "lessons": "Lessons:",
+    "learningObjectives": "Learning Objectives:"
+  },
+  "registerModal": {
+    "title": "Register in Course",
+    "name": "Name",
+    "phone": "Phone",
+    "courseName": "Course Name",
+    "coursePlaceholder": "e.g. UX/UI Course",
+    "question": "Any Comment or Additional Question?",
+    "messagePlaceholder": "I want to join this course...",
+    "bookCall": "Book a call",
+    "sending": "Sending...",
+    "success": "Registered successfully!",
+    "required": "Please fill in name and phone.",
+    "closeMenu": "Close Menu"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "button": "Back to Home"
+  }
+
+}
