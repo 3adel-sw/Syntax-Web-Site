@@ -52,7 +52,14 @@
     "feedbacks": "Feedbacks",
     "b2b": "B2B",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "faq": "FAQ",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "menu": "Menu"
+
   },
   "footer": {
     "solutions": "Solutions",

@@ -27,7 +27,10 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-
+  const formatDate = (dateStr) => {
+  if (!dateStr) return '';
+  return dateStr.split('T')[0]; 
+};
 
   return (
     <div
@@ -61,7 +64,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
           <div className="flex items-center gap-2">
             <span className="text-gray-400 font-medium text-base">{toStr(category) || t('common.category')}</span>
             <span className="w-1 h-1 bg-gray-300 rounded-full" />
-            <span className="text-gray-400 font-medium text-base">{toStr(date) || t('common.date')}</span>
+            <span className="text-gray-400 font-medium text-base">{formatDate(date) || t('common.date')}</span>
           </div>
         </div>
       </div>
@@ -149,8 +152,8 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
     slug={blog.slug}
     title={blog.name || blog.title}
     excerpt={blog.description}
-    category={blog.category?.name || blog.category}  // ✅ object
-    date={blog.date || blog.created_at || blog.published_at}  // ✅ multiple possible date fields
+    category={blog.category?.name || blog.category} 
+    date={blog.date || blog.created_at || blog.published_at}  
     image={blog.image || blog.banner_image}
     thumb={blog.thumb}
   />

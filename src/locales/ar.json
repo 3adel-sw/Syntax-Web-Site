@@ -52,7 +52,13 @@
     "feedbacks": "آراء العملاء",
     "b2b": "الشركات",
     "about": "من نحن",
-    "contact": "تواصل معنا"
+    "contact": "تواصل معنا",
+    "faq": "أسئلة وأجوبة",
+    "login": "تسجيل الدخول",
+    "register": "تسجيل",
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي",
+    "menu": "القائمة"
   },
   "footer": {
     "solutions": "الحلول",
@@ -82,7 +88,8 @@
     "testimonials": "آراء العملاء",
     "whatPeopleSay": "ماذا يقول الناس",
     "blog": "المدونة",
-    "latestBlog": "أحدث المقالات"
+    "latestBlog": "أحدث المقالات",
+    "Students":"طلاب"
   },
   "blogs": {
     "welcome": "مرحبًا بك في مدونة Syntax",
@@ -193,7 +200,7 @@
     "requestDetails": "اكتب تفاصيل طلبك"
   },
   "menu": {
-    "menu": "القائمة",
+    "Menu": "القائمة",
     "ourProjects": "مشاريعنا",
     "pages": "الصفحات"
   },
