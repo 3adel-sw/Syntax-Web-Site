@@ -26,7 +26,6 @@ const Subscribe = () => {
       setEmail("");
     } catch (err) {
       setError(err.response?.data?.msg || t("messages.failedToSubscribe"));
-      console.error(err);
     } finally {
       setLoading(false);
     }

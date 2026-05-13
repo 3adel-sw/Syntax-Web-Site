@@ -1,24 +1,27 @@
+
+import { getB2bWhyUs } from "../../services/b2b/b2bService";
+import { useEffect, useState } from "react";
 import ImgChooseTraining from "../../../public/images/ChooseCardTraining.webp";
 
-const features = [
-  {
-    id: 1,
-    title: "Customized training",
-    desc: "Dorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-  },
-  {
-    id: 2,
-    title: "Customized training",
-    desc: "Dorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-  },
-  {
-    id: 3,
-    title: "Customized training",
-    desc: "Dorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-  },
-];
+
 
 const ChooseCardTraining = () => {
+
+  const [getB2bWhyUsData, setgetB2bWhyUsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getB2bWhyUs()
+      .then((response) => setgetB2bWhyUsData(response.data.b2b_why_us))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!getB2bWhyUsData) return null;
+
   return (
     <div className="mt-5 bg-[#111111] rounded-4xl md:py-24 md:px-18 py-6 px-4   h-fit w-full">
       {/* Header */}
@@ -51,19 +54,19 @@ const ChooseCardTraining = () => {
 
         {/* Right: Feature List */}
         <div className="flex flex-col gap-6 flex-1">
-          {features.map((feature) => (
-            <div key={feature.id} className="flex items-start gap-4">
+          {getB2bWhyUsData.map((item) => (
+            <div key={item.id} className="flex items-start gap-4">
               {/* Number Badge */}
               <div className="w-10 h-10 flex-shrink-0 mt-0.5 rounded-full bg-[#141E2A]  flex items-center justify-center text-xs text-[#1877F2]">
-                {feature.id}
+                {item.id}
               </div>
               {/* Text */}
               <div>
                 <h3 className="text-white md:text-2xl text-left font-semibold text-sm mb-1">
-                  {feature.title}
+                  {item.title}
                 </h3>
                 <p className="text-[#888888] text-xs md:text-sm text-left leading-relaxed">
-                  {feature.desc}
+                  {item.description}
                 </p>
               </div>
             </div>

@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 // import AymanAboutR from "../../../public/images/AymanAboutR.webp"
 // import heroAboutleft from "../../../public/images/heroAboutleft.webp"
-import { getHeroSection } from "../../services/about/aboutService";
-import { getAboutUs } from "../../services/about/aboutService";
+import { getHeroSection ,getAboutUs } from "../../services/about/aboutService";
 const HeroAbout = () => {
 const [heroData, setHeroData] = useState(null);
 const [aboutData, setAboutData] = useState(null);

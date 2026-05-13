@@ -1,16 +1,8 @@
 import {getHistories}  from "../../services/about/aboutService" 
 import { useState, useEffect } from "react";
-
-
-
-
-
-
-
-
 const OurAchievements = () => {
   const [historiesData, setHistoriesData] = useState([]);
-  
+
   useEffect(() => {
     const fetchAchievements = async () => {
       try {
@@ -28,6 +20,7 @@ setHistoriesData(response.data.histories);
 if (historiesData.length === 0) {
   return null;
 }
+
   return (
      <section className="w-full my-12 md:my-25 text-left">
       <div

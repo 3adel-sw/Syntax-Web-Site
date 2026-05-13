@@ -300,8 +300,9 @@ line-height: 120%;
   }
 
   .pv-icon-wrap {
-    width: 48px;
-    height: 48px;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
    border-radius: 16px;
 background: linear-gradient(180deg, #779DFF 0%, #2D68FF 100%);
     color: #6D96FF;

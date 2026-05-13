@@ -150,7 +150,6 @@ const Home = () => {
             ))}
           </div>
         )}
-
         {/* Organizations */}
         {organizations.length > 0 && (
           <div className="flex flex-wrap justify-center gap-6 my-10">
@@ -159,10 +158,8 @@ const Home = () => {
             ))}
           </div>
         )}
-
         {/* Cards */}
         <CardAcademyEvents />
-
         {/* Courses */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className='space-y-5'>

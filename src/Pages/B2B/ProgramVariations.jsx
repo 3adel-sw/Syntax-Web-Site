@@ -1,85 +1,39 @@
-import { useEffect, useRef } from "react";
-import playground from "../../../public/images/playground.svg";
+
+import { useEffect, useRef, useState} from "react";
 import program from "../../../public/images/program.webp";
-
-
-const programs = [
-  {
-    num: "01",
-    icon: (
-      <img
-      loading="lazy"
-        src={playground}
-        alt="Icon"
-        className="w-9 h-9 object-cover"
-      />
-    ),
-    title: "Full-day UX workshops",
-    subtitle: "User-centered design process training.",
-    reverse: false,
-  },
-  {
-    num: "02",
-    icon: (
-      <img
-      loading="lazy"
-        src={playground}
-        alt="Icon"
-         className="w-9 h-9 object-cover"
-      />
-    ),
-    title: "In-depth Training Courses",
-    subtitle: "Comprehensive UX skills development.",
-    reverse: true,
-  },
-  {
-    num: "03",
-    icon: (
-      <img
-      loading="lazy"
-        src={playground}
-        alt="Icon"
-         className="w-9 h-9 object-cover"
-      />
-    ),
-    title: "UX Consulting Services",
-    subtitle: "Transform ideas into user satisfaction.",
-    reverse: false,
-  },
-];
+import { getB2bPrograms } from "../../services/b2b/b2bService";
 
 
 
 
 
-const  ProgramVariations = () => {
+
+
+
+
+const ProgramVariations = () => {
+ 
+  const [programs, setPrograms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+ 
   const itemRefs = useRef([]);
   const rightRef = useRef(null);
 
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    itemRefs.current.forEach((el, i) => {
-      if (el) {
-        el.style.transitionDelay = `${i * 0.1}s`;
-        observer.observe(el);
-      }
-    });
-
-    if (rightRef.current) observer.observe(rightRef.current);
-
-    return () => observer.disconnect();
+    getB2bPrograms()
+      .then((res) => setPrograms(res.data.b2b_programs || []))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    // intersection observer
+  }, []);
+
+ 
+  if (loading) return null;
   return (
     <>
       <section className="pv-section">
@@ -88,23 +42,25 @@ const  ProgramVariations = () => {
           <div className="pv-left">
             <h2 className="pv-heading ">Program Variations</h2>
 
-            {programs.map((p, i) => (
-              <div
-                key={i}
-                className="pv-item"
-                ref={(el) => (itemRefs.current[i] = el)}
-                style={{ flexDirection: p.reverse ? "row-reverse" : "row" }}
-              >
-                <span className="pv-num">{p.num}</span>
-                <div className="pv-card">
-                  <div className="pv-icon-wrap">{p.icon}</div>
-                  <div>
-                    <p className="pv-card-title md:text-lg text-sm">{p.title}</p>
-                    <p className="pv-card-sub md:text-sm text-xs">{p.subtitle}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {programs.map((p, i) => (
+  <div
+    key={p.id}
+    className="pv-item"
+    ref={(el) => (itemRefs.current[i] = el)}
+    style={{ flexDirection: i % 2 !== 0 ? "row-reverse" : "row" }}
+  >
+    <span className="pv-num">{String(i + 1).padStart(2, "0")}</span>
+    <div className="pv-card">
+      <div className="pv-icon-wrap p-2  overflow-hidden">
+        <img src={p.image} alt={p.title} className="w-18 h-12 object-contain" />
+      </div>
+      <div>
+        <p className="pv-card-title md:text-lg text-sm">{p.title}</p>
+        <p className="pv-card-sub md:text-sm text-xs">{p.description}</p>
+      </div>
+    </div>
+  </div>
+))}
           </div>
           {/* Right — Photo collage */}
           <div className="pv-right" ref={rightRef}>
