@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 // ── Course Card ──────────────────────────────────────────
 const CourseCard = ({ course, navigate }) => {
   const courseId = course.id || course._id || course.slug;
-  console.log('courseId:', courseId, '| full course:', course);
+  // console.log('courseId:', courseId, '| full course:', course);
   const toStr = (val) => {
     if (!val) return '';
     if (typeof val === 'object') return val?.name || val?.title || '';

@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import weight from "../../assets/weight.svg";
 import penTool from "../../assets/penTool.svg";
@@ -6,69 +5,22 @@ import ranking from "../../assets/ranking.svg";
 import lampcharge from "../../assets/lampcharge.svg";
 import emojihappy from "../../assets/emojihappy.svg";
 import cup from "../../assets/cup.svg";
-//   img —    API
-const IMG_Map = {
-  grow: { img: cup, bg: "bg-[#5B49E9]", color: "text-indigo-600" },
-  scrappy: { img: weight, bg: "bg-[#33CFFF]", color: "text-cyan-600" },
-  hardwork: { img: ranking, bg: "bg-[#40C4AA]", color: "text-teal-600" },
-  details: { img: penTool, bg: "bg-[#FFBE4C]", color: "text-amber-600" },
-  hard: { img: lampcharge, bg: "bg-[#ED8296]", color: "text-rose-600" },
-  fun: { img: emojihappy, bg: "bg-[#1A1B25]", color: "text-white" },
-};
+import { getCoreValues  } from "../../services/about/aboutService";
 
-// API
-const coreValuesData = [
-  {
-    id: 1,
-    iconKey: "grow",
-    title: "Grow 1% Everyday",
-    description:
-      "By focusing on daily growth, we foster a culture of learning, adaptability, and innovation ensuring that we are always moving forward improving...",
-  },
-  {
-    id: 2,
-    iconKey: "scrappy",
-    title: "Be Scrappy",
-    description:
-      "We believe in being agile, adaptable, and always ready to tackle challenges head-on.",
-  },
-  {
-    id: 3,
-    iconKey: "hardwork",
-    title: "Embrace Hard Work",
-    description:
-      "We believe that dedication and perseverance are key to overcoming obstacles and reaching new heights.",
-  },
-  {
-    id: 4,
-    iconKey: "details",
-    title: "Be in The Details",
-    description:
-      "Focusing on the finer points, we ensure high-quality results and exceed expectations.",
-  },
-  {
-    id: 5,
-    iconKey: "hard",
-    title: "Do Hard Things",
-    description:
-      "This value drives us to achieve the extraordinary and continuously grow as individuals and as a team.",
-  },
-  {
-    id: 6,
-    iconKey: "fun",
-    title: "Be Fun to Work",
-    description:
-      "We believe that a happy team is a productive team, and we strive to make our work environment enjoyable for everyone.",
-  },
+const ICONS_ORDER = [
+  { img: cup,        bg: "bg-[#5B49E9]" },
+  { img: weight,     bg: "bg-[#33CFFF]" },
+  { img: ranking,    bg: "bg-[#40C4AA]" },
+  { img: penTool,    bg: "bg-[#FFBE4C]" },
+  { img: lampcharge, bg: "bg-[#ED8296]" },
+  { img: emojihappy, bg: "bg-[#1A1B25]" },
 ];
-// CoreValues.jsx
-// useEffect(() => {
-//   fetch("https://your-api.com/api/core-values")
-//     .then((r) => r.json())
-//     .then(setCoreValuesData);
-// }, []);
 
 const CoreValues = () => {
+  const [coreData, setCoreData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   // Mobile slider state
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -76,6 +28,22 @@ const CoreValues = () => {
   const touchStartRef = useRef(0);
   const translateXRef = useRef(0);
   const containerRef = useRef(null);
+
+  // Fetch
+  useEffect(() => {
+    getCoreValues ()
+      .then((response) => setCoreData(response.data.core_values))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Slider sync
+  useEffect(() => {
+    if (!isDragging) {
+      translateXRef.current = -currentSlide * 100;
+      setTranslateX(-currentSlide * 100);
+    }
+  }, [currentSlide, isDragging]);
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
@@ -98,40 +66,15 @@ const CoreValues = () => {
   const handleTouchEnd = () => {
     setIsDragging(false);
     const slideIndex = Math.round(-translateXRef.current / 100);
-    const boundedIndex = Math.max(0, Math.min(coreValuesData.length - 1, slideIndex));
+    const boundedIndex = Math.max(0, Math.min((coreData?.length || 1) - 1, slideIndex));
     setCurrentSlide(boundedIndex);
     translateXRef.current = -boundedIndex * 100;
     setTranslateX(-boundedIndex * 100);
   };
 
-  useEffect(() => {
-    if (!isDragging) {
-      translateXRef.current = -currentSlide * 100;
-      setTranslateX(-currentSlide * 100);
-    }
-  }, [currentSlide, isDragging]);
-  
-  const renderCard = (value) => {
-    const iconConfig = IMG_Map[value.iconKey] ?? {
-      img: weight,
-      bg: "bg-gray-100",
-      color: "text-gray-600",
-    };
-
-    return (
-      <>
-        {/* Icon Box */}
-        <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${iconConfig.bg}`}>
-          <img src={iconConfig.img} alt={value.title} />
-        </div>
-        {/* Text */}
-        <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
-        <p className="md:text-base text-sm text-gray-500 leading-relaxed">
-          {value.description}
-        </p>
-      </>
-    );
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!coreData) return null;
 
   return (
     <section className="w-full my-12 md:my-25 text-left">
@@ -161,17 +104,24 @@ const CoreValues = () => {
               transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
             }}
           >
-            {coreValuesData.map((value) => (
-              <div key={value.id} className="min-w-full flex-shrink-1 px-1">
-                <div className="flex flex-col gap-3 p-5 bg-white rounded-3xl border border-[#DFE1E7]">
-                  {renderCard(value)}
+            {coreData.map((value, index) => {
+              const icon = ICONS_ORDER[index % ICONS_ORDER.length];
+              return (
+                <div key={value.id} className="min-w-full flex-shrink-1 px-1">
+                  <div className="flex flex-col gap-3 p-5 bg-white rounded-3xl border border-[#DFE1E7]">
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${icon.bg}`}>
+                      <img src={icon.img} alt={value.title} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900">{value.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{value.description}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <div className="flex justify-center gap-2 mt-4">
-          {coreValuesData.map((_, index) => (
+          {coreData.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
@@ -185,22 +135,24 @@ const CoreValues = () => {
 
       {/* Desktop Grid */}
       <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:my-16 my-10">
-        {coreValuesData.map((value) => (
-          <div key={value.id} className="flex flex-col gap-3 md:p-8 p-5
-           bg-white hover:scale-105 transition-all
-           duration-300 ease-in-out hover:shadow-md 
-             rounded-3xl border border-[#DFE1E7]">
-            <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${IMG_Map[value.iconKey]?.bg ?? "bg-gray-100"}`}>
-              <img src={IMG_Map[value.iconKey]?.img ?? weight} alt={value.title} />
+        {coreData.map((value, index) => {
+          const icon = ICONS_ORDER[index % ICONS_ORDER.length];
+          return (
+            <div
+              key={value.id}
+              className="flex flex-col gap-3 md:p-8 p-5 bg-white hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-md rounded-3xl border border-[#DFE1E7]"
+            >
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${icon.bg}`}>
+                <img src={icon.img} alt={value.title} />
+              </div>
+              <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
+              <p className="md:text-base text-sm text-gray-500 leading-relaxed">{value.description}</p>
             </div>
-            <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
-            <p className="md:text-base text-sm text-gray-500 leading-relaxed">
-              {value.description}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
 };
+
 export default CoreValues;

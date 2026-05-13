@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Calendar, Tag, Share2, Link, Loader2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import BlogCardImage from '../../assets/BlogsDetails.svg';
 import CardBlog from '../../components/Ui/CardBlog';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
@@ -75,7 +74,7 @@ const BlogsDetails = () => {
   );
 
   const title = blog.name || blog.title || t('footer.blog');
-  const image = blog.banner_image || blog.image || blog.thumb || BlogCardImage;
+  const image = blog.banner_image || blog.image || blog.thumb ;
   const date = formatDate(blog.date || blog.created_at || blog.published_at);
   const relatedData = relatedBlogs.length ? relatedBlogs : undefined;
 

@@ -1,20 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaArrowLeft ,FaArrowRight } from "react-icons/fa6";
-
-import profilepictureMeet from "../../../public/images/profilepictureMeet.webp"
+import {getTeams} from "../../services/about/aboutService";
 // Mock Data For API
-const teamMembers = [
-  { id: 1, name: "Adel Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 2, name: "Ayman Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 3, name: "Mohamed Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 4, name: "Khaled Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 5, name: "Ali Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 6, name: "Ahmed Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 7, name: "Hossam Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 8, name: "Omar Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 9, name: "Ayman Taher", role: "Lead Product Designer", image: profilepictureMeet },
-  { id: 10, name: "Ayman ", role: "Lead Product Designer", image: profilepictureMeet },
-];
+
 
 const getVisibleCount = () => {
   const w = window.innerWidth;
@@ -26,11 +14,19 @@ const getVisibleCount = () => {
   return 5;                     // xxl
 };
 
-
-
 const MeetTeam = () => {
+  const [teamsData, setTeamsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
+
+    useEffect(() => {
+      getTeams ()
+        .then((response) => setTeamsData(response.data.teams))
+        .catch((err) => setError(err.message))
+        .finally(() => setLoading(false));
+    }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,33 +37,18 @@ const MeetTeam = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+     if (loading) return <div>Loading...</div>;
+if (error) return <div>{error}</div>;
+if (!teamsData) return null;
+
    const canPrev = startIndex > 0;
-  const canNext = startIndex + visibleCount < teamMembers.length;
+const canNext = startIndex + visibleCount < teamsData.length;
+const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
 
   const handlePrev = () => { if (canPrev) setStartIndex((i) => i - 1); };
   const handleNext = () => { if (canNext) setStartIndex((i) => i + 1); };
 
-  const visibleMembers = teamMembers.slice(startIndex, startIndex + visibleCount);
-
-
-//    useEffect(() => {
-//     const fetchTeam = async () => {
-//       try {
-//         const res = await fetch("https://your-api.com/api/team");
-//         const data = await res.json();
-//         setTeamMembers(data); // عدّل حسب شكل الـ response
-//       } catch (err) {
-//         console.error(err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetchTeam();
-//   }, []);
-
-
-
-
+  
 
 
   return (
@@ -112,7 +93,7 @@ const MeetTeam = () => {
               {/* Info */}
               <div className="text-center">
                 <p className="text-xl md:text-lg font-bold text-gray-900">{member.name}</p>
-                <p className="text-sm md:text-xs text-gray-400">{member.role}</p>
+                <p className="text-sm md:text-xs text-gray-400">{member.position}</p>
               </div>
             </div>
           ))}

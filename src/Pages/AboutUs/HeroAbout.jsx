@@ -2,8 +2,10 @@ import { useState, useRef, useEffect, useMemo } from "react";
 // import AymanAboutR from "../../../public/images/AymanAboutR.webp"
 // import heroAboutleft from "../../../public/images/heroAboutleft.webp"
 import { getHeroSection } from "../../services/about/aboutService";
+import { getAboutUs } from "../../services/about/aboutService";
 const HeroAbout = () => {
 const [heroData, setHeroData] = useState(null);
+const [aboutData, setAboutData] = useState(null);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
  const images = useMemo(() => [
@@ -51,13 +53,13 @@ const [error, setError] = useState(null);
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
-useEffect(() => {
-  getHeroSection()
-    .then((response) => {
- 
-  setHeroData(response.data.about_hero);
-})
- 
+
+    useEffect(() => {
+  Promise.all([getHeroSection(), getAboutUs()])
+    .then(([heroRes, aboutRes]) => {
+      setHeroData(heroRes.data.about_hero);
+      setAboutData(aboutRes.data.about);
+    })
     .catch((err) => setError(err.message))
     .finally(() => setLoading(false));
 }, []);
@@ -165,7 +167,7 @@ useEffect(() => {
         {/* Right: Paragraphs */}
         <div className="md:col-span-2 flex flex-col gap-6">
          <p className="md:text-lg text-sm font-medium text-left text-[#797979] leading-relaxed">
-    {heroData?.description}
+    {aboutData?.description}
   </p>
         </div>
       </div>

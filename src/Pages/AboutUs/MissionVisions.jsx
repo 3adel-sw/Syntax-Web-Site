@@ -7,10 +7,10 @@ const MissionVisions = () => {
   const [error, setError] = useState(null);
 
   const cards = [
-    { id: 1, heading: "عن سينتاكس", body: data?.description },
-    { id: 2, heading: "مهمتنا", body: data?.mission },
-    { id: 3, heading: "vision", body: data?.vision },
-    { id: 4, heading: "مميزاتنا", body: data?.features },
+   
+    { id: 1, heading: "Mission", body: data?.mission },
+    { id: 2, heading: "Vision", body: data?.vision },
+    { id: 3, heading: "Features", body: data?.features },
   ];
 
   // Mobile slider state
