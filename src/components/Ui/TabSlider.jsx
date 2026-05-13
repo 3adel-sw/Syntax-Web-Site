@@ -56,20 +56,23 @@ const TabSlider = ({ tabs, activeTab, setActiveTab, className = "" }) => {
             width: 'max-content'
           }}
         >
-          {tabs.map((tab) => (
+          {tabs.map((tab) => {
+            const value = typeof tab === "object" ? tab.value : tab;
+            const label = typeof tab === "object" ? tab.label : tab;
+            return (
             <button
-              key={tab}
-              data-active={activeTab === tab}
-              onClick={() => setActiveTab(tab)}
+              key={value}
+              data-active={activeTab === value}
+              onClick={() => setActiveTab(value)}
               className={`px-4 py-3 rounded-xl text-sm border transition-all duration-200 whitespace-nowrap ${
-                activeTab === tab
+                activeTab === value
                   ? "bg-primary text-white border-primary"
                   : "bg-primary/10 text-primary border-gray-200 hover:bg-gray-100 hover:text-gray-800"
               }`}
             >
-              {tab}
+              {label}
             </button>
-          ))}
+          )})}
         </div>
       </div>
     </div>

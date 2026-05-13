@@ -1,7 +1,9 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 
 const Curriculum = ({ course }) => {
+  const { t } = useTranslation();
   const [openIndex, setOpenIndex] = useState(null);
 
   const data = useMemo(() => {
@@ -27,7 +29,7 @@ const Curriculum = ({ course }) => {
   if (!data || data.length === 0) {
     return (
       <div className="p-8 text-center text-gray-500">
-        No curriculum data available for this course.
+        {t("courseDetails.noCurriculum")}
       </div>
     );
   }
@@ -46,11 +48,11 @@ const Curriculum = ({ course }) => {
           >
             <div className="flex-1">
               <h3 className="text-sm font-medium text-gray-800">
-                {item.name || item.title || `Topic ${index + 1}`}
+                {item.name || item.title || t("courseDetails.topicNumber", { number: index + 1 })}
               </h3>
               {item.duration && (
                 <p className="text-xs text-gray-500 mt-1">
-                  Duration:  {new Date(item.created_at).toLocaleDateString()}
+                  {t("courses.duration")}: {new Date(item.created_at).toLocaleDateString()}
                 </p>
               )}
             </div>
@@ -64,14 +66,14 @@ const Curriculum = ({ course }) => {
           {openIndex === index && (
             <div className="p-3.5 text-sm text-gray-600 border-t border-gray-200 bg-gray-50">
               <p
-              dangerouslySetInnerHTML={{ __html: item.description || 'Not found' }}
+              dangerouslySetInnerHTML={{ __html: item.description || t("common.notFound") }}
               >
               </p>
               
               {/* Additional Details */}
               {item.lessons && Array.isArray(item.lessons) && item.lessons.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="font-medium text-gray-800 mb-2">Lessons:</h4>
+                  <h4 className="font-medium text-gray-800 mb-2">{t("courseDetails.lessons")}</h4>
                   <ul className="list-disc list-inside space-y-1">
                     {item.lessons.map((lesson, idx) => (
                       <li key={idx} className="text-gray-600">
@@ -84,7 +86,7 @@ const Curriculum = ({ course }) => {
 
               {item.objectives && Array.isArray(item.objectives) && item.objectives.length > 0 && (
                 <div className="mt-4">
-                  <h4 className="font-medium text-gray-800 mb-2">Learning Objectives:</h4>
+                  <h4 className="font-medium text-gray-800 mb-2">{t("courseDetails.learningObjectives")}</h4>
                   <ul className="list-disc list-inside space-y-1">
                     {item.objectives.map((obj, idx) => (
                       <li key={idx} className="text-gray-600">

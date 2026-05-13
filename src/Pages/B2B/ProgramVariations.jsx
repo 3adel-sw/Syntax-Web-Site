@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState} from "react";
 import program from "../../../public/images/program.webp";
 import { getB2bPrograms } from "../../services/b2b/b2bService";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -12,6 +13,7 @@ import { getB2bPrograms } from "../../services/b2b/b2bService";
 
 
 const ProgramVariations = () => {
+  const { t } = useTranslation();
  
   const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +42,7 @@ const ProgramVariations = () => {
         <div className="flex flex-col lg:flex-row  justify-center  items-center gap-6 md:gap-10 sm:gap-8 lg:gap-12 ">
           {/* Left */}
           <div className="pv-left">
-            <h2 className="pv-heading ">Program Variations</h2>
+            <h2 className="pv-heading ">{t("b2b.programVariations")}</h2>
 
           {programs.map((p, i) => (
   <div
@@ -66,7 +68,7 @@ const ProgramVariations = () => {
           <div className="pv-right" ref={rightRef}>
         <img 
         loading="lazy"
-        src={program} className="w-full h-full object-cover" alt="UX design courses" />
+        src={program} className="w-full h-full object-cover" alt={t("b2b.uxDesignCoursesAlt")} />
           </div>
         </div>
       </section>

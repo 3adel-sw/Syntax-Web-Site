@@ -19,13 +19,11 @@ import {
   getLatestCourses,
   getLatestBlogs,
   getTestimonials,
-  getAllProducts,
   getSetting,
 } from '../services/home/homeService';
 
 const Home = () => {
   const { t } = useTranslation();
-  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   const [hero, setHero] = useState(null);
@@ -54,7 +52,6 @@ const Home = () => {
           coursesRes,
           blogsRes,
           testimonialsRes,
-          productsRes,
           settingRes,
         ] = await Promise.all([
           getHeroSection(),
@@ -63,7 +60,6 @@ const Home = () => {
           getLatestCourses(),
           getLatestBlogs(),
           getTestimonials(),
-          getAllProducts(),
           getSetting(),
           
         ]);
@@ -77,7 +73,6 @@ const Home = () => {
           (testimonialsRes.data?.testimonials || testimonialsRes.data || [])
             .filter((testimonial) => Number(testimonial.show_in_home) !== 0)
         );
-        setProducts(productsRes.data);
         setSetting(settingRes.data?.settings || settingRes.data || null);
       } catch (err) {
         console.error('Error fetching home data:', err);
@@ -131,7 +126,7 @@ const Home = () => {
     <div className="mt-8 md:w-full w-full bg-gray-500 md:h-[28rem] md:mx-auto rounded-4xl">
       <img
         src={item?.image }
-        alt="community"
+        alt={t('footer.community')}
         loading="eager"
         fetchPriority="high"
         className="rounded-2xl shadow-lg w-full h-full object-cover"

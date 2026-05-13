@@ -6,10 +6,10 @@ import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
 import { useTranslation } from 'react-i18next';
 const tabs = [
-  "All Courses",
-  "Online Workshop",
-  "Offline Meetup",
-  "Mega Event",
+  { value: "All Courses", labelKey: "courses.tabs.all" },
+  { value: "Online Workshop", labelKey: "courses.tabs.online" },
+  { value: "Offline Meetup", labelKey: "courses.tabs.offline" },
+  { value: "Mega Event", labelKey: "courses.tabs.mega" },
 ];
 
 const Courses = () => {
@@ -42,22 +42,22 @@ const isAr = i18n.language === 'ar';
           <div className='hidden md:flex gap-2 flex-wrap mb-2'>
             {tabs.map((tab) => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
                  className={`px-4 py-3 rounded-[14px] text-sm border transition-all duration-200 ${
-              activeTab === tab
+              activeTab === tab.value
                 ? "bg-primary text-white border-primary"
                 : "bg-primary/10 text-primary border-gray-200 hover:bg-gray-100 hover:text-gray-800"
             }`}
           >
-                {tab}
+                {t(tab.labelKey)}
               </button>
             ))}
           </div>
 
           {/* Mobile Tab Slider */}
           <TabSlider
-            tabs={tabs}
+            tabs={tabs.map((tab) => ({ ...tab, label: t(tab.labelKey) }))}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             className="md:hidden mb-4"

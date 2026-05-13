@@ -4,8 +4,10 @@ import Logo from "@/assets/logoo.svg";
 import LanguageDropdown from "@/components/Ui/LanguageDropdown";
 import UserDropdown from "@/components/Ui/UserDropdown";
 import MenuPanel from "@/components/Ui/Menu";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const NavBar = () => {
       {/* Logo */}
       <Link to="/">
         <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8">
-          <img src={Logo} alt="Syntax Logo" />
+          <img src={Logo} alt={t("common.brandLogo")} />
         </div>
       </Link>
 

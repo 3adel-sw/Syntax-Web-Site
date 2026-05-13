@@ -2,15 +2,17 @@ import { useState, useRef, useEffect, useMemo } from "react";
 // import AymanAboutR from "../../../public/images/AymanAboutR.webp"
 // import heroAboutleft from "../../../public/images/heroAboutleft.webp"
 import { getHeroSection ,getAboutUs } from "../../services/about/aboutService";
+import { useTranslation } from "react-i18next";
 const HeroAbout = () => {
+const { t } = useTranslation();
 const [heroData, setHeroData] = useState(null);
 const [aboutData, setAboutData] = useState(null);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
  const images = useMemo(() => [
-  { src: heroData?.image , alt: "not " },
+  { src: heroData?.image , alt: t("common.imageNotAvailable") },
   // { src: heroData?.image || AymanAboutR, alt: "Syntax Instructor" },
-], [heroData]);
+], [heroData, t]);
   // Slider State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -49,6 +51,7 @@ const [error, setError] = useState(null);
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
@@ -69,24 +72,24 @@ const [error, setError] = useState(null);
         {/* Left: Badge + Title */}
         <div className="text-right md:text-left">
           <span className="inline-block bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-xl mb-4">
-            About Us
+            {t("about.title")}
           </span>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-gray-900">
-            Welcome to <br /> Syntax Community
+            {t("about.welcomeTo")} <br /> {t("menu.projects.community.name")}
           </h1>
         </div>
 
         {/* Right: Description + Buttons */}
         <div className="flex flex-col gap-6 justify-center">
           <p className="text-lg text-left text-gray-500 leading-relaxed">
-            {loading ? "Loading..." : error || heroData?.description}
+            {loading ? t("common.loading") : error || heroData?.description}
           </p>
           <div className="flex gap-4 flex-wrap">
             <button className="px-5 py-3.5 rounded-xl  text-gray-900 text-sm bg-[#F2F4F7] font-medium hover:bg-gray-900 hover:text-white  transition-colors">
-              Contact US
+              {t("menu.pagesList.contactUs")}
             </button>
             <button className="px-5 py-3.5 rounded-xl hover:bg-gray-900 bg-transparent hover:text-white text-gray-900 text-sm font-medium  transition-colors">
-              Start Learning
+              {t("home.startLearning")}
             </button>
           </div>
         </div>
@@ -112,7 +115,7 @@ const [error, setError] = useState(null);
               <div key={index} className="min-w-full flex-shrink-1">
                 <div className="h-82 rounded-3xl overflow-hidden">
                   <img
-                     src={heroData?.image || "Not "}
+                     src={heroData?.image || ""}
                     alt={img.alt}
                     className="w-full h-full object-cover"
                   />
@@ -140,8 +143,8 @@ const [error, setError] = useState(null);
         {/* <div className="col-span-3 rounded-3xl overflow-hidden h-82 md:h-[583px] "> */}
         <div className="col-span-4 rounded-3xl overflow-hidden h-82 md:h-[583px] ">
           <img
-            src={heroData?.image || "Not "}
-            alt="Syntax Community Classroom"
+            src={heroData?.image || ""}
+            alt={t("about.communityClassroomAlt")}
             className="w-full h-full object-contain"
           />
         </div>
@@ -160,7 +163,7 @@ const [error, setError] = useState(null);
       <div className="grid grid-cols-1 md:grid-cols-3 md:gap-28 gap-10 items-start pb-10">
         {/* Left: Title */}
         <div className="md:col-span-1">
-          <h2 className="text-5xl text-left pb-6 font-extrabold text-gray-900">What we do</h2>
+          <h2 className="text-5xl text-left pb-6 font-extrabold text-gray-900">{t("about.whatWeDo")}</h2>
         </div>
 
         {/* Right: Paragraphs */}

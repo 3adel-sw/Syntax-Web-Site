@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Add from "../../assets/Add.svg"
 import Pc from "../../assets/pc.svg"
+import { useTranslation } from 'react-i18next';
 
 const toStr = (val) => {
   if (!val) return '';
@@ -30,6 +31,7 @@ const FaqCard = ({ faq, i }) => (
 );
 
 const ChooseUs = ({ course }) => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -80,7 +82,7 @@ console.log('why_us:', course?.why_us);
 
   return (
     <div className="mt-16 text-center">
-      <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-8">Why Choose us?</h2>
+      <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-8">{t('courseDetails.whyChooseUs')}</h2>
       
       {/* Mobile Slider */}
       <div className="md:hidden">

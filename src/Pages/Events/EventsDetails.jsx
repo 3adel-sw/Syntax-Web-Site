@@ -18,9 +18,9 @@ const toStr = (value) => {
 
 const hasArabicText = (value) => /[\u0600-\u06FF]/.test(toStr(value));
 
-const formatDate = (value, locale = 'en-US') => {
+const formatDate = (value, locale = 'en-US', fallback = 'Date') => {
   const dateValue = toStr(value);
-  if (!dateValue) return 'Date';
+  if (!dateValue) return fallback;
 
   const date = new Date(dateValue);
   if (Number.isNaN(date.getTime())) return dateValue;
@@ -192,7 +192,7 @@ const EventsDetails = () => {
 
               <div className="grid grid-cols-3 text-center sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6 text-xs text-gray-500">
                 <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {event.location || t('common.location')}</span>
-                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US')}</span>
+                <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US', t('common.date'))}</span>
                 <span className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {event.time || t('common.time')}</span>
                 <button className="flex items-center justify-center gap-1 px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg hover:text-gray-800"><Download size={12} /> {category}</button>
                 <button onClick={handleCopyLink} className="flex items-center justify-center px-3 py-2.5 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition">
@@ -239,7 +239,7 @@ const EventsDetails = () => {
               <div className="rounded-2xl overflow-hidden hidden md:block">
                 <img
                   src={image}
-                  alt="event poster"
+                  alt={t('events.eventPosterAlt')}
                   className="w-full h-90 object-cover rounded-2xl"
                 />
               </div>

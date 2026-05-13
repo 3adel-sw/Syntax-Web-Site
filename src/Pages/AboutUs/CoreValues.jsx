@@ -6,6 +6,7 @@ import lampcharge from "../../assets/lampcharge.svg";
 import emojihappy from "../../assets/emojihappy.svg";
 import cup from "../../assets/cup.svg";
 import { getCoreValues  } from "../../services/about/aboutService";
+import { useTranslation } from "react-i18next";
 
 const ICONS_ORDER = [
   { img: cup,        bg: "bg-[#5B49E9]" },
@@ -17,6 +18,7 @@ const ICONS_ORDER = [
 ];
 
 const CoreValues = () => {
+  const { t } = useTranslation();
   const [coreData, setCoreData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,6 +43,7 @@ const CoreValues = () => {
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
@@ -72,7 +75,7 @@ const CoreValues = () => {
     setTranslateX(-boundedIndex * 100);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
   if (!coreData) return null;
 
@@ -80,12 +83,12 @@ const CoreValues = () => {
     <section className="w-full my-12 md:my-25 text-left">
       {/* Badge */}
       <span className="md:text-base text-sm mb-3 md:mb-5 font-semibold text-[#00895C] tracking-wide">
-        Values
+        {t("about.values")}
       </span>
 
       {/* Title */}
       <h2 className="text-2xl md:text-5xl font-semibold text-gray-900 md:my-5 my-3">
-        Core Values
+        {t("about.coreValues")}
       </h2>
 
       {/* Mobile Slider */}

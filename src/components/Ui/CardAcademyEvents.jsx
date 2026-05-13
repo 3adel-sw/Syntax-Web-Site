@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 
 import { getAllProducts } from '../../services/home/homeService';
 import { getOurNumbers } from '../../services/about/aboutService';
+import { useTranslation } from 'react-i18next';
 
 const iconMap = {
   Mic: <Mic className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />,
@@ -16,6 +17,7 @@ const iconMap = {
 
 
 const CardAcademyEvents = () => {
+  const { t } = useTranslation();
   const [allProducts, setAllProducts] = useState([]);
   const [ourNumbers, setOurNumbers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,8 +72,8 @@ const CardAcademyEvents = () => {
         link: p.link || (p.slug === 'our-academy' ? '/courses' : '/events'),
       }))
     : [
-        {  title: ' Not Fund',     description: 'Not Fund.', link: '/courses' },
-        {    title: 'Not Fund', description: 'Not Fund.',      link: '/events' },
+        { title: t('common.notFound'), description: t('common.notFound'), link: '/courses' },
+        { title: t('common.notFound'), description: t('common.notFound'), link: '/events' },
       ];
 
   //  Fallback 
@@ -83,15 +85,15 @@ const CardAcademyEvents = () => {
         link: p.link,
       }))
     : [
-        { icon: iconMap.Mic,   title: 'Not Fund',       description: 'Not Fund' },
-        { icon: iconMap.Users, title: 'Our Community', description: 'Not Fund' },
-        { icon: iconMap.Mail,  title: 'Newsletter',    description: 'Not Fund' },
+        { icon: iconMap.Mic, title: t('common.notFound'), description: t('common.notFound') },
+        { icon: iconMap.Users, title: t('footer.community'), description: t('common.notFound') },
+        { icon: iconMap.Mail, title: t('footer.newsletter'), description: t('common.notFound') },
       ];
 
   const numbersList = ourNumbers.map(n => ({
     img: n.image,
     label: n.title || n.label || n.name,
-    student: n.number ? `+${n.number} Students` : '+0 Students',
+    student: n.number ? t('home.studentsCount', { number: n.number }) : t('home.studentsCount', { number: 0 }),
   }));
 
   return (

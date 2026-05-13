@@ -3,7 +3,10 @@ import cardplus from "../../assets/cardplus.svg";
 import { ArrowRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
+import { useTranslation } from "react-i18next";
+
 const CommunityCards = () => {
+  const { t } = useTranslation();
   return (
     <>
     <div className="flex gap-4 mb-5 mt-12 md:my-15 flex-col md:flex-row">
@@ -14,9 +17,9 @@ const CommunityCards = () => {
     <div className="absolute inset-0"
       style={{ background: "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80') center/cover" }} />
     <div className="absolute inset-0 bg-black/50" />
-    <h3 className="relative text-left text-white font-semibold  text-3xl md-mb-3  md:top-13 top-6">Connect with Communites</h3>
+    <h3 className="relative text-left text-white font-semibold  text-3xl md-mb-3  md:top-13 top-6">{t("community.connectTitle")}</h3>
     <p className="relative text-left text-slate-300 text-base leading-relaxed md:top-14 top-7">
-      Discover communities and learn together, share question, problem, issues. Anything!
+      {t("community.connectDescription")}
     </p>
   </div>
 
@@ -28,7 +31,7 @@ const CommunityCards = () => {
               <img
                 loading="eager"
             fetchPriority="high"
-              src={cardplus} alt="cardplus" className="absolute w-full top-0 -right-8 rounded-2xl" />
+              src={cardplus} alt={t("community.joinNow")} className="absolute w-full top-0 -right-8 rounded-2xl" />
     {/* Left line */}
     <div className="flex-1 w-full h-px bg-[#3E3E3F]" />
     {/* Icon circle */}
@@ -45,10 +48,10 @@ const CommunityCards = () => {
     <div className="flex-1 w-full h-px bg-[#3E3E3F]" />
   </div>
     <h3 className="font-bold text-2xl text-white my-8 leading-snug">
-      Join Our<br />Community
+      {t("community.joinOur")}<br />{t("community.community")}
     </h3>
     <button className=" z-20 border-white/30 border-2 text-white rounded-xl px-4 py-4 text-sm font-semibold flex items-center gap-2 hover:bg-white/10 transition-colors">
-      Join Now <ArrowRight size={14} />
+      {t("community.joinNow")} <ArrowRight size={14} />
     </button>
   </div>
 
@@ -77,11 +80,11 @@ const CommunityCards = () => {
   </div>
 
   <h3 className="font-bold text-2xl text-slate-900 my-8 leading-snug">
-    Contact<br />via Whatsapp
+    {t("community.contact")}<br />{t("community.viaWhatsapp")}
   </h3>
 
   <button className="bg-[#AFD75A] text-white rounded-2xl w-full px-4 py-4 text-sm font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-colors">
-    Send Message <ArrowRight size={14} />
+    {t("forms.sendMessage")} <ArrowRight size={14} />
   </button>
 
 </div>

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Mail, X } from "lucide-react";
 import { registerInB2B } from "../../services/b2b/registerInB2B";
+import { useTranslation } from "react-i18next";
 
 const FormTrainingForCorporation = ({ onSubmit }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -51,12 +53,12 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
     "w-full border border-gray-200 rounded-lg px-3.5 py-3 text-sm bg-white focus:outline-none focus:border-gray-800 transition-colors placeholder-gray-300";
 
   const fields = [
-    { name: "companyName", label: "Company Name", placeholder: "Company Name" },
-    { name: "jobTitle", label: "Job Title", placeholder: "Job Title" },
-    { name: "trainingLocation", label: "Training Location", placeholder: "Online" },
-    { name: "noOfEmployees", label: "No. Of Employees", placeholder: "Number", type: "number" },
-    { name: "phone", label: "Phone", placeholder: "Phone", type: "tel" },
-    { name: "email", label: "Email", placeholder: "Email", type: "email" },
+    { name: "companyName", label: t("b2b.form.companyName"), placeholder: t("b2b.form.companyName") },
+    { name: "jobTitle", label: t("b2b.form.jobTitle"), placeholder: t("b2b.form.jobTitle") },
+    { name: "trainingLocation", label: t("b2b.form.trainingLocation"), placeholder: t("b2b.form.online") },
+    { name: "noOfEmployees", label: t("b2b.form.noOfEmployees"), placeholder: t("b2b.form.number"), type: "number" },
+    { name: "phone", label: t("forms.phone"), placeholder: t("forms.phonePlaceholder"), type: "tel" },
+    { name: "email", label: t("forms.email"), placeholder: t("forms.emailPlaceholder"), type: "email" },
   ];
 
   return (
@@ -64,19 +66,19 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
       {!success && (
         <div className=" rounded-2xl md:px-12 px-8 md:py-12 py-10 w-full md:max-w-4xl shadow-sm">
           <h1 className="md:text-4xl sm:text-3xl text-lg font-bold text-center text-gray-900 md:mb-9 mb-6 ">
-            Let's Start Your Training
+            {t("b2b.form.title")}
           </h1>
 
           {/* Full Name */}
           <div className="mb-4">
             <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
-              Full Name
+              {t("forms.fullName")}
             </label>
             <input
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              placeholder="Full Name"
+              placeholder={t("forms.fullNamePlaceholder")}
               className={inputClass}
             />
           </div>
@@ -103,19 +105,19 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
           {/* Request Details */}
           <div className="mt-4">
             <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
-              Your Request Details
+              {t("b2b.form.requestDetailsLabel")}
             </label>
             <textarea
               name="requestDetails"
               value={formData.requestDetails}
               onChange={handleChange}
-              placeholder="Write your Request Details"
+              placeholder={t("b2b.requestDetails")}
               className={`${inputClass} resize-y min-h-[100px]`}
             />
           </div>
 
           {error && (
-            <p className="text-red-500 md:text-2xl font-bold text-xs text-center mt-2">{"يوجد خطا في الإدخال"}</p>
+            <p className="text-red-500 md:text-2xl font-bold text-xs text-center mt-2">{t("messages.formInputError")}</p>
           )}
 
           <div className="flex justify-center mt-7">
@@ -124,7 +126,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
               disabled={loading}
               className="flex items-center gap-4 bg-gray-900 text-white rounded-2xl px-10 py-3.5 text-base font-medium hover:bg-gray-700 transition-colors disabled:opacity-60"
             >
-              {loading ? "Sending..." : "Submit"}
+              {loading ? t("registerModal.sending") : t("common.submit")}
               {!loading && <AiOutlineLoading3Quarters />}
             </button>
           </div>
@@ -151,7 +153,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
 
               {/* text */}
               <p className="text-lg font-semibold text-slate-800">
-                Thanks for registering.
+                {t("messages.thanksForRegistering")}
               </p>
             </div>
           </div>

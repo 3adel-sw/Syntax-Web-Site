@@ -21,7 +21,12 @@
     "noImage": "No Image",
     "notFound": "Not found.",
     "imageNotAvailable": "Image not available",
-    "speaker": "Speaker"
+    "speaker": "Speaker",
+    "brandName": "Syntax",
+    "brandLogo": "Syntax logo",
+    "unavailable": "Unavailable",
+    "type": "Type",
+    "tryAgain": "Try again"
   },
   "messages": {
     "failedToLoad": "Failed to load data",
@@ -42,7 +47,11 @@
     "noExcerpt": "No excerpt available.",
     "noDescription": "No description available.",
     "blogNotFound": "Blog not found.",
-    "eventNotFound": "Event not found."
+    "eventNotFound": "Event not found.",
+    "failedToLoadCourse": "Failed to load course details",
+    "formInputError": "There is an error in the input",
+    "thanksForRegistering": "Thanks for registering.",
+    "failedToLoadFeedbacks": "Error fetching reviews. Please try again later."
   },
   "nav": {
     "home": "Home",
@@ -58,8 +67,40 @@
     "register": "Register",
     "logout": "Logout",
     "profile": "Profile",
-    "menu": "Menu"
-
+    "menu": "Menu",
+    "userMenu": "User menu"
+  },
+  "menu": {
+    "menu": "Menu",
+    "ourProjects": "Our Projects",
+    "pages": "Pages",
+    "youtubeChannel": "YouTube Channel",
+    "getInTouch": "Get in Touch",
+    "projects": {
+      "academy": {
+        "name": "Syntax Academy",
+        "desc": "Learn with expert-led courses"
+      },
+      "meetup": {
+        "name": "Syntax Meetup",
+        "desc": "Connect with designers and innovators."
+      },
+      "community": {
+        "name": "Syntax Community",
+        "desc": "Join our community for updates"
+      },
+      "podcast": {
+        "name": "Syntax Podcast",
+        "desc": "UX insights from industry leaders."
+      }
+    },
+    "pages": {
+      "aboutSyntax": "About Syntax",
+      "contactUs": "Contact Us",
+      "resources": "Resources",
+      "blogs": "Blogs",
+      "b2bTraining": "B2B Training"
+    }
   },
   "footer": {
     "solutions": "Solutions",
@@ -89,7 +130,8 @@
     "testimonials": "Testimonials",
     "whatPeopleSay": "What are people saying",
     "blog": "Blog",
-    "latestBlog": "Latest Blog"
+    "latestBlog": "Latest Blog",
+    "studentsCount": "+{{number}} Students"
   },
   "blogs": {
     "welcome": "Welcome to the Syntax Blog",
@@ -120,7 +162,11 @@
     "eventGallery": "Event Gallery",
     "watchSession": "Watch Session",
     "hideSession": "Hide Session",
-    "eventVideo": "Event video {{number}}"
+    "eventVideo": "Event video {{number}}",
+    "eventPosterAlt": "Event poster",
+    "previousImage": "Previous image",
+    "currentImage": "Current image",
+    "nextImage": "Next image"
   },
   "forms": {
     "fullName": "Full name",
@@ -137,7 +183,9 @@
     "message": "Message",
     "registerNow": "Register Now",
     "registering": "Registering...",
-    "sendMessage": "Send Message"
+    "sendMessage": "Send Message",
+    "myMessage": "My Message",
+    "writeYourMessage": "Write your Message"
   },
   "subscribe": {
     "title": "Subscribe now!",
@@ -146,7 +194,6 @@
     "button": "Subscribe Now",
     "loading": "Subscribing..."
   },
-
   "courses": {
     "header": {
       "title": "Master Design Skills with Expert-Led Courses",
@@ -169,17 +216,23 @@
     "lessons": "Lessons",
     "certificate": "Certificate"
   },
-
   "feedbacks": {
     "title": "Feedbacks",
-    "subtitle": "What our community says"
+    "subtitle": "What our community says",
+    "heroTitle": "Your Voice Shapes Better Experiences",
+    "heroDescription": "We value your insights. Share your feedback to help us improve our courses, events, and community."
   },
   "contact": {
     "title": "Contact Us",
     "subtitle": "We would love to hear from you.",
     "address": "Address",
     "email": "Email",
-    "phone": "Phone"
+    "phone": "Phone",
+    "haveIdea": "Have an idea?",
+    "letsConnect": "Let's connect.",
+    "getInTouchAnyTime": "Get in Touch any time",
+    "heroAlt": "Contact hero",
+    "ourPodcast": "Our Podcast"
   },
   "about": {
     "title": "About Us",
@@ -188,7 +241,15 @@
     "meetTeam": "Meet The Team",
     "mission": "Mission",
     "vision": "Vision",
-    "achievements": "Our Achievements"
+    "achievements": "Our Achievements",
+    "welcomeTo": "Welcome to",
+    "features": "Features",
+    "values": "Values",
+    "ourMissionAndVisions": "Our Mission & Visions",
+    "missionVisionFeatures": "Mission, Vision & Features",
+    "meetTeamBehindSyntax": "Meet the Team behind Syntax",
+    "teamSubtitle": "Seamlessly collaborate with your team members like never before.",
+    "communityClassroomAlt": "Syntax community classroom"
   },
   "b2b": {
     "title": "B2B Collaboration",
@@ -197,15 +258,73 @@
     "graduates": "Our Graduated Working On",
     "programVariations": "Program Variations",
     "fullName": "Full Name",
-    "requestDetails": "Write your Request Details"
+    "requestDetails": "Write your Request Details",
+    "whyChooseTraining": "Why Choose Our Training?",
+    "whyChooseTrainingDescription": "We provide practical training programs designed to help teams build stronger skills and apply them confidently at work.",
+    "trainingPreviewAlt": "Training preview",
+    "uxDesignCoursesAlt": "UX design courses",
+    "form": {
+      "title": "Let's Start Your Training",
+      "companyName": "Company Name",
+      "jobTitle": "Job Title",
+      "trainingLocation": "Training Location",
+      "online": "Online",
+      "noOfEmployees": "No. Of Employees",
+      "number": "Number",
+      "requestDetailsLabel": "Your Request Details"
+    }
   },
   "menu": {
     "menu": "Menu",
     "ourProjects": "Our Projects",
-    "pages": "Pages"
+    "pages": "Pages",
+    "youtubeChannel": "YouTube Channel",
+    "getInTouch": "Get in Touch",
+    "projects": {
+      "academy": {
+        "name": "Syntax Academy",
+        "desc": "Learn with expert-led courses"
+      },
+      "meetup": {
+        "name": "Syntax Meetup",
+        "desc": "Connect with designers and innovators."
+      },
+      "community": {
+        "name": "Syntax Community",
+        "desc": "Engage, share, and grow together."
+      },
+      "podcast": {
+        "name": "Syntax Podcast",
+        "desc": "UX insights from industry leaders."
+      }
+    },
+    "pagesList": {
+      "aboutSyntax": "About Syntax",
+      "contactUs": "Contact Us",
+      "resources": "Resources",
+      "blogs": "Blogs",
+      "b2bTraining": "B2B Training"
+    }
   },
   "questions": {
-    "title": "Questions & answer"
+    "title": "Questions & answer",
+    "subtitle": "Find quick answers to the most common questions.",
+    "questionNumber": "Question {{number}}",
+    "noAnswer": "No answer available.",
+    "default": {
+      "courseAbout": {
+        "question": "What is this course about?",
+        "answer": "This course covers UX/UI design fundamentals."
+      },
+      "priorExperience": {
+        "question": "Do I need prior experience?",
+        "answer": "No, this course is for beginners."
+      },
+      "certificate": {
+        "question": "Will I get a certificate?",
+        "answer": "Yes, upon completion you will receive a certificate."
+      }
+    }
   },
   "courseDetails": {
     "courseNotFound": "Course Not Found",
@@ -215,7 +334,19 @@
     "description": "Description",
     "certifications": "Certifications",
     "lessons": "Lessons:",
-    "learningObjectives": "Learning Objectives:"
+    "learningObjectives": "Learning Objectives:",
+    "whyChooseUs": "Why Choose us?",
+    "noCurriculum": "No curriculum data available for this course.",
+    "topicNumber": "Topic {{number}}",
+    "courseLevel": "Course Level",
+    "entryToIntermediate": "Entry to Intermediate",
+    "defaultDiscount": "15% off",
+    "downloadCourseFile": "Download Course File",
+    "capturedMoments": "Captured Moments",
+    "capturedMomentsSubtitle": "A glimpse into the energy and joy of our unforgettable events.",
+    "videos": "Videos",
+    "courseGalleryAlt": "Course gallery {{number}}",
+    "courseVideoAlt": "Course video {{number}}"
   },
   "registerModal": {
     "title": "Register in Course",
@@ -235,6 +366,18 @@
     "title": "Page Not Found",
     "description": "The page you are looking for does not exist.",
     "button": "Back to Home"
+  },
+  "community": {
+    "connectTitle": "Connect with Communities",
+    "connectDescription": "Discover communities and learn together, share questions, problems, and ideas. Anything!",
+    "joinOur": "Join Our",
+    "community": "Community",
+    "joinNow": "Join Now",
+    "contact": "Contact",
+    "viaWhatsapp": "via WhatsApp"
+  },
+  "app": {
+    "hello": "Hello, World!",
+    "welcome": "Welcome to your Vite + React + Tailwind CSS app."
   }
-
 }

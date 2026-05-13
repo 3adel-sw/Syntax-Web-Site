@@ -1,16 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { getAboutUs } from "../../services/about/aboutService";
+import { useTranslation } from "react-i18next";
 
 const MissionVisions = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const cards = [
    
-    { id: 1, heading: "Mission", body: data?.mission },
-    { id: 2, heading: "Vision", body: data?.vision },
-    { id: 3, heading: "Features", body: data?.features },
+    { id: 1, heading: t("about.mission"), body: data?.mission },
+    { id: 2, heading: t("about.vision"), body: data?.vision },
+    { id: 3, heading: t("about.features"), body: data?.features },
   ];
 
   // Mobile slider state
@@ -60,11 +62,12 @@ const MissionVisions = () => {
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
   if (!data) return null;
 
@@ -75,7 +78,7 @@ const MissionVisions = () => {
         <div className="rounded-4xl md:col-span-1 overflow-hidden h-82 md:h-full min-h-[583px] bg-gray-200">
           <img
             src={data.image}
-            alt="Mission"
+            alt={t("about.mission")}
             className="w-full h-full object-cover"
             onError={(e) => {
               e.target.parentNode.style.background = "#c5cdd8";
@@ -89,12 +92,12 @@ const MissionVisions = () => {
           <div className="flex flex-col gap-4">
             {/* Badge */}
             <span className="text-xl font-semibold text-[#B71C41] tracking-wide pt-4 text-left">
-              Our Mission & Visions
+              {t("about.ourMissionAndVisions")}
             </span>
 
             {/* Title */}
             <h2 className="md:text-[42px] text-xl font-bold text-gray-900 mb-4 leading-tight text-left">
-              Mission, Vision & Features
+              {t("about.missionVisionFeatures")}
             </h2>
 
             {/* Cards - Mobile Slider */}

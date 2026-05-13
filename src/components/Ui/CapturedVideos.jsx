@@ -1,19 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, X, Volume2, VolumeX } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const getYoutubeId = (url = '') => {
   const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([^?&/]+)/);
   return match?.[1] || '';
 };
 
-const normalizeGalleryItems = (gallery = []) =>
+const normalizeGalleryItems = (gallery = [], t) =>
   gallery.map((image, index) => ({
     id: `gallery-${index}`,
     thumbnail: typeof image === 'string' ? image : image?.image || image?.url,
-    alt: `Course gallery ${index + 1}`,
+    alt: t('courseDetails.courseGalleryAlt', { number: index + 1 }),
   })).filter((item) => item.thumbnail);
 
-const normalizeVideoItems = (videos = [], fallbackImage = '') =>
+const normalizeVideoItems = (videos = [], fallbackImage = '', t) =>
   videos.map((video, index) => {
     const videoSrc = typeof video === 'string' ? video : video?.video || video?.url || video?.videoSrc;
     const youtubeId = getYoutubeId(videoSrc);
@@ -23,7 +24,7 @@ const normalizeVideoItems = (videos = [], fallbackImage = '') =>
       thumbnail: video?.thumbnail || (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : fallbackImage),
       videoSrc,
       embedSrc: youtubeId ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1` : '',
-      alt: `Course video ${index + 1}`,
+      alt: t('courseDetails.courseVideoAlt', { number: index + 1 }),
       isYoutube: Boolean(youtubeId),
     };
   }).filter((item) => item.videoSrc && item.thumbnail);
@@ -169,6 +170,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
@@ -230,21 +232,22 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
 
 // ========== Main Component ==========
 const CapturedVideos = ({ course = {} }) => {
+  const { t } = useTranslation();
   const [activeVideo, setActiveVideo] = useState(null);
-  const galleryItems = normalizeGalleryItems(course.gallery || []);
-  const videoItems = normalizeVideoItems(course.videos || [], course.banner_image || course.image || '');
+  const galleryItems = normalizeGalleryItems(course.gallery || [], t);
+  const videoItems = normalizeVideoItems(course.videos || [], course.banner_image || course.image || '', t);
 
   return (
     <div className="py-10">
       <Section
-        title="Captured Moments"
-        subtitle="A glimpse into the energy and joy of our unforgettable events."
+        title={t('courseDetails.capturedMoments')}
+        subtitle={t('courseDetails.capturedMomentsSubtitle')}
         items={galleryItems}
         isImage={true}
       />
       <Section
-        title="Videos"
-        subtitle="A glimpse into the energy and joy of our unforgettable events."
+        title={t('courseDetails.videos')}
+        subtitle={t('courseDetails.capturedMomentsSubtitle')}
         items={videoItems}
         onPlay={setActiveVideo}
         isImage={false}

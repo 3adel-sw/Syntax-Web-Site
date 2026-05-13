@@ -21,7 +21,12 @@
     "noImage": "لا توجد صورة",
     "notFound": "غير موجود.",
     "imageNotAvailable": "الصورة غير متاحة",
-    "speaker": "متحدث"
+    "speaker": "متحدث",
+    "brandName": "سينتاكس",
+    "brandLogo": "شعار سينتاكس",
+    "unavailable": "غير متاح",
+    "type": "النوع",
+    "tryAgain": "حاول مرة أخرى"
   },
   "messages": {
     "failedToLoad": "فشل تحميل البيانات",
@@ -42,7 +47,11 @@
     "noExcerpt": "لا يوجد ملخص متاح.",
     "noDescription": "لا يوجد وصف متاح.",
     "blogNotFound": "المقال غير موجود.",
-    "eventNotFound": "الحدث غير موجود."
+    "eventNotFound": "الحدث غير موجود.",
+    "failedToLoadCourse": "فشل تحميل تفاصيل الكورس",
+    "formInputError": "يوجد خطأ في الإدخال",
+    "thanksForRegistering": "شكرًا لتسجيلك.",
+    "failedToLoadFeedbacks": "حدث خطأ أثناء تحميل الآراء. حاول مرة أخرى لاحقًا."
   },
   "nav": {
     "home": "الرئيسية",
@@ -58,8 +67,41 @@
     "register": "تسجيل",
     "logout": "تسجيل الخروج",
     "profile": "الملف الشخصي",
-    "menu": "القائمة"
+    "menu": "القائمة",
+    "userMenu": "قائمة المستخدم"
   },
+ "menu": {
+  "menu": "القائمة",
+  "ourProjects": "مشاريعنا",
+  "pages": "الصفحات",
+  "youtubeChannel": "قناة يوتيوب",
+  "getInTouch": "تواصل معنا",
+  "projects": {
+    "academy": {
+      "name": "أكاديمية سينتاكس",
+      "desc": "تعلم من خلال دورات يقودها خبراء"
+    },
+    "meetup": {
+      "name": "لقاء سينتاكس",
+      "desc": "تواصل مع المصممين والمبتكرين."
+    },
+    "community": {
+      "name": "مجتمع سينتاكس",
+      "desc": "انضم إلى مجتمعنا للحصول على التحديثات"
+    },
+    "podcast": {
+      "name": "بودكاست سينتاكس",
+      "desc": "رؤى تجربة المستخدم من قادة الصناعة."
+    }
+  },
+  "pagesList": {
+    "aboutSyntax": "عن سينتاكس",
+    "contactUs": "تواصل معنا",
+    "resources": "الموارد",
+    "blogs": "المدونة",
+    "b2bTraining": "تدريب الشركات"
+  }
+},
   "footer": {
     "solutions": "الحلول",
     "resources": "الموارد",
@@ -74,10 +116,10 @@
     "books": "كتب",
     "history": "التاريخ",
     "copyright": "© 2025 onsyntax.com",
-    "fallbackDescription": "نص تعريفي مختصر عن Syntax والمجتمع والخدمات التي نقدمها في مجالات التصميم والتعلم والنمو المهني."
+    "fallbackDescription": "نص تعريفي مختصر عن سينتاكس والمجتمع والخدمات التي نقدمها في مجالات التصميم والتعلم والنمو المهني."
   },
   "home": {
-    "badge": "مرحبًا بك في مجتمع Syntax",
+    "badge": "مرحبًا بك في مجتمع سينتاكس",
     "highlight": "ابتكر",
     "subtitle": "، وابقَ ملهمًا",
     "description": "انضم إلى مجتمع نابض بالحياة...",
@@ -89,10 +131,11 @@
     "whatPeopleSay": "ماذا يقول الناس",
     "blog": "المدونة",
     "latestBlog": "أحدث المقالات",
-    "Students":"طلاب"
+    "Students": "طلاب",
+    "studentsCount": "+{{number}} طالب"
   },
   "blogs": {
-    "welcome": "مرحبًا بك في مدونة Syntax",
+    "welcome": "مرحبًا بك في مدونة سينتاكس",
     "intro": "تابع أحدث موضوعات التصميم والمقالات والرؤى المتخصصة والنصائح العملية.",
     "allBlogs": "كل المقالات",
     "uiDesign": "تصميم الواجهات",
@@ -120,7 +163,11 @@
     "eventGallery": "معرض الحدث",
     "watchSession": "مشاهدة الجلسة",
     "hideSession": "إخفاء الجلسة",
-    "eventVideo": "فيديو الحدث {{number}}"
+    "eventVideo": "فيديو الحدث {{number}}",
+    "eventPosterAlt": "ملصق الحدث",
+    "previousImage": "الصورة السابقة",
+    "currentImage": "الصورة الحالية",
+    "nextImage": "الصورة التالية"
   },
   "forms": {
     "fullName": "الاسم بالكامل",
@@ -137,7 +184,9 @@
     "message": "الرسالة",
     "registerNow": "سجل الآن",
     "registering": "جاري التسجيل...",
-    "sendMessage": "إرسال الرسالة"
+    "sendMessage": "إرسال الرسالة",
+    "myMessage": "رسالتي",
+    "writeYourMessage": "اكتب رسالتك"
   },
   "subscribe": {
     "title": "اشترك الآن!",
@@ -146,7 +195,6 @@
     "button": "اشترك الآن",
     "loading": "جاري الاشتراك..."
   },
-  
   "courses": {
     "header": {
       "title": "أتقن مهارات التصميم من خلال دورات يقودها خبراء",
@@ -169,17 +217,23 @@
     "lessons": "الدروس",
     "certificate": "الشهادة"
   },
-
   "feedbacks": {
     "title": "آراء العملاء",
-    "subtitle": "ماذا يقول مجتمعنا"
+    "subtitle": "ماذا يقول مجتمعنا",
+    "heroTitle": "صوتك يصنع تجارب أفضل",
+    "heroDescription": "نقدّر آراءك. شاركنا ملاحظاتك لمساعدتنا على تحسين الكورسات والفعاليات والمجتمع."
   },
   "contact": {
     "title": "تواصل معنا",
     "subtitle": "يسعدنا سماعك.",
     "address": "العنوان",
     "email": "البريد الإلكتروني",
-    "phone": "الهاتف"
+    "phone": "الهاتف",
+    "haveIdea": "لديك فكرة؟",
+    "letsConnect": "لنتواصل.",
+    "getInTouchAnyTime": "تواصل معنا في أي وقت",
+    "heroAlt": "صورة التواصل",
+    "ourPodcast": "بودكاستنا"
   },
   "about": {
     "title": "من نحن",
@@ -188,7 +242,15 @@
     "meetTeam": "تعرف على الفريق",
     "mission": "الرسالة",
     "vision": "الرؤية",
-    "achievements": "إنجازاتنا"
+    "achievements": "إنجازاتنا",
+    "welcomeTo": "مرحبًا بك في",
+    "features": "المميزات",
+    "values": "القيم",
+    "ourMissionAndVisions": "رسالتنا ورؤيتنا",
+    "missionVisionFeatures": "الرسالة والرؤية والمميزات",
+    "meetTeamBehindSyntax": "تعرّف على الفريق وراء سينتاكس",
+    "teamSubtitle": "تعاون بسلاسة مع أعضاء فريقك كما لم يحدث من قبل.",
+    "communityClassroomAlt": "قاعة مجتمع سينتاكس"
   },
   "b2b": {
     "title": "تعاون الشركات",
@@ -197,15 +259,42 @@
     "graduates": "خريجونا يعملون في",
     "programVariations": "أنواع البرامج",
     "fullName": "الاسم بالكامل",
-    "requestDetails": "اكتب تفاصيل طلبك"
+    "requestDetails": "اكتب تفاصيل طلبك",
+    "whyChooseTraining": "لماذا تختار تدريبنا؟",
+    "whyChooseTrainingDescription": "نقدم برامج تدريب عملية تساعد الفرق على بناء مهارات أقوى وتطبيقها بثقة في العمل.",
+    "trainingPreviewAlt": "معاينة التدريب",
+    "uxDesignCoursesAlt": "كورسات تصميم تجربة المستخدم",
+    "form": {
+      "title": "لنبدأ تدريبك",
+      "companyName": "اسم الشركة",
+      "jobTitle": "المسمى الوظيفي",
+      "trainingLocation": "مكان التدريب",
+      "online": "أونلاين",
+      "noOfEmployees": "عدد الموظفين",
+      "number": "العدد",
+      "requestDetailsLabel": "تفاصيل طلبك"
+    }
   },
-  "menu": {
-    "Menu": "القائمة",
-    "ourProjects": "مشاريعنا",
-    "pages": "الصفحات"
-  },
+ 
   "questions": {
-    "title": "الأسئلة والإجابات"
+    "title": "الأسئلة والإجابات",
+    "subtitle": "اعثر على إجابات سريعة لأكثر الأسئلة شيوعًا.",
+    "questionNumber": "سؤال {{number}}",
+    "noAnswer": "لا توجد إجابة متاحة.",
+    "default": {
+      "courseAbout": {
+        "question": "ما محتوى هذا الكورس؟",
+        "answer": "يغطي هذا الكورس أساسيات تصميم UX/UI."
+      },
+      "priorExperience": {
+        "question": "هل أحتاج إلى خبرة سابقة؟",
+        "answer": "لا، هذا الكورس مناسب للمبتدئين."
+      },
+      "certificate": {
+        "question": "هل سأحصل على شهادة؟",
+        "answer": "نعم، ستحصل على شهادة عند إتمام الكورس."
+      }
+    }
   },
   "courseDetails": {
     "courseNotFound": "الكورس غير موجود",
@@ -215,7 +304,19 @@
     "description": "الوصف",
     "certifications": "الشهادات",
     "lessons": "الدروس:",
-    "learningObjectives": "أهداف التعلم:"
+    "learningObjectives": "أهداف التعلم:",
+    "whyChooseUs": "لماذا تختارنا؟",
+    "noCurriculum": "لا توجد بيانات منهج متاحة لهذا الكورس.",
+    "topicNumber": "موضوع {{number}}",
+    "courseLevel": "مستوى الكورس",
+    "entryToIntermediate": "من مبتدئ إلى متوسط",
+    "defaultDiscount": "خصم 15%",
+    "downloadCourseFile": "تحميل ملف الكورس",
+    "capturedMoments": "لحظات موثقة",
+    "capturedMomentsSubtitle": "لمحة من طاقة ومتعة فعالياتنا التي لا تُنسى.",
+    "videos": "الفيديوهات",
+    "courseGalleryAlt": "معرض الكورس {{number}}",
+    "courseVideoAlt": "فيديو الكورس {{number}}"
   },
   "registerModal": {
     "title": "التسجيل في الكورس",
@@ -235,6 +336,18 @@
     "title": "الصفحة غير موجودة",
     "description": "الصفحة التي تبحث عنها غير موجودة.",
     "button": "العودة للرئيسية"
+  },
+  "community": {
+    "connectTitle": "تواصل مع المجتمعات",
+    "connectDescription": "اكتشف المجتمعات وتعلّم مع الآخرين وشارك الأسئلة والمشكلات والأفكار.",
+    "joinOur": "انضم إلى",
+    "community": "مجتمعنا",
+    "joinNow": "انضم الآن",
+    "contact": "تواصل",
+    "viaWhatsapp": "عبر واتساب"
+  },
+  "app": {
+    "hello": "مرحبًا بالعالم!",
+    "welcome": "مرحبًا بك في تطبيق Vite وReact وTailwind CSS."
   }
 }
-

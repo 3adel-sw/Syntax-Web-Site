@@ -3,7 +3,10 @@ import { useState } from "react";
 import { ArrowRight,Mail ,Phone,X } from "lucide-react";
 import but from "../../assets/buttonOur.svg";
 import {InboxAboutService} from "../../services/contact/contactService";
+import { useTranslation } from "react-i18next";
+
 const InboxAbout = () => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const handleSubmit = async () => {
@@ -51,7 +54,7 @@ const InboxAbout = () => {
             </div>
 
             {/*  text*/}
-            <p className="text-lg font-semibold text-slate-800">Thanks for registering.</p>
+            <p className="text-lg font-semibold text-slate-800">{t("messages.thanksForRegistering")}</p>
               </div>
           </div>
         </div>
@@ -62,10 +65,10 @@ const InboxAbout = () => {
           <div className="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-7 md:pt-12 md:pb-8 sm:py-8  ">
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-4">
               {[
-                { label: "Full name", name: "fullName", type: "text", placeholder: "Full Name" },
-                { label: "Email", name: "email", type: "email", placeholder: "Full Name" },
-                { label: "Phone", name: "phone", type: "text", placeholder: "(+00)" },
-                { label: "Subject", name: "subject", type: "text", placeholder: "Subject" },
+                { label: t("forms.fullName"), name: "fullName", type: "text", placeholder: t("forms.fullNamePlaceholder") },
+                { label: t("forms.email"), name: "email", type: "email", placeholder: t("forms.emailPlaceholder") },
+                { label: t("forms.phone"), name: "phone", type: "text", placeholder: "(+00)" },
+                { label: t("forms.subject"), name: "subject", type: "text", placeholder: t("forms.subject") },
               ].map(({ label, name, type, placeholder }) => (
                 <div key={name} className="flex flex-col gap-1.5">
                   <label className="text-[14px] text-start font-semibold text-slate-700 uppercase tracking-wide">{label}</label>
@@ -78,9 +81,9 @@ const InboxAbout = () => {
               ))}
             </div>
             <div className="flex flex-col gap-1.5 mb-4">
-              <label className="text-[13px] text-start font-semibold text-slate-700 uppercase  tracking-wide">My Message</label>
+              <label className="text-[13px] text-start font-semibold text-slate-700 uppercase  tracking-wide">{t("forms.myMessage")}</label>
               <textarea
-                name="message" placeholder="Write your Message" rows={4}
+                name="message" placeholder={t("forms.writeYourMessage")} rows={4}
                 value={form.message} onChange={handleChange}
                 className="border border-slate-200 min-h-[7.5rem] max-h-[8.8rem] rounded-xl px-3.5 py-2.5 text-sm  outline-none focus:border-[#6C4EF3] focus:bg-white focus:ring-2 focus:ring-[#6C4EF3]/20 transition-all resize-none"
               />
@@ -90,7 +93,7 @@ const InboxAbout = () => {
   disabled={loading}
   className="bg-primary hover:bg-primary/90 disabled:opacity-60 w-full md:w-[30%] sm:w-[30%] text-white rounded-2xl px-5 py-4.5 my-8 text-sm font-semibold flex items-center justify-center gap-2 transition-colors"
 >
-  {loading ? "Sending..." : <> Send Message <ArrowRight size={14} /> </>}
+  {loading ? t("registerModal.sending") : <> {t("forms.sendMessage")} <ArrowRight size={14} /> </>}
 </button>
           </div>
 
@@ -111,9 +114,9 @@ const InboxAbout = () => {
 
   {/* Podcast Card */}
   <div className="bg-[#432772] rounded-2xl p-5 flex flex-col items-center justify-center text-center gap-1 min-h-[100px]">
-  <img src={but} alt="Podcast" className="w-40 h-20 object-cover" />
+  <img src={but} alt={t("footer.podcast")} className="w-40 h-20 object-cover" />
     <button className="bg-transparent text-white rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-1">
-      Our Podcast
+      {t("contact.ourPodcast")}
     </button>
   </div>
 

@@ -6,18 +6,9 @@ import Footer from '../../components/layout/Footer';
 import { useNavigate } from 'react-router-dom';
 import EventCard from '../../components/Ui/EventCard';
 import { getAllEvents } from '../../services/events/eventsService';
-import CourseCard from '../../assets/CourseCard.svg';
 import { useTranslation } from 'react-i18next';
 
 const DEFAULT_FILTER_TABS = ['All Events'];
-
-export const ALL_EVENTS = Array.from({ length: 3 }, (_, i) => ({
-  id: i + 1,
-  title: 'UX Design Foundation',
-  type: ['ONLINE WORKSHOP', 'OFFLINE MEETUP', 'MEGA EVENT'][i % 3],
-  duration: '16 hours',
-  image: CourseCard,
-}));
 
 const toStr = (value) => {
   if (typeof value === 'string') return value;
@@ -31,9 +22,9 @@ const stripHtml = (value) => toStr(value)
   .replace(/\s+/g, ' ')
   .trim();
 
-const formatDate = (value, locale = 'en-US') => {
+const formatDate = (value, locale = 'en-US', fallback = 'Date') => {
   const dateValue = toStr(value);
-  if (!dateValue) return 'Date';
+  if (!dateValue) return fallback;
 
   const date = new Date(dateValue);
   if (Number.isNaN(date.getTime())) return dateValue;
@@ -135,6 +126,7 @@ function Events() {
   useEffect(() => {
     if (!isDragging) {
       translateXRef.current = -currentSlide * 100;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTranslateX(-currentSlide * 100);
     }
   }, [currentSlide, isDragging]);
@@ -197,7 +189,7 @@ function Events() {
                   </span>
                   <span className="flex items-center gap-1 text-base">
                     <Calendar size={24} className="text-gray-400 " />
-                    {formatDate(upcomingEvent.date, i18n.language === 'ar' ? 'ar-EG' : 'en-US')}
+                    {formatDate(upcomingEvent.date, i18n.language === 'ar' ? 'ar-EG' : 'en-US', t('common.date'))}
                   </span>
                   <span className="flex items-center gap-1 text-base">
                     <Clock size={24} className="text-gray-400" />

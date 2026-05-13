@@ -1,7 +1,9 @@
 import { FaFigma, FaFacebook, FaGithub, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import hero from "../../../public/images/heroContact.webp";
+import { useTranslation } from "react-i18next";
 
 const CardContact = () => {
+  const { t } = useTranslation();
   const socials = [
     { label: <FaFigma size={18} />,    bg: "#FFFFFF" },
     { label: <FaFacebook size={18} />, bg: "#FFFFFF" },
@@ -18,15 +20,15 @@ const CardContact = () => {
       <div className="flex flex-col justify-center items-center md:items-start px-6 md:px-16 py-10 bg-[#282828] w-full md:w-[52%] text-center md:text-left">
         
         <p className="text-xs text-slate-300 mb-3 flex items-center gap-1">
-          Home <span className="text-slate-400 mx-1 text-base">›</span> Contact US
+          {t("nav.home")} <span className="text-slate-400 mx-1 text-base">›</span> {t("menu.pagesList.contactUs")}
         </p>
 
         <h1 className="font-bold text-2xl sm:text-3xl md:text-[2.8rem] text-white leading-[1.15] mb-3">
-          Have an idea?<br />Let's connect.
+          {t("contact.haveIdea")}<br />{t("contact.letsConnect")}
         </h1>
 
         <p className="text-slate-300 font-semibold text-base md:text-xl mb-6">
-          Get in Touch any time
+          {t("contact.getInTouchAnyTime")}
         </p>
 
         <div className="flex gap-2 flex-wrap justify-center md:justify-start">
@@ -49,7 +51,7 @@ const CardContact = () => {
         loading="eager"
         fetchPriority="high"
           src={hero}
-          alt="Contact Hero"
+          alt={t("contact.heroAlt")}
           className="w-full h-full object-cover"
         />
       </div>

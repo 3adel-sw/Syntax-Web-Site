@@ -49,7 +49,7 @@ const Footer = () => {
       {/* Brand - full width on mobile */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2 w-40 h-12">
-          <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt="logo" />
+          <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt={t('common.brandLogo')} />
         </div>
         <p className="text-sm text-left text-white leading-relaxed">
           {settings?.description || t('footer.fallbackDescription')}

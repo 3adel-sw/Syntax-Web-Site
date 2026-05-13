@@ -6,24 +6,26 @@ import LogoMenuWhite from "../../assets/LogoMenuWhite.svg"
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { GoArrowUpRight } from "react-icons/go";
 import LogoMenuMobile from "../../assets/LogoMenuMobile.svg";
+import { useTranslation } from "react-i18next";
 
 const projects = [
-  { id: 1, name: "Syntax Academy", desc: "Learn with expert-led courses", path: "/courses" },
-  { id: 2, name: "Syntax Meetup", desc: "Connect with designers and innovators.", path: "/events", active: true },
-  { id: 3, name: "Syntax Community", desc: "Engage, share, and grow together.", path: "/community" },
-  { id: 4, name: "Syntax Podcast", desc: "UX insights from industry leaders.", path: "/podcast" },
+  { id: 1, nameKey: "menu.projects.academy.name", descKey: "menu.projects.academy.desc", path: "/courses" },
+  { id: 2, nameKey: "menu.projects.meetup.name", descKey: "menu.projects.meetup.desc", path: "/events", active: true },
+  { id: 3, nameKey: "menu.projects.community.name", descKey: "menu.projects.community.desc", path: "https://www.facebook.com/groups/eguxmeetup/?ref=share" },
+  { id: 4, nameKey: "menu.projects.podcast.name", descKey: "menu.projects.podcast.desc", path: "https://7orofcast.onsyntax.com/" },
 ];
 const pages = [
-  { label: "About Syntax", path: "/about" },
-  { label: "Contact US", path: "/contact" },
-  { label: "Resources", path: "/resources" },
-  { label: "Blogs", path: "/blogs" },
-  { label: "B2B Training", path: "/b2b" },
+  { labelKey: "menu.pagesList.aboutSyntax", path: "/about" },
+  { labelKey: "menu.pagesList.contactUs", path: "/contact" },
+  { labelKey: "menu.pagesList.resources", path: "/resources" },
+  { labelKey: "menu.pagesList.blogs", path: "/blogs" },
+  { labelKey: "menu.pagesList.b2bTraining", path: "/b2b" },
 ];
 
 
 
 const Menu = ({ isScrolled }) => {
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -44,7 +46,7 @@ const Menu = ({ isScrolled }) => {
         onClick={() => setMenuOpen((prev) => !prev)}
       >
         {menuOpen ? <X size={16} /> : <MenuIcon size={16} />}
-        <span className="hidden md:inline text-sm">Menu</span>
+        <span className="hidden md:inline text-sm">{t("menu.menu")}</span>
       </button>
 
       {/* ── Overlay ── */}
@@ -75,14 +77,14 @@ const Menu = ({ isScrolled }) => {
         <button
           className="absolute top-4 right-4 text-[#1D1C20] hover:text-red-500 transition-colors"
           onClick={() => setMenuOpen(false)}
-          aria-label="Close menu"
+          aria-label={t("registerModal.closeMenu")}
         >
           <X size={28} />
         </button>
 
         {/* Our Projects */}
         <div className="flex-1">
-          <p className="text-xl text-[#1D1C20] font-semibold  tracking-widest  mb-3">Our Projects</p>
+          <p className="text-xl text-[#1D1C20] font-semibold  tracking-widest  mb-3">{t("menu.ourProjects")}</p>
           <div className="flex flex-col gap-2">
             {projects.map((p) => {
   const isActive = location.pathname === p.path || 
@@ -111,11 +113,11 @@ const Menu = ({ isScrolled }) => {
         <div className="text-left">
           <p className={`md:text-base sm:text-sm lg:text-xl  text-xs font-medium leading-none mb-1
             ${isActive ? "text-white" : "text-black"}`}>
-            {p.name}
+            {t(p.nameKey)}
           </p>
           <p className={`md:text-sm lg:text-xl sm:text-sm text-xs 
             ${isActive ? "text-white" : "text-black"}`}>
-            {p.desc}
+            {t(p.descKey)}
           </p>
         </div>
       </div>
@@ -140,7 +142,7 @@ const Menu = ({ isScrolled }) => {
 
         {/* Pages */}
         <div className="w-[45%] shrink-1">
-          <p className="text-xl text-[#1D1C20] font-semibold tracking-widest  mb-3">Pages</p>
+          <p className="text-xl text-[#1D1C20] font-semibold tracking-widest  mb-3">{t("menu.pages")}</p>
           <div className="flex flex-col gap-1">
             {pages.map((pg) => (
               <Link
@@ -153,7 +155,7 @@ const Menu = ({ isScrolled }) => {
                     : "text-gray-800 hover:text-primary"
                   }`}
               >
-                {pg.label}
+                {t(pg.labelKey)}
               </Link>
             ))}
           </div>
@@ -162,12 +164,12 @@ const Menu = ({ isScrolled }) => {
         {/* Footer row */}
         <div className="absolute bottom-5 left-6 right-6 flex items-center justify-between pt-4 border-t border-gray-100">
           <a
-            href="https://youtube.com"
+            href="https://www.youtube.com/@onsyntax"
             target="_blank"
             rel="noreferrer"
             className="flex items-center justify-between gap-2 w-72 h-14 bg-black rounded-2xl px-4 py-2 text-base text-white hover:bg-gray-200 hover:text-black transition-colors"
           >
-            Youtube Channel
+            {t("menu.youtubeChannel")}
             <GoArrowUpRight className="w-6  p-0.5 h-6 rounded-full bg-white text-black" />
           </a>
           <Link
@@ -175,7 +177,7 @@ const Menu = ({ isScrolled }) => {
             onClick={() => setMenuOpen(false)}
             className="flex items-center gap-1.5 text-lg font-semibold text-primary hover:text-primary/80 transition-colors"
           >
-            Get in Touch
+            {t("menu.getInTouch")}
             <GoArrowUpRight />
           </Link>
         </div>
@@ -198,7 +200,7 @@ const Menu = ({ isScrolled }) => {
     <div className="flex flex-col flex-1 px-4 py-4">
 
       {/* Our Projects */}
-      <p className="text-[16px] text-[#31373E] ml-4 font-semibold tracking-widest  mb-3">Our Projects</p>
+      <p className="text-[16px] text-[#31373E] ml-4 font-semibold tracking-widest  mb-3">{t("menu.ourProjects")}</p>
       <div className="flex flex-col gap-2  mb-6">
         {projects.map((p) => {
           const isActive = location.pathname === p.path ||
@@ -225,10 +227,10 @@ const Menu = ({ isScrolled }) => {
                 </div>
                 <div>
                   <p className={`text-base mb-1 font-medium ${isActive ? "text-white" : "text-gray-800"}`}>
-                    {p.name}
+                    {t(p.nameKey)}
                   </p>
                   <p className={`text-[12px] ${isActive ? "text-white/75" : "text-gray-500"}`}>
-                    {p.desc}
+                    {t(p.descKey)}
                   </p>
                 </div>
               </div>
@@ -247,7 +249,7 @@ const Menu = ({ isScrolled }) => {
 
       {/* Pages */}
       <div className=" px-2 pt-4">
-        <p className="text-[16px] text-[#1D1C20] font-semibold tracking-widest  mb-3">Pages</p>
+        <p className="text-[16px] text-[#1D1C20] font-semibold tracking-widest  mb-3">{t("menu.pages")}</p>
         <div className="flex flex-col gap-1 pt-2">
           {pages.map((pg) => (
             <Link
@@ -257,7 +259,7 @@ const Menu = ({ isScrolled }) => {
               className={`py-2.5 text-2xl transition-colors font-semibold
                 ${location.pathname === pg.path ? "text-primary font-medium" : "text-gray-800 hover:text-primary"}`}
             >
-              {pg.label}
+              {t(pg.labelKey)}
             </Link>
           ))}
         </div>

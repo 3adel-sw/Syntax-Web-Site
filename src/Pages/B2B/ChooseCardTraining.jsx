@@ -2,10 +2,12 @@
 import { getB2bWhyUs } from "../../services/b2b/b2bService";
 import { useEffect, useState } from "react";
 import ImgChooseTraining from "../../../public/images/ChooseCardTraining.webp";
+import { useTranslation } from "react-i18next";
 
 
 
 const ChooseCardTraining = () => {
+  const { t } = useTranslation();
 
   const [getB2bWhyUsData, setgetB2bWhyUsData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ const ChooseCardTraining = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
   if (!getB2bWhyUsData) return null;
 
@@ -27,12 +29,10 @@ const ChooseCardTraining = () => {
       {/* Header */}
       <div className="text-center  mb-10">
         <h1 className="text-3xl md:text-4xl text-white font-bold mb-4">
-          Why Choose Our Training?
+          {t("b2b.whyChooseTraining")}
         </h1>
         <p className="text-[#888888] text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-          Dorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua Quis ipsum
-          suspendisse ultrices gravida.
+          {t("b2b.whyChooseTrainingDescription")}
         </p>
       </div>
 
@@ -46,7 +46,7 @@ const ChooseCardTraining = () => {
             <img
             loading="lazy"
               src={ImgChooseTraining}
-              alt="Training preview"
+              alt={t("b2b.trainingPreviewAlt")}
               className="w-full h-full object-cover rounded-xl"
             />
           </div>

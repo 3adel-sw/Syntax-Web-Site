@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaArrowLeft ,FaArrowRight } from "react-icons/fa6";
 import {getTeams} from "../../services/about/aboutService";
+import { useTranslation } from "react-i18next";
 // Mock Data For API
 
 
@@ -15,6 +16,7 @@ const getVisibleCount = () => {
 };
 
 const MeetTeam = () => {
+  const { t } = useTranslation();
   const [teamsData, setTeamsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,7 +39,7 @@ const MeetTeam = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-     if (loading) return <div>Loading...</div>;
+     if (loading) return <div>{t("common.loading")}</div>;
 if (error) return <div>{error}</div>;
 if (!teamsData) return null;
 
@@ -63,10 +65,10 @@ const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
         {/* Header */}
         <div className="text-center">
           <h2 className="text-2xl md:text-5xl font-semibold text-gray-900 mb-4">
-            Meet the Team behinds Syntax
+            {t("about.meetTeamBehindSyntax")}
           </h2>
           <p className="text-base  text-gray-500">
-            Seamlessly collaborate with your team members like never before.
+            {t("about.teamSubtitle")}
           </p>
         </div>
 

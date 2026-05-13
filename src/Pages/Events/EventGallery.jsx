@@ -33,7 +33,7 @@ const EventGallery = ({ images = DEFAULT_IMAGES }) => {
         <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(-1)]}
-            alt="prev"
+            alt={t('events.previousImage')}
             className="w-full h-full object-cover"
           />
         </div>
@@ -42,7 +42,7 @@ const EventGallery = ({ images = DEFAULT_IMAGES }) => {
         <div className="flex-shrink-0 md:w-[44%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
           <img
             src={galleryImages[getIndex(0)]}
-            alt="current"
+            alt={t('events.currentImage')}
             className="w-full h-full object-cover transition-all duration-500"
           />
         </div>
@@ -51,7 +51,7 @@ const EventGallery = ({ images = DEFAULT_IMAGES }) => {
         <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(1)]}
-            alt="next"
+            alt={t('events.nextImage')}
             className="w-full h-full object-cover"
           />
         </div>

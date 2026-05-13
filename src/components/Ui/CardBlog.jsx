@@ -100,7 +100,7 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
       }
     };
     fetchBlogs();
-  }, [data]);
+  }, [data, t]);
 
   const categoryMap = {
     "UI Design": "UI Design",

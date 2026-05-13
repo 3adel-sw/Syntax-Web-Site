@@ -59,14 +59,14 @@ const DetailCourses = () => {
         // console.log('Course response:', res.data);
         setCourse(res.data?.course || res.data);
       } catch (err) {
-        setError('Failed to load course details');
+        setError(t('messages.failedToLoadCourse'));
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
     fetchCourse();
-  }, [id, isRTL]);
+  }, [id, isRTL, t]);
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -79,7 +79,7 @@ const DetailCourses = () => {
   );
 
   if (!course) return (
-    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">Course Not Found</div>
+    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('courseDetails.courseNotFound')}</div>
   );
 
   return (
@@ -98,20 +98,20 @@ const DetailCourses = () => {
         {/* Meta Bar */}
         <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
           {[
-            { icon: <GoFileDirectory />, label: 'Category', value: toStr(course.category) || toStr(course.tag) || 'unavailable' },
-            { icon: <GrCertificate />, label: 'Certification', value: toStr(course.certification) || 'unavailable' },
+            { icon: <GoFileDirectory />, label: t('common.category'), value: toStr(course.category) || toStr(course.tag) || t('common.unavailable') },
+            { icon: <GrCertificate />, label: t('courses.certificate'), value: toStr(course.certification) || t('common.unavailable') },
             // { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
-            { icon: <MdOutlinePaid />, label: 'Type', value: toStr(course.type) || toStr(course.name) || 'unavailable' },
+            { icon: <MdOutlinePaid />, label: t('common.type'), value: toStr(course.type) || toStr(course.name) || t('common.unavailable') },
           ].map((item) => (
             <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-14 px-4 py-2.5">
               {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-xs text-[9px]">{item.value}</strong>
             </span>
           ))}
           <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
-            <CiShare2 /> Share
+            <CiShare2 /> {t('common.share')}
           </button>
           <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
-            <FaRegCopy /> Copy Link
+            <FaRegCopy /> {t('common.copyLink')}
           </button>
         </div>
         {/* Main Grid */}
@@ -126,7 +126,7 @@ const DetailCourses = () => {
                   : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
                   }`}
               >
-                <FaBook /> Overview
+                <FaBook /> {t('courses.overview')}
               </button>
               <button
                 onClick={() => setActiveTab('curriculum')}
@@ -135,7 +135,7 @@ const DetailCourses = () => {
                   : 'bg-transparent text-gray-500 border-gray-300 hover:bg-gray-50'
                   }`}
               >
-                <FaBook /> Curriculum
+                <FaBook /> {t('courses.curriculum')}
               </button>
             </div>
             <div>
@@ -149,31 +149,31 @@ const DetailCourses = () => {
             <div className="p-4">
               {/* Level */}
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                <img src={Reports} alt="reports" />
-                Course Level <span className="w-2 h-2 rounded-full bg-primary inline-block" />
-                <span className="text-gray-700 font-medium text-xs ">{toStr(course.level) || 'Entry to Intermediate'}</span>
+                <img src={Reports} alt={t('courses.certificate')} />
+                {t('courseDetails.courseLevel')} <span className="w-2 h-2 rounded-full bg-primary inline-block" />
+                <span className="text-gray-700 font-medium text-xs ">{toStr(course.level) || t('courseDetails.entryToIntermediate')}</span>
               </div>
               <hr className="my-2 text-gray-300" />
               {/* Price */}
               <div className="flex border border-gray-200 p-3 rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
-                <span className="text-gray-400 font-semibold">Standard price</span>
+                <span className="text-gray-400 font-semibold">{t('courseDetails.standardPrice')}</span>
                 <span className="text-gray-400 font-semibold">USD {toStr(course.price) || 310}</span>
               </div>
 
               {/* Group Pricing */}
               <div className="flex border border-gray-200 p-3 bg-white rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
-                <span className="text-gray-800 font-bold">Group Pricing</span>
-                <span className="text-gray-800 font-bold">{toStr(course.discount) || '15% off'}</span>
+                <span className="text-gray-800 font-bold">{t('courseDetails.groupPricing')}</span>
+                <span className="text-gray-800 font-bold">{toStr(course.discount) || t('courseDetails.defaultDiscount')}</span>
               </div>
 
               {/* Buttons */}
               <button
                 onClick={() => setIsRegisterOpen(true)}
                 className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
-                Register Now
+                {t('courses.registerNow')}
               </button>
               <button className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition">
-                Download Course File
+                {t('courseDetails.downloadCourseFile')}
               </button>
             </div>
           </div>
@@ -188,9 +188,9 @@ const DetailCourses = () => {
               <div className=' space-y-5'>
                 <span className=' border border-primary text-primary gap-2 mx-auto w-40 h-12 rounded-full text-xl flex justify-center items-center'>
                   <MessageSquare size={20} />
-                  Testimonials
+                  {t('home.testimonials')}
                 </span>
-                <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>What are people saying</h3>
+                <h3 className='md:text-3xl text-2xl font-semibold text-gray-800 leading-snug'>{t('courseDetails.whatPeopleSay')}</h3>
                 {/* Cards Testimonials */}
                 <CardsTestimonials testimonials={testimonials} />
               </div>

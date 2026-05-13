@@ -8,9 +8,11 @@ import FormTrainingForCorporation from "./FormTrainingForCorporation";
 import CardGraduated from '../../components/Ui/CardGraduated';
 import { getOrganizations } from "../../services/home/homeService";
 import { LuLoaderCircle } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
 
 
 const B2BCollaboration = () => {
+  const { t } = useTranslation();
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     const timer = setTimeout(() => setLoading(false), 3000);
@@ -48,7 +50,7 @@ const B2BCollaboration = () => {
              {/* Graduates */}
         <div className='md:my-22 sm:my-16 my-16 lg:my-24'>
           <div className=' space-y-5'>
-            <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'> Our Graduated Working On</h3>
+            <h3 className='md:text-2xl text-xl  text-gray-500 leading-snug'>{t("b2b.graduates")}</h3>
             {/* Cards */}
            <CardGraduated data={organizations} />
           </div>

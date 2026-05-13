@@ -3,6 +3,7 @@ import ReviewCard from "./ReviewCard";
 import Footer from "../../Components/layout/Footer";
 import feedbackImg from "../../../public/images/MaskGroup.webp";
 import { getAllTestimonials } from "../../services/home/homeService"; 
+import { useTranslation } from "react-i18next";
 
 const SkeletonCard = () => (
   <div className="rounded-2xl bg-[#F2F4F7] p-5 flex flex-col gap-4 animate-pulse">
@@ -23,6 +24,7 @@ const SkeletonCard = () => (
 );
 
 const FeedBacks = () => {
+  const { t } = useTranslation();
   const NUM_COLS = 3;
 
   const [reviews, setReviews] = useState([]);
@@ -36,14 +38,14 @@ const FeedBacks = () => {
         const res = await getAllTestimonials();
         setReviews(res.data.testimonials || []);
       } catch (err) {
-        setError("  Error fetching reviews. Please try again later.");
+        setError(t("messages.failedToLoadFeedbacks"));
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
     fetch();
-  }, []);
+  }, [t]);
 
   const columns = Array.from({ length: NUM_COLS }, (_, ci) =>
     reviews.filter((_, i) => i % NUM_COLS === ci)
@@ -106,10 +108,10 @@ const FeedBacks = () => {
         >
           <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
           <h1 className="absolute top-10 md:top-20 left-4 md:left-20 md:text-5xl text-3xl font-bold text-white">
-            Your Voice Shapes Better Experiences
+            {t("feedbacks.heroTitle")}
           </h1>
           <p className="absolute bottom-10 md:bottom-20 md:left-20 left-4 text-gray-500 md:text-2xl text-lg max-w-5xl">
-            We value your insights. Share your feedback to help us improve our courses, events, and community.
+            {t("feedbacks.heroDescription")}
           </p>
         </div>
 
@@ -125,7 +127,7 @@ const FeedBacks = () => {
           <div className="text-center py-10 text-red-500">
             <p>{error}</p>
             <button onClick={() => window.location.reload()} className="mt-3 text-sm text-primary underline">
-              حاول مرة أخرى
+              {t("common.tryAgain")}
             </button>
           </div>
         )}
