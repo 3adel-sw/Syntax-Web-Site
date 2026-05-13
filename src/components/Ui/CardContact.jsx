@@ -1,16 +1,18 @@
-import { FaFigma, FaFacebook, FaGithub, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import {  FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { CiYoutube } from "react-icons/ci";
+import { ImBehance2 } from "react-icons/im";
 import hero from "../../../public/images/heroContact.webp";
 import { useTranslation } from "react-i18next";
 
 const CardContact = () => {
   const { t } = useTranslation();
   const socials = [
-    { label: <FaFigma size={18} />,    bg: "#FFFFFF" },
-    { label: <FaFacebook size={18} />, bg: "#FFFFFF" },
-    { label: <FaGithub size={18} />,   bg: "#FFFFFF" },
-    { label: <FaTwitter size={18} />,  bg: "#FFFFFF" },
-    { label: <FaInstagram size={18} />,bg: "#FFFFFF" },
-    { label: <FaLinkedin size={18} />, bg: "#FFFFFF" },
+    { label: <CiYoutube size={18} />,    bg: "#FFFFFF" ,link:"https://x.com/onsyntax0"},
+    { label: <FaFacebook size={18} />, bg: "#FFFFFF" ,link:"https://www.facebook.com/onsyntax0/"},
+    { label: <FaTwitter size={18} />,  bg: "#FFFFFF" ,link:"https://x.com/onsyntax0"},
+    { label: <FaInstagram size={18} />,bg: "#FFFFFF" ,link:"https://www.instagram.com/onsyntax0/"},
+    { label: <FaLinkedin size={18} />, bg: "#FFFFFF" ,link:"https://www.linkedin.com/company/onsyntax/"},
+    { label: <ImBehance2 size={18} />, bg: "#FFFFFF" ,link:"https://www.behance.net/onsyntax/"},
   ];
 
   return (

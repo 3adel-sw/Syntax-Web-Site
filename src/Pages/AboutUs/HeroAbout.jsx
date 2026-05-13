@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-// import AymanAboutR from "../../../public/images/AymanAboutR.webp"
-// import heroAboutleft from "../../../public/images/heroAboutleft.webp"
+import { useNavigate } from 'react-router-dom';
+
 import { getHeroSection ,getAboutUs } from "../../services/about/aboutService";
 import { useTranslation } from "react-i18next";
 const HeroAbout = () => {
+  const navigate = useNavigate();
 const { t } = useTranslation();
 const [heroData, setHeroData] = useState(null);
 const [aboutData, setAboutData] = useState(null);
@@ -85,10 +86,14 @@ const [error, setError] = useState(null);
             {loading ? t("common.loading") : error || heroData?.description}
           </p>
           <div className="flex gap-4 flex-wrap">
-            <button className="px-5 py-3.5 rounded-xl  text-gray-900 text-sm bg-[#F2F4F7] font-medium hover:bg-gray-900 hover:text-white  transition-colors">
+            <button
+            onClick={() => navigate('/contact')}
+            className="px-5 py-3.5 rounded-xl  text-gray-900 text-sm bg-[#F2F4F7] font-medium hover:bg-gray-900 hover:text-white  transition-colors">
               {t("menu.pagesList.contactUs")}
             </button>
-            <button className="px-5 py-3.5 rounded-xl hover:bg-gray-900 bg-transparent hover:text-white text-gray-900 text-sm font-medium  transition-colors">
+            <button
+             onClick={() => navigate('/courses')}
+            className="px-5 py-3.5 rounded-xl hover:bg-gray-900 bg-transparent hover:text-white text-gray-900 text-sm font-medium  transition-colors">
               {t("home.startLearning")}
             </button>
           </div>

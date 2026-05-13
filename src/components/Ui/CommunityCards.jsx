@@ -4,8 +4,9 @@ import { ArrowRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { useTranslation } from "react-i18next";
-
+import { useNavigate } from 'react-router-dom';
 const CommunityCards = () => {
+  const navigate = useNavigate(); 
   const { t } = useTranslation();
   return (
     <>
@@ -50,9 +51,11 @@ const CommunityCards = () => {
     <h3 className="font-bold text-2xl text-white my-8 leading-snug">
       {t("community.joinOur")}<br />{t("community.community")}
     </h3>
-    <button className=" z-20 border-white/30 border-2 text-white rounded-xl px-4 py-4 text-sm font-semibold flex items-center gap-2 hover:bg-white/10 transition-colors">
-      {t("community.joinNow")} <ArrowRight size={14} />
-    </button>
+   <button
+  onClick={() => navigate('/contact', { state: { focusForm: true } })}
+  className="z-20 border-white/30 border-2 text-white rounded-xl px-4 py-4 text-sm font-semibold flex items-center gap-2 hover:bg-white/10 transition-colors">
+  {t("community.joinNow")} <ArrowRight size={14} />
+</button>
   </div>
 
  {/* Card 3 — WhatsApp */}
@@ -68,10 +71,12 @@ const CommunityCards = () => {
     <div className="relative flex-shrink-0">
       {/* Outer light ring */}
       <div className="w-16 h-16 rounded-full border-2 border-[#D0D5DD] flex items-center justify-center">
-        {/* Inner dark circle */}
-        <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-          <FaWhatsapp size={34} className="text-white" />
-        </div>
+       {/* Inner dark circle */}
+<div
+  onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B201141554176&text&type=phone_number&app_absent=0", "_blank")}
+  className="w-12 h-12 bg-primary rounded-full flex items-center justify-center cursor-pointer">
+  <FaWhatsapp size={34} className="text-white" />
+</div>
       </div>
     </div>
 
@@ -83,9 +88,11 @@ const CommunityCards = () => {
     {t("community.contact")}<br />{t("community.viaWhatsapp")}
   </h3>
 
-  <button className="bg-[#AFD75A] text-white rounded-2xl w-full px-4 py-4 text-sm font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-colors">
-    {t("forms.sendMessage")} <ArrowRight size={14} />
-  </button>
+ <button
+  onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B201141554176&text&type=phone_number&app_absent=0", "_blank")}
+  className="bg-[#AFD75A] text-white rounded-2xl w-full px-4 py-4 text-sm font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-colors">
+  {t("forms.sendMessage")} <ArrowRight size={14} />
+</button>
 
 </div>
 

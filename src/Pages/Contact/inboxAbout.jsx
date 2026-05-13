@@ -1,11 +1,15 @@
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight,Mail ,Phone,X } from "lucide-react";
 import but from "../../assets/buttonOur.svg";
 import {InboxAboutService} from "../../services/contact/contactService";
 import { useTranslation } from "react-i18next";
+import { useLocation } from 'react-router-dom';
 
 const InboxAbout = () => {
+   const location = useLocation();
+  const firstInputRef = useRef(null);
+  
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -34,6 +38,15 @@ const InboxAbout = () => {
   });
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+     useEffect(() => {
+    if (location.state?.focusForm) {
+      const timer = setTimeout(() => {
+        firstInputRef.current?.focus();
+        firstInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
   return (
     <>
          {/* ── MODAL ── */}
@@ -62,17 +75,18 @@ const InboxAbout = () => {
        {/* ── FORM + SIDEBAR ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start ">
           {/* Form */}
-          <div className="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-7 md:pt-12 md:pb-8 sm:py-8  ">
+          <div id="contact-form" className="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-7 md:pt-12 md:pb-8 sm:py-8  ">
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-4">
               {[
-                { label: t("forms.fullName"), name: "fullName", type: "text", placeholder: t("forms.fullNamePlaceholder") },
+                { label: t("forms.fullName"), name: "fullName", type: "text", placeholder: t("forms.fullNamePlaceholder"), ref: firstInputRef },
                 { label: t("forms.email"), name: "email", type: "email", placeholder: t("forms.emailPlaceholder") },
                 { label: t("forms.phone"), name: "phone", type: "text", placeholder: "(+00)" },
                 { label: t("forms.subject"), name: "subject", type: "text", placeholder: t("forms.subject") },
-              ].map(({ label, name, type, placeholder }) => (
+              ].map(({ label, name, type, placeholder, ref }) => (
                 <div key={name} className="flex flex-col gap-1.5">
                   <label className="text-[14px] text-start font-semibold text-slate-700 uppercase tracking-wide">{label}</label>
                   <input
+                   ref={ref}
                     type={type} name={name} placeholder={placeholder}
                     value={form[name]} onChange={handleChange}
                     className="border border-slate-200 rounded-xl px-3.5 py-3 text-sm  outline-none focus:border-[#6C4EF3] focus:bg-white focus:ring-2 focus:ring-[#6C4EF3]/20 transition-all"
