@@ -99,7 +99,8 @@
       "contactUs": "Contact Us",
       "resources": "Resources",
       "blogs": "Blogs",
-      "b2bTraining": "B2B Training"
+      "b2bTraining": "B2B Training",
+      "events": "Events"
     }
   },
   "footer": {
@@ -303,7 +304,8 @@
       "contactUs": "Contact Us",
       "resources": "Resources",
       "blogs": "Blogs",
-      "b2bTraining": "B2B Training"
+      "b2bTraining": "B2B Training",
+      "events": "Events"
     }
   },
   "questions": {
