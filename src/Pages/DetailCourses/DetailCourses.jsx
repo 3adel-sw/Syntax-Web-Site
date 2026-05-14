@@ -4,8 +4,6 @@ import { getCourseById } from '../../services/courses/coursesService';
 import Curriculum from "./Curriculum";
 import Overview from "./Overview";
 import { MessageSquare, Loader2 } from 'lucide-react';
-import detailsCourses from "../../assets/detailsCourses.svg"
-import Rectangle from "../../assets/Rectangle.svg"
 import Reports from "../../assets/reports.svg"
 import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
@@ -93,7 +91,7 @@ const DetailCourses = () => {
         {/* Hero Banner */}
         <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
           {/* image */}
-          <img src={course.image || course.img || detailsCourses} alt={course.title} className="w-full h-full object-fill " />
+          <img src={course.image || course.img } alt={course.title} className="w-full h-full object-fill " />
         </div>
         {/* Meta Bar */}
         <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
@@ -145,7 +143,7 @@ const DetailCourses = () => {
           </div>
           <div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
             {/* Course Image */}
-            <img src={course.image || course.img || Rectangle} alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
+            <img src={course.image || course.img } alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
             <div className="p-4">
               {/* Level */}
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
