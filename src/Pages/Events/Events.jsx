@@ -173,7 +173,7 @@ function Events() {
           <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
           {upcomingEvent ? (
             <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
-              <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-0">
+              <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-1">
                 <img
                   src={upcomingEvent.banner_image || upcomingEvent.image}
                   alt={upcomingEvent.title}

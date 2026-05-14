@@ -201,7 +201,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
             }}
           >
             {items.map((item) => (
-              <div key={item.id} className="min-w-full flex-shrink-0 px-2">
+              <div key={item.id} className="min-w-full flex-shrink-1 px-2">
                 <VideoCard item={item} onClick={onPlay} isImage={isImage} />
               </div>
             ))}

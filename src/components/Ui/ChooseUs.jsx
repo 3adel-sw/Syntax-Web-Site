@@ -101,7 +101,7 @@ console.log('why_us:', course?.why_us);
             }}
           >
            {faqs.map((faq, i) => (
-              <div key={faq.id ?? i} className="min-w-full flex-shrink-0 px-4">
+              <div key={faq.id ?? i} className="min-w-full flex-shrink-1 px-4">
                 <FaqCard faq={faq} i={i} />
               </div>
             ))}
