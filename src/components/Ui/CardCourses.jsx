@@ -40,8 +40,8 @@ const CourseCard = ({ course, navigate }) => {
           {toStr(course.tag) || toStr(course.category) || toStr(course.type)}
         </span>
         <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug">
-          {toStr(course.title)}
-        </h3>
+  {toStr(course.title || course.name || "No title")}
+</h3>
          <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
         <span className="flex items-center gap-1">
             <BookOpen size={18} />
