@@ -18,8 +18,8 @@ const CommunityCards = () => {
     <div className="absolute inset-0"
       style={{ background: "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80') center/cover" }} />
     <div className="absolute inset-0 bg-black/50" />
-    <h3 className="relative text-left text-white font-semibold  text-3xl md-mb-3  md:top-13 top-6">{t("community.connectTitle")}</h3>
-    <p className="relative text-left text-slate-300 text-base leading-relaxed md:top-14 top-7">
+    <h3 className="relative text-start text-white font-semibold  text-3xl md-mb-3  md:top-13 top-6">{t("community.connectTitle")}</h3>
+    <p className="relative text-start text-slate-300 text-base leading-relaxed md:top-14 top-7">
       {t("community.connectDescription")}
     </p>
   </div>

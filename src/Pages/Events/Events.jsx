@@ -144,7 +144,7 @@ function Events() {
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
-        <div className="mb-6 text-left">
+        <div className="mb-6 text-start">
           <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight">
             {t('events.heroTitle')}
           </h1>
@@ -170,7 +170,7 @@ function Events() {
         </div>
 
         <section className="mb-10">
-          <h2 className="md:text-3xl text-xl text-left font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
+          <h2 className="md:text-3xl text-xl text-start font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
           {upcomingEvent ? (
             <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
               <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-1">
@@ -181,7 +181,7 @@ function Events() {
                 />
               </div>
               <div className="md:p-6 p-3 flex flex-col justify-center gap-2 space-y-2">
-                <h3 className="md:text-4xl text-xl text-left font-semibold text-gray-900">{upcomingEvent.title}</h3>
+                <h3 className="md:text-4xl text-xl text-start font-semibold text-gray-900">{upcomingEvent.title}</h3>
                 <div className="flex flex-wrap gap-4 text-gray-500">
                   <span className="flex text-base items-center gap-1">
                     <MapPin size={24} className="text-gray-400" />
@@ -196,7 +196,7 @@ function Events() {
                     {upcomingEvent.time || t('common.time')}
                   </span>
                 </div>
-                <p className="text-lg text-left text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
+                <p className="text-lg text-start text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
                   {upcomingEvent.description}
                 </p>
                 <button
@@ -222,7 +222,7 @@ function Events() {
         />
 
         <section className="mb-18">
-          <h2 className="md:text-3xl text-2xl text-left font-bold text-gray-900 mb-4">{t('events.allEvents')}</h2>
+          <h2 className="md:text-3xl text-2xl text-start font-bold text-gray-900 mb-4">{t('events.allEvents')}</h2>
 
           <div className="hidden">
             <div

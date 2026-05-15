@@ -28,7 +28,7 @@ const EventCard = ({ event }) => {
         />
       </div>
     </div>
-    <div className="p-3 text-left space-y-2">
+    <div className="p-3 text-start space-y-2">
       <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">{event.type}</span>
       <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug mt-2">{event.title}</h3>
       <div className="flex items-center gap-3 text-sm my-4 text-gray-500">

@@ -62,10 +62,10 @@ const ChooseCardTraining = () => {
               </div>
               {/* Text */}
               <div>
-                <h3 className="text-white md:text-2xl text-left font-semibold text-sm mb-1">
+                <h3 className="text-white md:text-2xl text-start font-semibold text-sm mb-1">
                   {item.title}
                 </h3>
-                <p className="text-[#888888] text-xs md:text-sm text-left leading-relaxed">
+                <p className="text-[#888888] text-xs md:text-sm text-start leading-relaxed">
                   {item.description}
                 </p>
               </div>

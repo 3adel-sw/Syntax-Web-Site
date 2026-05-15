@@ -107,7 +107,7 @@ const RegistrEvents = ({ onSuccess }) => {
    <div className="space-y-3 bg-gray-100 rounded-2xl p-5">
               {/* Full Name */}
               <div>
-                <label className="text-xs md:text-sm text-left text-gray-500 mb-1 block">{t('forms.fullName')}</label>
+                <label className="text-xs md:text-sm text-start text-gray-500 mb-1 block">{t('forms.fullName')}</label>
                 <input
                   name="fullName"
                   value={form.fullName}
@@ -120,7 +120,7 @@ const RegistrEvents = ({ onSuccess }) => {
               {/* Email + Phone */}
               <div className="grid grid-cols-2 gap-3 ">
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.email')}</label>
+                  <label className="text-xs md:text-sm text-start  text-gray-500 mb-1 block">{t('forms.email')}</label>
                   <input
                     name="email"
                     type="email"
@@ -131,7 +131,7 @@ const RegistrEvents = ({ onSuccess }) => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.phone')}</label>
+                  <label className="text-xs md:text-sm text-start  text-gray-500 mb-1 block">{t('forms.phone')}</label>
                   <input
                     name="phone"
                     type="tel"
@@ -146,7 +146,7 @@ const RegistrEvents = ({ onSuccess }) => {
               {/* Experience + Country */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.experienceLevel')}</label>
+                  <label className="text-xs md:text-sm text-start  text-gray-500 mb-1 block">{t('forms.experienceLevel')}</label>
                   <div className="relative">
                     <select
                       name="experience"
@@ -163,7 +163,7 @@ const RegistrEvents = ({ onSuccess }) => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs md:text-sm text-left  text-gray-500 mb-1 block">{t('forms.country')}</label>
+                  <label className="text-xs md:text-sm text-start  text-gray-500 mb-1 block">{t('forms.country')}</label>
                   <input
                     name="country"
                     value={form.country}
@@ -176,7 +176,7 @@ const RegistrEvents = ({ onSuccess }) => {
 
               {/* Submit */}
               {error && (
-                <p className="text-sm text-left text-red-500">{error}</p>
+                <p className="text-sm text-start text-red-500">{error}</p>
               )}
               <button
                 onClick={handleSubmit}

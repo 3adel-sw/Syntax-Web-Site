@@ -53,7 +53,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
         )}
       </div>
 
-      <div className="px-2 py-4 text-left">
+      <div className="px-2 py-4 text-start">
         <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
          {toStr(title)}
         </h3>

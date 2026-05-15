@@ -23,7 +23,7 @@ const isAr = i18n.language === 'ar';
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
         {/* Header */}
-      <div className={`space-y-3 ${isAr ? 'text-right' : 'text-left'}`}>
+      <div className={`space-y-3 ${isAr ? 'text-right' : 'text-start'}`}>
   <h1 className='md:text-[30px] text-base mt-4 font-bold max-w-[38rem] text-gray-800'>
     {t("courses.header.title")}
   </h1>

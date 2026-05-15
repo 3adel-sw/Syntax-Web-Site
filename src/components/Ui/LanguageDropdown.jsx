@@ -2,22 +2,37 @@ import { useEffect, useState } from "react";
 import i18n from "@/i18n";
 
 const LanguageToggle = () => {
+
+  
+
+
+
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") return "ar";
     return localStorage.getItem("lang") || i18n.language || "ar";
   });
 
-  useEffect(() => {
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-    i18n.changeLanguage(lang);
-  }, [lang]);
+
+  
+
+
+
+useEffect(() => {
+  const savedLang = localStorage.getItem("lang") || "ar";
+  if (savedLang !== lang) {
+    i18n.changeLanguage(savedLang).then(() => {
+      window.location.reload(); 
+    });
+  }
+}, []);
 
   const handleToggle = () => {
-    const newLang = lang === "ar" ? "en" : "ar";
-    localStorage.setItem("lang", newLang);
-    setLang(newLang);
-  };
+  const newLang = lang === "ar" ? "en" : "ar";
+  localStorage.setItem("lang", newLang);
+  i18n.changeLanguage(newLang).then(() => {
+    window.location.reload(); 
+  });
+};
 
   return (
     <button

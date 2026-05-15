@@ -3,6 +3,10 @@ export default {
   content: ["./**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        arabic: ['"Expo Arabic"', 'sans-serif'],
+        english: ['Fractul', 'sans-serif'],
+      },
       screens: {
         '2xl': '1600px',
         '3xl': '2100px',
@@ -34,7 +38,7 @@ export default {
       },
     },
   },
-         plugins: [typography],
- 
+  plugins: [typography],
+
 };
 // export default

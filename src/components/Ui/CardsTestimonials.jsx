@@ -26,7 +26,7 @@ const getInitials = (name) => {
 
 const TestimonialCard = ({ content, name, job, image, i }) => (
    <div className="bg-white border space-y-9  border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
-    <p className="text-base text-gray-700 text-left leading-relaxed">{content}</p>
+    <p className="text-base text-gray-700 text-start leading-relaxed">{content}</p>
     <div className="flex items-center gap-3">
       {image ? (
         <img
@@ -39,7 +39,7 @@ const TestimonialCard = ({ content, name, job, image, i }) => (
           {getInitials(name)}
         </div>
       )}
-      <div className="text-left">
+      <div className="text-start">
         <p className="text-base font-semibold text-gray-900">{name}</p>
         {job && <p className="text-sm text-gray-400">{job}</p>}
       </div>

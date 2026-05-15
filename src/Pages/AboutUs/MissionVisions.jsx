@@ -72,7 +72,7 @@ const MissionVisions = () => {
   if (!data) return null;
 
   return (
-    <section className="w-full my-12 md:my-25 text-left">
+    <section className="w-full my-12 md:my-25 text-start">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {/* Left: Image */}
         <div className="rounded-4xl md:col-span-1 overflow-hidden h-82 md:h-full min-h-[583px] bg-gray-200">
@@ -91,12 +91,12 @@ const MissionVisions = () => {
         <div className="md:col-span-2">
           <div className="flex flex-col gap-4">
             {/* Badge */}
-            <span className="text-xl font-semibold text-[#B71C41] tracking-wide pt-4 text-left">
+            <span className="text-xl font-semibold text-[#B71C41] tracking-wide pt-4 text-start">
               {t("about.ourMissionAndVisions")}
             </span>
 
             {/* Title */}
-            <h2 className="md:text-[42px] text-xl font-bold text-gray-900 mb-4 leading-tight text-left">
+            <h2 className="md:text-[42px] text-xl font-bold text-gray-900 mb-4 leading-tight text-start">
               {t("about.missionVisionFeatures")}
             </h2>
 

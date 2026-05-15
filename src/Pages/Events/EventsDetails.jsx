@@ -178,7 +178,7 @@ const EventsDetails = () => {
     || hasArabicText(event.description)
     || hasArabicText(category);
   const direction = isArabic ? 'rtl' : 'ltr';
-  const textAlignClass = isArabic ? 'text-right' : 'text-left';
+  const textAlignClass = isArabic ? 'text-right' : 'text-start';
 
   return (
     <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">

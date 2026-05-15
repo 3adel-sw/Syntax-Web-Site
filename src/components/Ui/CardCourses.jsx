@@ -35,7 +35,7 @@ const CourseCard = ({ course, navigate }) => {
         )}
       </div>
 
-      <div className="p-4 text-left">
+      <div className="p-4 text-start">
        <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">
           {toStr(course.tag) || toStr(course.category) || toStr(course.type)}
         </span>

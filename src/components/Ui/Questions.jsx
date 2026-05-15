@@ -25,9 +25,9 @@ const Questions = ({ faqs = [] }) => {
 
   return (
     <div className="flex items-center md:flex-row flex-col justify-between md:my-14 my-12">
-      <div className="w-full md:w-1/3 text-left flex flex-col items-start">
-        <h2 className="md:text-4xl text-2xl font-bold text-gray-900 text-left">{t("questions.title")}</h2>
-        <p className="text-gray-500 mt-4 md:mx-4 mx-0 text-left md:text-sm text-[14px]">
+      <div className="w-full md:w-1/3 text-start flex flex-col items-start">
+        <h2 className="md:text-4xl text-2xl font-bold text-gray-900 text-start">{t("questions.title")}</h2>
+        <p className="text-gray-500 mt-4 md:mx-4 mx-0 text-start md:text-sm text-[14px]">
           {t("questions.subtitle")}
         </p>
         <button className="flex my-4 items-center justify-center md:text-lg text-sm text-white bg-black border border-gray-200 rounded-2xl md:px-8 w-42 h-14 hover:bg-gray-200">
@@ -50,7 +50,7 @@ const Questions = ({ faqs = [] }) => {
               </div>
             </div>
             {openIndex === index && (
-              <div className="p-4 text-sm text-gray-500 border-t text-left border-gray-200">
+              <div className="p-4 text-sm text-gray-500 border-t text-start border-gray-200">
                 {toStr(item.answer) || t("questions.noAnswer")}
               </div>
             )}

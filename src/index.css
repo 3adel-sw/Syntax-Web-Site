@@ -1,8 +1,85 @@
 @import "tailwindcss";
- /* @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@500&display=swap'); */
 
-/* @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap'); */
+[dir="rtl"] {
+  font-family: 'Expo Arabic', sans-serif;
+}
 
+[dir="ltr"] {
+  font-family: 'Fractul', sans-serif;
+}
+/* ── Expo Arabic ── */
+@font-face {
+  font-family: 'Expo Arabic';
+  src: url('./assets/fonts/arabic/ExpoArabic-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Expo Arabic';
+  src: url('./assets/fonts/arabic/ExpoArabic-Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Expo Arabic';
+  src: url('./assets/fonts/arabic/ExpoArabic-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Expo Arabic';
+  src: url('./assets/fonts/arabic/ExpoArabic-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Fractul ── */
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fractul';
+  src: url('./assets/fonts/english/Fractul-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
         * {
           box-sizing: border-box;
         }
@@ -38,10 +115,6 @@
 :root {
   line-height: 1.5;
   font-weight: 400;
-
-  /* color-scheme: light dark; */
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #FCFCFB; */
 
 
   font-synthesis: none;

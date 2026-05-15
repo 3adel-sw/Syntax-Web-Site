@@ -34,7 +34,7 @@ const UserDropdown = () => {
             <button
               type="button"
               onClick={handleLogout}
-              className="w-full text-left px-4 py-2 text-sm h-8 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              className="w-full text-start px-4 py-2 text-sm h-8 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
             >
              <LogIn size={16}  className=" bg-red-200 text-red-400  rounded-full"/>
               {t("nav.logout")}
@@ -43,7 +43,7 @@ const UserDropdown = () => {
             <button
               type="button"
               onClick={handleLogin}
-              className="w-full text-left px-4 py-2 text-sm h-8 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+              className="w-full text-start px-4 py-2 text-sm h-8 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
             >
               <LogIn size={16}  className=" bg-green-200 text-green-400  rounded-full"/>
               {t("nav.login")}

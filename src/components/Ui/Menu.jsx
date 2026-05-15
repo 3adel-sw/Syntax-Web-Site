@@ -112,7 +112,7 @@ const Menu = ({ isScrolled }) => {
   />
 </div>
         
-        <div className="text-left">
+        <div className="text-start">
           <p className={`md:text-base sm:text-sm lg:text-xl  text-xs font-medium leading-none mb-1
             ${isActive ? "text-white" : "text-black"}`}>
             {t(p.nameKey)}

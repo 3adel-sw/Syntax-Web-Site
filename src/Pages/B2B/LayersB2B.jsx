@@ -30,7 +30,7 @@ const LayersB2B = () => {
                 alt={item.title}
                 className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover shrink-0"
               />
-              <div className="text-left whitespace-nowrap">
+              <div className="text-start whitespace-nowrap">
                 <h3 className="text-sm md:text-base font-semibold text-gray-900 leading-tight">
                   {item.number}+
                 </h3>

@@ -71,7 +71,7 @@ const [error, setError] = useState(null);
       {/* ===== Hero Top Section ===== */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start py-10">
         {/* Left: Badge + Title */}
-        <div className="text-right md:text-left">
+        <div className="text-right md:text-start">
           <span className="inline-block bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-xl mb-4">
             {t("about.title")}
           </span>
@@ -82,7 +82,7 @@ const [error, setError] = useState(null);
 
         {/* Right: Description + Buttons */}
         <div className="flex flex-col gap-6 justify-center">
-          <p className="text-lg text-left text-gray-500 leading-relaxed">
+          <p className="text-lg text-start text-gray-500 leading-relaxed">
             {loading ? t("common.loading") : error || heroData?.description}
           </p>
           <div className="flex gap-4 flex-wrap">
@@ -168,12 +168,12 @@ const [error, setError] = useState(null);
       <div className="grid grid-cols-1 md:grid-cols-3 md:gap-28 gap-10 items-start pb-10">
         {/* Left: Title */}
         <div className="md:col-span-1">
-          <h2 className="text-5xl text-left pb-6 font-extrabold text-gray-900">{t("about.whatWeDo")}</h2>
+          <h2 className="text-5xl text-start pb-6 font-extrabold text-gray-900">{t("about.whatWeDo")}</h2>
         </div>
 
         {/* Right: Paragraphs */}
         <div className="md:col-span-2 flex flex-col gap-6">
-         <p className="md:text-lg text-sm font-medium text-left text-[#797979] leading-relaxed">
+         <p className="md:text-lg text-sm font-medium text-start text-[#797979] leading-relaxed">
     {aboutData?.description}
   </p>
         </div>

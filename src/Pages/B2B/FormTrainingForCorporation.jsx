@@ -71,7 +71,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
 
           {/* Full Name */}
           <div className="mb-4">
-            <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
+            <label className="block md:text-lg text-sm text-start font-medium text-gray-500 mb-1.5">
               {t("forms.fullName")}
             </label>
             <input
@@ -87,7 +87,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
           <div className="grid grid-cols-2 gap-4">
             {fields.map(({ name, label, placeholder, type = "text" }) => (
               <div key={name}>
-                <label className="block md:text-lg text-[12px] text-left font-medium text-gray-500 mb-1.5">
+                <label className="block md:text-lg text-[12px] text-start font-medium text-gray-500 mb-1.5">
                   {label}
                 </label>
                 <input
@@ -104,7 +104,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
 
           {/* Request Details */}
           <div className="mt-4">
-            <label className="block md:text-lg text-sm text-left font-medium text-gray-500 mb-1.5">
+            <label className="block md:text-lg text-sm text-start font-medium text-gray-500 mb-1.5">
               {t("b2b.form.requestDetailsLabel")}
             </label>
             <textarea

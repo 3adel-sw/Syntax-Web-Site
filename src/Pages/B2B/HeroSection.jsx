@@ -25,13 +25,13 @@ const HeroSection = () => {
         <div className="mt-5">
             <h6 className='flex items-center justify-start gap-2'>{t("nav.home")} <span> <FaAngleRight size={12}/></span> {t("b2b.title")}</h6>
 
-            <h2 className="font-semibold text-3xl sm:text-3xl leading-sm w-full text-left md:text-5xl my-12"> {heroData.title} </h2>
+            <h2 className="font-semibold text-3xl sm:text-3xl leading-sm w-full text-start md:text-5xl my-12"> {heroData.title} </h2>
             <img 
             loading="lazy"
             src={heroData.image} className="w-full  mt-4" alt={t("b2b.title")} />
         </div>
         <div className="bg-[#F2F4F7] rounded-2xl p-10 my-10">
-            <p className='text-md md:text-2xl text-gray-500 text-left'>
+            <p className='text-md md:text-2xl text-gray-500 text-start'>
                 {heroData.description}
                 </p>
         </div>

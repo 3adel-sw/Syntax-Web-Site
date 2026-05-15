@@ -22,7 +22,7 @@ if (historiesData.length === 0) {
 }
 
   return (
-     <section className="w-full my-12 md:my-25 text-left">
+     <section className="w-full my-12 md:my-25 text-start">
       <div
         className="rounded-3xl px-8 py-10 flex flex-col gap-8"
         

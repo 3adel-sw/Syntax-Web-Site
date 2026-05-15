@@ -70,7 +70,7 @@ const RegisterModal = ({ isOpen, onClose, courseName }) => {
         {/* Form */}
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700 mb-1">{t('registerModal.name')}</label>
+            <label className="block text-start text-sm font-medium text-gray-700 mb-1">{t('registerModal.name')}</label>
             <input
               type="text"
               placeholder={t('registerModal.name')}
@@ -80,7 +80,7 @@ const RegisterModal = ({ isOpen, onClose, courseName }) => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700 mb-1">{t('registerModal.phone')}</label>
+            <label className="block text-start text-sm font-medium text-gray-700 mb-1">{t('registerModal.phone')}</label>
             <input
               type="tel"
               placeholder={t('registerModal.phone')}
@@ -91,7 +91,7 @@ const RegisterModal = ({ isOpen, onClose, courseName }) => {
           </div>
         </div>
         <div className="mb-4">
-          <label className="block text-left text-sm font-medium text-gray-700 mb-1">{t('registerModal.courseName')}</label>
+          <label className="block text-start text-sm font-medium text-gray-700 mb-1">{t('registerModal.courseName')}</label>
           <input
             type="text"
             placeholder={t('registerModal.coursePlaceholder')}
@@ -102,7 +102,7 @@ const RegisterModal = ({ isOpen, onClose, courseName }) => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-left text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-start text-sm font-medium text-gray-700 mb-1">
             {t('registerModal.question')}
           </label>
           <textarea

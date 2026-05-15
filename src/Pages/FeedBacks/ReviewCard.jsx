@@ -11,7 +11,7 @@ const getInitials = (name) =>
 
 
 // const StarRating = () => (
-//   <div className="text-3xl font-bold text-left mb-2 text-[#f5c842]" style={{ letterSpacing: "2px" }}>
+//   <div className="text-3xl font-bold text-start mb-2 text-[#f5c842]" style={{ letterSpacing: "2px" }}>
 //     {"★".repeat(5)}
 //   </div>
 // );
@@ -56,7 +56,7 @@ const ReviewCard = ({ review, colorIndex }) => {
       }}
     >
       {/* Top */}
-      <div className="flex-1 text-left mb-3 overflow-hidden">
+      <div className="flex-1 text-start mb-3 overflow-hidden">
         {/* <StarRating /> */}
         <p
           className="text-[#4a5568] text-base"

@@ -85,7 +85,7 @@ const DetailCourses = () => {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <RegisterModal courseName={course?.name} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
         {/* Course Title */}
-        <h1 className="md:text-2xl text-xl text-left md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
+        <h1 className="md:text-2xl text-xl text-start md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
           {course.title}
         </h1>
         {/* Hero Banner */}
@@ -113,7 +113,7 @@ const DetailCourses = () => {
           </button>
         </div>
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-left">
+        <div className="grid grid-cols-1 md:mb12 md:grid-cols-[1fr_320px] gap-6 text-start">
           {/* Tabs */}
           <div className="flex flex-col w-full">
             <div className="flex flex-row max-w-4xl gap-2 bg-gray-100 p-3 h-16 mb-6 rounded-xl">

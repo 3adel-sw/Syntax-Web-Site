@@ -80,7 +80,7 @@ const CoreValues = () => {
   if (!coreData) return null;
 
   return (
-    <section className="w-full my-12 md:my-25 text-left">
+    <section className="w-full my-12 md:my-25 text-start">
       {/* Badge */}
       <span className="md:text-base text-sm mb-3 md:mb-5 font-semibold text-[#00895C] tracking-wide">
         {t("about.values")}

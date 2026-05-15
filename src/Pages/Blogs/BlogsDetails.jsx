@@ -92,7 +92,7 @@ const BlogsDetails = () => {
           </button>
           <div>
             {/* Title */}
-            <h1 className="text-2xl text-left md:text-3xl font-bold text-gray-900 mb-5 leading-snug">
+            <h1 className="text-2xl text-start md:text-3xl font-bold text-gray-900 mb-5 leading-snug">
               {title}
             </h1>
 
@@ -129,7 +129,7 @@ const BlogsDetails = () => {
             </div>
 
             {/* Article Body */}
-            <article className="prose prose-gray max-w-none text-left text-gray-600 prose-p:text-[16px] prose-p:leading-relaxed prose-headings:text-gray-900">
+            <article className="prose prose-gray max-w-none text-start text-gray-600 prose-p:text-[16px] prose-p:leading-relaxed prose-headings:text-gray-900">
               {blog.content ? (
                 typeof blog.content === 'string' ? (
                   <div dangerouslySetInnerHTML={{ __html: blog.content }} />
@@ -170,7 +170,7 @@ const BlogsDetails = () => {
         {/* Related Blogs */}
         <div className='md:my-22 sm:my-16 my-10 lg:my-24'>
           <div className='space-y-5'>
-            <h3 className='text-3xl text-left font-bold text-gray-800 leading-snug'>{t('blogs.relatedBlogs')}</h3>
+            <h3 className='text-3xl text-start font-bold text-gray-800 leading-snug'>{t('blogs.relatedBlogs')}</h3>
             <CardBlog data={relatedData} activeCategory="All Blogs" limit={3} excludeId={blog.id} />
           </div>
         </div>

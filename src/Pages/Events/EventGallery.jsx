@@ -24,7 +24,7 @@ const EventGallery = ({ images = DEFAULT_IMAGES }) => {
 
   return (
     <div className="my-6">
-      <h2 className="text-xl text-left font-bold text-gray-900 mb-4">{t('events.eventGallery')}</h2>
+      <h2 className="text-xl text-start font-bold text-gray-900 mb-4">{t('events.eventGallery')}</h2>
 
       {/* Slider */}
       <div className="flex items-center gap-3 overflow-hidden">

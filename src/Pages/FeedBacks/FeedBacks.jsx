@@ -104,7 +104,7 @@ const FeedBacks = () => {
         {/* Header */}
         <div
           data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700"
-          className="relative overflow-hidden text-left md:my-18 my-14 rounded-2xl w-full h-[340px] bg-[#23286B]"
+          className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full h-[340px] bg-[#23286B]"
         >
           <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
           <h1 className="absolute top-10 md:top-20 left-4 md:left-20 md:text-5xl text-3xl font-bold text-white">

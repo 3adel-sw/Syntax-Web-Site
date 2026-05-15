@@ -51,7 +51,7 @@ const Footer = () => {
         <div className="flex items-center gap-2 w-40 h-12">
           <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt={t('common.brandLogo')} />
         </div>
-        <p className="text-sm text-left text-white leading-relaxed">
+        <p className="text-sm text-start text-white leading-relaxed">
           {settings?.description || t('footer.fallbackDescription')}
         </p>
         {/* Social Icons */}
@@ -71,7 +71,7 @@ const Footer = () => {
       </div>
 
       {/* Links wrapper: on mobile = 3 cols in one row, on desktop = 3 separate grid cols */}
-      <div className="grid grid-cols-2 text-left md:text-center md:contents gap-6 md:gap-0">
+      <div className="grid grid-cols-2 text-start md:text-center md:contents gap-6 md:gap-0">
 
         {/* Solutions */}
         <div >

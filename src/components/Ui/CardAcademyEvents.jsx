@@ -103,14 +103,14 @@ const CardAcademyEvents = () => {
       <div className="my-12 grid grid-cols-1 md:mx-0 mx-2 md:grid-cols-2 gap-6">
         {bigCards.map((card, i) => (
           <div key={i} onClick={() => goToLink(card.link)}
-            className="bg-white pb-12 cursor-pointer rounded-2xl h-[29rem] md:h-[28rem] border overflow-hidden hover:shadow-sm border-gray-300">
-            <div className="w-full h-80 bg-gray-300 mb-4">
+            className="bg-white pb-12 cursor-pointer rounded-2xl h-[30rem] md:h-[28rem] border overflow-hidden hover:shadow-sm border-gray-300">
+            <div className="w-full h-80 bg-gray-300 mb-2">
               <img loading="eager" fetchPriority="high" src={card.image}
                 className='w-full h-full object-cover' alt={card.title} />
             </div>
-            <div className="px-4">
-              <h2 className="text-2xl text-left font-semibold mb-2">{card.title}</h2>
-              <p className="text-gray-600 text-left">{card.description}</p>
+            <div className="px-4 pb-4 ">
+              <h2 className="text-2xl text-start font-semibold mb-2">{card.title}</h2>
+              <p className="text-gray-600 mb-2 text-start">{card.description}</p>
             </div>
           </div>
         ))}
@@ -129,8 +129,8 @@ const CardAcademyEvents = () => {
             </span>
             <div className="max-2xl text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
               <h3  
-              className="text-lg cursor-pointer text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
-              <p className="text-gray-600 text-left px-4 max-w-2xl">{slide.description}</p>
+              className="text-lg cursor-pointer text-start font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
+              <p className="text-gray-600 text-start px-4 max-w-2xl">{slide.description}</p>
             </div>
           </div>
         ))}
@@ -148,8 +148,8 @@ const CardAcademyEvents = () => {
                   </span>
                   <div className="text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
                     <h3
-                    className="text-lg  text-left font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
-                    <p className="text-gray-600 text-left px-4 max-w-2xl">{slide.description}</p>
+                    className="text-lg  text-start font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
+                    <p className="text-gray-600 text-start px-4 max-w-2xl">{slide.description}</p>
                   </div>
                 </div>
               ))}
@@ -172,8 +172,8 @@ const CardAcademyEvents = () => {
             <div className="flex flex-row items-start sm:items-center gap-2">
               <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 p-2 md:p-3 shrink-0" alt="" />
               <div>
-                <h3 className="text-sm md:text-base text-left font-semibold text-gray-900">{item.label}</h3>
-                <p className="text-xs md:text-sm text-left font-medium text-gray-500">{item.student}</p>
+                <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
+                <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p>
               </div>
             </div>
           </div>
