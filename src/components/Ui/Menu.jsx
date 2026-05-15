@@ -20,7 +20,7 @@ const pages = [
   { labelKey: "menu.pagesList.resources", path: "/resources" },
   { labelKey: "menu.pagesList.blogs", path: "/blogs" },
   { labelKey: "menu.pagesList.b2bTraining", path: "/b2b" },
-  { labelKey: "menu.pagesList.events", path: "/events" }
+  // { labelKey: "menu.pagesList.events", path: "/events" }
  
 ];
 
