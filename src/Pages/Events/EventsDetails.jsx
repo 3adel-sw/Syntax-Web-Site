@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { MapPin, Calendar, Clock, Download, Share2, User, Loader2 } from 'lucide-react';
+import { MapPin, Calendar, Clock, Download, Share2, User, Loader2, X } from 'lucide-react';
+import { FaXTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa6';
 import Footer from '../../components/layout/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
 import EventCard from '../../components/Ui/EventCard';
@@ -57,6 +58,26 @@ const EventsDetails = () => {
   const touchStartRef = useRef(0);
   const translateXRef = useRef(0);
   const containerRef = useRef(null);
+  const [showShareMenu, setShowShareMenu] = useState(false);
+
+  const handleShare = (platform) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(title);
+    let shareUrl = '';
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+        break;
+      case 'instagram':
+        shareUrl = `https://www.instagram.com/?url=${url}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
+    }
+    if (shareUrl) window.open(shareUrl, '_blank');
+    setShowShareMenu(false);
+  };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -112,10 +133,6 @@ const EventsDetails = () => {
 
     fetchEvent();
   }, [id, t]);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-  };
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
@@ -204,9 +221,48 @@ const EventsDetails = () => {
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US', t('common.date'))}</span>
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {event.time || t('common.time')}</span>
                 <button className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg hover:text-gray-800"><Download size={12} /> {category}</button>
-                <button onClick={handleCopyLink} className="flex items-center justify-center px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition">
+                <button onClick={() => setShowShareMenu((prev) => !prev)} className="flex items-center justify-center px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition relative">
                   <Share2 size={12} /> {t('common.share')}
                 </button>
+               {showShareMenu && (
+                 <>
+                  
+                   <div
+                     className="fixed inset-0 z-40"
+                     onClick={() => setShowShareMenu(false)}
+                   />
+               
+                   <div className="absolute z-50 flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-2xl shadow-lg p-2 md:flex-row flex-col gap-1 w-fit md:p-8 max-w-[90%] h-fit">
+                     
+                     
+                     <button
+                       onClick={() => setShowShareMenu(false)}
+                       className="absolute top-0 right-0 p-2 text-gray-400 hover:text-red-600 cursor-pointer"
+                     >
+                       <X size={16} />
+                     </button>
+               
+                     <button
+                       onClick={() => handleShare('twitter')}
+                       className="flex items-center mt-2 gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-sm text-gray-700"
+                     >
+                       <FaXTwitter size={16} /> {t('common.x')}
+                     </button>
+                     <button
+                       onClick={() => handleShare('instagram')}
+                       className="flex items-center mt-2 gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-sm text-gray-700"
+                     >
+                       <FaInstagram size={16} /> {t('common.instagram')}
+                     </button>
+                     <button
+                       onClick={() => handleShare('linkedin')}
+                       className="flex items-center mt-2 gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-sm text-gray-700"
+                     >
+                       <FaLinkedin size={16} /> {t('common.linkedin')}
+                     </button>
+                   </div>
+                 </>
+               )}
               </div>
 
               <div className="md:hidden rounded-2xl overflow-hidden mb-6 h-48">
