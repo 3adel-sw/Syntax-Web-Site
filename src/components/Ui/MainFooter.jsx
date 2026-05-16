@@ -1,6 +1,14 @@
-const MainFooter = () => {
+import { useState } from 'react';
+import RegisterModal from './RegisterModal';
+
+
+const MainFooter = ({ courseName }) => {
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+
   return (
     <div className="w-full  my-10">
+      <RegisterModal courseName={courseName} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       
       <div className="bg-primary rounded-2xl md:rounded-2xl px-6 md:px-12 py-6 md:py-12 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         
@@ -18,7 +26,11 @@ const MainFooter = () => {
           </button>
 
           {/* Green Button */}
-          <button className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base bg-[#A6D65B] text-[#313896] rounded-xl font-medium hover:opacity-90 transition">
+          <button
+            onClick={() => setIsRegisterOpen(true)}
+           className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base bg-[#A6D65B] text-[#313896] rounded-xl font-medium hover:opacity-90 transition"
+          
+          >
             talk with advisor
           </button>
 

@@ -223,7 +223,7 @@ const DetailCourses = () => {
             {/* Captured Videos */}
             <CapturedVideos course={course} />
             {/* Footer */}
-            <MainFooter />
+            <MainFooter courseName={course?.name || course?.title || t('common.course')} />
           </>
         )}
 
