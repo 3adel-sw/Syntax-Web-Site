@@ -180,6 +180,15 @@ const EventsDetails = () => {
   const direction = isArabic ? 'rtl' : 'ltr';
   const textAlignClass = isArabic ? 'text-right' : 'text-start';
 
+  // Check if event date has passed (midnight of event day)
+  const eventDate = event.history ? new Date(event.history) : null;
+  const now = new Date();
+  const isEventPassed = eventDate
+    ? now >= new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate() + 1)
+    : false;
+
+  const showContent = isRegistered || isEventPassed;
+
   return (
     <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
@@ -204,7 +213,7 @@ const EventsDetails = () => {
                 <img src={image} alt={title} className="w-full h-full object-cover" />
               </div>
 
-              {isRegistered && showVideo && <VideosYouTube videos={videos} />}
+              {showContent && showVideo && videos.length > 0 && <VideosYouTube videos={videos} />}
 
               <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-2`}>
                 {t('events.eventDescription')}
@@ -215,7 +224,7 @@ const EventsDetails = () => {
                 dangerouslySetInnerHTML={{ __html: event.description || event.small_description || t('messages.noDescription') }}
               />
 
-              {!isRegistered && (
+              {!showContent && (
                 <>
                   <h2 className={`text-xl ${textAlignClass} font-semibold text-gray-900 mb-4`}>
                     {t('events.eventRegistration')}
@@ -226,7 +235,7 @@ const EventsDetails = () => {
             </div>
 
             <div className="space-y-6">
-              {isRegistered && (
+              {showContent && videos.length > 0 && (
                 <button
                   onClick={() => setShowVideo(!showVideo)}
                   className="py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition"
@@ -281,7 +290,7 @@ const EventsDetails = () => {
             </div>
           </div>
 
-          {isRegistered && <EventGallery images={gallery} />}
+          {showContent && <EventGallery images={gallery} />}
         </div>
 
         <div className="my-10">
