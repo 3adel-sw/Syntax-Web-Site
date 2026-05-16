@@ -107,7 +107,7 @@ const isAr = i18n.language === 'ar';
           />
         </div>
         {/* Cards */}
-          <CardCourses activeCategory={activeTab.id} />
+          <CardCourses activeCategory={activeTab.id} activeCategoryName={activeTab.name} />
             {/* Subscribe */}
             <div className='md:my-24 my-30'>
               <Subscribe />

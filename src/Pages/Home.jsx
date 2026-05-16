@@ -67,7 +67,7 @@ const Home = () => {
         setHero(heroRes.data.heroSection);
         setCounters(countersRes.data);
         setOrganizations(orgsRes.data?.organizations || orgsRes.data || []);
-        setLatestCourses(coursesRes.data);
+        setLatestCourses(coursesRes.data?.courses || coursesRes.data?.data || coursesRes.data || []);
         setLatestBlogs(blogsRes.data);
         setTestimonials(
           (testimonialsRes.data?.testimonials || testimonialsRes.data || [])

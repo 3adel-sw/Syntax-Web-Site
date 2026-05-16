@@ -122,7 +122,7 @@ const DetailCourses = () => {
             // { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
             { icon: <MdOutlinePaid />, label: t('common.type'), value: toStr(course.type) || toStr(course.name) || t('common.unavailable') },
           ].map((item) => (
-            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-[10px] text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-14 p-1">
+            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-[10px] text-[9px] text-gray-600  border border-gray-200 rounded-lg md:px-14 p-1">
               {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-[10px] text-[9px]">{item.value}</strong>
             </span>
           ))}
@@ -132,7 +132,7 @@ const DetailCourses = () => {
           >
             <CiShare2 /> {t('common.share')}
           </button>
-          <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 cursor-pointer border border-gray-200 rounded-lg p-1 hover:bg-gray-200">
+          <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg p-1 hover:bg-gray-200">
             {linkCopied ? <Check size={14} className="text-green-600" /> : <FaRegCopy />} {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
           </button>
           </div>

@@ -18,10 +18,6 @@ export const getCourseById = (id) =>
   api.get(`/courses/${id}`, { params: { lang: getLang() } });
 
 
-
-export const getLatestCourses = () => 
-  api.get('/latestCourses', { params: { lang: getLang() } });
-
 export const searchCourses = (query) => 
   api.get('/courses', { params: { lang: getLang(), search: query } });
 

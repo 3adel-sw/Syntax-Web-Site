@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Clock, BookOpen } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
-import { getAllCourses, getCoursesByCategory } from '../../services/courses/coursesService';
+import { getAllCourses } from '../../services/courses/coursesService';
 import { useTranslation } from 'react-i18next';
 
 // ── Course Card
@@ -21,14 +21,13 @@ const CourseCard = ({ course, navigate }) => {
      className="bg-white rounded-2xl border h-[26rem] border-gray-200 p-2 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
   >
       <div className="h-68 flex items-center rounded-2xl justify-center relative overflow-hidden bg-gray-100">
-     
       
         {course.image || course.img ? (
           <img
             loading="eager"
             src={course.image || course.img}
             className="w-full h-full object-cover"
-            alt={toStr(course.title)}
+            alt={toStr(course.title || course.name || course.course_name)}
           />
         ) : (
           <div className="w-full h-full bg-gray-200 rounded-2xl" />
@@ -40,7 +39,8 @@ const CourseCard = ({ course, navigate }) => {
           {toStr(course.tag) || toStr(course.category) || toStr(course.type)}
         </span>
         <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug">
-  {toStr(course.title || course.name || "No title")}
+          
+  {toStr(course.title || course.name || course.course_name || course.slug || course.course_title || "No title")}
 </h3>
          <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
         <span className="flex items-center gap-1">
@@ -59,30 +59,35 @@ const CourseCard = ({ course, navigate }) => {
 };
 
 // ── Main Component ───────────────────────────────────────
-const CardCourses = ({ activeCategory, limit, showButton, ButtonContent }) => {
+const CardCourses = ({ data, activeCategory, activeCategoryName, limit, showButton, ButtonContent }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [courses, setCourses]   = useState([]);
+  const normalizeArray = (input) => {
+    if (Array.isArray(input)) return input;
+    if (input && typeof input === 'object') {
+      return input.courses || input.data?.courses || input.data || input.latest_courses || [];
+    }
+    return [];
+  };
 
-  const [loading, setLoading]   = useState(true);
+  const [courses, setCourses]   = useState(normalizeArray(data));
+  const [loading, setLoading]   = useState(!data);
   const [error, setError]       = useState(null);
 
-
-
-  
-  // ── Fetch from API ──
-useEffect(() => {
-  const fetchCourses = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-    const res = (activeCategory !== null && activeCategory !== undefined)
-  ? await getCoursesByCategory(activeCategory)
-  : await getAllCourses();
-
-       setCourses(res?.courses ?? res?.data?.courses ?? []);
+  // ── Fetch all courses once (only if no data prop) ──
+  useEffect(() => {
+    if (data) {
+      setCourses(normalizeArray(data));
+      setLoading(false);
+      return;
+    }
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await getAllCourses();
+        setCourses(res?.courses ?? res?.data?.courses ?? []);
       } catch (err) {
         setError(t('messages.failedToLoad'));
         console.error(err);
@@ -90,13 +95,27 @@ useEffect(() => {
         setLoading(false);
       }
     };
+    fetchCourses();
+  }, [data, t]);
 
-  fetchCourses();
-}, [activeCategory, t]);
+  // ── Client-side filter by category ID or name ──
+  const isAll = activeCategory === null || activeCategory === undefined || activeCategory === 'All Courses';
+  const filteredCourses = isAll
+    ? courses
+    : courses.filter(course => {
+        // Try matching by numeric category ID
+        const catId = course.category?.id ?? course.category_id;
+        if (catId !== null && catId !== undefined) {
+          if (Number(catId) === Number(activeCategory)) return true;
+        }
+        // Fallback: match by category name (string)
+        const catName = typeof course.category === 'string'
+          ? course.category
+          : course.category?.name || course.category_name;
+        return catName && activeCategoryName && catName.toLowerCase() === activeCategoryName.toLowerCase();
+      });
 
-
-  // ── Display Courses ──
-  const displayedCourses = limit ? courses.slice(0, limit) : courses;
+  const displayedCourses = limit ? filteredCourses.slice(0, limit) : filteredCourses;
 
   // ── Loading ──
   if (loading) return (
@@ -117,7 +136,6 @@ useEffect(() => {
 
   return (
     <>
-      {/* Desktop Grid */}
       <div className="md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
         {displayedCourses.map((course, index) => (
   <CourseCard 
@@ -127,8 +145,6 @@ useEffect(() => {
   />
 ))}
       </div>
-
-      {/* Mobile Grid */}
 
       {showButton && limit && (
         <div className="mt-10">
