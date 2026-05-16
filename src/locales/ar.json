@@ -101,6 +101,7 @@
     }
   },
   "pagesList": {
+    "home": "الصفحة الرئيسية ",
     "aboutSyntax": "عن سينتاكس",
     "contactUs": "تواصل معنا",
     "resources": "الموارد",

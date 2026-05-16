@@ -102,6 +102,7 @@
       }
     },
     "pages": {
+      "home": "Home Page",
       "aboutSyntax": "About Syntax",
       "contactUs": "Contact Us",
       "resources": "Resources",
@@ -307,6 +308,7 @@
       }
     },
     "pagesList": {
+      "home": "Home Page",
       "aboutSyntax": "About Syntax",
       "contactUs": "Contact Us",
       "resources": "Resources",

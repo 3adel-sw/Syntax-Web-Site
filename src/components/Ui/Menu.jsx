@@ -15,6 +15,7 @@ const projects = [
   { id: 4, nameKey: "menu.projects.podcast.name", descKey: "menu.projects.podcast.desc", path: "https://7orofcast.onsyntax.com/" },
 ];
 const pages = [
+    { labelKey: "menu.pagesList.home", path: "/" },
   { labelKey: "menu.pagesList.aboutSyntax", path: "/about" },
   { labelKey: "menu.pagesList.contactUs", path: "/contact" },
   { labelKey: "menu.pagesList.resources", path: "/resources" },
@@ -77,7 +78,7 @@ const Menu = ({ isScrolled }) => {
       >
         {/* Close */}
         <button
-          className="absolute top-4 right-4 text-[#1D1C20] hover:text-red-500 transition-colors"
+          className="absolute top-2 right-2 text-[#1D1C20] hover:text-red-500 transition-colors"
           onClick={() => setMenuOpen(false)}
           aria-label={t("registerModal.closeMenu")}
         >
@@ -85,8 +86,8 @@ const Menu = ({ isScrolled }) => {
         </button>
 
         {/* Our Projects */}
-        <div className="flex-1">
-          <p className="text-xl text-[#1D1C20] font-semibold  tracking-widest  mb-3">{t("menu.ourProjects")}</p>
+        <div className="flex-1 mt-6">
+          <p className="lg:text-xl  text-base  text-[#1D1C20] font-semibold  tracking-widest  mb-3">{t("menu.ourProjects")}</p>
           <div className="flex flex-col gap-2">
             {projects.map((p) => {
   const isActive = location.pathname === p.path || 
@@ -96,7 +97,7 @@ const Menu = ({ isScrolled }) => {
       key={p.id}
       to={p.path}
       onClick={() => setMenuOpen(false)}
-      className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2 sm:py-2 md:py-3 lg:py-7 py-1  rounded-xl transition-colors
+      className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2  md:py-3 lg:py-7 py-1  rounded-xl transition-colors
         ${isActive
           ? "bg-primary text-white"
           : "border border-gray-100 hover:bg-gray-50"
@@ -113,11 +114,11 @@ const Menu = ({ isScrolled }) => {
 </div>
         
         <div className="text-start">
-          <p className={`md:text-base sm:text-sm lg:text-xl  text-xs font-medium leading-none mb-1
+          <p className={`md:text-lg lg:text-2xl mb-1 text-lg 
             ${isActive ? "text-white" : "text-black"}`}>
             {t(p.nameKey)}
           </p>
-          <p className={`md:text-sm lg:text-xl sm:text-sm text-xs 
+          <p className={`md:text-base  lg:text-lg text-sm 
             ${isActive ? "text-white" : "text-black"}`}>
             {t(p.descKey)}
           </p>
@@ -143,7 +144,7 @@ const Menu = ({ isScrolled }) => {
         {/* <div className="w-px bg-gray-100 self-stretch" /> */}
 
         {/* Pages */}
-        <div className="w-[45%] shrink-1">
+        <div className="w-[45%] shrink-1 mt-6">
           <p className="text-xl text-[#1D1C20] font-semibold tracking-widest  mb-3">{t("menu.pages")}</p>
           <div className="flex flex-col gap-1">
             {pages.map((pg) => (
