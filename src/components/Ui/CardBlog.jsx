@@ -116,11 +116,12 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
   };
 
   const mappedCategory = categoryMap[activeCategory];
-  const filteredBlogs = activeCategory === "All Blogs" || activeCategory === t('blogs.allBlogs') || !activeCategory
+  const filteredBlogs = !activeCategory || activeCategory === "All Blogs" || activeCategory === t('blogs.allBlogs')
     ? blogs
     : blogs.filter(blog => {
-      const cat = blog.category?.name || blog.category;
-      return cat === mappedCategory;
+      const blogCat = blog.category?.name || blog.category;
+      if (!blogCat) return false;
+      return blogCat === activeCategory || blogCat === mappedCategory;
     });
 
   const visibleBlogs = excludeId
