@@ -10,13 +10,13 @@ import { useTranslation } from "react-i18next";
 
 const projects = [
   { id: 1, nameKey: "menu.projects.academy.name", descKey: "menu.projects.academy.desc", path: "/courses" },
-  { id: 2, nameKey: "menu.projects.meetup.name", descKey: "menu.projects.meetup.desc", path: "/events", active: true },
-  { id: 3, nameKey: "menu.projects.community.name", descKey: "menu.projects.community.desc", path: "https://www.facebook.com/groups/eguxmeetup/?ref=share" },
-  { id: 4, nameKey: "menu.projects.podcast.name", descKey: "menu.projects.podcast.desc", path: "https://7orofcast.onsyntax.com/" },
+  { id: 2, nameKey: "menu.projects.meetup.name", descKey: "menu.projects.meetup.desc", path: "/events" },
+  { id: 3, nameKey: "menu.projects.community.name", descKey: "menu.projects.community.desc", path: "https://www.facebook.com/groups/eguxmeetup/?ref=share" ,target:"_blank" },
+  { id: 4, nameKey: "menu.projects.podcast.name", descKey: "menu.projects.podcast.desc", path: "https://7orofcast.onsyntax.com/" ,target:"_blank" },
 ];
 const pages = [
     { labelKey: "menu.pagesList.home", path: "/" },
-  { labelKey: "menu.pagesList.aboutSyntax", path: "/about" },
+  { labelKey: "menu.pagesList.aboutSyntax", path: "/about"  },
   { labelKey: "menu.pagesList.contactUs", path: "/contact" },
   { labelKey: "menu.pagesList.resources", path: "/resources" },
   { labelKey: "menu.pagesList.blogs", path: "/blogs" },

@@ -60,8 +60,7 @@ const ChooseUs = ({ course }) => {
     translateXRef.current = newX;
     setTranslateX(newX);
   };
-console.log('course:', course);
-console.log('why_us:', course?.why_us);
+
   const handleTouchEnd = () => {
     setIsDragging(false);
     const slideIndex = Math.round(-translateXRef.current / 100);

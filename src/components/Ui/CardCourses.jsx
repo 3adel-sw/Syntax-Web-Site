@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 // ── Course Card ──────────────────────────────────────────
 const CourseCard = ({ course, navigate }) => {
   const courseId = course.id || course._id || course.slug;
-  // console.log('courseId:', courseId, '| full course:', course);
+  
   const toStr = (val) => {
     if (!val) return '';
     if (typeof val === 'object') return val?.name || val?.title || '';
@@ -64,7 +64,7 @@ const CardCourses = ({ activeCategory, limit, showButton, ButtonContent }) => {
   const navigate = useNavigate();
 
   const [courses, setCourses]   = useState([]);
-  // console.log('First course:', res.data?.courses?.[0]);
+
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 

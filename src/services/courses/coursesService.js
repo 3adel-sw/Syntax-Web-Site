@@ -3,10 +3,8 @@ import api from '../api';
 
 const getLang = () => localStorage.getItem('lang') || 'ar';
 
-export const getAllCourses = () => api.get('/courses');
+export const getAllCourses = () => api.get('/courses', { params: { lang: getLang() } });
 
-// export const getAllCourses = () => 
-//   api.get('/courses', { params: { lang: getLang() } })
 
 
 export const getCourseById = (id) => 

@@ -5,6 +5,7 @@ import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
 import { useTranslation } from 'react-i18next';
+
 const tabs = [
   { value: "All Courses", labelKey: "courses.tabs.all" },
   { value: "Online Workshop", labelKey: "courses.tabs.online" },

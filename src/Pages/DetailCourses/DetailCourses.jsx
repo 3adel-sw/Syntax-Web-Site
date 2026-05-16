@@ -75,7 +75,7 @@ const DetailCourses = () => {
           getTestimonials(),
         ]);
         setTestimonials(testimonialsRes.data?.testimonials || testimonialsRes.data || []);
-        // console.log('Course response:', res.data);
+       
         setCourse(res.data?.course || res.data);
       } catch (err) {
         setError(t('messages.failedToLoadCourse'));

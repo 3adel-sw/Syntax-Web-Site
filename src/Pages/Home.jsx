@@ -104,13 +104,13 @@ const Home = () => {
     {/* Title */}
     <h1 className="text-2xl md:text-5xl sm:text-4xl font-semibold text-gray-800 leading-snug">
       {item?.title || '  '}
-      <span className="text-black">{item?.highlight || t('home.highlight')}</span>
-      {item?.subtitle || t('home.subtitle')}
+      <span className="text-black">{item?.highlight }</span>
+      {item?.subtitle }
     </h1>
 
     {/* Description */}
     <p className="text-gray-700 mt-3 max-w-2xl mx-auto text-sm md:text-lg sm:text-base">
-      {item?.description || t('home.description')}
+      {item?.description }
     </p>
             {/* Button */}
         <div className="mt-5">
@@ -178,7 +178,7 @@ const Home = () => {
         {/* Testimonials */}
         <div className='md:my-22 sm:my-16 my-12 lg:my-24'>
           <div className='space-y-2'>
-            <span className='border text-primary border-primary gap-2 mx-auto w-38 h-12 rounded-full text-xl flex justify-center items-center'>
+            <span className='border text-primary border-primary gap-2 mx-auto w-46 h-12 rounded-full text-xl flex justify-center items-center'>
               <MessageSquare size={20} />
               {t('home.testimonials')}
             </span>
