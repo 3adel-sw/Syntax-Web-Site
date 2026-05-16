@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import Logo from '../../assets/logoFooter.svg'
 import { FaFacebook } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
+// import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { FaYoutube } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { getSetting } from '../../services/home/homeService';
 import { useTranslation } from 'react-i18next';
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -30,8 +30,8 @@ const Footer = () => {
 
   const socialLinks = [
     { key: 'facebook', href: settings?.social?.facebook, icon: <FaFacebook size={22} /> },
-    { key: 'github', href: settings?.social?.github, icon: <FaGithub size={22} /> },
-    { key: 'twitter', href: settings?.social?.twitter, icon: <FaTwitter size={22} /> },
+    // { key: 'github', href: settings?.social?.github, icon: <FaGithub size={22} /> },
+    { key: 'X', href: settings?.social?.twitter, icon: <FaXTwitter size={22} /> },
     { key: 'instagram', href: settings?.social?.instagram, icon: <FaInstagram size={22} /> },
     { key: 'linkedin', href: settings?.social?.linkedin, icon: <FaLinkedin size={22} /> },
     { key: 'tiktok', href: settings?.social?.tiktok, icon: <FaTiktok size={22} /> },
@@ -44,7 +44,7 @@ const Footer = () => {
   <div className="md:max-w-full mx-auto rounded-3xl px-10 py-10 bg-primary">
     
     {/* Grid: mobile = brand full width + 3 cols below | desktop = 4 cols */}
-    <div className="grid grid-cols-1 md:grid-cols-4 md:gap-20 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-40 md:gap-32 sm:gap-24 gap-8">
 
       {/* Brand - full width on mobile */}
       <div className="flex flex-col gap-4">
@@ -71,18 +71,18 @@ const Footer = () => {
       </div>
 
       {/* Links wrapper: on mobile = 3 cols in one row, on desktop = 3 separate grid cols */}
-      <div className="grid grid-cols-2 text-start md:text-center md:contents gap-6 md:gap-0">
+      <div className="grid grid-cols-2 text-start  md:contents gap-12 md:gap-14">
 
         {/* Solutions */}
         <div >
           <h4 className="text-xl font-bold text-white mb-4">{t('footer.solutions')}</h4>
           <ul className="space-y-4.5 text-base text-white/90">
             {[
-              ['footer.academy', '#'],
+              ['footer.academy', '/courses'],
               ['footer.uxDesignMeetup', '/events'],
-              ['footer.podcast', '#'],
-              ['footer.newsletter', '#'],
-              ['footer.community', '#'],
+              ['footer.podcast', '/podcasts'],
+              ['footer.newsletter', '/contact'],
+              ['footer.community', '/community'],
             ].map(([key, href]) => (
               <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
@@ -95,9 +95,9 @@ const Footer = () => {
           <ul className="space-y-4.5 text-base text-white/90">
             {[
               ['footer.blog', '/blogs'],
-              ['footer.resources', '#'],
+              ['footer.resources', '/resources'],
               ['footer.freeCourses', '/courses'],
-              ['footer.books', '#'],
+              ['footer.books', '/books'],
             ].map(([key, href]) => (
               <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
             ))}
@@ -110,7 +110,7 @@ const Footer = () => {
           <ul className="space-y-4.5 text-base text-white/90">
             {[
               ['nav.about', '/about'],
-              ['footer.history', '#'],
+              ['footer.history', '/history'],
               ['nav.contact', '/contact'],
             ].map(([key, href]) => (
               <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>
@@ -125,7 +125,7 @@ const Footer = () => {
           <ul className="flex flex-row gap-4  text-base text-white/90">
             {[
               ['nav.about', '/about'],
-              ['footer.history', '#'],
+              ['footer.history', '/history'],
               ['nav.contact', '/contact'],
             ].map(([key, href]) => (
               <li key={key}><a href={href} className="hover:text-white transition-colors">{t(key)}</a></li>

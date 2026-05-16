@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getCourseById } from '../../services/courses/coursesService';
 import Curriculum from "./Curriculum";
 import Overview from "./Overview";
-import { MessageSquare, Loader2 } from 'lucide-react';
+import { MessageSquare, Loader2, Check } from 'lucide-react';
 import Reports from "../../assets/reports.svg"
 import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
@@ -28,6 +28,14 @@ const DetailCourses = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language == 'ar';
 
+
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
+  };
 
   const toStr = (val) => {
     if (!val) return '';
@@ -86,30 +94,30 @@ const DetailCourses = () => {
         <RegisterModal courseName={course?.name} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
         {/* Course Title */}
         <h1 className="md:text-2xl text-xl text-start md:font-bold font-semibold text-gray-900 mb-5 mt-16 md:mt-10">
-          {course.title}
+          {course?.name || t('common.unavailable')}
         </h1>
         {/* Hero Banner */}
         <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
           {/* image */}
-          <img src={course.image || course.img } alt={course.title} className="w-full h-full object-fill " />
+          <img src={course.image || course.img } alt={course.title} className="w-full h-full object-cover " />
         </div>
         {/* Meta Bar */}
         <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
           {[
             { icon: <GoFileDirectory />, label: t('common.category'), value: toStr(course.category) || toStr(course.tag) || t('common.unavailable') },
-            { icon: <GrCertificate />, label: t('courses.certificate'), value: toStr(course.certification) || t('common.unavailable') },
+            { icon: <GrCertificate />, label: t('courses.certificate'), value: toStr(course.certification) || t('common.Yes') },
             // { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
             { icon: <MdOutlinePaid />, label: t('common.type'), value: toStr(course.type) || toStr(course.name) || t('common.unavailable') },
           ].map((item) => (
-            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-14 px-4 py-2.5">
-              {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-xs text-[9px]">{item.value}</strong>
+            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-[10px] text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-14 p-1">
+              {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-[10px] text-[9px]">{item.value}</strong>
             </span>
           ))}
-          <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+          <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg px-12 p-1 hover:bg-gray-200">
             <CiShare2 /> {t('common.share')}
           </button>
-          <button className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
-            <FaRegCopy /> {t('common.copyLink')}
+          <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg p-1 hover:bg-gray-200">
+            {linkCopied ? <Check size={14} className="text-green-600" /> : <FaRegCopy />} {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
           </button>
         </div>
         {/* Main Grid */}
@@ -202,8 +210,6 @@ const DetailCourses = () => {
           </>
         )}
       </div>
-
-      {/* <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg bg-red-200">{t('courses.text')}</div> */}
 
     </div>
   );

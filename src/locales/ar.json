@@ -26,7 +26,10 @@
     "brandLogo": "شعار سينتاكس",
     "unavailable": "غير متاح",
     "type": "النوع",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "copied": "تم النسخ!",
+    "Yes": "نعم",
+    "No": "لا"
   },
   "messages": {
     "failedToLoad": "فشل تحميل البيانات",

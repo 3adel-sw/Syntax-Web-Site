@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Calendar, Tag, Share2, Link, Loader2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Tag, Share2, Loader2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CardBlog from '../../components/Ui/CardBlog';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import { getBlogById } from '../../services/blogs/blogsService';
 import { useTranslation } from 'react-i18next';
+import { FaRegCopy } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+
 
 const BlogsDetails = () => {
   const { t, i18n } = useTranslation();
@@ -55,8 +58,12 @@ const BlogsDetails = () => {
     fetchBlog();
   }, [id, t]);
 
+  const [linkCopied, setLinkCopied] = useState(false);
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   if (loading) return (
@@ -120,12 +127,9 @@ const BlogsDetails = () => {
               <button className="flex items-center justify-center gap-3.5 text-base border-gray-300 border rounded-lg px-3 py-2">
                 <Share2 size={18} /> {t('common.share')}
               </button>
-              <button
-                onClick={handleCopyLink}
-                className="flex items-center justify-center gap-3.5 text-base border-gray-300 border rounded-lg px-3 py-2 text-gray-500 hover:text-gray-800 transition-colors"
-              >
-                <Link size={18} /> {t('common.copyLink')}
-              </button>
+             <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 bg-gray-100 border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+                        {linkCopied ? <FaCheck size={14} className="text-green-600" /> : <FaRegCopy />} {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
+                      </button>
             </div>
 
             {/* Article Body */}

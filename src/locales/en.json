@@ -26,7 +26,12 @@
     "brandLogo": "Syntax logo",
     "unavailable": "Unavailable",
     "type": "Type",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "copied": "Copied!",
+    "Yes": "Yes",
+    "No": "No"
+    
+    
   },
   "messages": {
     "failedToLoad": "Failed to load data",
