@@ -13,3 +13,6 @@ export const searchEvents = (query) =>
 
 export const getEventCategories = () => 
   api.get('/events/getCategory', { params: { lang: getLang() } });
+
+export const getEventAbout = () => 
+  api.get('/events/about', { params: { lang: getLang() } });

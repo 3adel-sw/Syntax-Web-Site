@@ -5,8 +5,9 @@ import TabSlider from '../../components/Ui/TabSlider';
 import Footer from '../../components/layout/Footer';
 import { useNavigate } from 'react-router-dom';
 import EventCard from '../../components/Ui/EventCard';
-import { getAllEvents } from '../../services/events/eventsService';
+import { getAllEvents ,getEventCategories,getEventAbout} from '../../services/events/eventsService';
 import { useTranslation } from 'react-i18next';
+
 
 const DEFAULT_FILTER_TABS = ['All Events'];
 
@@ -55,6 +56,7 @@ function Events() {
   const [filterTabs, setFilterTabs] = useState(DEFAULT_FILTER_TABS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [aboutEvent, setAboutEvent] = useState(null);
   const navigate = useNavigate();
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -65,17 +67,31 @@ function Events() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchAll = async () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await getAllEvents();
-        const eventsData = res.data?.events || res.data?.data || res.data || [];
-        const normalizedEvents = Array.isArray(eventsData) ? eventsData.map(normalizeEvent) : [];
-        const categories = [...new Set(normalizedEvents.map(event => event.type).filter(Boolean))];
+        const [eventsRes, aboutRes, catsRes] = await Promise.all([
+          getAllEvents(),
+          getEventAbout(),
+          getEventCategories(),
+        ]);
 
+        // Events
+        const eventsData = eventsRes.data?.events || eventsRes.data?.data || eventsRes.data || [];
+        const normalizedEvents = Array.isArray(eventsData) ? eventsData.map(normalizeEvent) : [];
         setEvents(normalizedEvents);
-        setFilterTabs([allEventsLabel, ...categories]);
+
+        // About header
+        const about = aboutRes?.data?.about_events?.[0];
+        if (about) setAboutEvent(about);
+
+        // Categories → filter tabs
+        const cats = catsRes?.data?.category || [];
+        const categoryNames = cats.map(cat => cat.name);
+        const uniqueFromEvents = [...new Set(normalizedEvents.map(event => event.type).filter(Boolean))];
+        const tabs = categoryNames.length ? categoryNames : uniqueFromEvents;
+        setFilterTabs([allEventsLabel, ...tabs]);
         setActiveFilter(allEventsLabel);
       } catch (err) {
         console.error(err);
@@ -85,7 +101,7 @@ function Events() {
       }
     };
 
-    fetchEvents();
+    fetchAll();
   }, [allEventsLabel, t]);
 
   const filteredEvents = activeFilter === allEventsLabel || activeFilter === 'All Events'
@@ -146,10 +162,10 @@ function Events() {
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="mb-6 text-start">
           <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight">
-            {t('events.heroTitle')}
+            {aboutEvent?.name || t('events.heroTitle')}
           </h1>
           <p className="text-sm text-gray-500 my-2 max-w-3xl">
-            {t('events.heroDescription')}
+            {aboutEvent?.description || t('events.heroDescription')}
           </p>
         </div>
 
