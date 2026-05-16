@@ -5,7 +5,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { getAllCourses, getCoursesByCategory } from '../../services/courses/coursesService';
 import { useTranslation } from 'react-i18next';
 
-// ── Course Card ──────────────────────────────────────────
+// ── Course Card
 const CourseCard = ({ course, navigate }) => {
   const courseId = course.id || course._id || course.slug;
   
@@ -78,21 +78,18 @@ useEffect(() => {
       setLoading(true);
       setError(null);
 
-      let res;
-      if (activeCategory && activeCategory !== 'All Courses' && activeCategory !== t('courses.allCourses')) {
-        res = await getCoursesByCategory(activeCategory);
-      } else {
-        res = await getAllCourses();
-      }
+    const res = (activeCategory !== null && activeCategory !== undefined)
+  ? await getCoursesByCategory(activeCategory)
+  : await getAllCourses();
 
-      setCourses(res.data?.courses || []);
-    } catch (err) {
-      setError(t('messages.failedToLoad'));
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+       setCourses(res?.courses ?? res?.data?.courses ?? []);
+      } catch (err) {
+        setError(t('messages.failedToLoad'));
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   fetchCourses();
 }, [activeCategory, t]);
