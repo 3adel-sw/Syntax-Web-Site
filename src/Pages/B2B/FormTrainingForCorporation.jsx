@@ -39,7 +39,7 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
         training_location: formData.trainingLocation,
         additional_request: formData.requestDetails,
       });
-      setSuccess(true);
+      setSuccess(false);
       setShowModal(true);
       if (onSubmit) onSubmit(formData);
     } catch (err) {

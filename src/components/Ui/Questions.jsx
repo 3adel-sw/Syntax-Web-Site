@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 
 const toStr = (val) => {
   if (!val) return '';
@@ -18,6 +19,7 @@ const Questions = ({ faqs = [] }) => {
   ];
   const data = faqs.length ? faqs : defaultFaqs; // Use provided FAQs or fallback to default
   const [openIndex, setOpenIndex] = useState(null);
+  const navigate = useNavigate();
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -30,7 +32,9 @@ const Questions = ({ faqs = [] }) => {
         <p className="text-gray-500 mt-4 md:mx-4 mx-0 text-start md:text-sm text-[14px]">
           {t("questions.subtitle")}
         </p>
-        <button className="flex my-4 items-center justify-center md:text-lg text-sm text-white bg-black border border-gray-200 rounded-2xl md:px-8 w-42 h-14 hover:bg-gray-200">
+        <button
+          onClick={() => navigate('/contact')}
+        className="flex my-4 items-center justify-center md:text-lg text-sm text-white bg-black border border-gray-200 rounded-2xl md:px-8 w-42 h-14 hover:bg-gray-200">
           {t("contact.title")}
         </button>
       </div>
