@@ -1,3 +1,4 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -13,20 +14,23 @@ export default defineConfig({
       "@": fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-    css: {
-    devSourcemap: false, 
+  css: {
+    devSourcemap: false,
   },
- build: {
-   assetsInlineLimit: 0,
-  sourcemap: false,
-  chunkSizeWarningLimit: 500,
+  build: {
+    assetsInlineLimit: 0,
+    sourcemap: false,
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
-       
         manualChunks(id) {
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/')
+          ) {
             return 'vendor'
           }
+
           if (id.includes('node_modules/react-router')) {
             return 'router'
           }
@@ -34,9 +38,6 @@ export default defineConfig({
       }
     }
   },
-   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx}",
-  ],
+
   assetsInclude: ['**/*.svg'],
 })

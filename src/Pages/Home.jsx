@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import imgHome from '../../public/images/homeBg.webp';
+
 import { Sparkle, MessageSquare } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
 import { useNavigate } from 'react-router-dom';

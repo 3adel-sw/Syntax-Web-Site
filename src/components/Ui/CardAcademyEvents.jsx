@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Mic, Users, Mail } from 'lucide-react';
-// import meetupImage from "../../../public/images/meetup.webp";
-// import Invitemembers from "../../../public/images/OurAcademy.webp";
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
