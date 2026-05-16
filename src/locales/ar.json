@@ -29,7 +29,10 @@
     "tryAgain": "حاول مرة أخرى",
     "copied": "تم النسخ!",
     "Yes": "نعم",
-    "No": "لا"
+    "No": "لا",
+    "x": "X",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn"
   },
   "messages": {
     "failedToLoad": "فشل تحميل البيانات",
