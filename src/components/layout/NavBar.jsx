@@ -5,16 +5,33 @@ import LanguageDropdown from "@/components/Ui/LanguageDropdown";
 import UserDropdown from "@/components/Ui/UserDropdown";
 import MenuPanel from "@/components/Ui/Menu";
 import { useTranslation } from "react-i18next";
+import { getSetting } from '../../services/home/homeService';
+
 
 const NavBar = () => {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [settings, setSettings] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+    useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await getSetting();
+setSettings(res.data?.settings ?? null);
+      } catch (err) {
+        console.error('Failed to load footer settings:', err);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
 
   return (
     <nav
@@ -26,7 +43,7 @@ const NavBar = () => {
       {/* Logo */}
       <Link to="/">
         <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8">
-          <img src={Logo} alt={t("common.brandLogo")} />
+          <img src={settings?.logo || Logo } alt={t("common.brandLogo")} />
         </div>
       </Link>
 

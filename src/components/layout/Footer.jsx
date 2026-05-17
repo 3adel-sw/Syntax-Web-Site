@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import Logo from '../../assets/logoFooter.svg'
 import { FaFacebook } from "react-icons/fa";
-// import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
@@ -10,6 +8,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { getSetting } from '../../services/home/homeService';
 import { useTranslation } from 'react-i18next';
 import { FaXTwitter } from "react-icons/fa6";
+import logoFooter from '../../assets/logoFooter.svg';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -19,7 +18,7 @@ const Footer = () => {
     const fetchSettings = async () => {
       try {
         const res = await getSetting();
-        setSettings(res.data?.settings || res.data || null);
+setSettings(res.data?.settings ?? null);
       } catch (err) {
         console.error('Failed to load footer settings:', err);
       }
@@ -49,7 +48,17 @@ const Footer = () => {
       {/* Brand - full width on mobile */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2 w-40 h-12">
-          <img src={settings?.footer_logo || settings?.logo || Logo} className='w-full object-cover' alt={t('common.brandLogo')} />
+          {(settings?.footer_logo || settings?.logo) && (
+  <img 
+  src={settings?.footer_logo || settings?.logo || logoFooter} 
+  className='w-36 h-auto object-contain' 
+  alt={t('common.brandLogo')}
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = logoFooter; 
+  }}
+/>
+)}
         </div>
         <p className="text-sm text-start text-white leading-relaxed">
           {settings?.description || t('footer.fallbackDescription')}

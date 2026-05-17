@@ -78,7 +78,7 @@ const CardAcademyEvents = () => {
   //  Fallback 
   const slides = iconProducts.length > 0
     ? iconProducts.slice(0, 3).map((p, i) => ({
-        icon: <img src={p.icon} alt={p.title} className="w-6 h-6 object-contain test-white" />,
+        icon: <img src={p.icon} alt={p.title} className="w-7 h-7 object-contain test-white" />,
         title: p.title,
         description: p.description,
         link: p.link,
@@ -123,9 +123,12 @@ const CardAcademyEvents = () => {
           onClick={() => goToLink(slide.link)}
           
           className="bg-white cursor-pointer rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
-            <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary bg-primary text-white rounded-full">
+           <div className='flex items-center justify-center border p-1 border-gray-400 w-18 h-18 rounded-full  left-4 absolute '>
+
+            <span className="flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
               {slide.icon}
             </span>
+           </div>
             <div className="max-2xl text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
               <h3  
               className="text-lg cursor-pointer text-start font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
@@ -142,9 +145,11 @@ const CardAcademyEvents = () => {
             <div className="flex" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: 'transform 0.3s ease-in-out' }}>
               {slides.map((slide, index) => (
                 <div key={index} onClick={() => goToLink(slide.link)} className="min-w-full cursor-pointer bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
-                  <span className="absolute flex items-center justify-center w-14 h-14 top-8 left-8 text-sm border border-primary bg-primary text-white rounded-full">
+                  <div className='flex items-center justify-center border p-1 border-gray-400 w-18 h-18 rounded-full  left-4 absolute '>
+                  <span className="absolute flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
                     {slide.icon}
                   </span>
+                  </div >
                   <div className="text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
                     <h3
                     className="text-lg  text-start font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
@@ -164,20 +169,35 @@ const CardAcademyEvents = () => {
         </div>
       </div>
 
-      {/* Our Numbers */}
-      <div className="md:my-20 sm:my-12 my-14 grid grid-cols-2 md:mx-0 mx-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6">
-        {numbersList.map((item) => (
-          <div key={item.label} className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4 relative">
-            <div className="flex flex-row items-start sm:items-center gap-2">
-              <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 p-2 md:p-3 shrink-0" alt="" />
-              <div>
-                <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
-                <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p>
-              </div>
-            </div>
+    {/* Our Numbers - Auto Slider */}
+<div className="md:my-20 sm:my-12 my-14 relative overflow-hidden"
+  style={{
+    maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
+  }}
+>
+  <div
+    className="flex gap-3 md:gap-4 w-max"
+    style={{ animation: 'scrollLeft 18s linear infinite' }}
+    onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
+    onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
+  >
+    {[...numbersList, ...numbersList].map((item, index) => (
+      <div
+        key={index}
+        className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4 flex-shrink-0 w-52"
+      >
+        <div className="flex flex-row items-center gap-2">
+          <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 shrink-0" alt="" />
+          <div>
+            <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
+            <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p>
           </div>
-        ))}
+        </div>
       </div>
+    ))}
+  </div>
+</div>
 
     </div>
   );

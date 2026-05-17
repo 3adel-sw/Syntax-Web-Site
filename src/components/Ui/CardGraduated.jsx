@@ -16,7 +16,7 @@ const CardGraduated = ({ data = [] }) => {
     <div className="my-8 overflow-hidden">
       <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
         {allLogos.map((logo, index) => (
-          <div key={`${logo.id}-${index}`} className="flex-shrink-1 flex items-center justify-center px-4">
+          <div key={`${logo.id}-${index}`} className="flex-shrink-0 flex items-center justify-center px-4">
             <img 
             loading="eager"
             fetchPriority="high"

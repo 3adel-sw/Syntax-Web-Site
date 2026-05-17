@@ -200,9 +200,12 @@ const EventsDetails = () => {
   // Check if event date has passed (midnight of event day)
   const eventDate = event.history ? new Date(event.history) : null;
   const now = new Date();
-  const isEventPassed = eventDate
-    ? now >= new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate() + 1)
-    : false;
+ const isEventPassed = eventDate
+  ? now >= new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 16, 0, 0)
+  : false;
+
+    
+
 
   const showContent = isRegistered || isEventPassed;
 
@@ -322,13 +325,13 @@ const EventsDetails = () => {
                       <img
                         src={speaker.image}
                         alt={speaker.name}
-                        className="w-14 h-14 rounded-full object-cover flex-shrink-1"
+                        className="w-14 h-14 rounded-full object-cover flex-shrink-0"
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}
                       />
-                      <span className="w-10 h-10 rounded-full bg-indigo-100 text-primary items-center justify-center flex-shrink-1 hidden">
+                      <span className="w-10 h-10 rounded-full bg-indigo-100 text-primary items-center justify-center flex-shrink-0 hidden">
                         <User size={18} />
                       </span>
                       <div>
