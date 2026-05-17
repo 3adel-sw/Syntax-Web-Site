@@ -11,6 +11,8 @@ import { LuLoaderCircle } from 'react-icons/lu';
 import { getAllEvents, getEventById } from '../../services/events/eventsService';
 import { useTranslation } from 'react-i18next';
 
+
+
 const toStr = (value) => {
   if (typeof value === 'string') return value;
   if (typeof value === 'number') return value.toString();
@@ -282,6 +284,38 @@ const EventsDetails = () => {
                 className={`prose prose-gray max-w-none ${textAlignClass} text-gray-500 prose-p:text-base prose-p:leading-relaxed mb-8`}
                 dangerouslySetInnerHTML={{ __html: event.description || event.small_description || t('messages.noDescription') }}
               />
+              {/* Map */}
+{event.map && event.map.startsWith('http') && (
+  <div className="mb-8">
+    <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-3`}>
+      {t('events.location')}
+    </h2>
+    <div className="rounded-2xl overflow-hidden border border-gray-200 h-64">
+      <iframe
+        src={event.map.replace(
+          'https://maps.google.com/maps?q=',
+          'https://maps.google.com/maps?output=embed&q='
+        )}
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title={event.location}
+      />
+    </div>
+    <a
+      href={event.map}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 mt-2 text-sm text-primary hover:underline"
+    >
+      <MapPin size={14} />
+      {event.location}
+    </a>
+  </div>
+)}
 
               {!showContent && (
                 <>

@@ -212,7 +212,7 @@ function Events() {
                     {upcomingEvent.time || t('common.time')}
                   </span>
                 </div>
-                <p className="text-lg text-start text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
+                <p className="text-base text-start text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
                   {upcomingEvent.description}
                 </p>
                 <button

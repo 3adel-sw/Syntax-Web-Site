@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaArrowLeftLong ,FaArrowRightLong} from "react-icons/fa6";
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +13,11 @@ const EventGallery = ({ images }) => {
   const prev = () => setCurrent((p) => (p === 0 ? galleryImages.length - 1 : p - 1));
   const next = () => setCurrent((p) => (p === galleryImages.length - 1 ? 0 : p + 1));
 
+  useEffect(() => {
+    const interval = setInterval(next, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
 // Imgs
   const getIndex = (offset) => (current + offset + galleryImages.length) % galleryImages.length;
 
@@ -24,7 +29,7 @@ const EventGallery = ({ images }) => {
       <div className="flex items-center gap-3 overflow-hidden">
 
         {/* Previous — small */}
-        <div className="md:flex-shrink-0 flex-shrink-1 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(-1)]}
             alt={t('events.previousImage')}
@@ -33,7 +38,7 @@ const EventGallery = ({ images }) => {
         </div>
 
         {/* Current — large center */}
-        <div className="md:flex-shrink-0 flex-shrink-1 md:w-[44%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
+        <div className=" flex-shrink-0 md:w-[44%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
           <img
             src={galleryImages[getIndex(0)]}
             alt={t('events.currentImage')}
@@ -42,7 +47,7 @@ const EventGallery = ({ images }) => {
         </div>
 
         {/* Next — small */}
-        <div className="md:flex-shrink-0 flex-shrink-1 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className=" flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(1)]}
             alt={t('events.nextImage')}
