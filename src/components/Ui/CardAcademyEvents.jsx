@@ -123,7 +123,7 @@ const CardAcademyEvents = () => {
           onClick={() => goToLink(slide.link)}
           
           className="bg-white cursor-pointer rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
-           <div className='flex items-center justify-center border p-1 border-gray-400 w-18 h-18 rounded-full  left-4 absolute '>
+           <div className='flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full  left-4 absolute '>
 
             <span className="flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
               {slide.icon}
@@ -145,7 +145,7 @@ const CardAcademyEvents = () => {
             <div className="flex" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: 'transform 0.3s ease-in-out' }}>
               {slides.map((slide, index) => (
                 <div key={index} onClick={() => goToLink(slide.link)} className="min-w-full cursor-pointer bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
-                  <div className='flex items-center justify-center border p-1 border-gray-400 w-18 h-18 rounded-full  left-4 absolute '>
+                  <div className='flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full  left-4 absolute '>
                   <span className="absolute flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
                     {slide.icon}
                   </span>

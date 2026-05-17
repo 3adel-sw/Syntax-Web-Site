@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, X, Volume2, VolumeX } from 'lucide-react';
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { useTranslation } from 'react-i18next';
 
 const getYoutubeId = (url = '') => {
@@ -132,7 +133,7 @@ const VideoModal = ({ item, onClose }) => {
 };
 
 // ========== Section Block ==========
-const Section = ({ title, subtitle, items, onPlay, isImage }) => {
+const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -175,7 +176,21 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
     }
   }, [currentSlide, isDragging]);
 
+  // Auto-slide for desktop
+  useEffect(() => {
+    if (!autoSlideInterval || !items.length) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => {
+        const max = Math.max(0, items.length - 3);
+        return prev >= max ? 0 : prev + 1;
+      });
+    }, autoSlideInterval);
+    return () => clearInterval(interval);
+  }, [autoSlideInterval, items.length]);
+
   if (!items.length) return null;
+
+  const maxSlide = Math.max(0, items.length - 3);
 
   return (
     <div className="mb-16">
@@ -220,11 +235,49 @@ const Section = ({ title, subtitle, items, onPlay, isImage }) => {
         </div>
       </div>
 
-      {/* Desktop Grid */}
-      <div className="hidden md:grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <VideoCard key={item.id} item={item} onClick={onPlay} isImage={isImage} />
-        ))}
+      {/* Desktop Carousel */}
+      <div className="hidden md:block">
+        <div className="relative">
+          <div className="overflow-hidden rounded-xl">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}
+            >
+              {items.map((item) => (
+                <div key={item.id} className="min-w-[33.333%] flex-shrink-2 px-2">
+                  <VideoCard item={item} onClick={onPlay} isImage={isImage} />
+                </div>
+              ))}
+            </div>
+          </div>
+          {items.length > 3 && (
+            <>
+              <button
+                onClick={() => setCurrentSlide((p) => Math.max(0, p - 1))}
+                className="absolute hidden left-0 top-1/2 -translate-y-1/2 -ml-4 w-9 h-9 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 shadow-md transition z-10"
+              >
+                <FaArrowLeftLong size={16} className="text-gray-600" />
+              </button>
+              <button
+                onClick={() => setCurrentSlide((p) => Math.min(maxSlide, p + 1))}
+                className="absolute hidden right-0 top-1/2 -translate-y-1/2 -mr-4 w-9 h-9 rounded-full bg-white border border-gray-300 flex items-center justify-center hover:bg-gray-100 shadow-md transition z-10"
+              >
+                <FaArrowRightLong size={16} className="text-gray-600" />
+              </button>
+            </>
+          )}
+        </div>
+        <div className="flex justify-center gap-2 mt-4">
+          {Array.from({ length: Math.max(1, maxSlide + 1) }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -244,6 +297,7 @@ const CapturedVideos = ({ course = {} }) => {
         subtitle={t('courseDetails.capturedMomentsSubtitle')}
         items={galleryItems}
         isImage={true}
+        autoSlideInterval={1000}
       />
       <Section
         title={t('courseDetails.videos')}
