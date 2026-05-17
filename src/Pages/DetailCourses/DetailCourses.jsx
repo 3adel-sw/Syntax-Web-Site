@@ -201,8 +201,8 @@ const DetailCourses = () => {
             </div>
           </div>
         </div>
-        {/* Sections below (Only on Overview) */}
-        {activeTab === 'overview' && (
+        {/* Sections below (Only on Two Taps) */}
+        
           <>
             {/* Why Choose Us */}
             <ChooseUs course={course} />
@@ -225,7 +225,7 @@ const DetailCourses = () => {
             {/* Footer */}
             <MainFooter courseName={course?.name || course?.title || t('common.course')} />
           </>
-        )}
+        
 
  {showShareMenu && (
   <>
