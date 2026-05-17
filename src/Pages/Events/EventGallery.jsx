@@ -3,18 +3,12 @@ import { FaArrowLeftLong ,FaArrowRightLong} from "react-icons/fa6";
 import { useTranslation } from 'react-i18next';
 
 
-const DEFAULT_IMAGES = [
-  'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80', // coffee
-  'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=600&q=80', // leaves dark
-  'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&q=80', // plant vase
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', // mountain
-  'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=80', // nature
-];
 
-const EventGallery = ({ images = DEFAULT_IMAGES }) => {
+
+const EventGallery = ({ images }) => {
   const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
-  const galleryImages = images.length ? images : DEFAULT_IMAGES;
+  const galleryImages = images;
 
   const prev = () => setCurrent((p) => (p === 0 ? galleryImages.length - 1 : p - 1));
   const next = () => setCurrent((p) => (p === galleryImages.length - 1 ? 0 : p + 1));
