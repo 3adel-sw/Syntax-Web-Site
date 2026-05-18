@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "@/assets/logoo.svg";
 import LanguageDropdown from "@/components/Ui/LanguageDropdown";
-import UserDropdown from "@/components/Ui/UserDropdown";
+// import UserDropdown from "@/components/Ui/UserDropdown";
 import MenuPanel from "@/components/Ui/Menu";
 import { useTranslation } from "react-i18next";
 import { getSetting } from '../../services/home/homeService';
@@ -35,7 +35,7 @@ setSettings(res.data?.settings ?? null);
 
   return (
     <nav
-      className={`syntax-navbar  md:py-4 mx-auto sm:py-3 py-2 rounded-2xl w-full lg:max-w-[98%]  2xl:max-w-[59%]   md:px-6 sm:px-6 px-4 z-50
+      className={`syntax-navbar  md:py-4 mx-auto sm:py-3 py-2 rounded-2xl w-full lg:max-w-[98%]  2xl:max-w-[78%]    md:px-6 sm:px-6 px-4 z-50
         flex items-center justify-between transition-all duration-300
         sticky top-0 left-0  3xl:fixed 3xl:left-1/2 3xl:-translate-x-1/2 3xl:w-[90%]
         ${isScrolled ? "bg-white shadow-md" : "  bg-transparent "}`}
@@ -52,7 +52,7 @@ setSettings(res.data?.settings ?? null);
         <div className="bg-gray-200 md:w-12 md:h-12 sm:w-10 sm:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
           <LanguageDropdown />
         </div>
-        <UserDropdown className="text-[#F7F4F2]" />
+        {/* <UserDropdown className="text-[#F7F4F2]" /> */}
 
         {/* Menu component */}
         <MenuPanel isScrolled={isScrolled} />
