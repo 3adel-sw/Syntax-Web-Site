@@ -15,12 +15,12 @@ const Overview = ({ course }) => {
 />
 
 {/* Certifications */}
-<h2 className="text-2xl font-semibold text-gray-900 mb-3">{t('courseDetails.certifications')}</h2>
+{/* <h2 className="text-2xl font-semibold text-gray-900 mb-3">{t('courseDetails.certifications')}</h2>
 <div
   dir="auto"
   className="prose prose-gray max-w-none text-gray-500 leading-relaxed"
   dangerouslySetInnerHTML={{ __html: course?.certificationDesc || course?.certification_desc || t('common.notFound') }}
-/>
+/> */}
     </>
   );
 };

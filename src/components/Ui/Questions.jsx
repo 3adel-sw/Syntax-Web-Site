@@ -26,7 +26,7 @@ const Questions = ({ faqs = [] }) => {
   };
 
   return (
-    <div className="flex items-center md:flex-row flex-col justify-between md:my-14 my-12">
+    <div className="flex items-start md:flex-row flex-col justify-between md:my-14 my-12">
       <div className="w-full md:w-1/3 text-start flex flex-col items-start">
         <h2 className="md:text-4xl text-2xl font-bold text-gray-900 text-start">{t("questions.title")}</h2>
         <p className="text-gray-500 mt-4 md:mx-4 mx-0 text-start md:text-sm text-[14px]">

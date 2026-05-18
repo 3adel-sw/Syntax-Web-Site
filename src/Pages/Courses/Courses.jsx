@@ -62,7 +62,7 @@ const isAr = i18n.language === 'ar';
             </div>
           ) : (
             <>
-              <h1 className="md:text-[30px] text-base mt-4 font-bold max-w-[38rem] text-gray-800">
+              <h1 className="md:text-[30px] text-base mt-4 font-bold  text-gray-800">
                 {aboutCourse?.name }
               </h1>
               <p className="text-gray-500 md:text-[22px] max-w-5xl text-sm mb-2">

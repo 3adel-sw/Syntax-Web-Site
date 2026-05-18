@@ -9,6 +9,7 @@ import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
 import CapturedVideos from '../../components/Ui/CapturedVideos';
 import MainFooter from '../../components/Ui/MainFooter';
+import Footer from "../../components/layout/Footer";
 import RegisterModal from '../../components/Ui/RegisterModal';
 import Questions from '../../components/Ui/Questions';
 import { FaBook } from "react-icons/fa";
@@ -112,7 +113,7 @@ const DetailCourses = () => {
         {/* Hero Banner */}
         <div className="rounded-4xl border border-gray-200 overflow-hidden mb-5 h-82 md:h-[28rem] bg-gray-50">
           {/* image */}
-          <img src={course.image || course.img } alt={course.title} className="w-full h-full object-cover " />
+          <img src={course.banner_image || course.img } alt={course.title} className="w-full h-full object-cover " />
         </div>
         {/* Meta Bar */}
         <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
@@ -223,6 +224,10 @@ const DetailCourses = () => {
             {/* Captured Videos */}
             <CapturedVideos course={course} />
             {/* Footer */}
+            <div className="lg:max-w-7xl max-w-5xl mx-auto py-10 mb-14  md:mb-25 lg:mb-27 ">
+              <Footer />
+            </div>
+            {/*Main Footer */}
             <MainFooter courseName={course?.name || course?.title || t('common.course')} />
           </>
         
