@@ -7,6 +7,7 @@ export const getCounters = () => api.get('/counters', { params: { lang: getLang(
 export const getOrganizations = () => api.get('/organizations', { params: { lang: getLang() } });
 export const getLatestCourses = () => api.get('/latestCourses', { params: { lang: getLang() } });
 export const getLatestBlogs = () => api.get('/latestBlogs', { params: { lang: getLang() } });
+// export const getTestimonials = () => api.get('/testimonials', { params: { lang: getLang() } });
 export const getTestimonials = () => api.get('/testimonials', { params: { lang: getLang() } });
 export const getAllTestimonials = () => api.get('/alltestimonials', { params: { lang: getLang() } });
 export const getAllProducts = () => api.get('/allproducts', { params: { lang: getLang() } });

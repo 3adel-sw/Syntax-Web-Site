@@ -50,7 +50,7 @@ const EventsDetails = () => {
   const [event, setEvent] = useState(null);
   const [otherEvents, setOtherEvents] = useState([]);
   const [showVideo, setShowVideo] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  // const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -116,7 +116,7 @@ const EventsDetails = () => {
 
         setEvent(eventData);
         setShowVideo(false);
-        setIsRegistered(false);
+        // setIsRegistered(false);
         setOtherEvents(
           Array.isArray(eventsData)
             ? eventsData
@@ -199,17 +199,33 @@ const EventsDetails = () => {
   const direction = isArabic ? 'rtl' : 'ltr';
   const textAlignClass = isArabic ? 'text-right' : 'text-start';
 
-  // Check if event date has passed (midnight of event day)
-  const eventDate = event.history ? new Date(event.history) : null;
+  // Compute event start time from history + time
+  const getEventStartTime = () => {
+    if (!event.history) return null;
+    const date = new Date(event.history);
+    if (isNaN(date.getTime())) return null;
+
+    if (event.time) {
+      const timeStr = event.time.trim();
+      const match = timeStr.match(/(\d{1,2}):(\d{2})(?:\s*(AM|PM|am|pm))?/);
+      if (match) {
+        let hours = parseInt(match[1], 10);
+        const minutes = parseInt(match[2], 10);
+        const ampm = (match[3] || '').toUpperCase();
+        if (ampm === 'PM' && hours < 12) hours += 12;
+        if (ampm === 'AM' && hours === 12) hours = 0;
+        date.setHours(hours, minutes, 0, 0);
+        return date;
+      }
+    }
+
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+  };
+
+  const eventStart = getEventStartTime();
   const now = new Date();
- const isEventPassed = eventDate
-  ? now >= new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 16, 0, 0)
-  : false;
-
-    
-
-
-  const showContent = isRegistered || isEventPassed;
+  const isEventPassed = eventStart ? now >= eventStart : false;
+  const canRegister = eventStart ? now < new Date(eventStart.getTime() - 8 * 60 * 60 * 1000) : true;
 
   return (
     <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
@@ -274,7 +290,7 @@ const EventsDetails = () => {
                 <img src={image} alt={title} className="w-full h-full object-cover" />
               </div>
 
-              {showContent && showVideo && videos.length > 0 && <VideosYouTube videos={videos} />}
+              {isEventPassed && showVideo && videos.length > 0 && <VideosYouTube videos={videos} />}
 
               <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-2`}>
                 {t('events.eventDescription')}
@@ -317,18 +333,18 @@ const EventsDetails = () => {
   </div>
 )}
 
-              {!showContent && (
+              {canRegister && (
                 <>
                   <h2 className={`text-xl ${textAlignClass} font-semibold text-gray-900 mb-4`}>
                     {t('events.eventRegistration')}
                   </h2>
-                  <RegistrEvents onSuccess={() => setIsRegistered(true)} />
+                  <RegistrEvents eventId={event.id} />
                 </>
               )}
             </div>
 
             <div className="space-y-6">
-              {showContent && videos.length > 0 && (
+              {isEventPassed && videos.length > 0 && (
                 <button
                   onClick={() => setShowVideo(!showVideo)}
                   className="py-2.5 px-4 text-sm flex items-center justify-center gap-2 border border-primary bg-primary rounded-lg hover:bg-primary/90 w-full text-white transition"
@@ -383,7 +399,7 @@ const EventsDetails = () => {
             </div>
           </div>
 
-          {showContent && <EventGallery images={gallery} />}
+          {isEventPassed && <EventGallery images={gallery} />}
         </div>
 
         <div className="my-10">
