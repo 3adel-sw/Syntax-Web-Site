@@ -29,12 +29,12 @@ if (historiesData.length === 0) {
       >
         {/* Badge */}
         <span className="md:text-xl  text-lg  font-semibold text-[#B71C41]  tracking-wide">
-          {historiesData.badge}
+          {historiesData.badge || " Our Achievements"}
         </span>
 
         {/* Title */}
         <h2 className="md:text-5xl  text-2xl  font-semibold text-gray-900 leading-tight max-w-3xl -mt-3">
-          {historiesData.title}
+          {historiesData.title || " Transforming Lives Through Education: Our Impact Creative Industry"}
         </h2>
 
         {/* Stats Row */}

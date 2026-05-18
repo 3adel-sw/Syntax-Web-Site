@@ -51,16 +51,16 @@ const Blogs = () => {
 
         {/* Header */}
         {loading ? (
-          <div className="animate-pulse space-y-2 mt-4">
+          <div className="animate-pulse space-y-3 mt-4">
             <div className="h-8 bg-gray-200 rounded w-2/3" />
             <div className="h-5 bg-gray-200 rounded w-full" />
           </div>
         ) : (
           <>
-            <h1 className="text-3xl text-start font-bold text-gray-900 mb-2 md:my-4 mt-11 md:mt-4">
+            <h1 className="md:text-[30px] text-base mt-4 text-start font-bold  text-gray-800">
               {aboutBlog?.name || t('blogs.welcome')}
             </h1>
-            <p className="text-[16px] text-start text-gray-500 mb-8">
+           <p className="text-gray-500 md:text-[22px] max-w-5xl text-sm mb-2 text-start">
               {aboutBlog?.description || t('blogs.intro')}
             </p>
           </>

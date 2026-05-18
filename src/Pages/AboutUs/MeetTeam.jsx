@@ -1,18 +1,14 @@
-import { useState, useEffect } from "react";
-import { FaArrowLeft ,FaArrowRight } from "react-icons/fa6";
-import {getTeams} from "../../services/about/aboutService";
+import { useState, useEffect, useRef } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { getTeams } from "../../services/about/aboutService";
 import { useTranslation } from "react-i18next";
-// Mock Data For API
-
 
 const getVisibleCount = () => {
   const w = window.innerWidth;
-  if (w < 640) return 1;        // mobile
-  if (w < 768) return 2;        // sm
-  if (w < 1024) return 3;       // md
-  if (w < 1280) return 4;       // lg
-  if (w < 1500) return 5;       // xl
-  return 5;                     // xxl
+  if (w < 640) return 1;
+  if (w < 768) return 2;
+  if (w < 1024) return 3;
+  return 4;
 };
 
 const MeetTeam = () => {
@@ -22,54 +18,83 @@ const MeetTeam = () => {
   const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
+  const autoPlayRef = useRef(null);
 
-    useEffect(() => {
-      getTeams ()
-        .then((response) => setTeamsData(response.data.teams))
-        .catch((err) => setError(err.message))
-        .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    getTeams()
+      .then((response) => setTeamsData(response.data.teams))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
       setVisibleCount(getVisibleCount());
-      setStartIndex(0); 
+      setStartIndex(0);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-     if (loading) return <div>{t("common.loading")}</div>;
-if (error) return <div>{error}</div>;
-if (!teamsData) return null;
+  // Auto-play loop
+  useEffect(() => {
+    if (!teamsData) return;
 
-   const canPrev = startIndex > 0;
-const canNext = startIndex + visibleCount < teamsData.length;
-const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
+    autoPlayRef.current = setInterval(() => {
+      setStartIndex((prev) => {
+        const canNext = prev + visibleCount < teamsData.length;
+        return canNext ? prev + 1 : 0; 
+      });
+    }, 1000);
 
-  const handlePrev = () => { if (canPrev) setStartIndex((i) => i - 1); };
-  const handleNext = () => { if (canNext) setStartIndex((i) => i + 1); };
+    return () => clearInterval(autoPlayRef.current);
+  }, [teamsData, visibleCount]);
 
-  
+  // Stop hover
+  const pauseAutoPlay = () => clearInterval(autoPlayRef.current);
+  const resumeAutoPlay = () => {
+    if (!teamsData) return;
+    autoPlayRef.current = setInterval(() => {
+      setStartIndex((prev) => {
+        const canNext = prev + visibleCount < teamsData.length;
+        return canNext ? prev + 1 : 0;
+      });
+    }, 1000);
+  };
 
+  const handlePrev = () => {
+    setStartIndex((i) => (i > 0 ? i - 1 : teamsData.length - visibleCount));
+  };
+  const handleNext = () => {
+    setStartIndex((i) => {
+      const canNext = i + visibleCount < teamsData.length;
+      return canNext ? i + 1 : 0;
+    });
+  };
+
+  if (loading) return <div>{t("common.loading")}</div>;
+  if (error) return <div>{error}</div>;
+  if (!teamsData) return null;
+
+  const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
 
   return (
-    <section className="w-full my-12 md:my-25 ">
-      {/* Gradient Card */}
+    <section className="w-full my-12 md:my-25">
       <div
-        className="rounded-3xl p-6 sm:p-10 md:p-16  flex flex-col items-center gap-8"
+        className="rounded-3xl p-6 sm:p-10 md:p-16 flex flex-col items-center gap-8"
         style={{
-          background: "linear-gradient(182deg, #EFE0F7 1.4%, rgba(241, 242, 242, 0.44) 54.02%, #D4EBFC 98.85%)",
+          background:
+            "linear-gradient(182deg, #EFE0F7 1.4%, rgba(241, 242, 242, 0.44) 54.02%, #D4EBFC 98.85%)",
         }}
+        onMouseEnter={pauseAutoPlay}
+        onMouseLeave={resumeAutoPlay}
       >
         {/* Header */}
         <div className="text-center">
           <h2 className="text-2xl md:text-5xl font-semibold text-gray-900 mb-4">
             {t("about.meetTeamBehindSyntax")}
           </h2>
-          <p className="text-base  text-gray-500">
-            {t("about.teamSubtitle")}
-          </p>
+          <p className="text-base text-gray-500">{t("about.teamSubtitle")}</p>
         </div>
 
         {/* Cards Row */}
@@ -77,11 +102,9 @@ const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
           {visibleMembers.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-2xl md:min-w-[200px] md:max-w-[220px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] p-3 flex flex-col items-center gap-2 shadow-sm  "
-              
+              className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] p-3 flex flex-col items-center gap-2 shadow-sm transition-all duration-500"
             >
-              {/* Photo */}
-              <div className="w-full md:w-[176px] h-full md:h-[222px] aspect-square rounded-xl overflow-hidden ">
+              <div className="w-full md:w-[182px] h-full md:h-[228px] aspect-square rounded-xl overflow-hidden">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -92,7 +115,6 @@ const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
                   }}
                 />
               </div>
-              {/* Info */}
               <div className="text-center">
                 <p className="text-xl md:text-lg font-bold text-gray-900">{member.name}</p>
                 <p className="text-sm md:text-xs text-gray-400">{member.position}</p>
@@ -105,23 +127,13 @@ const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
         <div className="flex gap-3">
           <button
             onClick={handlePrev}
-            disabled={!canPrev}
-            className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all
-              ${canPrev
-                ? "border-gray-400 text-gray-700 hover:bg-white hover:shadow"
-                : "border-gray-300 text-gray-300 cursor-not-allowed"
-              }`}
+            className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
           >
             <FaArrowLeft size={18} />
           </button>
           <button
             onClick={handleNext}
-            disabled={!canNext}
-            className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all
-              ${canNext
-                ? "border-gray-400 text-gray-700 hover:bg-white hover:shadow"
-                : "border-gray-300 text-gray-300 cursor-not-allowed"
-              }`}
+            className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
           >
             <FaArrowRight size={18} />
           </button>
