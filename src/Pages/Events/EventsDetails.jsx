@@ -300,11 +300,11 @@ const EventsDetails = () => {
                 className={`prose prose-gray max-w-none ${textAlignClass} text-gray-500 prose-p:text-base prose-p:leading-relaxed mb-8`}
                 dangerouslySetInnerHTML={{ __html: event.description || event.small_description || t('messages.noDescription') }}
               />
-              {/* Map */}
+              {/*Map*/}
 {event.map && event.map.startsWith('http') && (
   <div className="mb-8">
     <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-3`}>
-      {t('events.location')}
+      {t('events.locationOnMap')}
     </h2>
     <div className="rounded-2xl overflow-hidden border border-gray-200 h-64">
       <iframe

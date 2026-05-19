@@ -175,7 +175,23 @@
     "eventPosterAlt": "Event poster",
     "previousImage": "Previous image",
     "currentImage": "Current image",
-    "nextImage": "Next image"
+    "nextImage": "Next image",
+    "locationOnMap": "Location On Map",
+    "duration": "Duration",
+    "level": "Level",
+    "registerNow": "Register Now",
+    "backToEvents": "Back to Events",
+    "getYourTicket": "Get Your Ticket",
+    "ticketsSoldOut": "Tickets Sold Out",
+    "fullHouse": "Full House",
+    "sessionStarted": "Session Started",
+    "registrationClosed": "Registration Closed",
+    "register": "Register",
+    "registrationClosedAlt": "Registration closed banner",
+    "ticketsSoldAlt": "Tickets sold out banner",
+    "fullHouseAlt": "Full house banner",
+    "sessionStartedAlt": "Session started banner"
+    
   },
   "forms": {
     "fullName": "Full name",
