@@ -10,7 +10,7 @@ const EventCard = ({ event }) => {
   return (
   <div  
   onClick={() => navigate(`/events-detail/${event.id}`)}
-  className="bg-white rounded-2xl border  h-[26rem] border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+  className="bg-white rounded-2xl border  h-fit border-gray-200 p-2  overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
       >
          <div className="h-67 flex items-center rounded-2xl justify-center relative overflow-hidden">
       <div className="w-full h-full rounded-lg overflow-hidden">
@@ -28,9 +28,9 @@ const EventCard = ({ event }) => {
         />
       </div>
     </div>
-    <div className="p-3 text-start space-y-2">
+    <div className="p-2.5 text-start space-y-2">
       <span className="inline-block bg-[#EDEEF9] text-primary text-[11px] font-semibold tracking-wider px-3 py-1 rounded-md mb-3">{event.type}</span>
-      <h3 className="text-[19px] font-bold text-gray-900 mb-2 leading-snug mt-2">{event.title}</h3>
+      <h3 className="text-[17px] font-bold text-gray-900 mb-2 leading-snug mt-2">{event.title}</h3>
       <div className="flex items-center gap-3 text-sm my-4 text-gray-500">
         <Clock  size={18} />
         <span>{event.duration}</span>
