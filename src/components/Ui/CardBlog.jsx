@@ -35,7 +35,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
   return (
     <div
        onClick={() => navigate(`/blogs-detail/${slug || id}`)}
-      className="bg-white rounded-2xl border h-[27rem] border-gray-200 p-3 overflow-hidden hover:-translate-y-1 hover:shadow-xl cursor-pointer"
+      className="bg-white rounded-2xl border h-fit border-gray-200 p-3 overflow-hidden hover:-translate-y-1 hover:shadow-xl cursor-pointer"
     >
       <div className="h-61 flex items-center rounded-2xl justify-center relative overflow-hidden">
         {(image || thumb) ? (

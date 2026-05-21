@@ -18,7 +18,7 @@ const CourseCard = ({ course, navigate }) => {
   return (
     <div
      onClick={() => navigate(`/courses-detail/${courseId}`)}
-     className="bg-white rounded-2xl border h-[26rem] border-gray-200 p-2 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
+     className="bg-white rounded-2xl border h-fil border-gray-200 p-2 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer"
   >
       <div className="h-68 flex items-center rounded-2xl justify-center relative overflow-hidden bg-gray-100">
       

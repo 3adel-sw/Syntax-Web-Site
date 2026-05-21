@@ -1,7 +1,7 @@
 import api from '../api';
 
 const getLang = () => localStorage.getItem('lang') || 'ar';
-  // All blog-related API calls with language parameter
+
 export const getAllEvents = async () => {
   let allEvents = [];
   let page = 1;
