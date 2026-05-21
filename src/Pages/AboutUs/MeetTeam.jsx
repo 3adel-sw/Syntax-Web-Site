@@ -18,6 +18,8 @@ const MeetTeam = () => {
   const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState("next");
   const autoPlayRef = useRef(null);
 
   useEffect(() => {
@@ -36,40 +38,57 @@ const MeetTeam = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Auto-play loop
+  const goTo = (newIndex, dir) => {
+    if (animating) return;
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => {
+      setStartIndex(newIndex);
+      setAnimating(false);
+    }, 350);
+  };
+
   useEffect(() => {
     if (!teamsData) return;
-
     autoPlayRef.current = setInterval(() => {
       setStartIndex((prev) => {
         const canNext = prev + visibleCount < teamsData.length;
-        return canNext ? prev + 1 : 0; 
+        const next = canNext ? prev + 1 : 0;
+        setDirection("next");
+        setAnimating(true);
+        setTimeout(() => setAnimating(false), 350);
+        return next;
       });
-    }, 1000);
-
+    }, 2500);
     return () => clearInterval(autoPlayRef.current);
   }, [teamsData, visibleCount]);
 
-  // Stop hover
   const pauseAutoPlay = () => clearInterval(autoPlayRef.current);
   const resumeAutoPlay = () => {
     if (!teamsData) return;
     autoPlayRef.current = setInterval(() => {
       setStartIndex((prev) => {
         const canNext = prev + visibleCount < teamsData.length;
-        return canNext ? prev + 1 : 0;
+        const next = canNext ? prev + 1 : 0;
+        setDirection("next");
+        setAnimating(true);
+        setTimeout(() => setAnimating(false), 350);
+        return next;
       });
-    }, 1000);
+    }, 2500);
   };
 
   const handlePrev = () => {
-    setStartIndex((i) => (i > 0 ? i - 1 : teamsData.length - visibleCount));
+    if (!teamsData) return;
+    const newIndex = startIndex > 0 ? startIndex - 1 : teamsData.length - visibleCount;
+    goTo(newIndex, "prev");
   };
+
   const handleNext = () => {
-    setStartIndex((i) => {
-      const canNext = i + visibleCount < teamsData.length;
-      return canNext ? i + 1 : 0;
-    });
+    if (!teamsData) return;
+    const canNext = startIndex + visibleCount < teamsData.length;
+    const newIndex = canNext ? startIndex + 1 : 0;
+    goTo(newIndex, "next");
   };
 
   if (loading) return <div>{t("common.loading")}</div>;
@@ -77,6 +96,14 @@ const MeetTeam = () => {
   if (!teamsData) return null;
 
   const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
+
+  const slideStyle = {
+    transform: animating
+      ? `translateX(${direction === "next" ? "-40px" : "40px"})`
+      : "translateX(0)",
+    opacity: animating ? 0 : 1,
+    transition: "transform 350ms ease, opacity 350ms ease",
+  };
 
   return (
     <section className="w-full my-12 md:my-25">
@@ -102,13 +129,14 @@ const MeetTeam = () => {
           {visibleMembers.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] p-3 flex flex-col items-center gap-2 shadow-sm transition-all duration-500"
+              style={slideStyle}
+              className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] py-4 flex flex-col items-center gap-1 shadow-sm"
             >
-              <div className="w-full md:w-[182px] h-full md:h-[228px] aspect-square rounded-xl overflow-hidden">
+              <div className="w-full h-full  aspect-square rounded-xl overflow-hidden">
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     e.target.style.display = "none";
                     e.target.parentNode.style.background = "#c8d8e8";

@@ -7,7 +7,7 @@ const MainFooter = ({ courseName }) => {
 
 
   return (
-    <div className="lg:w-full w-[92%] md:w-full  z-50 mx-auto  bottom-0 md:left-0   fixed  my-10">
+    <div className="lg:w-full w-[92%] md:w-full  z-10 mx-auto  bottom-0 md:left-0   fixed  my-10">
       <RegisterModal courseName={courseName} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       
       <div className="bg-primary max-w-6xl mx-auto  rounded-2xl md:rounded-2xl px-6 md:px-12 py-6 md:py-12 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-4">

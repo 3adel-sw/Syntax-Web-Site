@@ -31,7 +31,17 @@ const Menu = ({ isScrolled }) => {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+useEffect(() => {
+  if (menuOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 
+  return () => {
+    document.body.style.overflow = "";
+  };
+}, [menuOpen]);
   // 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
