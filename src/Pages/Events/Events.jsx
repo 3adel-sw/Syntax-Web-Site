@@ -40,7 +40,7 @@ const formatDate = (value, locale = 'en-US', fallback = 'Date') => {
 const normalizeEvent = (event) => ({
   ...event,
   title: event.name || event.title,
-  type: event.category?.name || event.type || 'Event',
+  type: (event.category?.name || event.type || 'Event').trim(),
   status: event.type,
   duration: event.time || event.duration || event.history,
   date: event.history || event.date,
@@ -88,7 +88,7 @@ function Events() {
 
         // Categories → filter tabs
         const cats = catsRes?.data?.category || [];
-        const categoryNames = cats.map(cat => cat.name);
+        const categoryNames = cats.map(cat => (cat.name || '').trim());
         const uniqueFromEvents = [...new Set(normalizedEvents.map(event => event.type).filter(Boolean))];
         const tabs = categoryNames.length ? categoryNames : uniqueFromEvents;
         setFilterTabs([allEventsLabel, ...tabs]);

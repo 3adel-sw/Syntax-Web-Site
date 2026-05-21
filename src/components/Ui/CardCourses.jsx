@@ -78,6 +78,7 @@ const CardCourses = ({ data, activeCategory, activeCategoryName, limit, showButt
   // ── Fetch all courses once (only if no data prop) ──
   useEffect(() => {
     if (data) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCourses(normalizeArray(data));
       setLoading(false);
       return;

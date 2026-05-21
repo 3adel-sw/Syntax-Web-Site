@@ -38,7 +38,7 @@ const formatDate = (value, locale = 'en-US', fallback = 'Date') => {
 const normalizeEvent = (event) => ({
   ...event,
   title: event.name || event.title,
-  type: event.category?.name || event.type || 'Event',
+  type: (event.category?.name || event.type || 'Event').trim(),
   duration: event.time || event.duration || event.history,
   image: event.image || event.banner_image,
 });

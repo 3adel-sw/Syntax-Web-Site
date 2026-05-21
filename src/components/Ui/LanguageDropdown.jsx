@@ -7,7 +7,7 @@ const LanguageToggle = () => {
 
 
 
-  const [lang, setLang] = useState(() => {
+  const [lang] = useState(() => {
     if (typeof window === "undefined") return "ar";
     return localStorage.getItem("lang") || i18n.language || "ar";
   });
@@ -24,6 +24,7 @@ useEffect(() => {
       window.location.reload(); 
     });
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
   const handleToggle = () => {
