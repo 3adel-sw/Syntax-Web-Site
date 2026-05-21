@@ -106,11 +106,11 @@ function Events() {
 
   const filteredEvents = activeFilter === allEventsLabel || activeFilter === 'All Events'
     ? events
-    : events.filter(event => event.type === activeFilter);
+    : events.filter(event => event.type === activeFilter)
+    || events[0];
 
   const upcomingEvent = events.find(event => event.status === 'Up-coming')
     || events.find(event => toStr(event.status).toLowerCase().includes('up'))
-    || events[0];
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
@@ -250,7 +250,7 @@ function Events() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
             {filteredEvents.length ? (
               filteredEvents.map((event) => (
                 <EventCard key={event.id} event={event} />

@@ -300,7 +300,7 @@ const EventsDetails = () => {
                 className={`prose prose-gray max-w-none ${textAlignClass} text-gray-500 prose-p:text-base prose-p:leading-relaxed mb-8`}
                 dangerouslySetInnerHTML={{ __html: event.description || event.small_description || t('messages.noDescription') }}
               />
-              {/*Map*/}
+{/* Map */}
 {event.map && event.map.startsWith('http') && (
   <div className="mb-8">
     <h2 className={`text-lg ${textAlignClass} font-bold text-gray-900 mb-3`}>
@@ -308,10 +308,29 @@ const EventsDetails = () => {
     </h2>
     <div className="rounded-2xl overflow-hidden border border-gray-200 h-64">
       <iframe
-        src={event.map.replace(
-          'https://maps.google.com/maps?q=',
-          'https://maps.google.com/maps?output=embed&q='
-        )}
+        src={(() => {
+          const url = event.map;
+
+          // Handle already-embed links
+          if (url.includes('output=embed') || url.includes('/embed')) {
+            return url;
+          }
+
+          // Extract coordinates from links like: @lat,lng or q=lat,lng
+          const coordMatch = url.match(/[@?&](-?\d+\.\d+),(-?\d+\.\d+)/);
+          if (coordMatch) {
+            return `https://maps.google.com/maps?q=${coordMatch[1]},${coordMatch[2]}&output=embed&z=15`;
+          }
+
+          // Extract from q= parameter
+          const qMatch = url.match(/[?&]q=([^&]+)/);
+          if (qMatch) {
+            return `https://maps.google.com/maps?q=${qMatch[1]}&output=embed&z=15`;
+          }
+
+          // Fallback: use location name
+          return `https://maps.google.com/maps?q=${encodeURIComponent(event.location)}&output=embed&z=15`;
+        })()}
         width="100%"
         height="100%"
         style={{ border: 0 }}

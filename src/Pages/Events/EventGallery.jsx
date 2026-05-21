@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { FaArrowLeftLong ,FaArrowRightLong} from "react-icons/fa6";
 import { useTranslation } from 'react-i18next';
-
+import feckImg from "../../../public/images/heroContact.webp"
 
 
 
 const EventGallery = ({ images }) => {
   const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
-  const galleryImages = images;
+  const galleryImages = images || [feckImg]
 
   const prev = () => setCurrent((p) => (p === 0 ? galleryImages.length - 1 : p - 1));
   const next = () => setCurrent((p) => (p === galleryImages.length - 1 ? 0 : p + 1));
@@ -31,7 +31,7 @@ const EventGallery = ({ images }) => {
         {/* Previous — small */}
         <div className="flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
-            src={galleryImages[getIndex(-1)]}
+            src={galleryImages[getIndex(-1)] || feckImg}
             alt={t('events.previousImage')}
             className="w-full h-full object-cover"
           />
@@ -40,7 +40,7 @@ const EventGallery = ({ images }) => {
         {/* Current — large center */}
         <div className=" flex-shrink-0 md:w-[44%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
           <img
-            src={galleryImages[getIndex(0)]}
+            src={galleryImages[getIndex(0)] || feckImg}
             alt={t('events.currentImage')}
             className="w-full h-full object-cover transition-all duration-500"
           />
@@ -49,7 +49,7 @@ const EventGallery = ({ images }) => {
         {/* Next — small */}
         <div className=" flex-shrink-0 md:w-[28%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
-            src={galleryImages[getIndex(1)]}
+            src={galleryImages[getIndex(1)] ||feckImg}
             alt={t('events.nextImage')}
             className="w-full h-full object-cover"
           />
