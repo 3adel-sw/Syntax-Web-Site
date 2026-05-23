@@ -185,50 +185,46 @@ function Events() {
           ))}
         </div>
 
-        <section className="mb-10">
-          <h2 className="md:text-3xl text-xl text-start font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
-          {upcomingEvent ? (
-            <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
-              <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-1">
-                <img
-                  src={upcomingEvent.banner_image || upcomingEvent.image}
-                  alt={upcomingEvent.title}
-                  className="w-full h-full rounded-2xl object-cover"
-                />
-              </div>
-              <div className="md:p-6 p-3 flex flex-col justify-center gap-2 space-y-2">
-                <h3 className="md:text-4xl text-xl text-start font-semibold text-gray-900">{upcomingEvent.title}</h3>
-                <div className="flex flex-wrap gap-4 text-gray-500">
-                  <span className="flex text-base items-center gap-1">
-                    <MapPin size={24} className="text-gray-400" />
-                    {upcomingEvent.location || t('common.location')}
-                  </span>
-                  <span className="flex items-center gap-1 text-base">
-                    <Calendar size={24} className="text-gray-400 " />
-                    {formatDate(upcomingEvent.date, i18n.language === 'ar' ? 'ar-EG' : 'en-US', t('common.date'))}
-                  </span>
-                  <span className="flex items-center gap-1 text-base">
-                    <Clock size={24} className="text-gray-400" />
-                    {upcomingEvent.time || t('common.time')}
-                  </span>
-                </div>
-                <p className="text-base text-start text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
-                  {upcomingEvent.description}
-                </p>
-                <button
-                  onClick={() => navigate(`/events-detail/${upcomingEvent.id}`)}
-                  className="mt-2 self-start flex items-center gap-2 bg-transparent border border-bg-gray-50 text-primary text-[16px] font-medium px-4 py-3 rounded-2xl hover:bg-gray-50 transition"
-                >
-                  {t('common.viewDetails')} <ArrowRight size={13} />
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="border border-gray-200 rounded-2xl py-12 text-center text-gray-400">
-              {t('messages.noUpcomingEvents')}
-            </div>
-          )}
-        </section>
+       {upcomingEvent && (
+  <section className="mb-10">
+    <h2 className="md:text-3xl text-xl text-start font-semibold text-gray-900 my-6">{t('events.upcomingEvents')}</h2>
+    <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+      <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-1">
+        <img
+          src={upcomingEvent.banner_image || upcomingEvent.image}
+          alt={upcomingEvent.title}
+          className="w-full h-full rounded-2xl object-cover"
+        />
+      </div>
+      <div className="md:p-6 p-3 flex flex-col justify-center gap-2 space-y-2">
+        <h3 className="md:text-4xl text-xl text-start font-semibold text-gray-900">{upcomingEvent.title}</h3>
+        <div className="flex flex-wrap gap-4 text-gray-500">
+          <span className="flex text-base items-center gap-1">
+            <MapPin size={24} className="text-gray-400" />
+            {upcomingEvent.location || t('common.location')}
+          </span>
+          <span className="flex items-center gap-1 text-base">
+            <Calendar size={24} className="text-gray-400 " />
+            {formatDate(upcomingEvent.date, i18n.language === 'ar' ? 'ar-EG' : 'en-US', t('common.date'))}
+          </span>
+          <span className="flex items-center gap-1 text-base">
+            <Clock size={24} className="text-gray-400" />
+            {upcomingEvent.time || t('common.time')}
+          </span>
+        </div>
+        <p className="text-base text-start text-gray-500 leading-relaxed max-w-2xl line-clamp-2">
+          {upcomingEvent.description}
+        </p>
+        <button
+          onClick={() => navigate(`/events-detail/${upcomingEvent.id}`)}
+          className="mt-2 self-start flex items-center gap-2 bg-transparent border border-bg-gray-50 text-primary text-[16px] font-medium px-4 py-3 rounded-2xl hover:bg-gray-50 transition"
+        >
+          {t('common.viewDetails')} <ArrowRight size={13} />
+        </button>
+      </div>
+    </div>
+  </section>
+)}
 
         <TabSlider
           tabs={filterTabs}

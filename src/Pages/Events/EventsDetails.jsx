@@ -12,7 +12,6 @@ import { getAllEvents, getEventById } from '../../services/events/eventsService'
 import { useTranslation } from 'react-i18next';
 
 
-
 const toStr = (value) => {
   if (typeof value === 'string') return value;
   if (typeof value === 'number') return value.toString();
@@ -25,8 +24,13 @@ const formatDate = (value, locale = 'en-US', fallback = 'Date') => {
   const dateValue = toStr(value);
   if (!dateValue) return fallback;
 
-  const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) return dateValue;
+  // Parse as local date to avoid UTC offset issues
+  const parts = dateValue.split('-');
+  const date = parts.length === 3
+    ? new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+    : new Date(dateValue);
+
+  if (isNaN(date.getTime())) return dateValue;
 
   return date.toLocaleDateString(locale, {
     year: 'numeric',
@@ -200,27 +204,31 @@ const EventsDetails = () => {
   const textAlignClass = isArabic ? 'text-right' : 'text-start';
 
   // Compute event start time from history + time
-  const getEventStartTime = () => {
-    if (!event.history) return null;
-    const date = new Date(event.history);
-    if (isNaN(date.getTime())) return null;
+ const getEventStartTime = () => {
+  if (!event.history) return null;
 
-    if (event.time) {
-      const timeStr = event.time.trim();
-      const match = timeStr.match(/(\d{1,2}):(\d{2})(?:\s*(AM|PM|am|pm))?/);
-      if (match) {
-        let hours = parseInt(match[1], 10);
-        const minutes = parseInt(match[2], 10);
-        const ampm = (match[3] || '').toUpperCase();
-        if (ampm === 'PM' && hours < 12) hours += 12;
-        if (ampm === 'AM' && hours === 12) hours = 0;
-        date.setHours(hours, minutes, 0, 0);
-        return date;
-      }
+  // Parse date as local time (avoid UTC midnight issue)
+  const [year, month, day] = event.history.split('-').map(Number);
+  const date = new Date(year, month - 1, day); // local midnight
+
+  if (isNaN(date.getTime())) return null;
+
+  if (event.time) {
+    const timeStr = event.time.trim();
+    const match = timeStr.match(/(\d{1,2}):(\d{2})(?:\s*(AM|PM|am|pm))?/);
+    if (match) {
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const ampm = (match[3] || '').toUpperCase();
+      if (ampm === 'PM' && hours < 12) hours += 12;
+      if (ampm === 'AM' && hours === 12) hours = 0;
+      date.setHours(hours, minutes, 0, 0);
+      return date;
     }
+  }
 
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
-  };
+  return new Date(year, month - 1, day, 23, 59, 59); // local end of day
+};
 
   const eventStart = getEventStartTime();
   const now = new Date();
@@ -253,7 +261,7 @@ const EventsDetails = () => {
                      onClick={() => setShowShareMenu(false)}
                    />
                
-                   <div className="absolute z-50 fixed flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-2xl shadow-lg p-2 md:flex-row flex-col gap-1 w-fit md:p-8 max-w-[90%] h-fit">
+                   <div className="absolute z-40 fixed flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-2xl shadow-lg p-2 md:flex-row flex-col gap-1 w-fit md:p-8 max-w-[90%] h-fit">
                      
                      <button
                        onClick={() => setShowShareMenu(false)}
