@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 const projects = [
   { id: 1, nameKey: "menu.projects.academy.name", descKey: "menu.projects.academy.desc", path: "/courses" },
   { id: 2, nameKey: "menu.projects.meetup.name", descKey: "menu.projects.meetup.desc", path: "/events" },
-  { id: 3, nameKey: "menu.projects.community.name", descKey: "menu.projects.community.desc", path: "https://www.facebook.com/groups/eguxmeetup/?ref=share" ,target:"_blank" },
+  { id: 3, nameKey: "menu.projects.community.name", descKey: "menu.projects.community.desc", path: "https://www.facebook.com/groups/onsyntax" ,target:"_blank" },
   { id: 4, nameKey: "menu.projects.podcast.name", descKey: "menu.projects.podcast.desc", path: "https://7orofcast.onsyntax.com/" ,target:"_blank" },
 ];
 const pages = [
@@ -106,6 +106,8 @@ useEffect(() => {
     <Link
       key={p.id}
       to={p.path}
+      target={p.target} 
+      rel={p.target === "_blank" ? "noreferrer" : undefined}
       onClick={() => setMenuOpen(false)}
       className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2  md:py-3 lg:py-7 py-1  rounded-xl transition-colors
         ${isActive

@@ -51,11 +51,13 @@ const CommunityCards = () => {
     <h3 className="font-bold text-2xl text-white my-8 leading-snug">
       {t("community.joinOur")}<br />{t("community.community")}
     </h3>
-   <button
-  onClick={() => navigate('/contact', { state: { focusForm: true } })}
+   <a
+  href="https://www.facebook.com/groups/onsyntax"
+  target="_blank"
+  rel="noopener noreferrer"
   className="z-20 border-white/30 border-2 text-white rounded-xl px-4 py-4 text-sm font-semibold flex items-center gap-2 hover:bg-white/10 transition-colors">
   {t("community.joinNow")} <ArrowRight size={14} />
-</button>
+</a>
   </div>
 
  {/* Card 3 — WhatsApp */}
