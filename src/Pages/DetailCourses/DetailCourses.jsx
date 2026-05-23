@@ -66,6 +66,11 @@ const DetailCourses = () => {
   // Register Modal
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [testimonials, setTestimonials] = useState([]);
+
+  
+
+
+
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -87,6 +92,7 @@ const DetailCourses = () => {
     };
     fetchCourse();
   }, [id, isRTL, t]);
+  
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -101,7 +107,25 @@ const DetailCourses = () => {
   if (!course) return (
     <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('courseDetails.courseNotFound')}</div>
   );
-
+  
+    const handleDownload = async () => {
+  if (course?.file) {
+    try {
+      const response = await fetch(course.file);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${course.name || 'course-file'}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(course.file, '_blank');
+    }
+  }
+};
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
@@ -196,9 +220,12 @@ const DetailCourses = () => {
                 className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
                 {t('courses.registerNow')}
               </button>
-              <button className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition">
-                {t('courseDetails.downloadCourseFile')}
-              </button>
+        <button
+  onClick={handleDownload}
+  className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition"
+>
+  {t('courseDetails.downloadCourseFile')}
+</button>
             </div>
           </div>
         </div>
@@ -228,7 +255,10 @@ const DetailCourses = () => {
               <Footer />
             </div>
             {/*Main Footer */}
-            <MainFooter courseName={course?.name || course?.title || t('common.course')} />
+           <MainFooter
+  courseName={course?.name || course?.title || t('common.course')}
+  onDownload={handleDownload}
+/>
           </>
         
 

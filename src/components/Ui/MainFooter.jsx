@@ -2,7 +2,7 @@ import { useState } from 'react';
 import RegisterModal from './RegisterModal';
 
 
-const MainFooter = ({ courseName }) => {
+const MainFooter = ({ courseName, onDownload }) => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
 
@@ -21,7 +21,9 @@ const MainFooter = ({ courseName }) => {
         <div className="flex flex-col md:flex-row w-full justify-center md:justify-end items-center gap-3">
           
           {/* Outline Button */}
-          <button className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base border border-white text-white rounded-xl hover:bg-white hover:text-primary transition">
+          <button 
+          onClick={onDownload}
+          className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base border border-white text-white rounded-xl hover:bg-white hover:text-primary transition">
             Download Brochure
           </button>
 
