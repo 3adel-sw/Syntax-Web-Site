@@ -134,34 +134,35 @@ const CardsTestimonials = ({ testimonials = [], showButton, ButtonContent }) => 
         </div>
       </div>
 
-      {/* Desktop Grid */}
-      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 mt-2 items-start">
-        {columns.map((col, colIdx) => {
-          return (
-            <div key={colIdx} className="relative flex space-y-3 flex-col gap-3 bottom-12">
-              {col.length > 0 && (
-                <div
-                  className="absolute top-0 left-0 right-0 h-40 w-full z-10 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to bottom, white 20%, transparent 100%)",
-                  }}
-                />
-            )}
-              {col.map((t, i) => (
-                <TestimonialCard key={t.id} {...t} i={i} />
-              ))}
-              {col.length > 0 && (
-                <div
-                  className="absolute bottom-5 left-0 right-0 h-40 w-full z-10 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to top, white 0%, transparent 100%)",
-                  }}
-                />
-              )}
-            </div>
-          );
-        })}
+     
+     {/* Desktop Grid */}
+<div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:mt-20 mt-2 items-start relative">
+  {columns.map((col, colIdx) => {
+    return (
+      <div key={colIdx} className="relative flex space-y-3 flex-col gap-3 bottom-12">
+        {col.length > 0 && (
+          <div
+            className="absolute top-0 left-0 right-0 h-80 w-full z-10 pointer-events-none"
+            style={{
+              background: "linear-gradient(to bottom, white 20%, transparent 100%)",
+            }}
+          />
+        )}
+        {col.map((t, i) => (
+          <TestimonialCard key={t.id} {...t} i={i} />
+        ))}
       </div>
+    );
+  })}
+
+  
+  <div
+    className="absolute bottom-0 left-0 right-0 h-80 w-full z-10 pointer-events-none col-span-3"
+    style={{
+      background: "linear-gradient(to top, white 20%, transparent 100%)",
+    }}
+  />
+</div>
 
       {showButton && (
         <div className="mt-10">

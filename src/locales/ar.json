@@ -40,7 +40,7 @@
     "failedToLoadBlog": "فشل تحميل المقال",
     "failedToLoadEvents": "فشل تحميل الأحداث",
     "failedToLoadEvent": "فشل تحميل الحدث",
-    "failedToSubscribe": "فشل الاشتراك. حاول مرة أخرى.",
+    "failedToSubscribe": "هذا البريد الإلكتروني مشترك بالفعل",
     "emailRequired": "من فضلك أدخل بريدك الإلكتروني.",
     "subscribedSuccessfully": "تم الاشتراك بنجاح.",
     "registrationFailed": "فشل التسجيل. حاول مرة أخرى.",

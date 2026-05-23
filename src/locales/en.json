@@ -41,7 +41,7 @@
     "failedToLoadBlog": "Failed to load blog",
     "failedToLoadEvents": "Failed to load events",
     "failedToLoadEvent": "Failed to load event",
-    "failedToSubscribe": "Failed to subscribe. Please try again.",
+    "failedToSubscribe": "This Email Already Subscribe",
     "emailRequired": "Please enter your email.",
     "subscribedSuccessfully": "Subscribed successfully.",
     "registrationFailed": "Registration failed. Please try again.",
