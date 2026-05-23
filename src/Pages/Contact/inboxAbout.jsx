@@ -129,9 +129,12 @@ const InboxAbout = () => {
   {/* Podcast Card */}
   <div className="bg-[#432772] rounded-2xl p-5 flex flex-col items-center justify-center text-center gap-1 min-h-[100px]">
   <img src={but} alt={t("footer.podcast")} className="w-40 h-20 object-cover" />
-    <button className="bg-transparent text-white rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-1">
+    <a
+      href="https://7orofcast.onsyntax.com/"
+      target="_blank" rel="noopener noreferrer"
+     className="bg-transparent text-white rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-1">
       {t("contact.ourPodcast")}
-    </button>
+    </a>
   </div>
 
 </div>
