@@ -405,7 +405,7 @@ const EventsDetails = () => {
                       </span>
                       <div>
                         <p className="text-xl font-semibold text-gray-800">{speaker.name}</p>
-                        <p className="text-base text-gray-400">{speaker.role || t('common.speaker')}</p>
+                        <p className="text-base text-gray-400">{speaker.position || t('common.speaker')}</p>
                       </div>
                     </div>
                   )) : (

@@ -53,7 +53,7 @@ const ChooseCardTraining = () => {
         </div>
 
         {/* Right: Feature List */}
-        <div className="flex flex-col-reverse gap-6 flex-1">
+        <div className="flex flex-col gap-6 flex-1">
           {getB2bWhyUsData.map((item) => (
             <div key={item.id} className="flex items-start gap-4">
               {/* Number Badge */}

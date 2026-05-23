@@ -45,8 +45,9 @@ if (historiesData.length === 0) {
               className="bg-[#F6F7FB] overflow-hidden rounded-2xl p-4 md:py-8 md:px-4 flex flex-col gap-4 items-start"
             >
               <p className="lg:text-3xl sm:text-2xl text-xl font-semibold text-gray-900">
-                {item.title}
+               
                 <span className="lg:text-5xl md:text-3xl sm:text-2xl text-xl font-semibold">{item.year}</span>
+                 {item.title}
               </p>
               <p className="lg:text-lg md:text-md sm:text-sm text-sm font-medium text-gray-400">{item.description}</p>
             </div>

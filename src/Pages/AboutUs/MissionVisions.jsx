@@ -12,7 +12,7 @@ const MissionVisions = () => {
    
     { id: 1, heading: t("about.mission"), body: data?.mission },
     { id: 2, heading: t("about.vision"), body: data?.vision },
-    { id: 3, heading: t("about.features"), body: data?.features },
+    // { id: 3, heading: t("about.features"), body: data?.features },
   ];
 
   // Mobile slider state
