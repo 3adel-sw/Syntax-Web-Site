@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MapPin, Calendar, Clock, Download, Share2, User, Loader2, X } from 'lucide-react';
+import { MapPin, Calendar, Clock, Presentation, Share2, User, Loader2, X } from 'lucide-react';
 import { FaXTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa6';
 import Footer from '../../components/layout/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -241,10 +241,10 @@ const EventsDetails = () => {
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {event.location || t('common.location')}</span>
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US', t('common.date'))}</span>
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Clock size={12} /> {event.time || t('common.time')}</span>
-                <button className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg hover:text-gray-800"><Download size={12} /> {category}</button>
-                <button onClick={() => setShowShareMenu((prev) => !prev)} className="flex items-center justify-center px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition relative">
+                <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg "><Presentation size={12} /> {category}</span>
+                <span onClick={() => setShowShareMenu((prev) => !prev)} className="flex items-center justify-center px-3 py-2 border cursor-pointer border-gray-200 bg-[#FCFCFD] rounded-lg gap-1 hover:text-gray-800 transition relative">
                   <Share2 size={12} /> {t('common.share')}
-                </button>
+                </span>
                {showShareMenu && (
                  <>
                   
@@ -253,8 +253,7 @@ const EventsDetails = () => {
                      onClick={() => setShowShareMenu(false)}
                    />
                
-                   <div className="absolute z-50 flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-2xl shadow-lg p-2 md:flex-row flex-col gap-1 w-fit md:p-8 max-w-[90%] h-fit">
-                     
+                   <div className="absolute z-50 fixed flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-2xl shadow-lg p-2 md:flex-row flex-col gap-1 w-fit md:p-8 max-w-[90%] h-fit">
                      
                      <button
                        onClick={() => setShowShareMenu(false)}
@@ -405,7 +404,7 @@ const EventsDetails = () => {
                       </span>
                       <div>
                         <p className="text-xl font-semibold text-gray-800">{speaker.name}</p>
-                        <p className="text-base text-gray-400">{speaker.position || t('common.speaker')}</p>
+                        <p className="text-base text-start text-gray-400">{speaker.position || t('common.speaker')}</p>
                       </div>
                     </div>
                   )) : (
@@ -418,7 +417,7 @@ const EventsDetails = () => {
             </div>
           </div>
 
-          {isEventPassed && <EventGallery images={gallery} />}
+          {isEventPassed && gallery.length > 0 && <EventGallery images={gallery} />}
         </div>
 
         <div className="my-10">

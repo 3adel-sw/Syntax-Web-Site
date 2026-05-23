@@ -46,10 +46,10 @@ if (historiesData.length === 0) {
             >
               <p className="lg:text-3xl sm:text-2xl text-xl font-semibold text-gray-900">
                
-                <span className="lg:text-5xl md:text-3xl sm:text-2xl text-xl font-semibold">{item.year}</span>
+                <span className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-semibold">{item.year}</span>
                  {item.title}
               </p>
-              <p className="lg:text-lg md:text-md sm:text-sm text-sm font-medium text-gray-400">{item.description}</p>
+              <p className="lg:text-xl md:text-md sm:text-sm text-sm font-medium text-gray-400">{item.description}</p>
             </div>
           ))}
         </div>
