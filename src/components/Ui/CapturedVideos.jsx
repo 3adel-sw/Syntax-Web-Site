@@ -15,6 +15,7 @@ const normalizeGalleryItems = (gallery = [], t) =>
     alt: t('courseDetails.courseGalleryAlt', { number: index + 1 }),
   })).filter((item) => item.thumbnail);
 
+
 const normalizeVideoItems = (videos = [], fallbackImage = '', t) =>
   videos.map((video, index) => {
     const videoSrc = typeof video === 'string' ? video : video?.video || video?.url || video?.videoSrc;
@@ -110,6 +111,7 @@ const VideoModal = ({ item, onClose }) => {
             style={{ maxHeight: '70vh' }}
           />
         )}
+        
         {/* Controls */}
         <div className="absolute top-3 right-3 flex gap-2">
           {!item.isYoutube && (
