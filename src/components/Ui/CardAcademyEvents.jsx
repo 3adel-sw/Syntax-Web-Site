@@ -92,7 +92,8 @@ const CardAcademyEvents = () => {
   const numbersList = ourNumbers.map(n => ({
     img: n.image,
     label: n.title || n.label || n.name,
-    student: n.number ? t('home.studentsCount', { number: n.number }) : t('home.studentsCount', { number: 0 }),
+    // student: n.number ? t('home.studentsCount', { number: n.number }) : t('home.studentsCount', { number: 0 }),
+    student: n.number,
   }));
 
   return (
@@ -191,7 +192,8 @@ const CardAcademyEvents = () => {
           <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 shrink-0" alt="" />
           <div>
             <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
-            <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p>
+            {/* <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p> */}
+           <p className="text-xs md:text-sm text-start font-medium text-gray-500">+ {item.student}</p>
           </div>
         </div>
       </div>

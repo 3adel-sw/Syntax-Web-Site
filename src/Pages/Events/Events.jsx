@@ -161,10 +161,12 @@ function Events() {
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="mb-6 text-start">
-          <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight">
+          {/* <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight"> */}
+          <h1 className="md:text-[30px] text-base mt-4 font-bold  text-gray-800">
             {aboutEvent?.name || t('events.heroTitle')}
           </h1>
-          <p className="text-sm text-gray-500 my-2 max-w-3xl">
+          {/* <p className="text-sm text-gray-500 my-2 max-w-3xl"> */}
+           <p className="text-gray-500 md:text-[22px] max-w-5xl text-sm mb-2">
             {aboutEvent?.description || t('events.heroDescription')}
           </p>
         </div>
