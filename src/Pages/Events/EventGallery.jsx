@@ -31,7 +31,7 @@ const EventGallery = ({ images }) => {
       <div className="flex items-center gap-3 overflow-hidden">
 
         {/* Previous — small */}
-        <div className="flex-shrink-0 md:w-[33%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className="flex-shrink-0 md:w-[31%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(-1)] }
             alt={t('events.previousImage')}
@@ -40,7 +40,7 @@ const EventGallery = ({ images }) => {
         </div>
 
         {/* Current — large center */}
-        <div className=" flex-shrink-0 md:w-[33%] w-full h-56 rounded-2xl overflow-hidden shadow-md">
+        <div className=" flex-shrink-0 md:w-[33%] w-full h-48 rounded-2xl overflow-hidden shadow-md">
           <img
             src={galleryImages[getIndex(0)] }
             alt={t('events.currentImage')}
@@ -49,7 +49,7 @@ const EventGallery = ({ images }) => {
         </div>
 
         {/* Next — small */}
-        <div className=" flex-shrink-0 md:w-[31%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
+        <div className=" flex-shrink-0 md:w-[33%] w-full h-48 rounded-2xl overflow-hidden opacity-80">
           <img
             src={galleryImages[getIndex(1)]}
             alt={t('events.nextImage')}

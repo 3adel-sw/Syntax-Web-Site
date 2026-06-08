@@ -114,8 +114,8 @@ setSettings(res.data?.settings ?? null);
         </div>
 
         {/* Company */}
-        <div className="hidden md:flex flex-col gap-6">
-          <h4 className="text-xl font-bold text-white mb-4">{t('footer.company')}</h4>
+        <div className="hidden md:flex flex-col gap-4">
+          <h4 className="text-xl font-bold text-white ">{t('footer.company')}</h4>
           <ul className="space-y-4.5 text-base text-white/90">
             {[
               ['nav.about', '/about'],

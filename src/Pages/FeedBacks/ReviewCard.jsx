@@ -63,9 +63,9 @@ const ReviewCard = ({ review, colorIndex }) => {
           style={{
             lineHeight: "1.65",
             display: "-webkit-box",
-            WebkitLineClamp: 5,
+            // WebkitLineClamp: 5,
             WebkitBoxOrient: "vertical",
-            overflow: "hidden",
+            // overflow: "hidden",
           }}
         >
           {review.content} 
@@ -76,7 +76,7 @@ const ReviewCard = ({ review, colorIndex }) => {
       <div className="flex items-center gap-2">
         <Avatar name={review.name} image={review.image} colorIndex={colorIndex} />
         <div>
-          <div className="text-sm font-semibold text-gray-900">{review.name}</div>
+          <div className="text-sm text-start font-semibold text-gray-900">{review.name}</div>
           <div className="text-xs text-gray-600">{review.job}</div>
         </div>
       </div>

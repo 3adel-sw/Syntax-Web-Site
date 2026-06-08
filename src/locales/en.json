@@ -32,8 +32,8 @@
     "No": "No",
     "x": "X",
     "instagram": "Instagram",
-    "linkedin": "LinkedIn"
-    
+    "linkedin": "LinkedIn",
+    "allFeedbacks" :"Show All Feedbacks"
   },
   "messages": {
     "failedToLoad": "Failed to load data",
@@ -124,7 +124,7 @@
     "freeCourses": "Free Courses",
     "books": "Books",
     "history": "History",
-    "copyright": "© 2025 onsyntax.com",
+    "copyright": "© 2026 onsyntax.com",
     "fallbackDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Quis ipsum suspendisse ultrices gravida."
   },
   "home": {
@@ -141,6 +141,7 @@
     "blog": "Blog",
     "latestBlog": "Latest Blog",
     "studentsCount": "+{{number}} Students"
+
   },
   "blogs": {
     "welcome": "Welcome to the Syntax Blog",

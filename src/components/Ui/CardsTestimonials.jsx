@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-
+import { useTranslation } from 'react-i18next';
 const splitIntoColumns = (arr, cols) => {
   const columns = Array.from({ length: cols }, () => []);
   arr.forEach((item, i) => columns[i % cols].push(item));
   return columns;
 };
+
 
 const colors = [
   "bg-blue-50 text-blue-700",
@@ -25,6 +26,8 @@ const getInitials = (name) => {
 };
 
 const TestimonialCard = ({ content, name, job, image, i }) => (
+   
+
    <div className="bg-white border space-y-9  border-gray-100 rounded-2xl p-5 flex flex-col gap-3">
     <p className="text-base text-gray-700 text-start leading-relaxed">{content}</p>
     <div className="flex items-center gap-3">
@@ -50,6 +53,7 @@ const TestimonialCard = ({ content, name, job, image, i }) => (
 const CardsTestimonials = ({ testimonials = [], showButton, ButtonContent }) => {
   const navigate = useNavigate();
   const columns = splitIntoColumns(testimonials, 3);
+    const { t } = useTranslation(); 
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
@@ -170,7 +174,7 @@ const CardsTestimonials = ({ testimonials = [], showButton, ButtonContent }) => 
             onClick={() => navigate('/feedbacks')}
             className="px-6 py-2.5 flex gap-2 mx-auto bg-primary text-white rounded-xl shadow-md hover:bg-primary/90 transition"
           >
-            {ButtonContent || 'Show All Feedbacks'}
+           {ButtonContent || t('common.allFeedbacks') ||'Show All Feedbacks '}
           </button>
         </div>
       )}

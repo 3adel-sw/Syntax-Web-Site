@@ -32,7 +32,8 @@
     "No": "لا",
     "x": "X",
     "instagram": "Instagram",
-    "linkedin": "LinkedIn"
+    "linkedin": "LinkedIn",
+    "allFeedbacks" :"عرض آراء العملاء"
   },
   "messages": {
     "failedToLoad": "فشل تحميل البيانات",
@@ -123,7 +124,7 @@
     "freeCourses": "كورسات مجانية",
     "books": "كتب",
     "history": "التاريخ",
-    "copyright": "© 2025 onsyntax.com",
+    "copyright": "© 2026 onsyntax.com",
     "fallbackDescription": "نص تعريفي مختصر عن سينتاكس والمجتمع والخدمات التي نقدمها في مجالات التصميم والتعلم والنمو المهني."
   },
   "home": {
