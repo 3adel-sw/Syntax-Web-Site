@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import RegisterModal from './RegisterModal';
-
+import { useTranslation } from 'react-i18next';
 
 const MainFooter = ({ courseName, onDownload }) => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-
+ const { t } = useTranslation(); // Add translation hook
 
   return (
     <div className="lg:w-full w-[92%] md:w-full  z-10 mx-auto  bottom-0 md:left-0   fixed  my-10">
@@ -14,7 +14,7 @@ const MainFooter = ({ courseName, onDownload }) => {
         
         {/* Text */}
         <h2 className="text-white text-2xl md:text-3xl font-semibold lg:w-1/2">
-          Your Next Step Awaits!
+          {t('courses.header.YourNextStepAwaits')}
         </h2>
 
         {/* Buttons */}
@@ -24,7 +24,7 @@ const MainFooter = ({ courseName, onDownload }) => {
           <button 
           onClick={onDownload}
           className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base border border-white text-white rounded-xl hover:bg-white hover:text-primary transition">
-            Download Brochure
+            {t('courses.header.DownloadBrochure')}
           </button>
 
           {/* Green Button */}
@@ -33,7 +33,7 @@ const MainFooter = ({ courseName, onDownload }) => {
            className="px-5 py-2.5 w-full md:w-auto text-sm md:text-base bg-[#A6D65B] text-[#313896] rounded-xl font-medium hover:opacity-90 transition"
           
           >
-            talk with advisor
+            {t('courses.header.TalkWithAdvisor')}
           </button>
 
         </div>

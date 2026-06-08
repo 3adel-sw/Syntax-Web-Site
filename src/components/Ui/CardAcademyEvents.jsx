@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Mic, Users, Mail } from 'lucide-react';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router';
 
 import { getAllProducts } from '../../services/home/homeService';
@@ -16,7 +16,8 @@ const iconMap = {
 
 
 const CardAcademyEvents = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+const isRTL = i18n.language === 'ar';
   const [allProducts, setAllProducts] = useState([]);
   const [ourNumbers, setOurNumbers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -96,6 +97,17 @@ const CardAcademyEvents = () => {
     student: n.number,
   }));
 
+
+  const sliderRef = useRef(null);
+
+useEffect(() => {
+  const el = sliderRef.current;
+  if (!el) return;
+  const half = el.scrollWidth / 2;
+  el.style.setProperty('--slider-width', `${half}px`);
+}, [numbersList]);
+
+
   return (
     <div className='md:my-10 my-12'>
 
@@ -171,18 +183,25 @@ const CardAcademyEvents = () => {
       </div>
 
     {/* Our Numbers - Auto Slider */}
-<div className="md:my-20 sm:my-12 my-14 relative overflow-hidden"
+<div 
+  className="md:my-20 sm:my-12 my-14 relative overflow-hidden"
   style={{
     maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)'
+    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+    willChange: 'transform',
+    transform: 'translateZ(0)',
   }}
 >
-  <div
-    className="flex gap-3 md:gap-4 w-max"
-    style={{ animation: 'scrollLeft 18s linear infinite' }}
-    onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
-    onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
-  >
+<div
+  ref={sliderRef}
+  className="flex gap-3 md:gap-4"
+  style={{ 
+    width: 'max-content',
+    animation: `${isRTL ? 'scrollRight' : 'scrollLeft'} 18s linear infinite` 
+  }}
+  onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
+  onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
+>
     {[...numbersList, ...numbersList].map((item, index) => (
       <div
         key={index}
