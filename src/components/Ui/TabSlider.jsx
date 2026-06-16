@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const TabSlider = ({ tabs, activeTab, setActiveTab, className = "" }) => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const touchStartRef = useRef(0);
@@ -29,15 +33,18 @@ const TabSlider = ({ tabs, activeTab, setActiveTab, className = "" }) => {
   useEffect(() => {
     const activeBtn = containerRef.current?.querySelector('[data-active="true"]');
     if (activeBtn && containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth;
-      const btnLeft = activeBtn.offsetLeft;
-      const btnWidth = activeBtn.offsetWidth;
-      const offset = containerWidth / 2 - (btnLeft + btnWidth / 2);
-      const clampedOffset = Math.min(0, Math.max(-(activeBtn.parentElement.scrollWidth - containerWidth), offset));
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
+      const btnCenter = btnRect.left - containerRect.left + btnRect.width / 2;
+      const offset = containerRect.width / 2 - btnCenter;
+      const maxScroll = activeBtn.parentElement.scrollWidth - containerRect.width;
+      const clampedOffset = isRTL
+        ? Math.max(0, Math.min(maxScroll, offset))
+        : Math.min(0, Math.max(-maxScroll, offset));
       setTranslateX(clampedOffset);
       translateXRef.current = clampedOffset;
     }
-  }, [activeTab]);
+  }, [activeTab, isRTL]);
 
   return (
     <div className={`relative ${className}`}>

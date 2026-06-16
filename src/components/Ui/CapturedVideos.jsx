@@ -142,41 +142,46 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
   const touchStartRef = useRef(0);
   const translateXRef = useRef(0);
   const containerRef = useRef(null);
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
+  const slideOffset = (slide, w) => (isRTL ? 1 : -1) * slide * w;
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
     setIsDragging(true);
-    translateXRef.current = -currentSlide * 100;
-    setTranslateX(-currentSlide * 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    translateXRef.current = slideOffset(currentSlide, w);
+    setTranslateX(slideOffset(currentSlide, w));
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
     const currentTouch = e.touches[0].clientX;
     const diff = currentTouch - touchStartRef.current;
-    const containerWidth = containerRef.current?.offsetWidth || 300;
-    const diffPercent = (diff / containerWidth) * 100;
-    const newX = translateXRef.current + diffPercent;
-    translateXRef.current = newX;
-    setTranslateX(newX);
+    translateXRef.current += diff;
+    setTranslateX(translateXRef.current);
+    touchStartRef.current = currentTouch;
   };
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const slideIndex = Math.round(-translateXRef.current / 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    const slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
     const boundedIndex = Math.max(0, Math.min(items.length - 1, slideIndex));
     setCurrentSlide(boundedIndex);
-    translateXRef.current = -boundedIndex * 100;
-    setTranslateX(-boundedIndex * 100);
+    translateXRef.current = slideOffset(boundedIndex, w);
+    setTranslateX(slideOffset(boundedIndex, w));
   };
 
   useEffect(() => {
     if (!isDragging) {
-      translateXRef.current = -currentSlide * 100;
+      const w = containerRef.current?.offsetWidth || 300;
+      translateXRef.current = slideOffset(currentSlide, w);
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTranslateX(-currentSlide * 100);
+      setTranslateX(slideOffset(currentSlide, w));
     }
-  }, [currentSlide, isDragging]);
+  }, [currentSlide, isDragging, isRTL]);
 
   // Auto-slide for desktop
   useEffect(() => {
@@ -213,7 +218,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
           <div
             className="flex"
             style={{
-              transform: `translateX(${translateX}%)`,
+              transform: `translateX(${translateX}px)`,
               transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
             }}
           >
@@ -243,7 +248,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
           <div className="overflow-hidden rounded-xl">
             <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}
+              style={{ transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (100 / 3)}%)` }}
             >
               {items.map((item) => (
                 <div key={item.id} className="min-w-[33.333%] flex-shrink-2 px-2">

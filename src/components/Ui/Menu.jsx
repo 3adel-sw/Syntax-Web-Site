@@ -28,7 +28,8 @@ const pages = [
 
 
 const Menu = ({ isScrolled }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 useEffect(() => {
@@ -201,7 +202,7 @@ useEffect(() => {
       {/* ══════════════════════
           MOBILE SLIDE-IN
       ══════════════════════ */}
-     <div className={`md:hidden fixed right-0 top-0 h-full w-full z-50 bg-white  transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
+      <div className={`md:hidden fixed ${isRTL ? "left-0" : "right-0"} top-0 h-full w-full z-50 bg-white  transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : isRTL ? "-translate-x-full" : "translate-x-full"}`}>
   <div className="h-full flex flex-col overflow-y-auto">
 
     {/* Header primary */}

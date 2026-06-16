@@ -24,7 +24,8 @@ const SkeletonCard = () => (
 );
 
 const FeedBacks = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const NUM_COLS = 3;
 
   const [reviews, setReviews] = useState([]);
@@ -57,6 +58,7 @@ const FeedBacks = () => {
     reviewGroups.push(reviews.slice(i, i + chunkSize));
   }
 
+  const slideOffset = (slide, w) => (isRTL ? 1 : -1) * slide * w;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -67,35 +69,38 @@ const FeedBacks = () => {
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
     setIsDragging(true);
-    translateXRef.current = -currentSlide * 100;
-    setTranslateX(-currentSlide * 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    translateXRef.current = slideOffset(currentSlide, w);
+    setTranslateX(slideOffset(currentSlide, w));
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
-    const diff = e.touches[0].clientX - touchStartRef.current;
-    const containerWidth = containerRef.current?.offsetWidth || 300;
-    const newX = translateXRef.current + (diff / containerWidth) * 100;
-    translateXRef.current = newX;
-    setTranslateX(newX);
+    const currentTouch = e.touches[0].clientX;
+    const diff = currentTouch - touchStartRef.current;
+    translateXRef.current += diff;
+    setTranslateX(translateXRef.current);
+    touchStartRef.current = currentTouch;
   };
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const slideIndex = Math.round(-translateXRef.current / 100);
-    const bounded = Math.max(0, Math.min(reviewGroups.length - 1, slideIndex));
-    setCurrentSlide(bounded);
-    translateXRef.current = -bounded * 100;
-    setTranslateX(-bounded * 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    const slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
+    const boundedIndex = Math.max(0, Math.min(reviewGroups.length - 1, slideIndex));
+    setCurrentSlide(boundedIndex);
+    translateXRef.current = slideOffset(boundedIndex, w);
+    setTranslateX(slideOffset(boundedIndex, w));
   };
 
   useEffect(() => {
     if (!isDragging) {
-      translateXRef.current = -currentSlide * 100;
+      const w = containerRef.current?.offsetWidth || 300;
+      translateXRef.current = slideOffset(currentSlide, w);
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTranslateX(-currentSlide * 100);
+      setTranslateX(slideOffset(currentSlide, w));
     }
-  }, [currentSlide, isDragging]);
+  }, [currentSlide, isDragging, isRTL]);
 
   return (
     <div className="min-h-screen home-page flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto">
@@ -144,7 +149,7 @@ const FeedBacks = () => {
               <div
                 className="flex"
                 style={{
-                  transform: `translateX(${translateX}%)`,
+                  transform: `translateX(${translateX}px)`,
                   transition: isDragging ? "none" : "transform 0.3s ease-in-out",
                 }}
               >

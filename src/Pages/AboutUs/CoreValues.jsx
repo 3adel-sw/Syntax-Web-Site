@@ -18,7 +18,8 @@ const ICONS_ORDER = [
 ];
 
 const CoreValues = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const [coreData, setCoreData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,41 +40,43 @@ const CoreValues = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // Slider sync
-  useEffect(() => {
-    if (!isDragging) {
-      translateXRef.current = -currentSlide * 100;
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTranslateX(-currentSlide * 100);
-    }
-  }, [currentSlide, isDragging]);
+  const slideOffset = (slide, w) => (isRTL ? 1 : -1) * slide * w;
 
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
     setIsDragging(true);
-    translateXRef.current = -currentSlide * 100;
-    setTranslateX(-currentSlide * 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    translateXRef.current = slideOffset(currentSlide, w);
+    setTranslateX(slideOffset(currentSlide, w));
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
     const currentTouch = e.touches[0].clientX;
     const diff = currentTouch - touchStartRef.current;
-    const containerWidth = containerRef.current?.offsetWidth || 300;
-    const diffPercent = (diff / containerWidth) * 100;
-    const newX = translateXRef.current + diffPercent;
-    translateXRef.current = newX;
-    setTranslateX(newX);
+    translateXRef.current += diff;
+    setTranslateX(translateXRef.current);
+    touchStartRef.current = currentTouch;
   };
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const slideIndex = Math.round(-translateXRef.current / 100);
+    const w = containerRef.current?.offsetWidth || 300;
+    const slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
     const boundedIndex = Math.max(0, Math.min((coreData?.length || 1) - 1, slideIndex));
     setCurrentSlide(boundedIndex);
-    translateXRef.current = -boundedIndex * 100;
-    setTranslateX(-boundedIndex * 100);
+    translateXRef.current = slideOffset(boundedIndex, w);
+    setTranslateX(slideOffset(boundedIndex, w));
   };
+
+  useEffect(() => {
+    if (!isDragging) {
+      const w = containerRef.current?.offsetWidth || 300;
+      translateXRef.current = slideOffset(currentSlide, w);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTranslateX(slideOffset(currentSlide, w));
+    }
+  }, [currentSlide, isDragging, isRTL]);
 
   if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
@@ -103,7 +106,7 @@ const CoreValues = () => {
           <div
             className="flex"
             style={{
-              transform: `translateX(${translateX}%)`,
+              transform: `translateX(${translateX}px)`,
               transition: isDragging ? 'none' : 'transform 0.3s ease-in-out'
             }}
           >

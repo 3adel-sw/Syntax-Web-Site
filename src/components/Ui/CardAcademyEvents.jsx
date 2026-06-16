@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Mic, Users, Mail } from 'lucide-react';
 
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 
 import { getAllProducts } from '../../services/home/homeService';
@@ -99,6 +99,7 @@ const isRTL = i18n.language === 'ar';
 
 
   const sliderRef = useRef(null);
+  const mobileSliderRef = useRef(null);
 
 useEffect(() => {
   const el = sliderRef.current;
@@ -107,6 +108,16 @@ useEffect(() => {
   el.style.setProperty('--slider-width', `${half}px`);
 }, [numbersList]);
 
+  const [mobileSlideWidth, setMobileSlideWidth] = useState(0);
+
+  useEffect(() => {
+    const el = mobileSliderRef.current;
+    if (!el) return;
+    const measure = () => setMobileSlideWidth(el.offsetWidth);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   return (
     <div className='md:my-10 my-12'>
@@ -154,8 +165,8 @@ useEffect(() => {
       {/*  Mobile Slider */}
       <div className="my-12 md:hidden mx-2">
         <div className="relative">
-          <div className="overflow-hidden rounded-2xl">
-            <div className="flex" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: 'transform 0.3s ease-in-out' }}>
+          <div ref={mobileSliderRef} className="overflow-hidden rounded-2xl">
+            <div className="flex" style={{ transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (mobileSlideWidth || 300)}px)`, transition: 'transform 0.3s ease-in-out' }}>
               {slides.map((slide, index) => (
                 <div key={index} onClick={() => goToLink(slide.link)} className="min-w-full cursor-pointer bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
                   <div className='flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full  left-4 absolute '>

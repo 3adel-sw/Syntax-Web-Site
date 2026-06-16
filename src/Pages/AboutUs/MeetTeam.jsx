@@ -12,7 +12,9 @@ const getVisibleCount = () => {
 };
 
 const MeetTeam = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
+
   const [teamsData, setTeamsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -99,7 +101,7 @@ const MeetTeam = () => {
 
   const slideStyle = {
     transform: animating
-      ? `translateX(${direction === "next" ? "-40px" : "40px"})`
+      ? `translateX(${isRTL ? (direction === "next" ? "40px" : "-40px") : (direction === "next" ? "-40px" : "40px")})`
       : "translateX(0)",
     opacity: animating ? 0 : 1,
     transition: "transform 350ms ease, opacity 350ms ease",
@@ -132,7 +134,7 @@ const MeetTeam = () => {
               style={slideStyle}
               className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] py-4 flex flex-col items-center gap-1 shadow-sm"
             >
-              <div className="w-full h-full  aspect-square rounded-xl overflow-hidden">
+              <div className="w-full h-full aspect-square rounded-xl overflow-hidden">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -153,18 +155,37 @@ const MeetTeam = () => {
 
         {/* Navigation Arrows */}
         <div className="flex gap-3">
-          <button
-            onClick={handlePrev}
-            className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
-          >
-            <FaArrowLeft size={18} />
-          </button>
-          <button
-            onClick={handleNext}
-            className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
-          >
-            <FaArrowRight size={18} />
-          </button>
+          {isRTL ? (
+            <>
+              <button
+                onClick={handleNext}
+                className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+              >
+                <FaArrowRight size={18} />
+              </button>
+              <button
+                onClick={handlePrev}
+                className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+              >
+                <FaArrowLeft size={18} />
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={handlePrev}
+                className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+              >
+                <FaArrowLeft size={18} />
+              </button>
+              <button
+                onClick={handleNext}
+                className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+              >
+                <FaArrowRight size={18} />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </section>
