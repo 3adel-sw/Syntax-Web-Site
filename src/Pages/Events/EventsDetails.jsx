@@ -244,7 +244,7 @@ const EventsDetails = () => {
               <h1 className={`md:text-[40px] text-2xl font-semibold ${textAlignClass} text-gray-900 mb-6`}>
                 {title}
               </h1>
-
+                {/* Event Details Bar  */}
               <div className="grid grid-cols-3 text-center sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6 md:text-xs text-[9px] text-gray-500">
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><MapPin size={12} /> {event.location || t('common.location')}</span>
                 <span className="flex items-center justify-center gap-1 px-3 py-2 border border-gray-200 bg-[#FCFCFD] rounded-lg"><Calendar size={12} /> {formatDate(event.history, isArabic ? 'ar-EG' : 'en-US', t('common.date'))}</span>
@@ -411,7 +411,7 @@ const EventsDetails = () => {
                         <User size={18} />
                       </span>
                       <div>
-                        <p className="text-xl font-semibold text-gray-800">{speaker.name}</p>
+                        <p className="text-xl text-start font-semibold text-gray-800">{speaker.name}</p>
                         <p className="text-base text-start text-gray-400">{speaker.position || t('common.speaker')}</p>
                       </div>
                     </div>

@@ -109,7 +109,7 @@ useEffect(() => {
       target={p.target} 
       rel={p.target === "_blank" ? "noreferrer" : undefined}
       onClick={() => setMenuOpen(false)}
-      className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2  md:py-3 lg:py-7 py-1  rounded-xl transition-colors
+      className={`flex items-center justify-between gap-2 lg:px-4 px-1 md:px-3 sm:px-2  md:py-2 sm:py-3 lg:py-4 py-2  rounded-xl transition-colors
         ${isActive
           ? "bg-primary text-white"
           : "border border-gray-100 hover:bg-gray-50"
@@ -126,11 +126,11 @@ useEffect(() => {
 </div>
         
         <div className="text-start">
-          <p className={`md:text-lg lg:text-2xl mb-1 text-lg 
+          <p className={`md:text-lg sm:text-base lg:text-2xl mb-1 text-lg 
             ${isActive ? "text-white" : "text-black"}`}>
             {t(p.nameKey)}
           </p>
-          <p className={`md:text-base  lg:text-lg text-sm 
+          <p className={`md:text-base sm:text-base  lg:text-lg text-sm 
             ${isActive ? "text-white" : "text-black"}`}>
             {t(p.descKey)}
           </p>

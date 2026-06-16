@@ -46,7 +46,7 @@ const Questions = ({ faqs = [] }) => {
               onClick={() => toggle(index)}
               className="flex justify-between items-center p-4 cursor-pointer bg-white hover:bg-gray-50 transition"
             >
-              <h3 className="text-sm font-medium text-gray-800">
+              <h3 className="text-sm text-start font-medium text-gray-800">
                 {toStr(item.question) || t("questions.questionNumber", { number: index + 1 })}
               </h3>
               <div className="w-10 h-10 flex items-center text-xl justify-end text-black font-semibold">

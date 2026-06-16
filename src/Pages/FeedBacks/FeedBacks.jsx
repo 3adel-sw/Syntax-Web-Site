@@ -101,20 +101,19 @@ const FeedBacks = () => {
     <div className="min-h-screen home-page flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto">
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
-        {/* Header */}
-        <div
-          data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700"
-          className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full h-[340px] bg-[#23286B]"
-        >
-          <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
-          <h1 className="absolute top-10 md:top-20 left-4 md:left-20 md:text-5xl text-3xl font-bold text-white">
-            {t("feedbacks.heroTitle")}
-          </h1>
-          <p className="absolute bottom-10 md:bottom-20 md:left-20 left-4 text-gray-500 md:text-2xl text-lg max-w-5xl">
-            {t("feedbacks.heroDescription")}
-          </p>
-        </div>
-
+         {/* Header */}
+      <div
+        data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700"
+        className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full md:h-[340px] h-[220px] bg-[#23286B]"
+      >
+        <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
+        <h1 className="absolute top-10 md:top-20 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
+          {t("feedbacks.heroTitle")}
+        </h1>
+        <p className="absolute bottom-10 md:bottom-20 md:start-20 start-4 text-gray-500 md:text-2xl text-lg max-w-5xl">
+          {t("feedbacks.heroDescription")}
+        </p>
+      </div>
         {/* Loading */}
         {loading && (
           <div className="hidden md:grid px-4 grid-cols-3 gap-6 mx-auto">
