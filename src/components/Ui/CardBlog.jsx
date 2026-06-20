@@ -40,7 +40,7 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
       <div className="h-61 flex items-center rounded-2xl justify-center relative overflow-hidden">
         {(image || thumb) ? (
           <img
-            loading="eager"
+            loading="lazy"
             fetchPriority="high"
             src={image || thumb}
             alt={title}

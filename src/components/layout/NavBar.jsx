@@ -43,7 +43,7 @@ setSettings(res.data?.settings ?? null);
       {/* Logo */}
       <Link to="/">
         <div className="md:w-32 md:h-10 sm:w-24 sm:h-8 w-20 h-8">
-          <img src={settings?.logo || Logo } alt={t("common.brandLogo")} />
+          <img loading="lazy" src={settings?.logo || Logo } alt={t("common.brandLogo")} />
         </div>
       </Link>
 

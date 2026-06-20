@@ -120,6 +120,7 @@ useEffect(() => {
         <div className={`w-10 h-10  flex items-center justify-center shrink-0
   ${isActive ? "bg-transparent" : "bg-transparent"}`}>
   <img 
+    loading="lazy"
     src={isActive ? LogoMenuWhite : logoMuneP} 
     alt="LogoMenu" 
     className="w-10 h-10"
@@ -207,7 +208,7 @@ useEffect(() => {
 
     {/* Header primary */}
     <div className="flex items-center justify-between bg-primary px-4 py-3">
-      <img src={LogoMenuMobile} alt="Logo" className="w-40 h-14 " />
+      <img loading="lazy" src={LogoMenuMobile} alt="Logo" className="w-40 h-14 " />
       <button onClick={() => setMenuOpen(false)} className="text-white hover:text-white/70 transition-colors">
         <X size={42} />
       </button>
@@ -237,7 +238,7 @@ useEffect(() => {
                     src={isActive ? LogoMenuWhite : logoMuneP}
                     alt="LogoMenu"
                     className="w-10 h-10"
-                    loading="eager"
+                    loading="lazy"
                     fetchPriority="high"
                   />
                 </div>

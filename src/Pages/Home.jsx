@@ -149,7 +149,7 @@ const Home = () => {
         {organizations.length > 0 && (
           <div className="flex flex-wrap justify-center md:gap-6 gap-2 md:my-10 my-2">
             {organizations.map((org) => (
-              <img key={org.id} src={org.logo} alt={org.name} className="h-10 object-contain" />
+              <img key={org.id} loading="lazy" src={org.logo} alt={org.name} className="h-10 object-contain" />
             ))}
           </div>
         )}

@@ -33,6 +33,7 @@ const TestimonialCard = ({ content, name, job, image, i }) => (
     <div className="flex items-center gap-3">
       {image ? (
         <img
+          loading="lazy"
           src={image}
           alt={name}
           className="w-10 h-10 rounded-full object-cover flex-shrink-1"

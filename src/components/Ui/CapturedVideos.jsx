@@ -44,7 +44,7 @@ const VideoCard = ({ item, onClick, isImage }) => {
       onClick={() => !isImage && onClick && onClick(item)}
     >
       <img
-        loading="eager"
+        loading="lazy"
         fetchPriority="high"
         src={item.thumbnail}
         alt={item.alt}

@@ -1,32 +1,25 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-// Change this:
 import LayoutSyntax from "@/components/layout/LayoutSyntax";
-// To this:
-// Home Page
-import Home from "@/Pages/Home";
-// FeedBacks Page
-import FeedBacks from "@/Pages/FeedBacks/FeedBacks";
-// Blogs Page
-import Blogs from "@/Pages/Blogs/Blogs";
-// B2B Collaboration Page
-import B2BCollaboration from "@/Pages/B2B/B2BCollaboration";
-// Blogs Details Page
-import BlogsDetails from "@/Pages/Blogs/BlogsDetails";
-// Contact Page
-import Contact from "@/Pages/Contact/Contact";
-// Detail Courses Page
-import DetailCourses from "@/Pages/DetailCourses/DetailCourses";
-// Courses Page
-import Courses from "@/Pages/Courses/Courses";
-// Events Page
-import Events from "@/Pages/Events/Events";
-// Events Details Page
-import EventsDetails from "@/Pages/Events/EventsDetails";
-// About Us Page
-import AboutUs from "@/Pages/AboutUs/AboutUs";
-// Not Found Page
-import NotFound from "@/Pages/NotFound";
-// file Home
+
+const Home = lazy(() => import("@/Pages/Home"));
+const FeedBacks = lazy(() => import("@/Pages/FeedBacks/FeedBacks"));
+const Blogs = lazy(() => import("@/Pages/Blogs/Blogs"));
+const B2BCollaboration = lazy(() => import("@/Pages/B2B/B2BCollaboration"));
+const BlogsDetails = lazy(() => import("@/Pages/Blogs/BlogsDetails"));
+const Contact = lazy(() => import("@/Pages/Contact/Contact"));
+const DetailCourses = lazy(() => import("@/Pages/DetailCourses/DetailCourses"));
+const Courses = lazy(() => import("@/Pages/Courses/Courses"));
+const Events = lazy(() => import("@/Pages/Events/Events"));
+const EventsDetails = lazy(() => import("@/Pages/Events/EventsDetails"));
+const AboutUs = lazy(() => import("@/Pages/AboutUs/AboutUs"));
+const NotFound = lazy(() => import("@/Pages/NotFound"));
+
+const Page = ({ Component }) => (
+  <Suspense fallback={<div className="flex justify-center items-center min-h-screen" />}>
+    <Component />
+  </Suspense>
+);
 
 
 
@@ -46,50 +39,50 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Page Component={Home} />,
       },
       {
         path: "/blogs",
-        element: <Blogs />,
+        element: <Page Component={Blogs} />,
       },
       {
         path: "/blogs-detail/:id",
-        element: <BlogsDetails />,
+        element: <Page Component={BlogsDetails} />,
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: <Page Component={Contact} />,
       },
       {
         path: "/courses",
-        element: <Courses />,
+        element: <Page Component={Courses} />,
       },
       {
         path: "/courses-detail/:id",
-        element: <DetailCourses />,
+        element: <Page Component={DetailCourses} />,
       },
       {
         path: "/events",
-        element: <Events />,
+        element: <Page Component={Events} />,
       },
       {
         path: "/events-detail/:id",
-        element: <EventsDetails />,
+        element: <Page Component={EventsDetails} />,
       },
       {
         path: "/feedbacks",
-        element: <FeedBacks />,
+        element: <Page Component={FeedBacks} />,
       },
       {
         path: "/b2b",
-        element: <B2BCollaboration />,
+        element: <Page Component={B2BCollaboration} />,
       },
       {
         path: "/about",
-        element: <AboutUs />,
+        element: <Page Component={AboutUs} />,
       },
-     
+      
     ],
   },
-  { path: "*", element: <NotFound /> },
+  { path: "*", element: <Page Component={NotFound} /> },
 ]);

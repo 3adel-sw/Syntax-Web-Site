@@ -136,6 +136,7 @@ const MeetTeam = () => {
             >
               <div className="w-full h-full aspect-square rounded-xl overflow-hidden">
                 <img
+                  loading="lazy"
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-contain"

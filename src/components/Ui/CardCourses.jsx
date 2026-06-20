@@ -24,7 +24,7 @@ const CourseCard = ({ course, navigate }) => {
       
         {course.image || course.img ? (
           <img
-            loading="eager"
+            loading="lazy"
             src={course.image || course.img}
             className="w-full h-full object-cover"
             alt={toStr(course.title || course.name || course.course_name)}

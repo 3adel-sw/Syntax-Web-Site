@@ -23,6 +23,7 @@ const Avatar = ({ name, image, colorIndex }) => {
   if (image && !imgError) {
     return (
       <img
+        loading="lazy"
         src={image}
         alt={name}
         onError={() => setImgError(true)}

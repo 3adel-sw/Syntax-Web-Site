@@ -26,6 +26,7 @@ const LayersB2B = () => {
           >
             <div className="flex flex-row items-center gap-3">
               <img
+                loading="lazy"
                 src={item.image}
                 alt={item.title}
                 className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover shrink-0"

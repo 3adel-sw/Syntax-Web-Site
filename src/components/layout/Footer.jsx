@@ -50,6 +50,7 @@ setSettings(res.data?.settings ?? null);
         <div className="flex items-center gap-2 w-40 h-12">
           {(settings?.footer_logo || settings?.logo) && (
   <img 
+  loading="lazy"
   src={settings?.footer_logo || settings?.logo || logoFooter} 
   className='w-36 h-auto object-contain' 
   alt={t('common.brandLogo')}
