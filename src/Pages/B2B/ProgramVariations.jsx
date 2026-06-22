@@ -54,7 +54,7 @@ const ProgramVariations = () => {
     <span className="pv-num">{String(i + 1).padStart(2, "0")}</span>
     <div className="pv-card">
       <div className="pv-icon-wrap p-2  overflow-hidden">
-        <img loading="lazy" src={p.image} alt={p.title} className="w-18 h-12 object-contain" />
+        <img src={p.image} alt={p.title} className="w-18 h-12 object-contain" />
       </div>
       <div>
         <p className="pv-card-title md:text-lg text-sm">{p.title}</p>

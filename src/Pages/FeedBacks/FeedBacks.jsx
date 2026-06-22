@@ -46,7 +46,7 @@ const FeedBacks = () => {
       }
     };
     fetch();
-  }, []);
+  }, [t]);
 
   const columns = Array.from({ length: NUM_COLS }, (_, ci) =>
     reviews.filter((_, i) => i % NUM_COLS === ci)
@@ -109,9 +109,9 @@ const FeedBacks = () => {
          {/* Header */}
       <div
         data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700"
-        className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full md:h-[280px] h-[210px] bg-[#23286B]"
+        className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full md:h-[340px] h-[220px] bg-[#23286B]"
       >
-        <img loading="lazy" src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
+        <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
         <h1 className="absolute top-10 md:top-20 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
           {t("feedbacks.heroTitle")}
         </h1>

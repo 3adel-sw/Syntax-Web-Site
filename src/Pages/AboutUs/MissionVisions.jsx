@@ -80,7 +80,6 @@ const MissionVisions = () => {
         {/* Left: Image */}
         <div className="rounded-4xl md:col-span-1 overflow-hidden h-82 md:h-full min-h-[583px] bg-gray-200">
           <img
-            loading="lazy"
             src={data.image}
             alt={t("about.mission")}
             className="w-full h-full object-cover"

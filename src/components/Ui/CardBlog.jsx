@@ -41,7 +41,6 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
         {(image || thumb) ? (
           <img
             loading="lazy"
-            fetchPriority="high"
             src={image || thumb}
             alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform"

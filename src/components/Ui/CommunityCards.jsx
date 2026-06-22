@@ -31,7 +31,6 @@ const CommunityCards = () => {
   <div className="relative flex items-center justify-center w-full mb-2 -mt-2  ">
               <img
                 loading="lazy"
-            fetchPriority="high"
               src={cardplus} alt={t("community.joinNow")} className="absolute w-full top-0 -right-8 rounded-2xl" />
     {/* Left line */}
     <div className="flex-1 w-full h-px bg-[#3E3E3F]" />

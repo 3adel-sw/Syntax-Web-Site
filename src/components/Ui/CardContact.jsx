@@ -53,8 +53,7 @@ const CardContact = () => {
       {/* Right — Image */}
       <div className="bg-[#202020] w-full md:flex-1 md:h-56 h-full sm:h-72 md:h-auto">
         <img
-        loading="eager"
-        fetchPriority="high"
+                loading="lazy"
           src={hero}
           alt={t("contact.heroAlt")}
           className="w-full h-full object-cover"

@@ -193,7 +193,6 @@ function Events() {
     <div className="border bg-gray-50 border-gray-200 md:h-[266px] rounded-2xl overflow-hidden flex flex-col sm:flex-row">
       <div className="sm:w-58 md:w-92 md:p-2 w-full h-64 sm:h-auto flex-shrink-1">
         <img
-          loading="lazy"
           src={upcomingEvent.banner_image || upcomingEvent.image}
           alt={upcomingEvent.title}
           className="w-full h-full rounded-2xl object-cover"

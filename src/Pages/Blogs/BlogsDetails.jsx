@@ -123,8 +123,7 @@ const BlogsDetails = () => {
               <img
                 src={toStr(image)}
                 alt={toStr(title)}
-                loading="eager"
-                fetchPriority="high"
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </div>

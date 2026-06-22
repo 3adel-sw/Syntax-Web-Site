@@ -116,7 +116,7 @@ const CoreValues = () => {
                 <div key={value.id} className="min-w-full flex-shrink-1 px-1">
                   <div className="flex flex-col gap-3 p-5 bg-white rounded-3xl border border-[#DFE1E7]">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${icon.bg}`}>
-                      <img loading="lazy" src={icon.img} alt={value.title} />
+                      <img src={icon.img} alt={value.title} />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900">{value.title}</h3>
                     <p className="text-sm text-gray-500 leading-relaxed">{value.description}</p>
@@ -149,7 +149,7 @@ const CoreValues = () => {
               className="flex flex-col gap-3 md:p-8 p-5 bg-white hover:scale-105 transition-all duration-300 ease-in-out hover:shadow-md rounded-3xl border border-[#DFE1E7]"
             >
               <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${icon.bg}`}>
-                <img loading="lazy" src={icon.img} alt={value.title} />
+                <img src={icon.img} alt={value.title} />
               </div>
               <h3 className="md:text-2xl text-xl font-semibold text-gray-900">{value.title}</h3>
               <p className="md:text-base text-sm text-gray-500 leading-relaxed">{value.description}</p>

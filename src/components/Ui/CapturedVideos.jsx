@@ -45,7 +45,6 @@ const VideoCard = ({ item, onClick, isImage }) => {
     >
       <img
         loading="lazy"
-        fetchPriority="high"
         src={item.thumbnail}
         alt={item.alt}
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

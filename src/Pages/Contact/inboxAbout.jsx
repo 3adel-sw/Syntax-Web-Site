@@ -128,7 +128,7 @@ const InboxAbout = () => {
 
   {/* Podcast Card */}
   <div className="bg-[#432772] rounded-2xl p-5 flex flex-col items-center justify-center text-center gap-1 min-h-[100px]">
-  <img loading="lazy" src={but} alt={t("footer.podcast")} className="w-40 h-20 object-cover" />
+  <img src={but} alt={t("footer.podcast")} className="w-40 h-20 object-cover" />
     <a
       href="https://7orofcast.onsyntax.com/"
       target="_blank" rel="noopener noreferrer"

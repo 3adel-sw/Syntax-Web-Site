@@ -15,7 +15,6 @@ const EventCard = ({ event }) => {
          <div className="h-67 flex items-center rounded-2xl justify-center relative overflow-hidden">
       <div className="w-full h-full rounded-lg overflow-hidden">
         <img
-          loading="lazy"
           src={event.image}
           alt={event.title}
           className="w-full h-full object-cover"

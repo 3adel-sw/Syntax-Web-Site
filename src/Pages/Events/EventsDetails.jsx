@@ -299,7 +299,7 @@ const EventsDetails = () => {
               </div>
 
               <div className="md:hidden rounded-2xl overflow-hidden mb-6 h-48">
-                <img loading="lazy" src={image} alt={title} className="w-full h-full object-cover" />
+                <img src={image} alt={title} className="w-full h-full object-cover" />
               </div>
 
               {isEventPassed && showVideo && videos.length > 0 && <VideosYouTube videos={videos} />}
@@ -387,7 +387,6 @@ const EventsDetails = () => {
 
               <div className="rounded-2xl overflow-hidden hidden md:block">
                 <img
-                  loading="lazy"
                   src={image}
                   alt={t('events.eventPosterAlt')}
                   className="w-full h-90 object-cover rounded-2xl"
@@ -405,7 +404,6 @@ const EventsDetails = () => {
                       className="flex bg-gray-100 items-center gap-3 border border-gray-200 rounded-2xl p-4 hover:bg-gray-50 transition"
                     >
                       <img
-                        loading="lazy"
                         src={speaker.image}
                         alt={speaker.name}
                         className="w-14 h-14 rounded-full object-cover flex-shrink-0"

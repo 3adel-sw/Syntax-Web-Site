@@ -15,7 +15,6 @@ const FaqCard = ({ faq, i }) => (
   <div className="flex flex-col items-center gap-2 border border-gray-200 rounded-2xl p-5 bg-white h-full">
     <img
       loading="lazy"
-      fetchPriority="high"
       className="w-12 h-12 rounded-xl"
       src={faq.icon || faq.image || fallbackIcons[i % fallbackIcons.length]}
       alt={toStr(faq.question)}
