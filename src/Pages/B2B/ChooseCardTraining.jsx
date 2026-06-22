@@ -28,9 +28,9 @@ const ChooseCardTraining = () => {
     <div className="mt-5 bg-[#111111] rounded-4xl md:py-24 md:px-18 py-6 px-4   h-fit w-full">
       {/* Header */}
       <div className="text-center  mb-10">
-        <h1 className="text-3xl md:text-4xl text-white font-bold mb-4">
+        <h2 className="text-3xl md:text-4xl text-white font-bold mb-4">
           {t("b2b.whyChooseTraining")}
-        </h1>
+        </h2>
         <p className="text-[#888888] text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
           {t("b2b.whyChooseTrainingDescription")}
         </p>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCourseById } from '../../services/courses/coursesService';
 import Curriculum from "./Curriculum";
@@ -8,6 +8,7 @@ import Reports from "../../assets/reports.svg"
 import ChooseUs from '../../components/Ui/ChooseUs';
 import CardsTestimonials from '../../components/Ui/CardsTestimonials';
 import CapturedVideos from '../../components/Ui/CapturedVideos';
+import SEO from '../../components/SEO';
 import MainFooter from '../../components/Ui/MainFooter';
 import Footer from "../../components/layout/Footer";
 import RegisterModal from '../../components/Ui/RegisterModal';
@@ -92,6 +93,83 @@ const DetailCourses = () => {
     };
     fetchCourse();
   }, [id, isRTL, t]);
+
+  // SEO: Course Schema + BreadcrumbList + dynamic document title
+  useEffect(() => {
+    if (!course) return;
+    const courseTitle = toStr(course?.title || course?.name || 'كورس تصميم UX/UI');
+    const courseDesc = toStr(course?.small_description || course?.description || `كورس ${courseTitle} من Syntax Academy`).slice(0, 200);
+    const courseUrl = `https://onsyntax.mhwaralabtikar.com/courses-detail/${id}`;
+    const courseImage = course?.banner_image || course?.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+
+    // Update document title
+    document.title = `${courseTitle} | Syntax Academy - كورسات UX/UI`;
+
+    // Update meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', courseDesc);
+
+    // Course Schema
+    const courseSchema = {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": courseTitle,
+      "description": courseDesc,
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": "Syntax Academy",
+        "sameAs": "https://onsyntax.mhwaralabtikar.com/"
+      },
+      "inLanguage": "ar",
+      "availableLanguage": ["ar"],
+      "url": courseUrl,
+      "image": courseImage,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": course?.duration || "PT48H"
+      },
+      "offers": {
+        "@type": "Offer",
+        "category": "Online Course",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "EGP",
+        "url": courseUrl
+      }
+    };
+
+    // BreadcrumbList Schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://onsyntax.mhwaralabtikar.com/" },
+        { "@type": "ListItem", "position": 2, "name": "الكورسات", "item": "https://onsyntax.mhwaralabtikar.com/courses" },
+        { "@type": "ListItem", "position": 3, "name": courseTitle, "item": courseUrl }
+      ]
+    };
+
+    const scriptCourse = document.createElement('script');
+    scriptCourse.type = 'application/ld+json';
+    scriptCourse.id = 'course-schema';
+    scriptCourse.text = JSON.stringify(courseSchema);
+
+    const scriptBreadcrumb = document.createElement('script');
+    scriptBreadcrumb.type = 'application/ld+json';
+    scriptBreadcrumb.id = 'breadcrumb-schema';
+    scriptBreadcrumb.text = JSON.stringify(breadcrumbSchema);
+
+    // Remove old and add new
+    document.getElementById('course-schema')?.remove();
+    document.getElementById('breadcrumb-schema')?.remove();
+    document.head.appendChild(scriptCourse);
+    document.head.appendChild(scriptBreadcrumb);
+
+    return () => {
+      document.getElementById('course-schema')?.remove();
+      document.getElementById('breadcrumb-schema')?.remove();
+    };
+  }, [course, id]);
   
 
   if (loading) return (
@@ -126,8 +204,58 @@ const DetailCourses = () => {
     }
   }
 };
+
+  // SEO data for this course (memoized)
+  const courseSeo = useMemo(() => {
+    if (!course) return null;
+    const courseTitle = toStr(course?.title || course?.name || 'كورس تصميم UX/UI');
+    const courseDesc = toStr(course?.small_description || course?.description || `كورس ${courseTitle}`).slice(0, 200);
+    const courseImage = course?.banner_image || course?.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const courseUrl = `/courses-detail/${id}`;
+    return {
+      title: courseTitle,
+      description: courseDesc,
+      keywords: `كورس ${courseTitle}, تعلم ${courseTitle}, تصميم UX UI, ${course?.category || 'تصميم'}`,
+      url: courseUrl,
+      image: courseImage,
+      type: 'course',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: courseTitle,
+        description: courseDesc,
+        provider: {
+          '@type': 'EducationalOrganization',
+          name: 'Syntax Academy',
+          sameAs: 'https://onsyntax.mhwaralabtikar.com/',
+        },
+        inLanguage: 'ar',
+        image: courseImage,
+        url: `https://onsyntax.mhwaralabtikar.com${courseUrl}`,
+        hasCourseInstance: {
+          '@type': 'CourseInstance',
+          courseMode: 'online',
+          courseWorkload: course?.duration || 'PT48H',
+        },
+        offers: {
+          '@type': 'Offer',
+          category: 'Online Course',
+          availability: 'https://schema.org/InStock',
+          priceCurrency: 'EGP',
+          url: `https://onsyntax.mhwaralabtikar.com${courseUrl}`,
+        },
+      },
+      breadcrumb: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+        { '@type': 'ListItem', position: 2, name: 'الكورسات', item: 'https://onsyntax.mhwaralabtikar.com/courses' },
+        { '@type': 'ListItem', position: 3, name: courseTitle, item: `https://onsyntax.mhwaralabtikar.com${courseUrl}` },
+      ],
+    };
+  }, [course, id]);
+
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      {courseSeo && <SEO {...courseSeo} />}
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <RegisterModal courseName={course?.name} isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
         {/* Course Title */}

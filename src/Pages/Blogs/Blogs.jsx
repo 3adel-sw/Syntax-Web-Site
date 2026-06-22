@@ -47,6 +47,30 @@ const Blogs = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <SEO
+        title="مدونة تصميم UX/UI - مقالات ونصائح من خبراء"
+        description="مدونة Syntax Academy: مقالات عربية متخصصة في تصميم تجربة المستخدم UX، واجهة المستخدم UI، Figma، نظرية الألوان، وأحدث اتجاهات التصميم."
+        keywords="مدونة تصميم UX UI, مقالات تجربة المستخدم, نصائح تصميم واجهات, Figma عربي, نظرية الألوان"
+        url="/blogs"
+        type="website"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: 'مدونة Syntax Academy',
+          description: 'مقالات عربية متخصصة في تصميم UX/UI',
+          url: 'https://onsyntax.mhwaralabtikar.com/blogs',
+          inLanguage: 'ar',
+          publisher: {
+            '@type': 'EducationalOrganization',
+            name: 'Syntax Academy',
+            url: 'https://onsyntax.mhwaralabtikar.com/',
+          },
+        }}
+        breadcrumb={[
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+          { '@type': 'ListItem', position: 2, name: 'المدونة', item: 'https://onsyntax.mhwaralabtikar.com/blogs' },
+        ]}
+      />
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
         {/* Header */}

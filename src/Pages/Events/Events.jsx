@@ -159,6 +159,24 @@ function Events() {
 
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <SEO
+        title="لقاءات وفعاليات تصميم UX/UI - Syntax Academy"
+        description="فعاليات ولقاءات Syntax Academy في تصميم UX/UI: ورش عمل، Meetups، بودكاست، ومؤتمرات للمصممين والمبتكرين في العالم العربي."
+        keywords="فعاليات تصميم UX UI, Meetups تصميم, ورش عمل UX, مؤتمرات تصميم, بودكاست تصميم"
+        url="/events"
+        type="website"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'فعاليات تصميم UX/UI - Syntax Academy',
+          description: 'فعاليات ولقاءات متعلقة بتصميم تجربة المستخدم',
+          url: 'https://onsyntax.mhwaralabtikar.com/events',
+        }}
+        breadcrumb={[
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+          { '@type': 'ListItem', position: 2, name: 'الفعاليات', item: 'https://onsyntax.mhwaralabtikar.com/events' },
+        ]}
+      />
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="mb-6 text-start">
           {/* <h1 className="md:text-2xl text-xl font-bold text-gray-900 mt-14 leading-tight"> */}

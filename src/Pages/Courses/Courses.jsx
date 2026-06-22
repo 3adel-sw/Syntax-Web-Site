@@ -4,6 +4,7 @@ import CardCourses from '../../components/Ui/CardCourses';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
+import SEO from '../../components/SEO';
 import { useTranslation } from 'react-i18next';
 import { getAboutCourses, getCoursesByCategory } from "../../services/courses/coursesService";
 
@@ -52,6 +53,24 @@ const isAr = i18n.language === 'ar';
 
   return (
  <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      <SEO
+        title="كورسات تصميم UX/UI - تعلم من المبتدئ للاحتراف"
+        description="اكتشف كورسات تصميم UX/UI باللغة العربية مع Syntax Academy. دورات شاملة في تجربة المستخدم، واجهات التطبيقات، Figma، وDesign Systems للمبتدئين والمحترفين."
+        keywords="كورسات UX UI, تعلم تصميم واجهات, دورات Figma, تجربة المستخدم, واجهة المستخدم, Design System, كورسات تصميم عربية"
+        url="/courses"
+        type="website"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'كورسات تصميم UX/UI - Syntax Academy',
+          description: 'قائمة كورسات تصميم تجربة المستخدم وواجهة المستخدم باللغة العربية',
+          url: 'https://onsyntax.mhwaralabtikar.com/courses',
+        }}
+        breadcrumb={[
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+          { '@type': 'ListItem', position: 2, name: 'الكورسات', item: 'https://onsyntax.mhwaralabtikar.com/courses' },
+        ]}
+      />
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
      <div className={`space-y-3 ${isAr ? 'text-right' : 'text-start'}`}>
@@ -74,9 +93,9 @@ const isAr = i18n.language === 'ar';
 
           {/* ── Filter Tabs ── */}
         <div className="mt-12 md:mt-12 md:mb-6">
-          <h1 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2 md:mb-6">
+          <h2 className="md:text-4xl text-base font-bold text-start text-gray-900 mb-2 md:mb-6">
             {t('courses.tabs.all')}
-          </h1>
+          </h2>
  
           {/* Desktop */}
           <div className="hidden md:flex gap-2 flex-wrap mb-2">

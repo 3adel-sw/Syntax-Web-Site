@@ -65,9 +65,9 @@ const FormTrainingForCorporation = ({ onSubmit }) => {
     <div className="min-h-screen md:mb-32 mb-12  flex items-center justify-center p-6">
       {!success && (
         <div className=" rounded-2xl md:px-12 px-8 md:py-12 py-10 w-full md:max-w-4xl shadow-sm">
-          <h1 className="md:text-4xl sm:text-3xl text-lg font-bold text-center text-gray-900 md:mb-9 mb-6 ">
+          <h2 className="md:text-4xl sm:text-3xl text-lg font-bold text-center text-gray-900 md:mb-9 mb-6 ">
             {t("b2b.form.title")}
-          </h1>
+          </h2>
 
           {/* Full Name */}
           <div className="mb-4">

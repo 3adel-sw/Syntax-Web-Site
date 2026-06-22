@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, Calendar, Tag, Loader2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CardBlog from '../../components/Ui/CardBlog';
 import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
+import SEO from '../../components/SEO';
+import OptimizedImage from '../../components/OptimizedImage';
 import { getBlogById } from '../../services/blogs/blogsService';
 import { useTranslation } from 'react-i18next';
 import { FaRegCopy } from "react-icons/fa";
@@ -73,6 +75,83 @@ const BlogsDetails = () => {
     fetchBlog();
   }, [id, t]);
 
+  // SEO: Article Schema + BreadcrumbList + dynamic document title
+  useEffect(() => {
+    if (!blog) return;
+    const blogTitle = toStr(blog.name || blog.title || 'مقال عن تصميم UX/UI');
+    const blogDesc = toStr(blog.small_description || blog.description || `${blogTitle} - مقال من Syntax Academy`).slice(0, 200);
+    const blogUrl = `https://onsyntax.mhwaralabtikar.com/blogs-detail/${id}`;
+    const blogImage = blog.image || blog.thumb || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const blogDate = blog.created_at || blog.date || new Date().toISOString();
+
+    // Update document title
+    document.title = `${blogTitle} | مدونة Syntax Academy`;
+
+    // Update meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', blogDesc);
+
+    // Article Schema
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": blogTitle,
+      "description": blogDesc,
+      "image": blogImage,
+      "datePublished": blogDate,
+      "dateModified": blogDate,
+      "author": {
+        "@type": "Organization",
+        "name": "Syntax Academy",
+        "url": "https://onsyntax.mhwaralabtikar.com/"
+      },
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Syntax Academy",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://onsyntax.mhwaralabtikar.com/src/assets/logoo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": blogUrl
+      },
+      "inLanguage": "ar"
+    };
+
+    // BreadcrumbList Schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://onsyntax.mhwaralabtikar.com/" },
+        { "@type": "ListItem", "position": 2, "name": "المدونة", "item": "https://onsyntax.mhwaralabtikar.com/blogs" },
+        { "@type": "ListItem", "position": 3, "name": blogTitle, "item": blogUrl }
+      ]
+    };
+
+    const scriptArticle = document.createElement('script');
+    scriptArticle.type = 'application/ld+json';
+    scriptArticle.id = 'article-schema';
+    scriptArticle.text = JSON.stringify(articleSchema);
+
+    const scriptBreadcrumb = document.createElement('script');
+    scriptBreadcrumb.type = 'application/ld+json';
+    scriptBreadcrumb.id = 'breadcrumb-blog-schema';
+    scriptBreadcrumb.text = JSON.stringify(breadcrumbSchema);
+
+    document.getElementById('article-schema')?.remove();
+    document.getElementById('breadcrumb-blog-schema')?.remove();
+    document.head.appendChild(scriptArticle);
+    document.head.appendChild(scriptBreadcrumb);
+
+    return () => {
+      document.getElementById('article-schema')?.remove();
+      document.getElementById('breadcrumb-blog-schema')?.remove();
+    };
+  }, [blog, id]);
+
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleCopyLink = () => {
@@ -100,8 +179,54 @@ const BlogsDetails = () => {
   const date = formatDate(blog.date || blog.created_at || blog.published_at);
   const relatedData = relatedBlogs.length ? relatedBlogs : undefined;
 
+  // SEO data (memoized)
+  const seoData = useMemo(() => {
+    if (!blog) return null;
+    const blogTitle = toStr(blog.name || blog.title || 'مقال عن تصميم UX/UI');
+    const blogDesc = toStr(blog.small_description || blog.description || `${blogTitle} - مقال من Syntax Academy`).slice(0, 200);
+    const blogImage = blog.image || blog.thumb || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const blogDate = blog.created_at || blog.date || new Date().toISOString();
+    const blogUrl = `/blogs-detail/${id}`;
+
+    return {
+      title: blogTitle,
+      description: blogDesc,
+      keywords: 'مدونة تصميم UX UI, مقالات تجربة المستخدم, نصائح تصميم واجهات, Figma عربي',
+      url: blogUrl,
+      image: blogImage,
+      type: 'article',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: blogTitle,
+        description: blogDesc,
+        image: blogImage,
+        datePublished: blogDate,
+        dateModified: blogDate,
+        author: {
+          '@type': 'Organization',
+          name: 'Syntax Academy',
+          url: 'https://onsyntax.mhwaralabtikar.com/',
+        },
+        publisher: {
+          '@type': 'EducationalOrganization',
+          name: 'Syntax Academy',
+          logo: { '@type': 'ImageObject', url: 'https://onsyntax.mhwaralabtikar.com/src/assets/logoo.svg' },
+        },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': `https://onsyntax.mhwaralabtikar.com${blogUrl}` },
+        inLanguage: 'ar',
+      },
+      breadcrumb: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+        { '@type': 'ListItem', position: 2, name: 'المدونة', item: 'https://onsyntax.mhwaralabtikar.com/blogs' },
+        { '@type': 'ListItem', position: 3, name: blogTitle, item: `https://onsyntax.mhwaralabtikar.com${blogUrl}` },
+      ],
+    };
+  }, [blog, id]);
+
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      {seoData && <SEO {...seoData} />}
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="sm:max-w-4xl md:max-w-5xl lg:w-full mx-auto">
           {/* Back Button */}

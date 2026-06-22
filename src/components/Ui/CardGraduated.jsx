@@ -1,10 +1,8 @@
-import { useRef, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const CardGraduated = ({ data = [] }) => {
   const { i18n } = useTranslation();
-  const isRTLRef = useRef(i18n.language === 'ar');
-  isRTLRef.current = i18n.language === 'ar';
+  const isRTL = i18n.language === 'ar';
 
   const apiLogos = data
     .map((item, index) => ({
@@ -14,55 +12,37 @@ const CardGraduated = ({ data = [] }) => {
     }))
     .filter((logo) => logo.src);
 
-  const sliderRef = useRef(null);
-  const rafRef = useRef(null);
-  const posRef = useRef(0);
-  const pausedRef = useRef(false);
   const allLogos = [...apiLogos, ...apiLogos];
 
-  const animate = useCallback(() => {
-    const el = sliderRef.current;
-    if (!el) return;
-    if (!pausedRef.current) {
-      const setWidth = el.scrollWidth / 2;
-      if (setWidth <= 0) {
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
-      // RTL → يمين (+0.5) | LTR → شمال (-0.5)
-      const speed = isRTLRef.current ? 0.5 : -0.5;
-      posRef.current += speed;
-
-      if (posRef.current <= -setWidth) posRef.current += setWidth;
-      if (posRef.current >= setWidth) posRef.current -= setWidth;
-
-      el.style.transform = `translateX(${posRef.current}px)`;
-    }
-    rafRef.current = requestAnimationFrame(animate);
-  }, []);
-
-  useEffect(() => {
-    posRef.current = 0;
-    if (sliderRef.current) {
-      sliderRef.current.style.transform = 'translateX(0)';
-    }
-    rafRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [animate]);
-
   return (
-    <div className="my-8 overflow-hidden">
+    <div className="my-8 overflow-hidden" dir="ltr">
+      <style>{`
+        @keyframes scroll-ltr {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @keyframes scroll-rtl {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .slider-track {
+          animation: ${isRTL ? 'scroll-rtl' : 'scroll-ltr'} 20s linear infinite;
+        }
+        .slider-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       <div
-        ref={sliderRef}
-        className="flex items-center md:gap-4 gap-1 whitespace-nowrap"
-        style={{ direction: 'ltr' }}
-        onMouseEnter={() => { pausedRef.current = true; }}
-        onMouseLeave={() => { pausedRef.current = false; }}
+        className="slider-track flex items-center gap-4 whitespace-nowrap"
+        style={{ width: 'max-content', direction: 'ltr' }}
       >
-        {allLogos.map((logo, index) => (
-          <div key={`${logo.id}-${index}`} className="flex-shrink-0 flex items-center justify-center px-1">
+        {/* في RTL نعكس ترتيب العناصر */}
+        {(isRTL ? [...allLogos].reverse() : allLogos).map((logo, index) => (
+          <div
+            key={`${logo.id}-${index}`}
+            className="flex-shrink-0 flex items-center justify-center px-1"
+          >
             <img
               loading="lazy"
               src={logo.src}

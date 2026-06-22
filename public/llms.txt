@@ -1,0 +1,33 @@
+# Syntax Academy
+
+> أكاديمية عربية متخصصة في تعليم تصميم UX/UI. كورسات شاملة في تجربة المستخدم، واجهات التطبيقات، Figma، Design Systems، وورش عمل وفعاليات للمصممين في العالم العربي.
+
+تأسست عام 2020، تخدم أكثر من 5000 مصمم ومصممة في الوطن العربي. تقدم كورسات أونلاين وورش عمل حية وفعاليات Meetup ومحتوى مجاني عبر المدونة.
+
+## Core
+
+- [الرئيسية](https://onsyntax.mhwaralabtikar.com/): نظرة عامة على الأكاديمية وأحدث الكورسات والفعاليات.
+- [الكورسات](https://onsyntax.mhwaralabtikar.com/courses): قائمة كاملة للكورسات المتاحة في تصميم UX/UI، Figma، Design Systems.
+- [الأحداث والفعاليات](https://onsyntax.mhwaralabtikar.com/events): Meetups، ورش عمل، ومؤتمرات تصميم.
+- [المدونة](https://onsyntax.mhwaralabtikar.com/blogs): مقالات متخصصة في تجربة المستخدم، واجهات المستخدم، Figma، وأحدث اتجاهات التصميم.
+- [من نحن](https://onsyntax.mhwaralabtikar.com/about): قصة أكاديمية Syntax، الفريق، الرسالة، والقيم.
+- [تواصل معنا](https://onsyntax.mhwaralabtikar.com/contact): معلومات التواصل والاشتراك في النشرة البريدية.
+- [آراء العملاء](https://onsyntax.mhwaralabtikar.com/feedbacks): تجارب الخريجين والشركات التي تدربت معنا.
+- [تدريب الشركات B2B](https://onsyntax.mhwaralabtikar.com/b2b): برامج تدريبية مخصصة للشركات والفرق.
+
+## Optional
+
+- [قناة يوتيوب](https://www.youtube.com/@onsyntax): فيديوهات تعليمية مجانية وفعاليات مسجلة.
+- [مجتمع فيسبوك](https://www.facebook.com/groups/onsyntax): مجتمع المصممين العرب.
+- [بودكاست Syntax](https://7orofcast.onsyntax.com/): بودكاست عن التصميم والابتكار.
+- [LinkedIn](https://www.linkedin.com/company/onsyntax/): توابع وتحديثات مهنية.
+- [Instagram](https://www.instagram.com/onsyntax0/): محتوى بصري ونصائح سريعة.
+- [X (Twitter)](https://x.com/onsyntax0): آخر التحديثات والأخبار.
+- [Facebook](https://www.facebook.com/onsyntax0/): صفحة الأكاديمية الرسمية.
+
+## Notes
+
+- الكورسات تُقدَّم باللغة العربية.
+- الموقع ثنائي اللغة (عربي/إنجليزي) عبر زر تبديل اللغة.
+- الأسعار والجدول الزمني محدّثة بشكل دوري عبر صفحة الكورسات.
+- للاستفسارات التجارية وبرامج الشركات: [B2B](https://onsyntax.mhwaralabtikar.com/b2b).

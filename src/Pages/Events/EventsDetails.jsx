@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { MapPin, Calendar, Clock, Presentation, Share2, User, Loader2, X } from 'lucide-react';
 import { FaXTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa6';
 import Footer from '../../components/layout/Footer';
@@ -8,6 +8,7 @@ import RegistrEvents from './RegistrEvents';
 import VideosYouTube from './VideosYouTube';
 import EventGallery from './EventGallery';
 import { LuLoaderCircle } from 'react-icons/lu';
+import SEO from '../../components/SEO';
 import { getAllEvents, getEventById } from '../../services/events/eventsService';
 import { useTranslation } from 'react-i18next';
 
@@ -144,6 +145,84 @@ const EventsDetails = () => {
     fetchEvent();
   }, [id, t]);
 
+  // SEO: Event Schema + BreadcrumbList + dynamic document title
+  useEffect(() => {
+    if (!event) return;
+    const eventTitle = toStr(event.name || event.title || 'حدث تصميم UX/UI');
+    const eventDesc = toStr(event.small_description || event.description || `${eventTitle} - حدث من Syntax Academy`).slice(0, 200);
+    const eventUrl = `https://onsyntax.mhwaralabtikar.com/events-detail/${id}`;
+    const eventImage = event.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const startDate = event.start_date || event.date || new Date().toISOString();
+    const endDate = event.end_date || startDate;
+    const location = toStr(event.location || 'Online');
+
+    // Update document title
+    document.title = `${eventTitle} | فعاليات Syntax Academy`;
+
+    // Update meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', eventDesc);
+
+    // Event Schema
+    const eventSchema = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": eventTitle,
+      "description": eventDesc,
+      "image": eventImage,
+      "startDate": startDate,
+      "endDate": endDate,
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": location,
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "EG"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Syntax Academy",
+        "url": "https://onsyntax.mhwaralabtikar.com/"
+      },
+      "inLanguage": "ar",
+      "url": eventUrl
+    };
+
+    // BreadcrumbList Schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://onsyntax.mhwaralabtikar.com/" },
+        { "@type": "ListItem", "position": 2, "name": "الفعاليات", "item": "https://onsyntax.mhwaralabtikar.com/events" },
+        { "@type": "ListItem", "position": 3, "name": eventTitle, "item": eventUrl }
+      ]
+    };
+
+    const scriptEvent = document.createElement('script');
+    scriptEvent.type = 'application/ld+json';
+    scriptEvent.id = 'event-schema';
+    scriptEvent.text = JSON.stringify(eventSchema);
+
+    const scriptBreadcrumb = document.createElement('script');
+    scriptBreadcrumb.type = 'application/ld+json';
+    scriptBreadcrumb.id = 'breadcrumb-event-schema';
+    scriptBreadcrumb.text = JSON.stringify(breadcrumbSchema);
+
+    document.getElementById('event-schema')?.remove();
+    document.getElementById('breadcrumb-event-schema')?.remove();
+    document.head.appendChild(scriptEvent);
+    document.head.appendChild(scriptBreadcrumb);
+
+    return () => {
+      document.getElementById('event-schema')?.remove();
+      document.getElementById('breadcrumb-event-schema')?.remove();
+    };
+  }, [event, id]);
+
   const handleTouchStart = (e) => {
     touchStartRef.current = e.touches[0].clientX;
     setIsDragging(true);
@@ -240,8 +319,58 @@ const EventsDetails = () => {
   const isEventPassed = eventStart ? now >= eventStart : false;
   const canRegister = eventStart ? now < new Date(eventStart.getTime() - 8 * 60 * 60 * 1000) : true;
 
+  // SEO data for this event
+  const eventSeo = useMemo(() => {
+    if (!event) return null;
+    const eventTitle = toStr(event.name || event.title || 'حدث تصميم UX/UI');
+    const eventDesc = toStr(event.small_description || event.description || `${eventTitle} - حدث من Syntax Academy`).slice(0, 200);
+    const eventImage = event.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const startDate = event.start_date || event.date || new Date().toISOString();
+    const endDate = event.end_date || startDate;
+    const location = toStr(event.location || 'Online');
+    const eventUrl = `/events-detail/${id}`;
+
+    return {
+      title: eventTitle,
+      description: eventDesc,
+      keywords: `${eventTitle}, فعاليات تصميم UX UI, ${location}, Meetup تصميم`,
+      url: eventUrl,
+      image: eventImage,
+      type: 'event',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: eventTitle,
+        description: eventDesc,
+        image: eventImage,
+        startDate,
+        endDate,
+        eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: {
+          '@type': 'Place',
+          name: location,
+          address: { '@type': 'PostalAddress', addressCountry: 'EG' },
+        },
+        organizer: {
+          '@type': 'Organization',
+          name: 'Syntax Academy',
+          url: 'https://onsyntax.mhwaralabtikar.com/',
+        },
+        inLanguage: 'ar',
+        url: `https://onsyntax.mhwaralabtikar.com${eventUrl}`,
+      },
+      breadcrumb: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+        { '@type': 'ListItem', position: 2, name: 'الفعاليات', item: 'https://onsyntax.mhwaralabtikar.com/events' },
+        { '@type': 'ListItem', position: 3, name: eventTitle, item: `https://onsyntax.mhwaralabtikar.com${eventUrl}` },
+      ],
+    };
+  }, [event, id]);
+
   return (
     <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">
+      {eventSeo && <SEO {...eventSeo} />}
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
         <div className="py-2 px-4 border bg-white border-gray-200 rounded-2xl">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8 my-8">

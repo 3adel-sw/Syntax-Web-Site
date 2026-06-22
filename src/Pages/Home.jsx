@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { Sparkle, MessageSquare } from 'lucide-react';
 import { LuLoaderCircle } from "react-icons/lu";
@@ -9,6 +9,7 @@ import CardGraduated from '../components/Ui/CardGraduated';
 import CardsTestimonials from '../components/Ui/CardsTestimonials';
 import CardBlog from '../components/Ui/CardBlog';
 import Footer from '../components/layout/Footer';
+import SEO from '../components/SEO';
 import { useTranslation } from 'react-i18next';
 
 
@@ -90,6 +91,30 @@ const Home = () => {
 
   return (
     <div className="min-h-screen home-page flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto">
+      <SEO
+        title="كورسات تصميم UX/UI بالعربي - تعلم من الصفر للاحتراف"
+        description="أكاديمية Syntax هي المنصة العربية الأولى في تعليم تصميم UX/UI. كورسات شاملة في تجربة المستخدم، Figma، Design Systems، وواجهات التطبيقات. ابدأ رحلتك في التصميم اليوم."
+        keywords="كورس UX UI بالعربي, تعلم تصميم UX UI, كورس Figma عربي, تجربة المستخدم, واجهة المستخدم, Design System, Wireframing, Prototyping"
+        url="/"
+        type="website"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'EducationalOrganization',
+          name: 'Syntax Academy',
+          alternateName: 'سينتاكس',
+          url: 'https://onsyntax.mhwaralabtikar.com/',
+          description: 'أكاديمية عربية متخصصة في تعليم تصميم UX/UI',
+          sameAs: [
+            'https://www.facebook.com/onsyntax0/',
+            'https://x.com/onsyntax0',
+            'https://www.instagram.com/onsyntax0/',
+            'https://www.linkedin.com/company/onsyntax/',
+          ],
+        }}
+        breadcrumb={[
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+        ]}
+      />
       <div className="sm:max-w-5xl md:max-w-6xl w-[92%] lg:w-full text-center mx-1">
 
         {/* Badge */}
