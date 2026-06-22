@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { getTeams } from "../../services/about/aboutService";
 import { useTranslation } from "react-i18next";
@@ -18,11 +18,11 @@ const MeetTeam = () => {
   const [teamsData, setTeamsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(getVisibleCount);
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState("next");
-  const autoPlayRef = useRef(null);
+  const sliderRef = useRef(null);
+  const rafRef = useRef(null);
+  const posRef = useRef(0);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     getTeams()
@@ -34,78 +34,66 @@ const MeetTeam = () => {
   useEffect(() => {
     const handleResize = () => {
       setVisibleCount(getVisibleCount());
-      setStartIndex(0);
+      if (sliderRef.current) {
+        const setWidth = sliderRef.current.scrollWidth / 2;
+        posRef.current = isRTL ? -setWidth : 0;
+      }
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isRTL]);
 
-  const goTo = (newIndex, dir) => {
-    if (animating) return;
-    setDirection(dir);
-    setAnimating(true);
-    setTimeout(() => {
-      setStartIndex(newIndex);
-      setAnimating(false);
-    }, 350);
-  };
+  const animate = useCallback(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    if (!pausedRef.current) {
+      const setWidth = el.scrollWidth / 2;
+      const speed = isRTL ? 0.5 : -0.5;
+      posRef.current += speed;
+      if (posRef.current < -setWidth) posRef.current += setWidth;
+      if (posRef.current > 0) posRef.current -= setWidth;
+      el.style.transform = `translateX(${posRef.current}px)`;
+    }
+    rafRef.current = requestAnimationFrame(animate);
+  }, [isRTL]);
 
   useEffect(() => {
-    if (!teamsData) return;
-    autoPlayRef.current = setInterval(() => {
-      setStartIndex((prev) => {
-        const canNext = prev + visibleCount < teamsData.length;
-        const next = canNext ? prev + 1 : 0;
-        setDirection("next");
-        setAnimating(true);
-        setTimeout(() => setAnimating(false), 350);
-        return next;
-      });
-    }, 2500);
-    return () => clearInterval(autoPlayRef.current);
-  }, [teamsData, visibleCount]);
+    if (!loading && teamsData) {
+      if (sliderRef.current) {
+        const setWidth = sliderRef.current.scrollWidth / 2;
+        posRef.current = isRTL ? -setWidth : 0;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    }
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [animate, loading, teamsData, isRTL]);
 
-  const pauseAutoPlay = () => clearInterval(autoPlayRef.current);
-  const resumeAutoPlay = () => {
-    if (!teamsData) return;
-    autoPlayRef.current = setInterval(() => {
-      setStartIndex((prev) => {
-        const canNext = prev + visibleCount < teamsData.length;
-        const next = canNext ? prev + 1 : 0;
-        setDirection("next");
-        setAnimating(true);
-        setTimeout(() => setAnimating(false), 350);
-        return next;
-      });
-    }, 2500);
-  };
+  const pauseAutoPlay = () => { pausedRef.current = true; };
+  const resumeAutoPlay = () => { pausedRef.current = false; };
 
   const handlePrev = () => {
-    if (!teamsData) return;
-    const newIndex = startIndex > 0 ? startIndex - 1 : teamsData.length - visibleCount;
-    goTo(newIndex, "prev");
+    const el = sliderRef.current;
+    if (!el || !teamsData) return;
+    const cardWidth = el.children[0]?.offsetWidth || 300;
+    const jump = (cardWidth + 16) * visibleCount;
+    posRef.current = isRTL ? posRef.current - jump : posRef.current + jump;
   };
 
   const handleNext = () => {
-    if (!teamsData) return;
-    const canNext = startIndex + visibleCount < teamsData.length;
-    const newIndex = canNext ? startIndex + 1 : 0;
-    goTo(newIndex, "next");
+    const el = sliderRef.current;
+    if (!el || !teamsData) return;
+    const cardWidth = el.children[0]?.offsetWidth || 300;
+    const jump = (cardWidth + 16) * visibleCount;
+    posRef.current = isRTL ? posRef.current + jump : posRef.current - jump;
   };
 
   if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
   if (!teamsData) return null;
 
-  const visibleMembers = teamsData.slice(startIndex, startIndex + visibleCount);
-
-  const slideStyle = {
-    transform: animating
-      ? `translateX(${isRTL ? (direction === "next" ? "40px" : "-40px") : (direction === "next" ? "-40px" : "40px")})`
-      : "translateX(0)",
-    opacity: animating ? 0 : 1,
-    transition: "transform 350ms ease, opacity 350ms ease",
-  };
+  const displayTeams = [...teamsData, ...teamsData];
 
   return (
     <section className="w-full my-12 md:my-25">
@@ -126,31 +114,35 @@ const MeetTeam = () => {
           <p className="text-base text-gray-500">{t("about.teamSubtitle")}</p>
         </div>
 
-        {/* Cards Row */}
-        <div className="flex gap-4 overflow-hidden w-full justify-center">
-          {visibleMembers.map((member) => (
-            <div
-              key={member.id}
-              style={slideStyle}
-              className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] py-4 flex flex-col items-center gap-1 shadow-sm"
-            >
-              <div className="w-full h-full aspect-square rounded-xl overflow-hidden">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                    e.target.parentNode.style.background = "#c8d8e8";
-                  }}
-                />
+        {/* Infinite Scrolling Cards */}
+        <div className="w-full overflow-hidden">
+          <div
+            ref={sliderRef}
+            className="flex gap-4 whitespace-nowrap w-max"
+          >
+            {displayTeams.map((member, index) => (
+              <div
+                key={`${member.id}-${index}`}
+                className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] py-4 flex flex-col items-center gap-1 shadow-sm"
+              >
+                <div className="w-full h-full aspect-square rounded-xl overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                      e.target.parentNode.style.background = "#c8d8e8";
+                    }}
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-xl md:text-lg font-bold text-gray-900">{member.name}</p>
+                  <p className="text-sm md:text-xs text-gray-400">{member.position}</p>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="text-xl md:text-lg font-bold text-gray-900">{member.name}</p>
-                <p className="text-sm md:text-xs text-gray-400">{member.position}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Navigation Arrows */}

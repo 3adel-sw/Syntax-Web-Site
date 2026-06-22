@@ -71,7 +71,7 @@ const [error, setError] = useState(null);
     .finally(() => setLoading(false));
 }, []);
   return (
-    <div className="w-full md:my-25 my-12">
+    <div className="w-full md:my-25 my-2">
       {/* ===== Hero Top Section ===== */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start py-10">
         {/* Left: Badge + Title */}
@@ -172,11 +172,11 @@ const [error, setError] = useState(null);
       <div className="grid grid-cols-1 md:grid-cols-3 md:gap-28 gap-10  pb-10">
         {/* Left: Title */}
         <div className="md:col-span-1">
-          <h2 className="text-5xl text-center md:pb-6 pb-1 font-extrabold text-gray-900">{t("about.whatWeDo")}</h2>
+          <h2 className="text-5xl md:text-center text-start md:pb-6 pb-0 font-extrabold text-gray-900">{t("about.whatWeDo")}</h2>
         </div>
 
         {/* Right: Paragraphs */}
-        <div className="md:col-span-2 flex flex-col gap-6">
+        <div className="md:col-span-2 flex flex-col md:gap-6 gap-4">
          <p className="md:text-lg text-sm font-medium text-start text-[#797979] leading-relaxed">
     {aboutData?.description}
   </p>

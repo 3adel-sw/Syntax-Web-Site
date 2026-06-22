@@ -138,6 +138,7 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
   const [currentSlide, setCurrentSlide] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [noTransition, setNoTransition] = useState(false);
   const touchStartRef = useRef(0);
   const translateXRef = useRef(0);
   const containerRef = useRef(null);
@@ -166,11 +167,11 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
   const handleTouchEnd = () => {
     setIsDragging(false);
     const w = containerRef.current?.offsetWidth || 300;
-    const slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
-    const boundedIndex = Math.max(0, Math.min(items.length - 1, slideIndex));
-    setCurrentSlide(boundedIndex);
-    translateXRef.current = slideOffset(boundedIndex, w);
-    setTranslateX(slideOffset(boundedIndex, w));
+    let slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
+    slideIndex = Math.max(0, Math.min(items.length - 1, slideIndex));
+    setCurrentSlide(slideIndex);
+    translateXRef.current = slideOffset(slideIndex, w);
+    setTranslateX(slideOffset(slideIndex, w));
   };
 
   useEffect(() => {
@@ -182,18 +183,24 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
     }
   }, [currentSlide, isDragging, isRTL]);
 
-  // Auto-slide for desktop
+  // Auto-slide for desktop — seamless infinite loop
   useEffect(() => {
     if (!autoSlideInterval || !items.length) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        const max = Math.max(0, items.length - 3);
-        return prev >= max ? 0 : prev + 1;
+        const next = prev + 1;
+        if (next >= items.length) {
+          setNoTransition(true);
+          setTimeout(() => setNoTransition(false), 50);
+          return 0;
+        }
+        return next;
       });
     }, autoSlideInterval);
     return () => clearInterval(interval);
   }, [autoSlideInterval, items.length]);
 
+  const clonedItems = autoSlideInterval ? [...items, ...items] : items;
   if (!items.length) return null;
 
   const maxSlide = Math.max(0, items.length - 3);
@@ -246,17 +253,20 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
         <div className="relative">
           <div className="overflow-hidden rounded-xl">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (100 / 3)}%)` }}
+              className="flex"
+              style={{
+                transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (100 / 3)}%)`,
+                transition: noTransition ? 'none' : 'transform 0.5s ease-in-out',
+              }}
             >
-              {items.map((item) => (
+              {clonedItems.map((item) => (
                 <div key={item.id} className="min-w-[33.333%] flex-shrink-2 px-2">
                   <VideoCard item={item} onClick={onPlay} isImage={isImage} />
                 </div>
               ))}
             </div>
           </div>
-          {items.length > 3 && (
+          {items.length > 3 && !autoSlideInterval && (
             <>
               <button
                 onClick={() => setCurrentSlide((p) => Math.max(0, p - 1))}
@@ -277,9 +287,13 @@ const Section = ({ title, subtitle, items, onPlay, isImage, autoSlideInterval })
           {Array.from({ length: Math.max(1, maxSlide + 1) }).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => {
+                setNoTransition(true);
+                setCurrentSlide(index);
+                setTimeout(() => setNoTransition(false), 50);
+              }}
               className={`w-2 h-2 rounded-full transition-all ${
-                index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                index === (currentSlide >= items.length ? currentSlide - items.length : currentSlide) ? 'bg-primary w-6' : 'bg-gray-300'
               }`}
             />
           ))}
@@ -303,7 +317,7 @@ const CapturedVideos = ({ course = {} }) => {
         subtitle={t('courseDetails.capturedMomentsSubtitle')}
         items={galleryItems}
         isImage={true}
-        autoSlideInterval={1000}
+        autoSlideInterval={1500}
       />
       <Section
         title={t('courseDetails.videos')}

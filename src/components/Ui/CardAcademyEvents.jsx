@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { getAllProducts } from '../../services/home/homeService';
 import { getOurNumbers } from '../../services/about/aboutService';
 import { useTranslation } from 'react-i18next';
-
+import LayersB2B from '../../Pages/B2B/LayersB2B';
 const iconMap = {
   Mic: <Mic className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />,
   Users: <Users className='text-white text-center bg-primary rounded-full w-11 h-11 p-3' />,
@@ -162,7 +162,7 @@ useEffect(() => {
         ))}
       </div>
 
-      {/*  Mobile Slider */}
+      {/*  Mobile Slider */} 
       <div className="my-12 md:hidden mx-2">
         <div className="relative">
           <div ref={mobileSliderRef} className="overflow-hidden rounded-2xl">
@@ -194,42 +194,48 @@ useEffect(() => {
       </div>
 
     {/* Our Numbers - Auto Slider */}
-<div 
-  className="md:my-20 sm:my-12 my-14 relative overflow-hidden"
-  style={{
-    maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-    willChange: 'transform',
-    transform: 'translateZ(0)',
-  }}
->
-<div
-  ref={sliderRef}
-  className="flex gap-3 md:gap-4"
-  style={{ 
-    width: 'max-content',
-    animation: `${isRTL ? 'scrollRight' : 'scrollLeft'} 18s linear infinite` 
-  }}
-  onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
-  onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
->
-    {[...numbersList, ...numbersList].map((item, index) => (
-      <div
-        key={index}
-        className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4 flex-shrink-0 w-52"
-      >
-        <div className="flex flex-row items-center gap-2">
-          <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 shrink-0" alt="" />
-          <div>
-            <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
-            {/* <p className="text-xs md:text-sm text-start font-medium text-gray-500">{item.student}</p> */}
-           <p className="text-xs md:text-sm text-start font-medium text-gray-500">+ {item.student}</p>
+            <LayersB2B/>
+
+
+
+{/* 
+  <div 
+    className="md:my-20 sm:my-12 my-14 relative overflow-hidden"
+    style={{
+      maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+      willChange: 'transform',
+      transform: 'translateZ(0)',
+    }}
+  >
+  <div
+    ref={sliderRef}
+    className="flex gap-3 md:gap-4"
+    style={{ 
+      width: 'max-content',
+      animation: `${isRTL ? 'scrollRight' : 'scrollLeft'} 18s linear infinite` 
+    }}
+    onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
+    onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
+  >
+      {[...numbersList, ...numbersList].map((item, index) => (
+        <div
+          key={index}
+          className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-4 flex-shrink-0 w-52"
+        >
+          <div className="flex flex-row items-center gap-2">
+            <img src={item.img} className="bg-[#EDEFF9] rounded-full w-10 h-10 md:w-14 md:h-14 shrink-0" alt="" />
+            <div>
+              <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.label}</h3>
+          
+            <p className="text-xs md:text-sm text-start font-medium text-gray-500">+ {item.student}</p>
+            </div>
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-</div>
+      ))}
+    </div>
+  </div> 
+ */}
 
     </div>
   );

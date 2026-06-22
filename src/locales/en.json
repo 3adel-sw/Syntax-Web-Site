@@ -19,7 +19,7 @@
     "location": "Location",
     "category": "Category",
     "noImage": "No Image",
-    "notFound": "Not found.",
+    "notFound": ".",
     "imageNotAvailable": "Image not available",
     "speaker": "Speaker",
     "brandName": "Syntax",
@@ -53,8 +53,8 @@
     "noVideos": "No videos available.",
     "noExcerpt": "No excerpt available.",
     "noDescription": "No description available.",
-    "blogNotFound": "Blog not found.",
-    "eventNotFound": "Event not found.",
+    "blogNotFound": "Blog Loading....",
+    "eventNotFound": "Event Loading....",
     "failedToLoadCourse": "Failed to load course details",
     "formInputError": "There is an error in the input",
     "thanksForRegistering": "Thanks for registering.",
@@ -278,7 +278,8 @@
     "missionVisionFeatures": "Mission, Vision & Features",
     "meetTeamBehindSyntax": "Meet the Team behind Syntax",
     "teamSubtitle": "Seamlessly collaborate with your team members like never before.",
-    "communityClassroomAlt": "Syntax community classroom"
+    "communityClassroomAlt": "Syntax community classroom",
+    "transformingTitle": "Transforming Lives Through Education: Our Impact Creative Industry"
   },
   "b2b": {
     "title": "B2B Collaboration",
@@ -358,7 +359,7 @@
     }
   },
   "courseDetails": {
-    "courseNotFound": "Course Not Found",
+    "courseNotFound": "Course Loading...",
     "standardPrice": "Standard price",
     "groupPricing": "Group Pricing",
     "whatPeopleSay": "What are people saying",

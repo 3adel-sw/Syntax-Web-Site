@@ -20,15 +20,17 @@ const CardContact = () => {
     <div className="rounded-4xl w-[99%] md:w-full mt-12 md:mt-14 flex flex-col md:flex-row items-stretch overflow-hidden md:h-[32rem]">
 
       {/* Left — Text */}
-      <div className="flex flex-col justify-center items-center md:items-start px-6 md:px-16 py-10 bg-[#282828] w-full md:w-[52%] text-center md:text-start">
+      <div className="flex flex-col justify-center items-start px-6 md:px-16 py-10 bg-[#282828] w-full md:w-[52%] text-center md:text-start">
         
         <p className="text-xs text-slate-300 mb-3 flex items-center gap-1">
-          {t("nav.home")} <span className="text-slate-400 mx-1 text-base">›</span> {t("menu.pagesList.contactUs")}
+          {t("nav.home")} <span className="text-slate-400 mx-1  text-base">›</span> {t("menu.pagesList.contactUs")}
         </p>
 
-        <h1 className="font-bold text-2xl sm:text-3xl md:text-[2.8rem] text-white leading-[1.15] mb-3">
-          {t("contact.haveIdea")}<br />{t("contact.letsConnect")}
-        </h1>
+     <h1 className="font-bold text-2xl sm:text-3xl md:text-[2.8rem] text-white leading-[1.15] mb-3">
+  {t("contact.haveIdea")}
+  <br className="hidden md:block" />
+  {" "}{t("contact.letsConnect")}
+</h1>
 
         <p className="text-slate-300 font-semibold text-base md:text-xl mb-6">
           {t("contact.getInTouchAnyTime")}

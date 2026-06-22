@@ -139,27 +139,70 @@ const DetailCourses = () => {
           {/* image */}
           <img src={course.banner_image || course.img } alt={course.title} className="w-full h-full object-cover " />
         </div>
-        {/* Meta Bar */}
-        <div className="  grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4  gap-4  pb-4 md:mx-0 mx-auto mb-16 md:mb-4">
-          {[
-            { icon: <GoFileDirectory />, label: t('common.category'), value: toStr(course.category) || toStr(course.tag) || t('common.unavailable') },
-            { icon: <GrCertificate />, label: t('courses.certificate'), value: toStr(course.certification) || t('common.Yes') },
-            // { icon: <LuLanguages />, label: 'Languages', value: toStr(course.languages) || toStr(course.language) || 'English' },
-            { icon: <MdOutlinePaid />, label: t('common.type'), value: toStr(course.type) || toStr(course.name) || t('common.unavailable') },
-          ].map((item) => (
-            <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-[10px] text-[9px] text-gray-600  border border-gray-200 rounded-lg md:px-14 p-1">
-              {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-[10px] text-[9px]">{item.value}</strong>
-            </span>
-          ))}
-          <button
-            onClick={() => setShowShareMenu((prev) => !prev)}
-            className="flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 cursor-pointer border border-gray-200 rounded-lg px-12 p-1 hover:bg-gray-200"
-          >
-            <CiShare2 /> {t('common.share')}
-          </button>
-          <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg p-1 hover:bg-gray-200">
-            {linkCopied ? <Check size={14} className="text-green-600" /> : <FaRegCopy />} {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
-          </button>
+       {/* Meta Bar */}
+<div className="grid grid-cols-2 md:grid-cols-5 sm:grid-cols-4 gap-4 pb-4 md:mx-0 mx-auto mb-8 md:mb-4">
+  {[
+    { icon: <GoFileDirectory />, label: t('common.category'), value: toStr(course.category) || toStr(course.tag) || t('common.unavailable') },
+    { icon: <GrCertificate />, label: t('courses.certificate'), value: toStr(course.certification) || t('common.Yes') },
+    { icon: <MdOutlinePaid />, label: t('common.type'), value: toStr(course.type) || toStr(course.name) || t('common.unavailable') },
+  ].map((item) => (
+    <span key={item.label} className="flex items-center justify-center gap-2 lg:text-sm md:text-[10px] text-[9px] text-gray-600 border border-gray-200 rounded-lg md:px-14 p-2">
+      {item.icon} {item.label}: <strong className="text-gray-800 lg:text-sm md:text-[10px] text-[9px]">{item.value}</strong>
+    </span>
+  ))}
+
+  <button
+    onClick={() => setShowShareMenu((prev) => !prev)}
+    className="flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 cursor-pointer border border-gray-200 rounded-lg px-12 p-2 hover:bg-gray-200"
+  >
+    <CiShare2 /> {t('common.share')}
+  </button>
+
+ 
+  <button
+    onClick={handleCopyLink}
+    className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600 cursor-pointer border border-gray-200 rounded-lg p-2 hover:bg-gray-200"
+  >
+    {linkCopied ? <Check size={14} className="text-green-600" /> : <FaRegCopy />}
+    {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
+  </button>
+</div>
+<div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit md:hidden ">
+            {/* Course Image */}
+            <img src={course.image || course.img } alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
+            <div className="p-4">
+              {/* Level */}
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <img src={Reports} alt={t('courses.certificate')} />
+                {t('courseDetails.courseLevel')} <span className="w-2 h-2 rounded-full bg-primary inline-block" />
+                <span className="text-gray-700 font-medium text-xs ">{toStr(course.level) || t('courseDetails.entryToIntermediate')}</span>
+              </div>
+              <hr className="my-2 text-gray-300" />
+              {/* Price */}
+              <div className="flex border border-gray-200 p-3 rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
+                <span className="text-gray-400 font-semibold">{t('courseDetails.standardPrice')}</span>
+                <span className="text-gray-400 font-semibold">USD {toStr(course.price) || 310}</span>
+              </div>
+
+              {/* Group Pricing */}
+              <div className="flex border border-gray-200 p-3 bg-white rounded-lg flex-row justify-between text-sm text-gray-500 my-4">
+                <span className="text-gray-800 font-bold">{t('courseDetails.groupPricing')}</span>
+                <span className="text-gray-800 font-bold">{toStr(course.discount) || t('courseDetails.defaultDiscount')}</span>
+              </div>
+
+              {/* Buttons */}
+              <button
+                onClick={() => setIsRegisterOpen(true)}
+                className="w-full py-3 bg-primary text-white rounded-2xl text-sm font-semibold mb-2 hover:bg-primary/90 transition">
+                {t('courses.registerNow')}
+              </button>
+        <button
+  onClick={handleDownload}
+  className="w-full py-3 text-primary rounded-2xl text-sm font-semibold hover:bg-primary hover:text-white my-4 transition"
+>
+  {t('courseDetails.downloadCourseFile')}
+</button>
+            </div>
           </div>
         
         {/* Main Grid */}
@@ -191,7 +234,7 @@ const DetailCourses = () => {
               {activeTab === 'curriculum' && <Curriculum course={course} />}
             </div>
           </div>
-          <div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit">
+          <div className="bg-gray-100 p-4 rounded-2xl overflow-hidden h-fit md:block hidden">
             {/* Course Image */}
             <img src={course.image || course.img } alt={course.title} className="w-full h-[250px] object-cover rounded-2xl " />
             <div className="p-4">

@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import {getHistories}  from "../../services/about/aboutService" 
 import { useState, useEffect } from "react";
 const OurAchievements = () => {
+  const { t } = useTranslation();
   const [historiesData, setHistoriesData] = useState([]);
 
   useEffect(() => {
@@ -29,12 +31,12 @@ if (historiesData.length === 0) {
       >
         {/* Badge */}
         <span className="md:text-xl  text-lg  font-semibold text-[#B71C41]  tracking-wide">
-          {historiesData.badge || " Our Achievements"}
+          {historiesData.badge || t("about.achievements")}
         </span>
 
         {/* Title */}
         <h2 className="md:text-5xl  text-2xl  font-semibold text-gray-900 leading-tight max-w-3xl -mt-3">
-          {historiesData.title || " Transforming Lives Through Education: Our Impact Creative Industry"}
+          {historiesData.title || t("about.transformingTitle")}
         </h2>
 
         {/* Stats Row */}

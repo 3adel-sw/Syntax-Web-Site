@@ -130,21 +130,21 @@ const BlogsDetails = () => {
 
             {/* Meta Bar */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center py-3 mb-8 text-sm text-gray-500">
-              <div className="flex items-center justify-center gap-2.5 text-[14px] border-gray-300 border rounded-lg px-3 py-2">
+              <div className="flex items-center justify-center gap-2.5 text-[11px] border-gray-300 border rounded-lg px-3 py-2">
                 <Tag size={18} className="opacity-50" />
                 <span>{t('common.category')}: <strong className="text-gray-700">{blog.category?.name || toStr(blog.category) || t('common.category')}</strong></span>
               </div>
-              <div className="flex items-center justify-center gap-3.5 text-base border-gray-300 border rounded-lg px-3 py-2">
+              <div className="flex items-center justify-center gap-3.5 text-[11px] border-gray-300 border rounded-lg px-3 py-2">
                 <Calendar size={18} className="opacity-50" />
                 <span>{t('common.date')}: <strong className="text-gray-700">{date}</strong></span>
               </div>
                <button
                          onClick={() => setShowShareMenu((prev) => !prev)}
-                         className="flex items-center justify-center gap-1 md:gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200"
+                         className="flex items-center justify-center gap-1 md:gap-2 lg:text-sm md:text-xs text-[11px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200"
                        >
                          <CiShare2 /> {t('common.share')}
                        </button>
-             <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 md:gap-2 lg:text-sm md:text-xs text-[9px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
+             <button onClick={handleCopyLink} className="flex items-center justify-center gap-1 md:gap-2 lg:text-sm md:text-xs text-[11px] text-gray-600  cursor-pointer border border-gray-200 rounded-lg md:px-12 px-4 py-2.5 hover:bg-gray-200">
                         {linkCopied ? <FaCheck size={14} className="text-green-600" /> : <FaRegCopy />} {linkCopied ? t('common.copied') || 'Copied!' : t('common.copyLink')}
                       </button>
             </div>

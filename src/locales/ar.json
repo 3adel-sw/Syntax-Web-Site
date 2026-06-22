@@ -19,7 +19,7 @@
     "location": "الموقع",
     "category": "التصنيف",
     "noImage": "لا توجد صورة",
-    "notFound": "غير موجود.",
+    "notFound": " جاري التحميل ...",
     "imageNotAvailable": "الصورة غير متاحة",
     "speaker": "متحدث",
     "brandName": "سينتاكس",
@@ -53,8 +53,8 @@
     "noVideos": "لا توجد فيديوهات متاحة.",
     "noExcerpt": "لا يوجد ملخص متاح.",
     "noDescription": "لا يوجد وصف متاح.",
-    "blogNotFound": "المقال غير موجود.",
-    "eventNotFound": "الحدث غير موجود.",
+    "blogNotFound": "  جاري تحميل المقال ..",
+    "eventNotFound": "  جاري تحميل الحدث ..",
     "failedToLoadCourse": "فشل تحميل تفاصيل الكورس",
     "formInputError": "يوجد خطأ في الإدخال",
     "thanksForRegistering": "شكرًا لتسجيلك.",
@@ -280,7 +280,8 @@
     "missionVisionFeatures": "الرسالة والرؤية والمميزات",
     "meetTeamBehindSyntax": "تعرّف على الفريق وراء سينتاكس",
     "teamSubtitle": "تعاون بسلاسة مع أعضاء فريقك كما لم يحدث من قبل.",
-    "communityClassroomAlt": "قاعة مجتمع سينتاكس"
+    "communityClassroomAlt": "قاعة مجتمع سينتاكس",
+    "transformingTitle": "نحول الحياة من خلال التعليم: تأثيرنا في الصناعة الإبداعية"
   },
   "b2b": {
     "title": "تعاون الشركات",

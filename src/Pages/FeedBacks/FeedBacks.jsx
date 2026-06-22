@@ -112,10 +112,10 @@ const FeedBacks = () => {
         className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full md:h-[340px] h-[220px] bg-[#23286B]"
       >
         <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
-        <h1 className="absolute top-10 md:top-20 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
+        <h1 className="absolute top-8 mb-2 md:top-20 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
           {t("feedbacks.heroTitle")}
         </h1>
-        <p className="absolute bottom-10 md:bottom-20 md:start-20 start-4 text-gray-500 md:text-2xl text-lg max-w-5xl">
+        <p className="absolute bottom-6 md:bottom-20 md:start-20 start-4 text-gray-500 md:text-2xl text-[16px] max-w-5xl">
           {t("feedbacks.heroDescription")}
         </p>
       </div>
