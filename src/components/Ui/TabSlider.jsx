@@ -20,7 +20,7 @@ useEffect(() => {
 }, [activeTab]);
 
   return (
-   <div className="overflow-x-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+   <div className="overflow-x-auto md:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
   <div className="flex gap-2 w-max px-1">
           {tabs.map((tab) => {
             const value = typeof tab === "object" ? tab.value : tab;

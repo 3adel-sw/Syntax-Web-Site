@@ -144,16 +144,16 @@ useEffect(() => {
         {slides.map((slide, i) => (
           <div
           key={i}
-          onClick={() => goToLink(slide.link)}
+          onClick={() => goToLink(slide.link)} 
           
           className="bg-white cursor-pointer rounded-2xl h-54 py-6 px-4 border overflow-hidden hover:shadow-sm border-gray-300 relative">
-           <div className='flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full  left-4 absolute '>
+           <div className={`flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full absolute ${isRTL ? 'right-4' : 'left-4'}`}>
 
             <span className="flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
               {slide.icon}
             </span>
            </div>
-            <div className="max-2xl text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
+             <div className="max-2xl text-end relative mb-4 mt-4 flex items-start justify-end flex-col">
               <h3  
               className="text-lg cursor-pointer text-start font-semibold mb-2 mt-16 px-4">{slide.title}</h3>
               <p className="text-gray-600 text-start px-4 max-w-2xl">{slide.description}</p>
@@ -169,7 +169,7 @@ useEffect(() => {
             <div className="flex" style={{ transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (mobileSlideWidth || 300)}px)`, transition: 'transform 0.3s ease-in-out' }}>
               {slides.map((slide, index) => (
                 <div key={index} onClick={() => goToLink(slide.link)} className="min-w-full cursor-pointer bg-white py-6 px-4 border shadow border-gray-300 rounded-2xl relative">
-                  <div className='flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full  left-4 absolute '>
+                  <div className={`flex items-center justify-center border p-1 border-gray-400 w-17 h-17 rounded-full absolute ${isRTL ? 'right-4' : 'left-4'}`}>
                   <span className="absolute flex items-center justify-center w-14 h-14  text-sm border border-primary bg-primary text-white rounded-full">
                     {slide.icon}
                   </span>
