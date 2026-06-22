@@ -23,6 +23,8 @@ const MeetTeam = () => {
   const rafRef = useRef(null);
   const posRef = useRef(0);
   const pausedRef = useRef(false);
+  const isRTLRef = useRef(isRTL);
+  isRTLRef.current = isRTL;
 
   useEffect(() => {
     getTeams()
@@ -34,41 +36,62 @@ const MeetTeam = () => {
   useEffect(() => {
     const handleResize = () => {
       setVisibleCount(getVisibleCount());
-      if (sliderRef.current) {
-        const setWidth = sliderRef.current.scrollWidth / 2;
-        posRef.current = isRTL ? -setWidth : 0;
-      }
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isRTL]);
+  }, []);
+
+  // دايما ابدأ من 0 بغض النظر عن اللغة
+  const resetPosition = useCallback(() => {
+    posRef.current = 0;
+    if (sliderRef.current) {
+      sliderRef.current.style.transform = `translateX(0px)`;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!loading && teamsData) {
+      resetPosition();
+    }
+  }, [isRTL, loading, teamsData, resetPosition]);
 
   const animate = useCallback(() => {
     const el = sliderRef.current;
     if (!el) return;
+
     if (!pausedRef.current) {
       const setWidth = el.scrollWidth / 2;
-      const speed = isRTL ? 0.5 : -0.5;
+      if (setWidth <= 0) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      // في RTL نتحرك للأمام (موجب)، في LTR للخلف (سالب)
+      const speed = isRTLRef.current ? 0.5 : -0.5;
       posRef.current += speed;
-      if (posRef.current < -setWidth) posRef.current += setWidth;
-      if (posRef.current > 0) posRef.current -= setWidth;
+
+      // إعادة التموضع عند الحدود
+      if (posRef.current <= -setWidth) {
+        posRef.current += setWidth;
+      } else if (posRef.current >= setWidth) {
+        posRef.current -= setWidth;
+      }
+
       el.style.transform = `translateX(${posRef.current}px)`;
     }
+
     rafRef.current = requestAnimationFrame(animate);
-  }, [isRTL]);
+  }, []);
 
   useEffect(() => {
     if (!loading && teamsData) {
-      if (sliderRef.current) {
-        const setWidth = sliderRef.current.scrollWidth / 2;
-        posRef.current = isRTL ? -setWidth : 0;
-      }
+      resetPosition();
       rafRef.current = requestAnimationFrame(animate);
     }
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [animate, loading, teamsData, isRTL]);
+  }, [animate, loading, teamsData, resetPosition]);
 
   const pauseAutoPlay = () => { pausedRef.current = true; };
   const resumeAutoPlay = () => { pausedRef.current = false; };
@@ -118,7 +141,8 @@ const MeetTeam = () => {
         <div className="w-full overflow-hidden">
           <div
             ref={sliderRef}
-            className="flex gap-4 whitespace-nowrap w-max"
+            className="flex gap-4 w-max"
+            style={{ direction: "ltr" }} // ← مهم جداً: نثبت الـ direction دايما LTR
           >
             {displayTeams.map((member, index) => (
               <div

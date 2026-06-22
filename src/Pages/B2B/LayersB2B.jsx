@@ -11,23 +11,42 @@ const LayersB2B = () => {
   const rafRef = useRef(null);
   const posRef = useRef(0);
   const pausedRef = useRef(false);
+  const isRTLRef = useRef(isRTL);
+  isRTLRef.current = isRTL;
 
   const animate = useCallback(() => {
     const el = sliderRef.current;
     if (!el) return;
     if (!pausedRef.current) {
-      const speed = isRTL ? 0.5 : -0.5;
       const setWidth = el.scrollWidth / 2;
+      if (setWidth <= 0) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      const speed = isRTLRef.current ? 0.5 : -0.5;
       posRef.current += speed;
-      if (posRef.current < -setWidth) posRef.current += setWidth;
-      if (posRef.current > 0) posRef.current -= setWidth;
+
+      // Bounds check موحد
+      if (posRef.current <= -setWidth) posRef.current += setWidth;
+      if (posRef.current >= setWidth) posRef.current -= setWidth;
+
       el.style.transform = `translateX(${posRef.current}px)`;
     }
     rafRef.current = requestAnimationFrame(animate);
-  }, [isRTL]);
+  }, []);
+
+  // إعادة التموضع عند تغيير اللغة
+  useEffect(() => {
+    if (!loading && items.length && sliderRef.current) {
+      posRef.current = 0;
+      sliderRef.current.style.transform = `translateX(0px)`;
+    }
+  }, [isRTL, loading, items]);
 
   useEffect(() => {
     if (!loading && sliderRef.current) {
+      posRef.current = 0;
+      sliderRef.current.style.transform = `translateX(0px)`;
       rafRef.current = requestAnimationFrame(animate);
     }
     return () => {
@@ -47,7 +66,8 @@ const LayersB2B = () => {
   const displayItems = [...items, ...items];
 
   return (
-    <div className="md:my-20 sm:my-12 my-14 overflow-hidden w-full"
+    <div
+      className="md:my-20 sm:my-12 my-14 overflow-hidden w-full"
       style={{
         maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
         WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
@@ -56,6 +76,7 @@ const LayersB2B = () => {
       <div
         ref={sliderRef}
         className="flex items-center gap-4 whitespace-nowrap w-max"
+        style={{ direction: 'ltr' }} // ← الحل الأساسي
         onMouseEnter={() => { pausedRef.current = true; }}
         onMouseLeave={() => { pausedRef.current = false; }}
       >
