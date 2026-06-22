@@ -236,7 +236,7 @@ function Events() {
         />
 
         <section className="mb-18">
-          <h2 className="md:text-3xl text-2xl text-start font-bold text-gray-900 mb-4">{t('events.allEvents')}</h2>
+          <h2 className="md:text-3xl text-2xl text-start font-bold text-gray-900 my-4 ">{t('events.allEvents')}</h2>
 
           <div className="hidden">
             <div

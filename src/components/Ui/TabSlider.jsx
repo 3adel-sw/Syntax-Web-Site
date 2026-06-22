@@ -1,68 +1,27 @@
+// eslint-disable-next-line no-unused-vars
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+// eslint-disable-next-line no-unused-vars
 const TabSlider = ({ tabs, activeTab, setActiveTab, className = "" }) => {
   const { i18n } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
   const isRTL = i18n.language === 'ar';
 
-  const [translateX, setTranslateX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const touchStartRef = useRef(0);
-  const translateXRef = useRef(0);
+ 
   const containerRef = useRef(null);
 
-  const handleTouchStart = (e) => {
-    touchStartRef.current = e.touches[0].clientX;
-    setIsDragging(true);
-    translateXRef.current = translateX;
-  };
 
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const currentTouch = e.touches[0].clientX;
-    const diff = currentTouch - touchStartRef.current;
-    translateXRef.current += diff;
-    setTranslateX(translateXRef.current);
-    touchStartRef.current = currentTouch;
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  useEffect(() => {
-    const activeBtn = containerRef.current?.querySelector('[data-active="true"]');
-    if (activeBtn && containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const btnRect = activeBtn.getBoundingClientRect();
-      const btnCenter = btnRect.left - containerRect.left + btnRect.width / 2;
-      const offset = containerRect.width / 2 - btnCenter;
-      const maxScroll = activeBtn.parentElement.scrollWidth - containerRect.width;
-      const clampedOffset = isRTL
-        ? Math.max(0, Math.min(maxScroll, offset))
-        : Math.min(0, Math.max(-maxScroll, offset));
-      setTranslateX(clampedOffset);
-      translateXRef.current = clampedOffset;
-    }
-  }, [activeTab, isRTL]);
+useEffect(() => {
+  const activeBtn = containerRef.current?.querySelector('[data-active="true"]');
+  if (activeBtn) {
+    activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+}, [activeTab]);
 
   return (
-    <div className={`relative ${className}`}>
-      <div
-        ref={containerRef}
-        className="overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        <div
-          className="flex gap-2"
-          style={{
-            transform: `translateX(${translateX}px)`,
-            transition: isDragging ? 'none' : 'transform 0.3s ease-in-out',
-            width: 'max-content'
-          }}
-        >
+   <div className="overflow-x-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+  <div className="flex gap-2 w-max px-1">
           {tabs.map((tab) => {
             const value = typeof tab === "object" ? tab.value : tab;
             const label = typeof tab === "object" ? tab.label : tab;
@@ -82,7 +41,7 @@ const TabSlider = ({ tabs, activeTab, setActiveTab, className = "" }) => {
           )})}
         </div>
       </div>
-    </div>
+  
   );
 };
 
