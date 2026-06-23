@@ -75,7 +75,7 @@ const [error, setError] = useState(null);
       {/* ===== Hero Top Section ===== */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start py-10">
         {/* Left: Badge + Title */}
-        <div className="text-right md:text-start">
+        <div className="text-start md:text-start">
           <span className="inline-block bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-xl mb-4">
             {t("about.title")}
           </span>

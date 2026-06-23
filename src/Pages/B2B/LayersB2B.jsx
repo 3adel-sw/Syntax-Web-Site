@@ -26,7 +26,7 @@ const LayersB2B = () => {
       const speed = isRTLRef.current ? 0.5 : -0.5;
       posRef.current += speed;
 
-      // Bounds check موحد
+      // Bounds check 
       if (posRef.current <= -setWidth) posRef.current += setWidth;
       if (posRef.current >= setWidth) posRef.current -= setWidth;
 
@@ -76,7 +76,7 @@ const LayersB2B = () => {
       <div
         ref={sliderRef}
         className="flex items-center gap-4 whitespace-nowrap w-max"
-        style={{ direction: 'ltr' }} // ← الحل الأساسي
+        style={{ direction: 'ltr' }} 
         onMouseEnter={() => { pausedRef.current = true; }}
         onMouseLeave={() => { pausedRef.current = false; }}
       >
@@ -85,17 +85,21 @@ const LayersB2B = () => {
             key={index}
             className="bg-[#F6F7FB] rounded-2xl py-3 md:py-4 px-3 md:px-6 flex-shrink-0"
           >
-            <div className="flex flex-row items-center gap-3">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover shrink-0"
-              />
-              <div className="text-start whitespace-nowrap">
-                <h3 className="text-sm md:text-base text-start font-semibold text-gray-900">{item.title}</h3>
-                <p className="text-xs md:text-sm text-start font-medium text-gray-500">+ {item.number}</p>
-              </div>
-            </div>
+           <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
+  <img
+    src={item.image}
+    alt={item.title}
+    className="w-10 items-start h-10 md:w-14 md:h-14 rounded-full object-cover shrink-0"
+  />
+  <div className={`whitespace-nowrap ${isRTL ? 'text-end' : 'text-start'}`}>
+    <h3 className={`text-sm md:text-base font-semibold text-gray-900 ${isRTL ? 'text-end' : 'text-start'}`}>
+      {item.title}
+    </h3>
+    <p className={`text-xs md:text-sm font-medium text-gray-500 ${isRTL ? 'text-end' : 'text-start'}`}>
+      + {item.number}
+    </p>
+  </div>
+</div>
           </div>
         ))}
       </div>
