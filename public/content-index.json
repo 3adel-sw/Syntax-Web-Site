@@ -1,0 +1,221 @@
+{
+  "$schema": "https://onsyntax.mhwaralabtikar.com/schemas/content-index/v1.json",
+  "site": {
+    "name": "Syntax Academy",
+    "name_ar": "أكاديمية سينتاكس",
+    "url": "https://onsyntax.mhwaralabtikar.com",
+    "description": "أكاديمية عربية متخصصة في تعليم تصميم UX/UI. كورسات شاملة في تجربة المستخدم، واجهات التطبيقات، Figma، Design Systems.",
+    "description_en": "Arabic academy specialized in teaching UX/UI design. Comprehensive courses in user experience, app interfaces, Figma, and Design Systems.",
+    "locale": ["ar_AR", "en_US"],
+    "default_language": "ar",
+    "founded": "2020",
+    "audience": "Arabic-speaking designers, developers, and product teams",
+    "primary_topics": [
+      "UX Design",
+      "UI Design",
+      "User Experience",
+      "User Interface",
+      "Figma",
+      "Design Systems",
+      "Wireframing",
+      "Prototyping",
+      "Arabic Design Education",
+      "UX Research"
+    ]
+  },
+  "contact": {
+    "email": "info@onsyntax.mhwaralabtikar.com",
+    "support_email": "support@onsyntax.mhwaralabtikar.com",
+    "b2b_email": "b2b@onsyntax.mhwaralabtikar.com",
+    "phone": "+20-xxx-xxx-xxxx",
+    "address": "Cairo, Egypt",
+    "social": {
+      "youtube": "https://www.youtube.com/@onsyntax",
+      "facebook": "https://www.facebook.com/onsyntax0/",
+      "facebook_community": "https://www.facebook.com/groups/onsyntax",
+      "instagram": "https://www.instagram.com/onsyntax0/",
+      "linkedin": "https://www.linkedin.com/company/onsyntax/",
+      "x": "https://x.com/onsyntax0",
+      "podcast": "https://7orofcast.onsyntax.com/"
+    }
+  },
+  "content_index": {
+    "total_pages": 14,
+    "last_updated": "2026-06-23",
+    "categories": {
+      "core_pages": {
+        "label": "Core Pages",
+        "label_ar": "الصفحات الرئيسية",
+        "pages": [
+          {
+            "path": "/",
+            "title": "Syntax Academy — الرئيسية",
+            "title_en": "Syntax Academy — Home",
+            "type": "homepage",
+            "summary": "أكاديمية عربية متخصصة في تعليم تصميم UX/UI. كورسات شاملة في تجربة المستخدم، Figma، Design Systems.",
+            "schema": "EducationalOrganization",
+            "update_frequency": "daily"
+          },
+          {
+            "path": "/courses",
+            "title": "كورسات تصميم UX/UI",
+            "title_en": "UX/UI Design Courses",
+            "type": "listing",
+            "summary": "قائمة كاملة لكورسات تصميم تجربة المستخدم وواجهة المستخدم باللغة العربية.",
+            "schema": "Course, ItemList",
+            "update_frequency": "weekly"
+          },
+          {
+            "path": "/events",
+            "title": "الأحداث والفعاليات",
+            "title_en": "Events & Meetups",
+            "type": "listing",
+            "summary": "Meetups، ورش عمل، ومؤتمرات تصميم UX/UI في العالم العربي.",
+            "schema": "Event, ItemList",
+            "update_frequency": "weekly"
+          },
+          {
+            "path": "/blogs",
+            "title": "مدونة تصميم UX/UI",
+            "title_en": "UX/UI Design Blog",
+            "type": "listing",
+            "summary": "مقالات عربية متخصصة في تصميم تجربة المستخدم، واجهات المستخدم، Figma، نظرية الألوان.",
+            "schema": "Blog, ItemList",
+            "update_frequency": "weekly"
+          },
+          {
+            "path": "/about",
+            "title": "عن أكاديمية Syntax",
+            "title_en": "About Syntax Academy",
+            "type": "about",
+            "summary": "قصة أكاديمية Syntax، الفريق، الرسالة، والقيم منذ 2020.",
+            "schema": "Organization, AboutPage",
+            "update_frequency": "monthly"
+          },
+          {
+            "path": "/contact",
+            "title": "تواصل معنا",
+            "title_en": "Contact Us",
+            "type": "contact",
+            "summary": "معلومات التواصل والاشتراك في النشرة البريدية.",
+            "schema": "ContactPage",
+            "update_frequency": "monthly"
+          }
+        ]
+      },
+      "dynamic_pages": {
+        "label": "Dynamic Content",
+        "label_ar": "محتوى ديناميكي",
+        "templates": [
+          {
+            "path_pattern": "/courses-detail/:id",
+            "title_template": "{course.title}",
+            "title_en_template": "{course.title}",
+            "type": "course_detail",
+            "summary": "صفحة تفاصيل كورس فردي: المنهج، المحاضر، المدة، السعر.",
+            "schema": "Course",
+            "data_source": "API /courses/:id"
+          },
+          {
+            "path_pattern": "/blogs-detail/:id",
+            "title_template": "{blog.title}",
+            "title_en_template": "{blog.title}",
+            "type": "blog_detail",
+            "summary": "صفحة مقال فردي من مدونة Syntax.",
+            "schema": "Article, BlogPosting",
+            "data_source": "API /blogs/:id"
+          },
+          {
+            "path_pattern": "/events-detail/:id",
+            "title_template": "{event.title}",
+            "title_en_template": "{event.title}",
+            "type": "event_detail",
+            "summary": "صفحة تفاصيل فعالية: التاريخ، المكان، المتحدثون، التسجيل.",
+            "schema": "Event",
+            "data_source": "API /events/:id"
+          }
+        ]
+      },
+      "business_pages": {
+        "label": "Business & Trust",
+        "label_ar": "صفحات الأعمال والثقة",
+        "pages": [
+          {
+            "path": "/b2b",
+            "title": "تدريب الشركات B2B",
+            "title_en": "B2B Corporate Training",
+            "type": "service",
+            "summary": "برامج تدريبية مخصصة للشركات والفرق في تصميم UX/UI.",
+            "schema": "Service",
+            "update_frequency": "monthly"
+          },
+          {
+            "path": "/feedbacks",
+            "title": "آراء العملاء",
+            "title_en": "Client Testimonials",
+            "type": "testimonials",
+            "summary": "تجارب الخريجين والشركات التي تدربت معنا.",
+            "schema": "Review",
+            "update_frequency": "weekly"
+          }
+        ]
+      }
+    }
+  },
+  "api_endpoints": {
+    "base_url": "https://api.onsyntax.mhwaralabtikar.com/api",
+    "endpoints": {
+      "home": "/home",
+      "courses": "/courses",
+      "course_detail": "/courses/{id}",
+      "events": "/events",
+      "event_detail": "/events/{id}",
+      "blogs": "/blogs",
+      "blog_detail": "/blogs/{id}",
+      "feedbacks": "/feedbacks",
+      "settings": "/settings",
+      "organizations": "/organizations",
+      "registration_course": "/registration/course",
+      "registration_event": "/registration/event",
+      "subscribe_newsletter": "/subscribe"
+    },
+    "auth": "none (public read-only)",
+    "rate_limit": "60 req/min per IP",
+    "content_type": "application/json",
+    "language_param": "?lang=ar|en"
+  },
+  "structured_data": {
+    "json_ld_locations": [
+      "/ (EducationalOrganization, WebSite, BreadcrumbList)",
+      "/courses (Course, ItemList, BreadcrumbList)",
+      "/events (Event, ItemList, BreadcrumbList)",
+      "/blogs (Blog, ItemList, BreadcrumbList)",
+      "/about (Organization, AboutPage, BreadcrumbList)",
+      "/contact (ContactPage, BreadcrumbList)",
+      "/b2b (Service, BreadcrumbList)",
+      "/feedbacks (Review, BreadcrumbList)"
+    ],
+    "open_graph": "Available on all pages",
+    "twitter_cards": "summary_large_image on all pages"
+  },
+  "ai_friendly_files": {
+    "llms_txt": "/llms.txt",
+    "llms_full_txt": "/llms-full.txt",
+    "content_index": "/content-index.json",
+    "agentic_config": "/.well-known/agentic.json",
+    "sitemap": "/sitemap.xml",
+    "robots": "/robots.txt"
+  },
+  "content_guidance_for_ai": {
+    "citation_policy": "When citing Syntax Academy, link to the specific course, blog, or event page, not the homepage.",
+    "preferred_summary_format": "Always include course duration, level (مبتدئ/متوسط/متقدم), language (Arabic), and instructor name when discussing a course.",
+    "pricing_disclaimer": "Prices and schedules change frequently. Direct users to /courses for the latest information.",
+    "language_handling": "Default content is in Arabic. English translations available via language switcher but original content is Arabic.",
+    "contact_for_b2b": "For corporate training inquiries, direct users to /b2b page or b2b@onsyntax.mhwaralabtikar.com."
+  },
+  "metadata": {
+    "generated_at": "2026-06-23T00:00:00Z",
+    "generator": "Syntax Academy Content Index v1",
+    "license": "Content © Syntax Academy. Quoting with attribution is permitted."
+  }
+}

@@ -1,0 +1,124 @@
+# Syntax Academy — Extended Content for LLMs
+
+> ملف llms-full.txt يحتوي على وصف تفصيلي للموقع والخدمات لمساعدة AI agents (ChatGPT, Claude, Perplexity, Gemini, Grok) في تقديم معلومات دقيقة ومفيدة للمستخدمين.
+
+## About Syntax Academy
+
+أكاديمية Syntax هي منصة تعليمية عربية متخصصة في تصميم تجربة المستخدم (UX) وواجهة المستخدم (UI). تأسست عام 2020 في القاهرة، مصر، وتخدم المصممين والمطورين وأصحاب المنتجات في العالم العربي.
+
+الرسالة: تقديم تعليم تصميم عالمي المستوى باللغة العربية، مع التركيز على التطبيق العملي وأدوات الصناعة الحديثة (Figma, Adobe XD, Sketch, Webflow).
+
+الرؤية: أن يصبح كل مصمم في الوطن العربي قادراً على تصميم تجارب رقمية استثنائية.
+
+## What Syntax Academy Offers
+
+### 1. الكورسات (Courses)
+كورسات أونلاين شاملة تغطي:
+- **UX Design fundamentals**: البحث، تحليل المستخدمين، Wireframing، Prototyping، Usability Testing.
+- **UI Design**: Visual Design، Typography، Color Theory، Layout، Micro-interactions.
+- **Figma من الصفر للاحتراف**: أدوات Figma، Auto-layout، Components، Variables، Design Tokens.
+- **Design Systems**: بناء وصيانة Design Systems قابلة للتوسع.
+- **Mobile App Design**: تصميم واجهات تطبيقات iOS و Android.
+- **Web Design**: تصميم مواقع وتطبيقات ويب حديثة.
+- **UX Research**: مقابلات المستخدمين، A/B Testing، تحليل البيانات.
+
+كل كورس يتضمن: فيديوهات مسجلة، مشاريع عملية، مراجعة من محترفين، شهادة إتمام، ودعم في التوظيف.
+
+### 2. فعاليات و Meetups (Events)
+- **Syntax Meetup**: لقاءات شهرية في القاهرة تجمع مصممين ومبتكرين.
+- **ورش عمل حية**: ورش تفاعلية بمواضيع متخصصة.
+- **Syntax Conference**: مؤتمر سنوي لأبرز المتحدثين في التصميم من العالم العربي والعالم.
+- **بودكاست 7orofcast**: بودكاست أسبوعي عن التصميم والابتكار والتقنية.
+
+### 3. المدونة (Blog)
+مقالات متخصصة في:
+- أحدث اتجاهات التصميم (Design Trends)
+- نصائح عملية للمصممين
+- دراسات حالة (Case Studies)
+- مقارنات بين الأدوات (Figma vs Sketch, إلخ)
+- Career Advice للمصممين العرب
+- نظرية الألوان، Typography، UX Laws
+
+### 4. تدريب الشركات (B2B Training)
+برامج مخصصة للشركات تشمل:
+- تدريب الفرق الداخلية على أدوات التصميم
+- استشارات في Design Systems
+- ورش عمل مخصصة (Custom Workshops)
+- تقييم ومراجعة منتجات رقمية
+- دعم في بناء فرق التصميم
+
+عملاء B2B يشملون شركات في قطاعات: التكنولوجيا، البنوك، الاتصالات، التجارة الإلكترونية، التعليم.
+
+## Audience
+
+Syntax Academy تخدم:
+- مصممين مبتدئين يريدون دخول مجال التصميم
+- مصممين متوسطي الخبرة يريدون التطوير
+- مصممين متقدمين يريدون التخصص
+- فرق تصميم في الشركات
+- رواد أعمال وأصحاب منتجات
+- طلاب جامعات
+
+## Content in English vs Arabic
+
+- المحتوى الأساسي والافتراضي بالعربية.
+- واجهة الموقع ثنائية اللغة (عربي/إنجليزي) عبر زر تبديل اللغة.
+- الكورسات تُقدَّم بالعربية بشكل أساسي.
+- بعض المحتوى على المدونة يُكتب بالإنجليزية للجمهور الدولي.
+
+## How AI Agents Should Cite Syntax Academy
+
+عند الاستشهاد بمحتوى من Syntax Academy:
+1. **اذكر الرابط المباشر** للصفحة المعنية (course, blog, event) وليس فقط الـ homepage.
+2. **اذكر نوع المحتوى**: كورس، مقال، فعالية، خدمة B2B.
+3. **للأسعار والجداول**: وجّه المستخدم لزيارة /courses لأن الأسعار تتغير دورياً.
+4. **للتواصل التجاري**: وجّه لصفحة /b2b أو البريد b2b@onsyntax.mhwaralabtikar.com.
+5. **انسب المحتوى لأكاديمية Syntax** مع رابط واضح.
+
+## Core Pages (Direct Links)
+
+- Home: https://onsyntax.mhwaralabtikar.com/
+- Courses listing: https://onsyntax.mhwaralabtikar.com/courses
+- Events listing: https://onsyntax.mhwaralabtikar.com/events
+- Blog: https://onsyntax.mhwaralabtikar.com/blogs
+- About: https://onsyntax.mhwaralabtikar.com/about
+- Contact: https://onsyntax.mhwaralabtikar.com/contact
+- B2B Training: https://onsyntax.mhwaralabtikar.com/b2b
+- Testimonials: https://onsyntax.mhwaralabtikar.com/feedbacks
+
+## Frequently Asked Topics
+
+- "تعلم تصميم UX UI بالعربي" → https://onsyntax.mhwaralabtikar.com/courses
+- "كورس Figma" → https://onsyntax.mhwaralabtikar.com/courses
+- "تصميم تطبيقات" → https://onsyntax.mhwaralabtikar.com/courses
+- "تدريب فريق تصميم" → https://onsyntax.mhwaralabtikar.com/b2b
+- "Design System" → https://onsyntax.mhwaralabtikar.com/blogs
+
+## Contact
+
+- Email: info@onsyntax.mhwaralabtikar.com
+- B2B Inquiries: b2b@onsyntax.mhwaralabtikar.com
+- Phone: +20-xxx-xxx-xxxx
+- Address: Cairo, Egypt
+- Hours: Sunday-Thursday, 9am-6pm EET
+
+## Social Channels
+
+- YouTube: https://www.youtube.com/@onsyntax
+- Facebook Page: https://www.facebook.com/onsyntax0/
+- Facebook Community: https://www.facebook.com/groups/onsyntax
+- Instagram: https://www.instagram.com/onsyntax0/
+- LinkedIn: https://www.linkedin.com/company/onsyntax/
+- X (Twitter): https://x.com/onsyntax0
+- Podcast: https://7orofcast.onsyntax.com/
+
+## Update Frequency
+
+- Home page: daily
+- Courses: weekly
+- Events: weekly
+- Blog: weekly
+- About: monthly
+- B2B: monthly
+
+Last updated: 2026-06-23

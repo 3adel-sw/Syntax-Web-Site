@@ -1,0 +1,107 @@
+{
+  "$schema": "https://onsyntax.mhwaralabtikar.com/.well-known/agentic-schema/v1.json",
+  "version": "1.0",
+  "spec": "agentic.json-v1",
+  "site": {
+    "name": "Syntax Academy",
+    "name_localized": {
+      "ar": "أكاديمية سينتاكس",
+      "en": "Syntax Academy"
+    },
+    "url": "https://onsyntax.mhwaralabtikar.com",
+    "description": "Arabic UX/UI design academy offering courses, events, and corporate training.",
+    "description_localized": {
+      "ar": "أكاديمية عربية متخصصة في تعليم تصميم UX/UI. كورسات، فعاليات، تدريب شركات.",
+      "en": "Arabic UX/UI design academy offering courses, events, and corporate training."
+    },
+    "language": ["ar", "en"],
+    "default_language": "ar"
+  },
+  "capabilities": {
+    "llms_txt": true,
+    "llms_full_txt": true,
+    "content_index_json": true,
+    "structured_data_json_ld": true,
+    "open_graph": true,
+    "twitter_cards": true,
+    "hreflang": true,
+    "canonical_urls": true,
+    "mcp_server": false,
+    "api_for_agents": false,
+    "ai_crawler_allowed": true
+  },
+  "discovery_files": {
+    "llms_txt": "https://onsyntax.mhwaralabtikar.com/llms.txt",
+    "llms_full_txt": "https://onsyntax.mhwaralabtikar.com/llms-full.txt",
+    "content_index": "https://onsyntax.mhwaralabtikar.com/content-index.json",
+    "sitemap": "https://onsyntax.mhwaralabtikar.com/sitemap.xml",
+    "robots": "https://onsyntax.mhwaralabtikar.com/robots.txt"
+  },
+  "access_policy": {
+    "ai_training": {
+      "allowed": true,
+      "policy": "open",
+      "notes": "Syntax Academy content is available for LLM training and grounding. Citation with attribution is appreciated."
+    },
+    "ai_search_grounding": {
+      "allowed": true,
+      "policy": "open",
+      "notes": "Search engines and answer engines (ChatGPT Search, Perplexity, Google AI Overviews) may use content for grounding answers."
+    },
+    "ai_summarization": {
+      "allowed": true,
+      "policy": "open"
+    },
+    "real_time_browsing": {
+      "allowed": true,
+      "policy": "open"
+    }
+  },
+  "content_types_available": [
+    {
+      "type": "course",
+      "schema_org": "Course",
+      "count_estimate": "20-50",
+      "url_pattern": "/courses-detail/{id}",
+      "list_url": "/courses"
+    },
+    {
+      "type": "blog_post",
+      "schema_org": "BlogPosting",
+      "count_estimate": "50-200",
+      "url_pattern": "/blogs-detail/{id}",
+      "list_url": "/blogs"
+    },
+    {
+      "type": "event",
+      "schema_org": "Event",
+      "count_estimate": "10-30",
+      "url_pattern": "/events-detail/{id}",
+      "list_url": "/events"
+    },
+    {
+      "type": "testimonial",
+      "schema_org": "Review",
+      "url_pattern": "/feedbacks"
+    },
+    {
+      "type": "service",
+      "schema_org": "Service",
+      "url_pattern": "/b2b"
+    }
+  ],
+  "preferred_citation_format": {
+    "format": "Markdown link",
+    "template": "[{title}]({url}) — Syntax Academy",
+    "example": "[كورس تصميم UX/UI للمبتدئين](https://onsyntax.mhwaralabtikar.com/courses-detail/123) — Syntax Academy"
+  },
+  "contact_for_ai_questions": {
+    "email": "info@onsyntax.mhwaralabtikar.com",
+    "subject_template": "AI Agent Inquiry — {agent_name}"
+  },
+  "metadata": {
+    "last_updated": "2026-06-23",
+    "generated_by": "Syntax Academy Engineering",
+    "expires": "2027-06-23"
+  }
+}
