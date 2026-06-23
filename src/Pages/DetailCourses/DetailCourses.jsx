@@ -22,6 +22,7 @@ import { MdOutlinePaid } from "react-icons/md";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { X } from 'lucide-react';
+
 // import { LuLanguages } from "react-icons/lu";
 
 import { useTranslation } from 'react-i18next';
@@ -172,40 +173,7 @@ const DetailCourses = () => {
   }, [course, id]);
   
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Loader2 size={48} className="animate-spin text-primary" />
-    </div>
-  );
-
-  if (error) return (
-    <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
-  );
-
-  if (!course) return (
-    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('courseDetails.courseNotFound')}</div>
-  );
-  
-    const handleDownload = async () => {
-  if (course?.file) {
-    try {
-      const response = await fetch(course.file);
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${course.name || 'course-file'}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch {
-      window.open(course.file, '_blank');
-    }
-  }
-};
-
-  // SEO data for this course (memoized)
+  // SEO data for this course (memoized) — must be BEFORE early returns (Rules of Hooks)
   const courseSeo = useMemo(() => {
     if (!course) return null;
     const courseTitle = toStr(course?.title || course?.name || 'كورس تصميم UX/UI');
@@ -252,6 +220,39 @@ const DetailCourses = () => {
       ],
     };
   }, [course, id]);
+
+  const handleDownload = async () => {
+  if (course?.file) {
+    try {
+      const response = await fetch(course.file);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${course.name || 'course-file'}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(course.file, '_blank');
+    }
+  }
+};
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 size={48} className="animate-spin text-primary" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
+  );
+
+  if (!course) return (
+    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('courseDetails.courseNotFound')}</div>
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">

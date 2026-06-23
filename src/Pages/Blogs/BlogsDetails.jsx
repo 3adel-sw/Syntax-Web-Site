@@ -26,6 +26,7 @@ const BlogsDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const handleShare = (platform) => {
     const url = encodeURIComponent(window.location.href);
     const links = {
@@ -152,34 +153,13 @@ const BlogsDetails = () => {
     };
   }, [blog, id]);
 
-  const [linkCopied, setLinkCopied] = useState(false);
-
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     setLinkCopied(true);
     setTimeout(() => setLinkCopied(false), 2000);
   };
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Loader2 size={48} className="animate-spin text-primary" />
-    </div>
-  );
-
-  if (error) return (
-    <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
-  );
-
-  if (!blog) return (
-    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('messages.blogNotFound')}</div>
-  );
-
-  const title = blog.name || blog.title || t('footer.blog');
-  const image = blog.banner_image || blog.image || blog.thumb ;
-  const date = formatDate(blog.date || blog.created_at || blog.published_at);
-  const relatedData = relatedBlogs.length ? relatedBlogs : undefined;
-
-  // SEO data (memoized)
+  // SEO data (memoized) — must be BEFORE early returns (Rules of Hooks)
   const seoData = useMemo(() => {
     if (!blog) return null;
     const blogTitle = toStr(blog.name || blog.title || 'مقال عن تصميم UX/UI');
@@ -223,6 +203,25 @@ const BlogsDetails = () => {
       ],
     };
   }, [blog, id]);
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 size={48} className="animate-spin text-primary" />
+    </div>
+  );
+
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center text-red-500 text-lg">{error}</div>
+  );
+
+  if (!blog) return (
+    <div className="min-h-screen flex items-center justify-center text-gray-400 text-lg">{t('messages.blogNotFound')}</div>
+  );
+
+  const title = blog.name || blog.title || t('footer.blog');
+  const image = blog.banner_image || blog.image || blog.thumb ;
+  const date = formatDate(blog.date || blog.created_at || blog.published_at);
+  const relatedData = relatedBlogs.length ? relatedBlogs : undefined;
 
   return (
     <div className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">

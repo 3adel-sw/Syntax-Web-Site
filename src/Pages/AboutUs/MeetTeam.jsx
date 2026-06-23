@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { getTeams } from "../../services/about/aboutService";
 import { useTranslation } from "react-i18next";
 
-const getVisibleCount = () => {
+const getItemsPerView = () => {
   const w = window.innerWidth;
   if (w < 640) return 1;
   if (w < 768) return 2;
@@ -18,13 +18,9 @@ const MeetTeam = () => {
   const [teamsData, setTeamsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(getVisibleCount);
-  const sliderRef = useRef(null);
-  const rafRef = useRef(null);
-  const posRef = useRef(0);
-  const pausedRef = useRef(false);
-  const isRTLRef = useRef(isRTL);
-  isRTLRef.current = isRTL;
+  const [itemsPerView, setItemsPerView] = useState(getItemsPerView);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [noTransition, setNoTransition] = useState(false);
 
   useEffect(() => {
     getTeams()
@@ -35,88 +31,42 @@ const MeetTeam = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setVisibleCount(getVisibleCount());
+      setItemsPerView(getItemsPerView());
+      setCurrentSlide(0);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // دايما ابدأ من 0 بغض النظر عن اللغة
-  const resetPosition = useCallback(() => {
-    posRef.current = 0;
-    if (sliderRef.current) {
-      sliderRef.current.style.transform = `translateX(0px)`;
-    }
-  }, []);
-
+  // Auto-slide —    gallery بالظبط
   useEffect(() => {
-    if (!loading && teamsData) {
-      resetPosition();
-    }
-  }, [isRTL, loading, teamsData, resetPosition]);
-
-  const animate = useCallback(() => {
-    const el = sliderRef.current;
-    if (!el) return;
-
-    if (!pausedRef.current) {
-      const setWidth = el.scrollWidth / 2;
-      if (setWidth <= 0) {
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      // في RTL نتحرك للأمام (موجب)، في LTR للخلف (سالب)
-      const speed = isRTLRef.current ? 0.5 : -0.5;
-      posRef.current += speed;
-
-      // إعادة التموضع عند الحدود
-      if (posRef.current <= -setWidth) {
-        posRef.current += setWidth;
-      } else if (posRef.current >= setWidth) {
-        posRef.current -= setWidth;
-      }
-
-      el.style.transform = `translateX(${posRef.current}px)`;
-    }
-
-    rafRef.current = requestAnimationFrame(animate);
-  }, []);
-
-  useEffect(() => {
-    if (!loading && teamsData) {
-      resetPosition();
-      rafRef.current = requestAnimationFrame(animate);
-    }
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [animate, loading, teamsData, resetPosition]);
-
-  const pauseAutoPlay = () => { pausedRef.current = true; };
-  const resumeAutoPlay = () => { pausedRef.current = false; };
-
-  const handlePrev = () => {
-    const el = sliderRef.current;
-    if (!el || !teamsData) return;
-    const cardWidth = el.children[0]?.offsetWidth || 300;
-    const jump = (cardWidth + 16) * visibleCount;
-    posRef.current = isRTL ? posRef.current - jump : posRef.current + jump;
-  };
-
-  const handleNext = () => {
-    const el = sliderRef.current;
-    if (!el || !teamsData) return;
-    const cardWidth = el.children[0]?.offsetWidth || 300;
-    const jump = (cardWidth + 16) * visibleCount;
-    posRef.current = isRTL ? posRef.current + jump : posRef.current - jump;
-  };
+    if (!teamsData || !teamsData.length) return;
+    const totalSlides = teamsData.length;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => {
+        const next = prev + 1;
+        if (next >= totalSlides) {
+          setNoTransition(true);
+          setTimeout(() => setNoTransition(false), 50);
+          return 0;
+        }
+        return next;
+      });
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [teamsData]);
 
   if (loading) return <div>{t("common.loading")}</div>;
   if (error) return <div>{error}</div>;
-  if (!teamsData) return null;
+  if (!teamsData || !teamsData.length) return null;
 
-  const displayTeams = [...teamsData, ...teamsData];
+  // Cloning  seamless loop (  CapturedVideos)
+  const clonedTeams = [...teamsData, ...teamsData];
+  const totalSlides = teamsData.length;
+  const maxSlide = Math.max(0, totalSlides - itemsPerView);
+
+  
+  const cardWidth = `calc((100% - ${(itemsPerView - 1) * 16}px) / ${itemsPerView})`;
 
   return (
     <section className="w-full my-12 md:my-25">
@@ -126,8 +76,6 @@ const MeetTeam = () => {
           background:
             "linear-gradient(182deg, #EFE0F7 1.4%, rgba(241, 242, 242, 0.44) 54.02%, #D4EBFC 98.85%)",
         }}
-        onMouseEnter={pauseAutoPlay}
-        onMouseLeave={resumeAutoPlay}
       >
         {/* Header */}
         <div className="text-center">
@@ -137,19 +85,22 @@ const MeetTeam = () => {
           <p className="text-base text-gray-500">{t("about.teamSubtitle")}</p>
         </div>
 
-        {/* Infinite Scrolling Cards */}
-        <div className="w-full overflow-hidden">
+        {/* Carousel —   Section  CapturedVideos */}
+        <div className="w-full overflow-hidden rounded-xl">
           <div
-            ref={sliderRef}
-            className="flex gap-4 w-max"
-            style={{ direction: "ltr" }} // ← مهم جداً: نثبت الـ direction دايما LTR
+            className="flex gap-4"
+            style={{
+              transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (100 / itemsPerView)}%)`,
+              transition: noTransition ? 'none' : 'transform 0.5s ease-in-out',
+            }}
           >
-            {displayTeams.map((member, index) => (
+            {clonedTeams.map((member, index) => (
               <div
                 key={`${member.id}-${index}`}
-                className="bg-white rounded-2xl md:min-w-[240px] md:max-w-[260px] sm:min-w-[240px] sm:max-w-[270px] min-w-[320px] max-w-[340px] py-4 flex flex-col items-center gap-1 shadow-sm"
+                className="bg-white rounded-2xl py-4 flex-shrink-0 flex flex-col items-center gap-1 shadow-sm"
+                style={{ width: cardWidth }}
               >
-                <div className="w-full h-full aspect-square rounded-xl overflow-hidden">
+                <div className="w-full aspect-square rounded-xl overflow-hidden">
                   <img
                     src={member.image}
                     alt={member.name}
@@ -160,7 +111,7 @@ const MeetTeam = () => {
                     }}
                   />
                 </div>
-                <div className="text-center">
+                <div className="text-center px-2">
                   <p className="text-xl md:text-lg font-bold text-gray-900">{member.name}</p>
                   <p className="text-sm md:text-xs text-gray-400">{member.position}</p>
                 </div>
@@ -169,34 +120,56 @@ const MeetTeam = () => {
           </div>
         </div>
 
-        {/* Navigation Arrows */}
-        <div className="flex gap-3">
+        {/* Navigation Arrows — gallery */}
+        <div className="flex justify-center gap-3 mt-2">
           {isRTL ? (
             <>
+            
               <button
-                onClick={handleNext}
+                onClick={() => {
+                  setNoTransition(true);
+                  setCurrentSlide((p) => (p + 1) % totalSlides);
+                  setTimeout(() => setNoTransition(false), 50);
+                }}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+                aria-label="التالي"
               >
                 <FaArrowRight size={18} />
               </button>
               <button
-                onClick={handlePrev}
+                onClick={() => {
+                  setNoTransition(true);
+                  setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides);
+                  setTimeout(() => setNoTransition(false), 50);
+                }}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+                aria-label="السابق"
               >
                 <FaArrowLeft size={18} />
               </button>
             </>
           ) : (
             <>
+           
               <button
-                onClick={handlePrev}
+                onClick={() => {
+                  setNoTransition(true);
+                  setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides);
+                  setTimeout(() => setNoTransition(false), 50);
+                }}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+                aria-label="Previous"
               >
                 <FaArrowLeft size={18} />
               </button>
               <button
-                onClick={handleNext}
+                onClick={() => {
+                  setNoTransition(true);
+                  setCurrentSlide((p) => (p + 1) % totalSlides);
+                  setTimeout(() => setNoTransition(false), 50);
+                }}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
+                aria-label="Next"
               >
                 <FaArrowRight size={18} />
               </button>

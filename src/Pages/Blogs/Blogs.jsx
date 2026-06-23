@@ -4,6 +4,7 @@ import Subscribe from '../../components/Ui/Subscribe';
 import Footer from '../../components/layout/Footer';
 import TabSlider from '../../components/Ui/TabSlider';
 import { useTranslation } from 'react-i18next';
+import SEO from '../../components/SEO';
 import { getBlogAbout, getBlogCategories } from '../../services/blogs/blogsService';
 
 const ALL_TAB = { id: null, name: null, labelKey: 'blogs.allBlogs' };

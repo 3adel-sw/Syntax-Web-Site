@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import EventCard from '../../components/Ui/EventCard';
 import { getAllEvents ,getEventCategories,getEventAbout} from '../../services/events/eventsService';
 import { useTranslation } from 'react-i18next';
+import SEO from '../../components/SEO';
 
 
 const DEFAULT_FILTER_TABS = ['All Events'];
