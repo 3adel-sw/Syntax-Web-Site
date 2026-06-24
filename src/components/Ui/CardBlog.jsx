@@ -2,7 +2,7 @@
 
 import { useNavigate } from 'react-router';
 // import BlogCardImage from '../../assets/blogC.webp';
-import {  useState, useEffect } from 'react';
+import {  useState, useRef, useEffect } from 'react';
 import { LuLoaderCircle } from "react-icons/lu";
 import { getAllBlogs } from '../../services/blogs/blogsService';
 import { useTranslation } from 'react-i18next';
@@ -71,12 +71,16 @@ const BlogCard = ({ id, slug, category, date, title, excerpt, image, thumb }) =>
   );
 };
 
-const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excludeId }) => {
+const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excludeId, showSlider = true }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState(normalizeBlogs(data));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Mobile slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     if (data !== undefined) {
@@ -129,7 +133,39 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
 
   const displayedBlogs = limit ? visibleBlogs.slice(0, limit) : visibleBlogs;
 
+  // Track current slide in mobile slider via IntersectionObserver
+  useEffect(() => {
+    if (!showSlider) return;
+    const container = sliderRef.current;
+    if (!container || displayedBlogs.length === 0) return;
 
+    const slides = container.querySelectorAll('[data-slide]');
+    if (slides.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            const idx = Number(entry.target.dataset.slide);
+            if (!Number.isNaN(idx)) setCurrentSlide(idx);
+          }
+        });
+      },
+      { root: container, threshold: [0.6, 0.8, 1] }
+    );
+
+    slides.forEach((slide) => observer.observe(slide));
+    return () => observer.disconnect();
+  }, [displayedBlogs, showSlider]);
+
+  const scrollToSlide = (index) => {
+    const container = sliderRef.current;
+    if (!container) return;
+    const slide = container.querySelector(`[data-slide="${index}"]`);
+    if (slide) {
+      slide.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
+  };
 
   if (loading) return (
     <div className="flex justify-center items-center h-48 mt-8">
@@ -143,21 +179,68 @@ const CardBlog = ({ data, activeCategory, limit, showButton, ButtonContent, excl
 
   return (
     <>
+      {/* Mobile slider — only when showSlider is enabled (e.g. blogs-detail) */}
+      {showSlider && (
+        <>
+          <div
+            ref={sliderRef}
+            className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-3 mt-8 px-2 pb-2"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {displayedBlogs.map((blog, index) => (
+              <div
+                key={blog.id}
+                data-slide={index}
+                className="snap-center shrink-0 w-[85%] first:ms-2 last:me-2"
+              >
+                <BlogCard
+                  id={blog.id}
+                  slug={blog.slug}
+                  title={blog.name || blog.title}
+                  excerpt={blog.description}
+                  category={blog.category?.name || blog.category}
+                  date={blog.date || blog.created_at || blog.published_at}
+                  image={blog.image || blog.banner_image}
+                  thumb={blog.thumb}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile dots */}
+          {displayedBlogs.length > 1 && (
+            <div className="md:hidden flex justify-center gap-2 mt-2">
+              {displayedBlogs.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  aria-label={`Go to slide ${index + 1}`}
+                  onClick={() => scrollToSlide(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300 w-2'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
       {/* Desktop Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8">
-       {displayedBlogs.map(blog => (
-  <BlogCard
-    key={blog.id}
-    id={blog.id}
-    slug={blog.slug}
-    title={blog.name || blog.title}
-    excerpt={blog.description}
-    category={blog.category?.name || blog.category} 
-    date={blog.date || blog.created_at || blog.published_at}  
-    image={blog.image || blog.banner_image}
-    thumb={blog.thumb}
-  />
-))}
+      <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-8 ${showSlider ? 'hidden md:grid' : ''}`}>
+        {displayedBlogs.map(blog => (
+          <BlogCard
+            key={blog.id}
+            id={blog.id}
+            slug={blog.slug}
+            title={blog.name || blog.title}
+            excerpt={blog.description}
+            category={blog.category?.name || blog.category}
+            date={blog.date || blog.created_at || blog.published_at}
+            image={blog.image || blog.banner_image}
+            thumb={blog.thumb}
+          />
+        ))}
       </div>
       {showButton && limit && (
         <div className="mt-10">

@@ -221,7 +221,7 @@ const Home = () => {
               {t('home.blog')}
             </span>
             <h3 className='text-3xl font-bold text-gray-800 leading-snug'>{t('home.latestBlog')}</h3>
-            <CardBlog data={latestBlogs} activeCategory="All Blogs" limit={3} showButton showSlider />
+            <CardBlog data={latestBlogs} activeCategory="All Blogs" limit={3} showButton showSlider={false} />
           </div>
         </div>
 

@@ -60,16 +60,43 @@ const EventsDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const touchStartRef = useRef(0);
-  const translateXRef = useRef(0);
-  const containerRef = useRef(null);
-
-  const slideOffset = (slide, w) => (isRTL ? 1 : -1) * slide * w;
-
   const [showShareMenu, setShowShareMenu] = useState(false);
+
+  // Mobile slider: track current slide via IntersectionObserver
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef(null);
+
+  useEffect(() => {
+    const container = sliderRef.current;
+    if (!container || otherEvents.length === 0) return;
+
+    const slides = container.querySelectorAll('[data-slide]');
+    if (slides.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            const idx = Number(entry.target.dataset.slide);
+            if (!Number.isNaN(idx)) setCurrentSlide(idx);
+          }
+        });
+      },
+      { root: container, threshold: [0.6, 0.8, 1] }
+    );
+
+    slides.forEach((slide) => observer.observe(slide));
+    return () => observer.disconnect();
+  }, [otherEvents]);
+
+  const scrollToSlide = (index) => {
+    const container = sliderRef.current;
+    if (!container) return;
+    const slide = container.querySelector(`[data-slide="${index}"]`);
+    if (slide) {
+      slide.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
+  };
 
   const handleShare = (platform) => {
     const url = encodeURIComponent(window.location.href);
@@ -220,43 +247,6 @@ const EventsDetails = () => {
       document.getElementById('breadcrumb-event-schema')?.remove();
     };
   }, [event, id]);
-
-  const handleTouchStart = (e) => {
-    touchStartRef.current = e.touches[0].clientX;
-    setIsDragging(true);
-    const w = containerRef.current?.offsetWidth || 300;
-    translateXRef.current = slideOffset(currentSlide, w);
-    setTranslateX(slideOffset(currentSlide, w));
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const currentTouch = e.touches[0].clientX;
-    const diff = currentTouch - touchStartRef.current;
-    translateXRef.current += diff;
-    setTranslateX(translateXRef.current);
-    touchStartRef.current = currentTouch;
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-    const w = containerRef.current?.offsetWidth || 300;
-    const slideIndex = Math.round((isRTL ? 1 : -1) * translateXRef.current / w);
-    const maxIndex = Math.max(0, otherEvents.length - 1);
-    const boundedIndex = Math.max(0, Math.min(maxIndex, slideIndex));
-    setCurrentSlide(boundedIndex);
-    translateXRef.current = slideOffset(boundedIndex, w);
-    setTranslateX(slideOffset(boundedIndex, w));
-  };
-
-  useEffect(() => {
-    if (!isDragging) {
-      const w = containerRef.current?.offsetWidth || 300;
-      translateXRef.current = slideOffset(currentSlide, w);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTranslateX(slideOffset(currentSlide, w));
-    }
-  }, [currentSlide, isDragging, isRTL]);
 
   // SEO data for this event — MUST be declared BEFORE any early returns
   // so React hooks count stays consistent across renders (rules-of-hooks).
@@ -561,41 +551,41 @@ const EventsDetails = () => {
             </button>
           </div>
 
-          <div className="md:hidden mx-2">
-            <div
-              ref={containerRef}
-              className="overflow-hidden rounded-lg"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
+          {/* Mobile slider — CSS scroll-snap, swipe-friendly, RTL-safe */}
+          <div
+            ref={sliderRef}
+            className="sm:hidden flex overflow-x-auto snap-x snap-mandatory gap-3 mx-2 mt-4 px-2 pb-4"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {otherEvents.map((item, index) => (
               <div
-                className="flex"
-                style={{
-                  transform: `translateX(${translateX}px)`,
-                  transition: isDragging ? 'none' : 'transform 0.3s ease-in-out',
-                }}
+                key={item.id}
+                data-slide={index}
+                className="snap-center shrink-0 w-[85%]"
               >
-                {otherEvents.map((item) => (
-                  <div key={item.id} className="min-w-full flex-shrink-1 px-2">
-                    <EventCard event={item} />
-                  </div>
-                ))}
+                <EventCard event={item} />
               </div>
-            </div>
-            <div className="flex justify-center gap-2 mt-4">
+            ))}
+          </div>
+
+          {/* Mobile dots */}
+          {otherEvents.length > 1 && (
+            <div className="sm:hidden flex justify-center gap-2 mt-2">
               {otherEvents.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300'
+                  type="button"
+                  aria-label={`Go to slide ${index + 1}`}
+                  onClick={() => scrollToSlide(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentSlide ? 'bg-primary w-6' : 'bg-gray-300 w-2'
                   }`}
                 />
               ))}
             </div>
-          </div>
+          )}
 
+          {/* Desktop / tablet grid */}
           <div className="hidden sm:grid grid-cols-1 mx-2 sm:grid-cols-3 gap-4 mb-4">
             {otherEvents.map((item) => (
               <EventCard key={item.id} event={item} />
