@@ -109,13 +109,13 @@ const FeedBacks = () => {
          {/* Header */}
       <div
         data-aos="zoom-in" data-aos-delay="200" data-aos-duration="700"
-        className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full md:h-[340px] h-[220px] bg-[#23286B]"
+        className="relative overflow-hidden text-start md:my-18 my-14 rounded-2xl w-full  h-[220px] bg-[#23286B]"
       >
         <img src={feedbackImg} alt="" className="rounded-2xl w-full h-full object-cover" />
-        <h1 className="absolute top-8 mb-2 md:top-20 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
+        <h1 className="absolute top-8 mb-2 md:top-10 start-4 md:start-20 md:text-5xl text-3xl font-bold text-white">
           {t("feedbacks.heroTitle")}
         </h1>
-        <p className="absolute bottom-6 md:bottom-20 md:start-20 start-4 text-gray-500 md:text-2xl text-[16px] max-w-5xl">
+        <p className="absolute bottom-6 md:bottom-10 md:start-20 start-4 text-gray-500 md:text-2xl text-[16px] max-w-5xl">
           {t("feedbacks.heroDescription")}
         </p>
       </div>

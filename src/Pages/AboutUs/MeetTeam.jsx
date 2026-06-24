@@ -38,7 +38,6 @@ const MeetTeam = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Auto-slide —    gallery بالظبط
   useEffect(() => {
     if (!teamsData || !teamsData.length) return;
     const totalSlides = teamsData.length;
@@ -60,13 +59,10 @@ const MeetTeam = () => {
   if (error) return <div>{error}</div>;
   if (!teamsData || !teamsData.length) return null;
 
-  // Cloning  seamless loop (  CapturedVideos)
   const clonedTeams = [...teamsData, ...teamsData];
   const totalSlides = teamsData.length;
-  const maxSlide = Math.max(0, totalSlides - itemsPerView);
-
-  
   const cardWidth = `calc((100% - ${(itemsPerView - 1) * 16}px) / ${itemsPerView})`;
+  const slideOffset = `calc(${(isRTL ? 1 : -1) * currentSlide} * (${100 / itemsPerView}% + ${16 / itemsPerView}px))`;
 
   return (
     <section className="w-full my-12 md:my-25">
@@ -85,13 +81,13 @@ const MeetTeam = () => {
           <p className="text-base text-gray-500">{t("about.teamSubtitle")}</p>
         </div>
 
-        {/* Carousel —   Section  CapturedVideos */}
+        {/* Carousel */}
         <div className="w-full overflow-hidden rounded-xl">
           <div
             className="flex gap-4"
             style={{
-              transform: `translateX(${(isRTL ? 1 : -1) * currentSlide * (100 / itemsPerView)}%)`,
-              transition: noTransition ? 'none' : 'transform 0.5s ease-in-out',
+              transform: `translateX(${slideOffset})`,
+              transition: noTransition ? "none" : "transform 0.5s ease-in-out",
             }}
           >
             {clonedTeams.map((member, index) => (
@@ -120,28 +116,19 @@ const MeetTeam = () => {
           </div>
         </div>
 
-        {/* Navigation Arrows — gallery */}
+        {/* Navigation Arrows */}
         <div className="flex justify-center gap-3 mt-2">
           {isRTL ? (
             <>
-            
               <button
-                onClick={() => {
-                  setNoTransition(true);
-                  setCurrentSlide((p) => (p + 1) % totalSlides);
-                  setTimeout(() => setNoTransition(false), 50);
-                }}
+                onClick={() => setCurrentSlide((p) => (p + 1) % totalSlides)}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
                 aria-label="التالي"
               >
                 <FaArrowRight size={18} />
               </button>
               <button
-                onClick={() => {
-                  setNoTransition(true);
-                  setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides);
-                  setTimeout(() => setNoTransition(false), 50);
-                }}
+                onClick={() => setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides)}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
                 aria-label="السابق"
               >
@@ -150,24 +137,15 @@ const MeetTeam = () => {
             </>
           ) : (
             <>
-           
               <button
-                onClick={() => {
-                  setNoTransition(true);
-                  setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides);
-                  setTimeout(() => setNoTransition(false), 50);
-                }}
+                onClick={() => setCurrentSlide((p) => (p - 1 + totalSlides) % totalSlides)}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
                 aria-label="Previous"
               >
                 <FaArrowLeft size={18} />
               </button>
               <button
-                onClick={() => {
-                  setNoTransition(true);
-                  setCurrentSlide((p) => (p + 1) % totalSlides);
-                  setTimeout(() => setNoTransition(false), 50);
-                }}
+                onClick={() => setCurrentSlide((p) => (p + 1) % totalSlides)}
                 className="w-9 h-9 rounded-full border border-gray-400 text-gray-700 flex items-center justify-center hover:bg-white hover:shadow transition-all"
                 aria-label="Next"
               >

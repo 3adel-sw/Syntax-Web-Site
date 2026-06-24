@@ -78,11 +78,11 @@ const MissionVisions = () => {
     <section className="w-full my-12 md:my-25 text-start">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {/* Left: Image */}
-        <div className="rounded-4xl md:col-span-1 overflow-hidden h-82 md:h-full min-h-[583px] bg-gray-200">
+        <div className="rounded-4xl md:col-span-1 overflow-hidden h-82 md:h-full min-h-[320px] bg-gray-200">
           <img
             src={data.image}
             alt={t("about.mission")}
-            className="w-full h-full object-cover"
+            className="w-full h-full  object-cover"
             onError={(e) => {
               e.target.parentNode.style.background = "#c5cdd8";
               e.target.style.display = "none";
