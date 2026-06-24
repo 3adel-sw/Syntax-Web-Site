@@ -98,24 +98,22 @@ const EventsDetails = () => {
         let eventData = null;
         let eventsData = [];
 
+        // Primary: the events list (the only working detail discovery path —
+        // /api/events/:id returns 404 on this backend).
+        // The api.js retry interceptor handles 429 with exponential backoff.
         try {
           const eventsRes = await getAllEvents();
           eventsData = eventsRes.data?.events || eventsRes.data?.data || eventsRes.data || [];
         } catch (eventsErr) {
-          console.error('Events list request failed:', eventsErr);
+          console.error('Events list request failed:', eventsErr.message);
+          if (eventsErr.response?.status === 429) {
+            setError(t('messages.tooManyRequests'));
+            return;
+          }
         }
 
         if (Array.isArray(eventsData)) {
           eventData = eventsData.find((item) => String(item.id) === String(id) || item.slug === id);
-        }
-
-        if (!eventData) {
-          try {
-            const eventRes = await getEventById(id);
-            eventData = eventRes.data?.event || eventRes.data?.data || eventRes.data;
-          } catch (detailsErr) {
-            console.warn('Event details unavailable for current language:', detailsErr.response?.data?.message || detailsErr.message);
-          }
         }
 
         if (!eventData) {
@@ -260,6 +258,56 @@ const EventsDetails = () => {
     }
   }, [currentSlide, isDragging, isRTL]);
 
+  // SEO data for this event — MUST be declared BEFORE any early returns
+  // so React hooks count stays consistent across renders (rules-of-hooks).
+  const eventSeo = useMemo(() => {
+    if (!event) return null;
+    const eventTitle = toStr(event.name || event.title || 'حدث تصميم UX/UI');
+    const eventDesc = toStr(event.small_description || event.description || `${eventTitle} - حدث من Syntax Academy`).slice(0, 200);
+    const eventImage = event.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
+    const startDate = event.start_date || event.date || new Date().toISOString();
+    const endDate = event.end_date || startDate;
+    const location = toStr(event.location || 'Online');
+    const eventUrl = `/events-detail/${id}`;
+
+    return {
+      title: eventTitle,
+      description: eventDesc,
+      keywords: `${eventTitle}, فعاليات تصميم UX UI, ${location}, Meetup تصميم`,
+      url: eventUrl,
+      image: eventImage,
+      type: 'event',
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: eventTitle,
+        description: eventDesc,
+        image: eventImage,
+        startDate,
+        endDate,
+        eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: {
+          '@type': 'Place',
+          name: location,
+          address: { '@type': 'PostalAddress', addressCountry: 'EG' },
+        },
+        organizer: {
+          '@type': 'Organization',
+          name: 'Syntax Academy',
+          url: 'https://onsyntax.mhwaralabtikar.com/',
+        },
+        inLanguage: 'ar',
+        url: `https://onsyntax.mhwaralabtikar.com${eventUrl}`,
+      },
+      breadcrumb: [
+        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
+        { '@type': 'ListItem', position: 2, name: 'الفعاليات', item: 'https://onsyntax.mhwaralabtikar.com/events' },
+        { '@type': 'ListItem', position: 3, name: eventTitle, item: `https://onsyntax.mhwaralabtikar.com${eventUrl}` },
+      ],
+    };
+  }, [event, id]);
+
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
       <Loader2 size={48} className="animate-spin text-primary" />
@@ -318,55 +366,6 @@ const EventsDetails = () => {
   const now = new Date();
   const isEventPassed = eventStart ? now >= eventStart : false;
   const canRegister = eventStart ? now < new Date(eventStart.getTime() - 8 * 60 * 60 * 1000) : true;
-
-  // SEO data for this event
-  const eventSeo = useMemo(() => {
-    if (!event) return null;
-    const eventTitle = toStr(event.name || event.title || 'حدث تصميم UX/UI');
-    const eventDesc = toStr(event.small_description || event.description || `${eventTitle} - حدث من Syntax Academy`).slice(0, 200);
-    const eventImage = event.image || 'https://onsyntax.mhwaralabtikar.com/og-image.png';
-    const startDate = event.start_date || event.date || new Date().toISOString();
-    const endDate = event.end_date || startDate;
-    const location = toStr(event.location || 'Online');
-    const eventUrl = `/events-detail/${id}`;
-
-    return {
-      title: eventTitle,
-      description: eventDesc,
-      keywords: `${eventTitle}, فعاليات تصميم UX UI, ${location}, Meetup تصميم`,
-      url: eventUrl,
-      image: eventImage,
-      type: 'event',
-      schema: {
-        '@context': 'https://schema.org',
-        '@type': 'Event',
-        name: eventTitle,
-        description: eventDesc,
-        image: eventImage,
-        startDate,
-        endDate,
-        eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
-        eventStatus: 'https://schema.org/EventScheduled',
-        location: {
-          '@type': 'Place',
-          name: location,
-          address: { '@type': 'PostalAddress', addressCountry: 'EG' },
-        },
-        organizer: {
-          '@type': 'Organization',
-          name: 'Syntax Academy',
-          url: 'https://onsyntax.mhwaralabtikar.com/',
-        },
-        inLanguage: 'ar',
-        url: `https://onsyntax.mhwaralabtikar.com${eventUrl}`,
-      },
-      breadcrumb: [
-        { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://onsyntax.mhwaralabtikar.com/' },
-        { '@type': 'ListItem', position: 2, name: 'الفعاليات', item: 'https://onsyntax.mhwaralabtikar.com/events' },
-        { '@type': 'ListItem', position: 3, name: eventTitle, item: `https://onsyntax.mhwaralabtikar.com${eventUrl}` },
-      ],
-    };
-  }, [event, id]);
 
   return (
     <div dir={direction} className="min-h-screen flex items-center justify-center md:max-w-5xl lg:max-w-6xl mx-auto ">

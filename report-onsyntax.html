@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>minimax audit — Onsyntax</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:#f9fafb;color:#111827;line-height:1.5;padding:40px 20px}
+  .wrap{max-width:960px;margin:0 auto}
+  .header{background:linear-gradient(135deg,#1e293b 0%,#334155 100%);color:#fff;border-radius:16px;padding:32px;margin-bottom:24px;box-shadow:0 4px 6px rgba(0,0,0,0.07)}
+  .header h1{font-size:28px;font-weight:700;margin-bottom:6px}
+  .header .sub{color:#cbd5e1;font-size:14px;margin-bottom:20px}
+  .header .meta{display:flex;flex-wrap:wrap;gap:24px;font-size:12px;color:#94a3b8}
+  .header .meta b{color:#e2e8f0;font-weight:600}
+  .summary{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-top:24px}
+  .stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px}
+  .stat .n{font-size:28px;font-weight:700;color:#fff}
+  .stat .l{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+  .grade-row{display:flex;align-items:center;gap:24px;padding:24px;background:#fff;border-radius:12px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+  .grade{font-size:80px;font-weight:800;line-height:1;color:#059669}
+  .grade-info h2{font-size:20px;font-weight:600;margin-bottom:4px}
+  .grade-info p{color:#6b7280;font-size:14px}
+  .grade-bar{flex:1;height:12px;background:#f3f4f6;border-radius:6px;overflow:hidden;margin-top:12px}
+  .grade-bar div{height:100%;background:linear-gradient(90deg,#059669 0%,#059669cc 100%);border-radius:6px;width:97%;transition:width 0.5s}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>minimax audit</h1>
+    <div class="sub">Onsyntax · http://localhost:5173/</div>
+    <div class="meta">
+      <span><b>Date</b> 2026-06-23T21:36:19.793Z</span>
+      <span><b>Checks</b> seo, seo-rules, llm, sitemap, robots, agentic, mobile</span>
+      <span><b>Source</b> http</span>
+    </div>
+    <div class="summary">
+      <div class="stat"><div class="n">51</div><div class="l">Total checks</div></div>
+      <div class="stat"><div class="n" style="color:#86efac">48</div><div class="l">Passed</div></div>
+      <div class="stat"><div class="n" style="color:#fde047">2</div><div class="l">Warnings</div></div>
+      <div class="stat"><div class="n" style="color:#fca5a5">1</div><div class="l">Failed</div></div>
+    </div>
+  </div>
+
+  <div class="grade-row">
+    <div class="grade">A+</div>
+    <div class="grade-info" style="flex:1">
+      <h2>Overall score: 97 / 100</h2>
+      <p>48 of 51 checks passed across 7 categories.</p>
+      <div class="grade-bar"><div></div></div>
+    </div>
+  </div>
+
+  
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#3b82f6;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">SEO</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">Meta tags, canonical, Open Graph, Twitter cards</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#3b82f6">90<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Title tag present and optimal length (30–60)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">OK (59 chars): &quot;Syntax | كورسات تصميم UX/UI بالعربي - تعلم التصميم من الصفر&quot;</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Meta description present and optimal length (120–160)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">OK (153 chars)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Meta keywords present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">12 keywords</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Canonical URL defined</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">https://onsyntax.mhwaralabtikar.com/</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#fee2e2;color:#991b1b;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">FAIL</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Hreflang tags (ar, en, x-default)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Missing: ar, en, x-default</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">0/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Open Graph tags (type, url, title, description, image)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 7 OG tags present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">OG image with width/height/alt</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Image with 1200×630 + alt</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Twitter card tags</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All Twitter card tags present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Meta robots tag (index, follow)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Author meta tag</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Syntax Academy</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#6366f1;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">SEO Rules</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">HTML attributes, JSON-LD, semantic correctness</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#6366f1">94<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">html[lang] attribute set</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">lang=&quot;ar&quot;</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">html[dir] attribute set (RTL/LTR)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">dir=&quot;rtl&quot;</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Viewport meta with width=device-width</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">width=device-width, initial-scale=1.0</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">theme-color meta tag</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">#0f0f0f</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Apple mobile web app capable</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">yes</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">format-detection=telephone=no</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">telephone=no</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Schema.org JSON-LD present and valid</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">4 blocks, types: EducationalOrganization, WebSite, Course, BreadcrumbList</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#fef3c7;color:#92400e;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">WARN</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Single H1 per page</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">No &lt;h1&gt; in static HTML (SPA renders dynamically)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">5/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#8b5cf6;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">LLM / GEO</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">llms.txt, content-index.json, AI bot coverage</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#8b5cf6">100<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/llms.txt exists and follows llmstxt.org spec</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Title + blockquote + Core + Optional sections present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/llms-full.txt exists (extended LLM context)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">OK (4652 chars)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/content-index.json exists and is valid</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Valid JSON with site + 14 pages</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">AI search bots allowed in robots.txt</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 6 major AI bots whitelisted</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">AI citation policy documented</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">When citing Syntax Academy, link to the specific course, blog, or event page, no...</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#06b6d4;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">Sitemap</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">XML validity, namespaces, hreflang, coverage</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#06b6d4">96<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/sitemap.xml exists</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">OK (6156 bytes)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Sitemap is valid XML</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Valid XML structure</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Sitemap declares mobile + image + xhtml namespaces</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 4 namespaces present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Sitemap includes core pages</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 6 core pages present</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#fef3c7;color:#92400e;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">WARN</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Sitemap has hreflang alternates per URL</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">12 URLs, only 23 hreflangs</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">8/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#10b981;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">Robots</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">Crawler directives, AI bot allowlist, privacy</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#10b981">100<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/robots.txt exists</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">OK (4916 bytes)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Host directive declared</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">https://onsyntax.mhwaralabtikar.com</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Sitemap directive declared</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">1 sitemap(s) declared</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Default User-agent: * with Allow: /</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">User-agent: * with Allow: /</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Googlebot-Mobile explicitly allowed</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Mobile crawler explicitly whitelisted</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">AI training bots coverage (GPTBot, ClaudeBot, etc.)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 8 major LLM training bots whitelisted</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">AI search/answer-engine bots (Perplexity, SearchGPT)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 6 AI search bots whitelisted</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Private paths blocked (.env, .git, /admin/)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 4 private paths blocked</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#f59e0b;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">Agentic</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">agentic.json, capabilities, access policies</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#f59e0b">100<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">/.well-known/agentic.json exists and is valid</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Valid agentic.json (spec: agentic.json-v1)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Capabilities documented (llms_txt, json_ld, etc.)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 7 capabilities = true</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">All discovery files referenced</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 5 discovery files linked</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">AI access policies defined (training, search, summarization)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">All 3 policies defined</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Content types_available with schema.org mappings</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">5 types with schema_org + url_pattern</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Preferred citation format defined</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Markdown link: [{title}]({url}) — Syntax Academy</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr></table>
+      </div>
+      <div style="margin:32px 0;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f3f4f6">
+          <div style="width:4px;height:32px;background:#ef4444;border-radius:2px"></div>
+          <div style="flex:1">
+            <div style="font-weight:600;color:#111827;font-size:15px">Mobile</div>
+            <div style="color:#6b7280;font-size:12px;margin-top:2px">Viewport, performance hints, code splitting</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:700;color:#ef4444">100<span style="font-size:14px;color:#9ca3af">/100</span></div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Viewport meta with width=device-width, initial-scale=1</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">width=device-width, initial-scale=1.0</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">theme-color for status bar tinting</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">#0f0f0f</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Apple mobile web app status bar style</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">black-translucent</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">format-detection=telephone=no (prevents auto-link on mobile)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">telephone=no</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">preconnect to critical origins (API, CDN)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">2 preconnect + 2 dns-prefetch</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Vite targets modern browsers (es2020+)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">target: es2020</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Vite splits vendors into separate chunks</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">7 vendor chunks: 0, 1, 2, 3, 4, 5, 6</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">OptimizedImage component exists (lazy + srcset)</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">Found at .\src\components\OptimizedImage.jsx, lazy=true, srcSet=true</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;width:1%;white-space:nowrap"><span style="display:inline-block;padding:2px 8px;border-radius:4px;background:#d1fae5;color:#065f46;font-weight:600;font-size:11px;font-family:monospace;letter-spacing:0.5px">PASS</span></td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#111827">Images use loading=&quot;lazy&quot; pattern in codebase</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;color:#4b5563;font-family:monospace;font-size:12px">16 lazy + 1 eager across 116 files</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #f3f4f6;text-align:right;color:#6b7280;font-family:monospace;font-size:12px">10/10</td>
+        </tr></table>
+      </div>
+
+  <div style="margin-top:32px;padding:20px;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05);color:#6b7280;font-size:12px">
+    <b style="color:#374151">minimax audit</b> — local auditor by Syntax Academy Engineering. Zero-dependency Node.js script.
+    No data sent to external services. Re-run anytime with: <code style="background:#f3f4f6;padding:2px 6px;border-radius:4px">npx minimax audit --url http://localhost:5173/</code>
+  </div>
+</div>
+</body>
+</html>

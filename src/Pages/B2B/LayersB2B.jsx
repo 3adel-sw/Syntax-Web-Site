@@ -35,7 +35,7 @@ const LayersB2B = () => {
     rafRef.current = requestAnimationFrame(animate);
   }, []);
 
-  // إعادة التموضع عند تغيير اللغة
+
   useEffect(() => {
     if (!loading && items.length && sliderRef.current) {
       posRef.current = 0;

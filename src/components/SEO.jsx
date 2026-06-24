@@ -82,13 +82,20 @@ const SEO = ({
     }
     canonical.href = fullUrl;
 
-    // Hreflang - remove old then add new
+    // Hreflang - remove old then add new (ar / en / x-default)
     removeMeta('link[hreflang="ar"]');
     const hreflangAr = document.createElement('link');
     hreflangAr.rel = 'alternate';
     hreflangAr.hreflang = 'ar';
     hreflangAr.href = fullUrl;
     document.head.appendChild(hreflangAr);
+
+    removeMeta('link[hreflang="en"]');
+    const hreflangEn = document.createElement('link');
+    hreflangEn.rel = 'alternate';
+    hreflangEn.hreflang = 'en';
+    hreflangEn.href = fullUrl;
+    document.head.appendChild(hreflangEn);
 
     removeMeta('link[hreflang="x-default"]');
     const hreflangDefault = document.createElement('link');

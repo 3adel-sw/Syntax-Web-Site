@@ -9,16 +9,39 @@ function LayoutSyntax() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const eventSource = new EventSource(
-      `${import.meta.env.VITE_API_URL}/events`
-    );
+    // Live event-stream — when backend pushes a new event, invalidate the
+    // React Query cache so all event-driven pages refetch in the user's language.
+    // In dev, use a relative URL so the Vite dev-sse-plugin handles it
+    // (mock stream that returns valid SSE). In production, hit the real backend.
+    // See docs/BACKEND-SSE-SPEC.md for the protocol contract.
+    const sseUrl = import.meta.env.DEV
+      ? '/api/events/stream'
+      : `${import.meta.env.VITE_API_URL}/events/stream`;
+    const eventSource = new EventSource(sseUrl);
 
-    eventSource.onmessage = () => {
-      queryClient.invalidateQueries();
+    eventSource.onopen = () => {
+      // Stream connected — no action, the next onmessage will fire on a real event
     };
 
+    eventSource.addEventListener("event-created", () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+    });
+
+    eventSource.addEventListener("event-updated", () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+    });
+
+    eventSource.addEventListener("ping", () => {
+      // Heartbeat — keep-alive, no action needed
+    });
+
     eventSource.onerror = () => {
-      eventSource.close();
+      // Browser will auto-reconnect. Close only if permanently unreachable.
+      // Backend should never return JSON here (that aborts the stream).
+      if (eventSource.readyState === EventSource.CLOSED) {
+        // Server closed connection; stop trying
+        eventSource.close();
+      }
     };
 
     return () => eventSource.close();

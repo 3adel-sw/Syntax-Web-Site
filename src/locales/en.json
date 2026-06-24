@@ -53,9 +53,10 @@
     "noVideos": "No videos available.",
     "noExcerpt": "No excerpt available.",
     "noDescription": "No description available.",
-    "blogNotFound": "Blog Loading....",
-    "eventNotFound": "Event Loading....",
+    "blogNotFound": "Blog not found.",
+    "eventNotFound": "Event not found.",
     "failedToLoadCourse": "Failed to load course details",
+    "tooManyRequests": "Too many requests. Please wait a moment and try again.",
     "formInputError": "There is an error in the input",
     "thanksForRegistering": "Thanks for registering.",
     "failedToLoadFeedbacks": "Error fetching reviews. Please try again later."

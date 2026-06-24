@@ -1,27 +1,50 @@
 # ============================================================
 # Syntax Academy — robots.txt
 # Combines classic SEO rules with AI Agent / LLM bot rules
+# Optimized for mobile-first indexing & LLM discoverability
+# Last updated: 2026-06-23
 # ============================================================
 
 # ----------------------------------------------------------
-# Generic web crawlers
+# Host directive (search engines treat this as canonical)
+# ----------------------------------------------------------
+Host: https://onsyntax.mhwaralabtikar.com
+
+# ----------------------------------------------------------
+# Generic web crawlers (default policy)
 # ----------------------------------------------------------
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /src/
+Disallow: /*.json$
 
-# Crawl-delay for politeness
+# Crawl-delay for politeness (in seconds)
 Crawl-delay: 1
 
-# Sitemap
+# Mobile crawler — explicit allow (Google uses this for mobile-first index)
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Image crawler — explicit allow
+User-agent: Googlebot-Image
+Allow: /
+
+# ----------------------------------------------------------
+# Sitemap declaration (search engines)
+# ----------------------------------------------------------
 Sitemap: https://onsyntax.mhwaralabtikar.com/sitemap.xml
 
 # ----------------------------------------------------------
 # AI Search / Answer Engines
 # Perplexity, You.com, Brave Search, Komo, Andi, etc.
+# These power in-line answers — allowing them = citation traffic.
 # ----------------------------------------------------------
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
 Allow: /
 
 User-agent: YouBot
@@ -45,19 +68,22 @@ Allow: /
 User-agent: DuckAssistBot
 Allow: /
 
+User-agent: SearchGPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
 # ----------------------------------------------------------
 # LLM training crawlers
-# These bots read content to train / improve foundation models.
 # Allowing them increases citation chances in ChatGPT, Claude,
-# Gemini, Grok, etc.
+# Gemini, Grok, etc. — but costs you training data.
+# Status: ALLOWED (decision: maximize discoverability).
 # ----------------------------------------------------------
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ClaudeBot
@@ -67,6 +93,9 @@ User-agent: Claude-Web
 Allow: /
 
 User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-SearchBot
 Allow: /
 
 User-agent: Google-Extended
@@ -108,6 +137,9 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
+User-agent: MistralAI-User/2.0
+Allow: /
+
 User-agent: DeepseekBot
 Allow: /
 
@@ -117,15 +149,111 @@ Allow: /
 User-agent: xAI
 Allow: /
 
-User-agent: Perplexity-User
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: SemrushBot-OCOB
+Allow: /
+
+User-agent: SemrushBot-FT
+Allow: /
+
+User-agent: ImagesiftBot
+Allow: /
+
+User-agent: Timpibot
 Allow: /
 
 # ----------------------------------------------------------
-# AI-friendly content hints
+# Social / link preview crawlers (whitelisted for OG cards)
 # ----------------------------------------------------------
-# Machine-readable site summary for LLMs
-#   https://llmstxt.org
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: Pinterestbot
+Allow: /
+
+User-agent: Slack-ImgProxy
+Allow: /
+
+# ----------------------------------------------------------
+# SEO / analytics crawlers (allow by default)
+# ----------------------------------------------------------
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: AhrefsSiteAudit
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: SemrushBot-SA
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: DotBot
+Allow: /
+
+User-agent:rogerbot
+Allow: /
+
+User-agent: BLEXBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ----------------------------------------------------------
+# Blocked crawlers (low value, high load)
+# ----------------------------------------------------------
+User-agent: GPTBot
+Disallow: /admin/
+
+User-agent: CCBot
+Disallow: /api/
+
+# ----------------------------------------------------------
+# AI-friendly content hints (machine-readable site assets)
+# ----------------------------------------------------------
+# llms.txt spec: https://llmstxt.org
 Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /content-index.json
 Allow: /.well-known/agentic.json
+
+# Block staging / private paths universally
+Disallow: /.env
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /tmp/
